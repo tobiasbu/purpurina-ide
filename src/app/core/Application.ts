@@ -1,13 +1,21 @@
 
-import { BrowserWindow } from 'electron';
+import { app } from 'electron';
+import { createMainWindow } from '../window/createMainWindow';
+import registerEvents from '../events';
+
+
 const path = require('path');
+
 
 export default class Application {
 
-    private window: Electron.BrowserWindow;
-    private app: Electron.App;
+    private mainWindow: Electron.BrowserWindow;
 
-    constructor(app: Electron.App, options?: Electron.BrowserWindowConstructorOptions) {
+    get window() : Electron.BrowserWindow {
+        return this.mainWindow;
+    }
+
+    constructor() {
 
         // app.on('ready', () => {
         //     this.window = new BrowserWindow({ center: true, darkTheme: true });
@@ -22,25 +30,29 @@ export default class Application {
         //     app.quit();
         // });
 
-        this.app = app;
-        this.app.on('window-all-closed', this.onWindowAllClosed);
-        this.app.on('ready', () => {this.onReady(options)});
+        let self = this;
+        //this.app.on('window-all-closed', this.onWindowAllClosed);
+
+        app.on("ready", () => {
+            const appPath = path.join('file://', __dirname, './dist/index.html')
+            self.mainWindow = createMainWindow(appPath);
+            registerEvents();
+
+        });
+
+        
+        app.on("window-all-closed", app.quit);
+        
     }
 
-    private onClose() {
-        this.window = null;
-    }
+    // private onClose() {
+    //     this.window = null;
+    // }
 
-    private onWindowAllClosed() {
-        if (process.platform !== 'win32') {
-            this.app.quit();
-        }
-    }
+    // private onWindowAllClosed() {
+    //     if (process.platform !== 'win32') {
+    //         this.app.quit();
+    //     }
+    // }
 
-    private onReady(options?: Electron.BrowserWindowConstructorOptions) {
-        this.window = new BrowserWindow(options);
-        const modalPath = path.join('file://', __dirname, '/index.html')
-        this.window.loadURL(modalPath);
-        this.window.on('closed', this.onClose);
-    }
 }

@@ -3,6 +3,7 @@
     "target": "es5",
     "module": "commonjs",
     "moduleResolution": "node",
+    "jsx": "react",    
     "noImplicitAny": true,
     "noImplicitReturns": true,
     "noImplicitThis": true,
@@ -16,8 +17,9 @@
     "suppressImplicitAnyIndexErrors": true
   },
   "include": [
+    "typings",
     "src/**/*.ts",
-    "node_modules/@types/**/*.d.ts"
+    //"node_modules/@types/**/*.d.ts"
   ],
-  //"exclude": ["node_modules"]
+  "exclude": ["node_modules"]
 }

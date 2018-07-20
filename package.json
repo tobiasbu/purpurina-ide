@@ -4,16 +4,16 @@
   "description": "Scintilla HTML5 Game Engine IDE",
   "main": "src/index.ts",
   "scripts": {
-   
-    "build-main": "npm run clean && webpack --config webpack.config.electron.js --profile --colors --display-error-details --display-cached",
-    "build-renderer": "",
+    "build-main": "webpack --config webpack.config.electron.js --profile --colors --display-error-details --display-cached",
+    "build-renderer": "webpack --config webpack.config.renderer.js --profile --colors --display-error-details --display-cached",
+    "build": "npm run clean && npm run build-main && npm run build-renderer",
     "start-electron": "cross-env NODE_ENV=production electron ./build/index.js",
     "start-hot": "cross-env HOT=1 NODE_ENV=development electron ./build/index.js",
     "clean": "rm -fr build",
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "start-react": "react-scripts start",
+    "build-react": "react-scripts build",
+    "test-react": "react-scripts test --env=jsdom",
+    "eject-react": "react-scripts eject"
   },
   "bin": {
     "electron": "./node_modules/.bin/electron"
@@ -36,17 +36,24 @@
   },
   "homepage": "https://github.com/scintilla-engine/scintilla-ide#readme",
   "devDependencies": {
+    "awesome-typescript-loader": "^5.2.0",
     "cross-env": "^5.2.0",
+    "css-loader": "^1.0.0",
     "electron-debug": "^2.0.0",
     "electron-devtools-installer": "^2.2.4",
+    "url-loader": "^1.0.1",
     "webpack-cli": "^3.0.8"
   },
   "dependencies": {
+    "@types/react": "^16.4.6",
+    "@types/react-dom": "^16.0.6",
+    "electron": "^2.0.5",
+    "extract-text-webpack-plugin": "^3.0.2",
+    "html-webpack-plugin": "^3.2.0",
+    "path": "^0.12.7",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
     "react-scripts": "1.1.4",
-    "electron": "^2.0.5",
-    "path": "^0.12.7",
     "ts-loader": "^4.4.2",
     "typescript": "^2.9.2",
     "webpack": "^4.16.1",

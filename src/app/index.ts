@@ -1,6 +1,5 @@
+import Application from "./core/Application";
 
-import { app } from 'electron';
-import Application from './core/Application';
 
 if (process.env.NODE_ENV === 'production') {
     const sourceMapSupport = require('source-map-support'); // eslint-disable-line
@@ -29,7 +28,6 @@ if (process.env.NODE_ENV === 'development') {
     //require('module').globalPaths.push(p); // eslint-disable-line
 }
   
+const AppControl = new Application();
 
-const scintillaApp = new Application(app, { center: true, darkTheme: true });
-
-export default scintillaApp;
+export default AppControl;

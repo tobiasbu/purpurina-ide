@@ -1,8 +1,8 @@
 
 const path = require('path');
-const {
-    dependencies: externals
-} = require('./package.json');
+// const {
+//     dependencies: externals
+// } = require('./package.json');
 
 module.exports = {
 
@@ -20,23 +20,16 @@ module.exports = {
 
     resolve: {
         extensions: ['.js', '.ts', '.tsx', '.json'],
-        modules: [
-            path.join(__dirname, 'app'),
-            'node_modules',
-      ]
+    //     modules: [
+    //         path.join(__dirname, 'app'),
+    //         'node_modules',
+    //   ]
     },
 
-    module: {
-        rules: [{
-            test: /\.tsx?$/,
-            loader: 'ts-loader',
-            exclude: /node_modules/
-        }]
-    },
 
     plugins: [],
 
-    externals: Object.keys(externals || {})
+    externals: {}
 };
 
 // const common_config = {
