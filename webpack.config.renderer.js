@@ -1,18 +1,18 @@
 const path = require('path');
 const webpack = require('webpack');
 const merge = require('webpack-merge');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+
 const baseConfig = require('./webpack.config.base');
 
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-//const ExtractTextPlugin = require('extract-text-webpack-plugin');
-
-const HTML_INDEX_PATH = path.join(__dirname, './public/index.html');
+const HTML_INDEX_PATH = path.join(__dirname, './src/renderer/layout/index.html');
 
 module.exports = merge(baseConfig, {
+    mode: 'development',
     devtool: 'source-map',
 
     entry: [
-        './src/ui/index.tsx'
+        './src/renderer/index.tsx'
     ],
 
     output: {
@@ -32,27 +32,13 @@ module.exports = merge(baseConfig, {
     module: {
         rules: [{
 
-                test: /\.(ts|tsx)$/,
+                test: /\.tsx?$/,
                 loader: "awesome-typescript-loader"
             },
             // Extract all .global.css to style.css as is
             {
                 test: /\.css$/,
-                use: [ 'style-loader', 'css-loader' ]
-                // use: ExtractTextPlugin.extract({
-                //     use: [{
-                //             loader: 'css-loader',
-                //             options: {
-                //                 //modules: true,
-                //                 importLoaders: 1,
-                //                 localIdentName: '[name]__[local]__[hash:base64:5]',
-                //             }
-                //         },
-                //         {
-                //             loader: 'sass-loader'
-                //         }
-                //     ]
-                // })
+                use: ['style-loader', 'css-loader']
             },
             // SVG Font
             {
@@ -80,6 +66,15 @@ module.exports = merge(baseConfig, {
         new webpack.DefinePlugin({
             'process.env.NODE_ENV': JSON.stringify('production')
         }),
+
+
+        new webpack.ProvidePlugin({
+            React: 'react',
+            ReactDOM: 'react-dom',
+            $: 'jquery',
+            jQuery: 'jquery'
+        }),
+
 
         //new ExtractTextPlugin('style.css'),
 

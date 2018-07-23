@@ -1,0 +1,14 @@
+
+.toolbar {
+    height: 32px;
+    background:#222222;
+    width: 100%;
+    display: inline-block;
+}
+
+.statusbar {
+    height: 32px;
+    background:#222222;
+    width: 100%;
+    display: inline-block;
+}
