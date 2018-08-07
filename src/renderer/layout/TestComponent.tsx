@@ -14,6 +14,8 @@ export class TestComponent extends React.Component<MainLayoutProps, {}> {
         return (<h1>{this.props.label}</h1>)
     }
 
+    
+
 }
 
 

@@ -3,12 +3,12 @@
     height: 32px;
     background:#222222;
     width: 100%;
-    display: inline-block;
+    display: block;
 }
 
 .statusbar {
     height: 32px;
-    background:#222222;
+    background:#453;
     width: 100%;
-    display: inline-block;
+    display: block;
 }

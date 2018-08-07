@@ -3,10 +3,12 @@ import * as React from "react";
 import './style/App.css';
 //import { ipcRenderer } from "electron";
 
-import GoldenLayoutContainer from "./layout/GoldenLayoutContainer";
-import mainLayoutConfig from './layout/mainLayoutConfig';
+//import GoldenLayoutContainer from "./layout/GoldenLayoutContainer";
+//import mainLayoutConfig from './layout/mainLayoutConfig';
 import Toolbar from "./components/Toolbar";
 import StatusBar from "./components/StatusBar";
+import WorkspacePanel from "./widgets/panel/WorkspacePanel";
+import GameView from "./widgets/GameView";
 
 export default class App extends React.Component {
 
@@ -14,12 +16,20 @@ export default class App extends React.Component {
   //   ipcRenderer.send("build");
   // }
 
+  workspaceWidgets : any[];
+
+  componentWillMount() {
+    this.workspaceWidgets = [];
+    
+  }
+
   render() {
+
     return (
       <div className="App" >
-        <Toolbar /> 
-        <GoldenLayoutContainer config={mainLayoutConfig} />
-        <StatusBar/>
+        <Toolbar />
+        <WorkspacePanel children={[<GameView/>]} />
+        <StatusBar />
       </div>
     );
   }
