@@ -173,3 +173,187 @@ body {
   box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
   transform: translateX(-40%) translateY(-58%);
 }
+
+
+body.p-mod-override-cursor * {
+  cursor: inherit !important;
+}
+
+
+.p-Widget {
+  box-sizing: border-box;
+  position: relative;
+  overflow: hidden;
+  cursor: default;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+
+.p-Widget.p-mod-hidden {
+  display: none;
+}
+
+.p-SplitPanel {
+  z-index: 0;
+}
+
+
+.p-SplitPanel-child {
+  z-index: 0;
+}
+
+
+.p-SplitPanel-handle {
+  z-index: 1;
+}
+
+
+.p-SplitPanel-handle.p-mod-hidden {
+  display: none;
+}
+
+
+.p-SplitPanel-handle:after {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  content: '';
+}
+
+
+.p-SplitPanel.p-mod-horizontal > .p-SplitPanel-handle {
+  cursor: ew-resize;
+}
+
+
+.p-SplitPanel.p-mod-vertical > .p-SplitPanel-handle {
+  cursor: ns-resize;
+}
+
+
+.p-SplitPanel.p-mod-horizontal > .p-SplitPanel-handle:after {
+  left: 50%;
+  min-width: 7px;
+  transform: translateX(-50%);
+}
+
+
+.p-SplitPanel.p-mod-vertical > .p-SplitPanel-handle:after {
+  top: 50%;
+  min-height: 7px;
+  transform: translateY(-50%);
+}
+
+
+.p-TabBar {
+  display: flex;
+  flex-direction: column;
+}
+
+
+.p-TabBar-header,
+.p-TabBar-footer {
+  flex: 0 0 auto;
+}
+
+
+.p-TabBar-body {
+  display: flex;
+  flex-direction: row;
+  flex: 1 1 auto;
+}
+
+
+.p-TabBar-content {
+  display: flex;
+  flex-direction: row;
+  flex: 1 1 auto;
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+
+
+.p-TabBar-tab {
+  display: flex;
+  flex-direction: row;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+
+.p-TabBar-tabIcon,
+.p-TabBar-tabCloseIcon {
+  flex: 0 0 auto;
+}
+
+
+.p-TabBar-tabText {
+  flex: 1 1 auto;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+
+.p-TabBar.p-mod-dragging .p-TabBar-tab {
+  position: relative;
+  left: 0;
+  transition: left 150ms ease; /* keep in sync with JS */
+}
+
+
+.p-TabBar.p-mod-dragging .p-TabBar-tab.p-mod-dragging {
+  transition: none;
+}
+
+
+.p-TabPanel-tabBar {
+  z-index: 1;
+}
+
+
+.p-TabPanel-stackedPanel {
+  z-index: 0;
+}
+
+
+.p-DockPanel {
+  position: relative;
+  z-index: 0;
+}
+
+
+.p-DockPanel > .p-Widget {
+  position: absolute;
+  z-index: 0;
+}
+
+
+.p-DockPanel-overlay {
+  box-sizing: border-box;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+
+.p-TabBar-tab.p-mod-hidden,
+.p-DockPanel-overlay.p-mod-hidden {
+  display: none;
+}
+
+.p-TabBar-tabLabel {
+  margin: auto 0;
+  vertical-align: middle;
+}
+

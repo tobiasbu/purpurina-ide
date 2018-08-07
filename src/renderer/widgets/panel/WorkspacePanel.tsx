@@ -1,7 +1,7 @@
 import { DockPanel, Widget } from "@phosphor/widgets";
 import * as React from "react";
 //import { createPortal } from "react-dom";
-import './DockPanel.css';
+import './dock-panel.css';
 
 interface IWidgetInfo {
     component: JSX.Element;
@@ -16,13 +16,27 @@ interface IDockProps {
     children: JSX.Element[];
 }
 
-class WrapperWidget extends Widget {
-    constructor(name: string, node: HTMLElement) {
-        super({ node });
-        //this.setFlag(Widget.Flag.DisallowLayout);
-        this.title.label = name;
-    }
-}
+// class WrapperWidget extends Widget {
+//     constructor(name: string, node: HTMLElement) {
+//         super({ node });
+//         //this.setFlag(Widget.Flag.DisallowLayout);
+//         this.title.label = name;
+//     }
+// }
+/**
+ * Create a placeholder content widget.
+ */
+function createContent(title: string): Widget {
+    var widget = new Widget();
+    widget.addClass('content');
+    widget.addClass(title.toLowerCase());
+  
+    widget.title.label = title;
+    widget.title.closable = true;
+  
+    return widget;
+  }
+  
 
 
 export default class WorkspacePanel extends React.PureComponent<IDockProps, IDockState>  {
@@ -36,12 +50,18 @@ export default class WorkspacePanel extends React.PureComponent<IDockProps, IDoc
         
         this.dock = new DockPanel();
 
+        let children = [];
+
+        for (let index = 0; index < 5; index++) {
+            const element = createContent('Yellow');
+            children.push(element);
+        }
 
         let widgetInfos = [];
-        for (let component of this.props.children) {
+        for (let component of children) {
             let node = document.createElement("div");
-            let widget = new WrapperWidget("Widget Name", node);
-            this.dock.addWidget(widget);
+            //let widget = new WrapperWidget("Widget Name", node);
+            this.dock.addWidget(component);
             widgetInfos.push({ node, component });
         }
         this.setState({ ...this.state, widgetInfos });
@@ -99,9 +119,9 @@ export default class WorkspacePanel extends React.PureComponent<IDockProps, IDoc
         return (
             //<div ref={(c) => this.elem = c}>
             <div id='dock-panel'>
-                {/* {this.state.widgetInfos.map(widgetInfo => {
+                {/* { this.state.widgetInfos.map(widgetInfo => {
                     return createPortal(widgetInfo.component, widgetInfo.node);
-                })} */}
+                })}; */}
             </div>
         );
     }
