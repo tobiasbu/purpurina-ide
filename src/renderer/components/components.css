@@ -1,14 +1,14 @@
 
 .toolbar {
-    height: 32px;
+    height: 28px;
     background:#222222;
     width: 100%;
     display: block;
 }
 
 .statusbar {
-    height: 32px;
-    background:#453;
+    height: 22px;
+    background:#3e0636ff;
     width: 100%;
     display: block;
 }

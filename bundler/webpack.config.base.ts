@@ -1,29 +1,26 @@
 
-const path = require('path');
+
+import * as webpack from 'webpack';
+import * as path from 'path';
 // const {
 //     dependencies: externals
 // } = require('./package.json');
 
-module.exports = {
+export const PROJECT_PATH = path.resolve(__dirname, '../');
 
-    context: __dirname,
+const baseConfig: webpack.Configuration = {
 
-    mode: 'development',
-
+    context: PROJECT_PATH,
     output: {
         path: path.join(__dirname, '/build/'),
-        publicPath: 'build/',
+        //publicPath: 'build/',
         // filename: '[name].js',
         // sourceMapFilename: '[name].js.map',
-        libraryTarget: 'commonjs2',
+        //libraryTarget: 'commonjs2',
     },
 
     resolve: {
         extensions: ['.js', '.ts', '.tsx', '.json'],
-    //     modules: [
-    //         path.join(__dirname, 'app'),
-    //         'node_modules',
-    //   ]
     },
 
 
@@ -31,6 +28,8 @@ module.exports = {
 
     externals: {}
 };
+
+export default baseConfig;
 
 // const common_config = {
 //   node: {

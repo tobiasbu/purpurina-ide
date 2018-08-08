@@ -58,9 +58,9 @@
 }
 
 .p-DockPanel-overlay {
-    background: rgba(255, 255, 255, 0.6);
-    border: 1px dashed black;
-    transition-property: top, left, right, bottom;
+    background: rgba(33, 69, 128, 0.2);
+    border: 1px solid rgb(33, 69, 128);
+    /* transition-property: top, left, right, bottom;
     transition-duration: 150ms;
-    transition-timing-function: ease;
+    transition-timing-function: ease; */
 }

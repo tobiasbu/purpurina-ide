@@ -98,13 +98,15 @@ export default class WorkspacePanel extends React.PureComponent<IDockProps, IDoc
             }
         }
 
+        h = h - (22 + 28);
+
         if (w !== this.width || h !== this.height) {
             this.width = w;
             this.height = h;
-            this.elem.style.width = (w - 2).toString() + 'px';
-            this.elem.style.height = (h - 64).toString() + 'px';
-            this.elem.style.minWidth = (w - 2).toString() + 'px';
-            this.elem.style.minHeight = (h - 64).toString() + 'px';
+            this.elem.style.width = w.toString() + 'px';
+            this.elem.style.height = h.toString() + 'px';
+            this.elem.style.minWidth = w.toString() + 'px';
+            this.elem.style.minHeight = h.toString() + 'px';
             // this.elem.style.top = '1px';
             // this.elem.style.left = '1px';
             // this.elem.style.right = '1px';

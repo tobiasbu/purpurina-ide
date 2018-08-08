@@ -91,40 +91,36 @@
     min-width: 0;
     min-height: 0;
     align-items: flex-end;
-    border-bottom: 1px solid #C0C0C0;
+    /* border-bottom: 1px solid #C0C0C0; */
 }
 
 .p-TabBar-tab {
     padding: 0px 10px;
-    background: #E5E5E5;
-    border: 1px solid #C0C0C0;
-    border-bottom: none;
-    font: 12px Helvetica, Arial, sans-serif;
+    background: #1a191aff;
+    color: #F0F0F0;
+    font: 12px Segoe UI, Helvetica, Arial, sans-serif;
     flex: 0 1 125px;
-    min-height: 20px;
-    max-height: 20px;
+    min-height: 23px;
+    max-height: 23px;
     min-width: 35px;
     margin-left: -1px;
-    line-height: 20px;
+    line-height: 22px;
+    /* border-left: 1px solid #141414ff; */
+    border-right: 1px solid #141414ff;
 }
 
 .p-TabBar-tab.p-mod-current {
-    background: white;
+    background: #262626ff;
 }
 
 .p-TabBar-tab:hover:not(.p-mod-current) {
-    background: #F0F0F0;
+    background: #202020;
 }
 
 .p-TabBar-tab:first-child {
     margin-left: 0;
 }
 
-.p-TabBar-tab.p-mod-current {
-    min-height: 23px;
-    max-height: 23px;
-    transform: translateY(1px);
-}
 
 .p-TabBar-tabIcon,
 .p-TabBar-tabLabel,
@@ -137,7 +133,7 @@
 }
 
 .p-TabBar-tab.p-mod-closable>.p-TabBar-tabCloseIcon:before {
-    content: '\f00d';
+    content: 'X';
     font-family: Arial, Helvetica, sans-serif;
 }
 

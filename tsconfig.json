@@ -3,23 +3,28 @@
     "target": "es5",
     "module": "commonjs",
     "moduleResolution": "node",
-    "jsx": "react",    
+    "lib": ["es2015", "dom"],
+    "jsx": "react",
+    "outDir": "build/ts",
+    "sourceMap": true,
     //"noImplicitAny": true,
     "noImplicitReturns": true,
     "noImplicitThis": true,
     "noUnusedLocals": true,
     "strictNullChecks": false,
-    "sourceMap": true,
-    "outDir": "build",
+    
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "removeComments": false,
-    "suppressImplicitAnyIndexErrors": true
+    //"suppressImplicitAnyIndexErrors": true,
+    //"typeRoots": ["node_modules/@types"]
   },
   "include": [
-    "typings",
+    "typings/**/*.ts",
     "src/**/*.ts",
-    //"node_modules/@types/**/*.d.ts"
+    "node_modules/@types/**/*.d.ts"
   ],
-  "exclude": ["node_modules"]
+  "exclude": [
+    "node_modules"
+  ]
 }
