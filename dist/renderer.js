@@ -23980,7 +23980,7 @@ exports.i(__webpack_require__(/*! -!../../../../../node_modules/css-loader!./tab
 exports.i(__webpack_require__(/*! -!../../../../../node_modules/css-loader!./splitpanel.css */ "./node_modules/css-loader/index.js!./src/renderer/widgets/panel/style/splitpanel.css"), "");
 
 // module
-exports.push([module.i, "body {\r\n    margin: 0;\r\n    padding: 0;\r\n    background: #080808ff;\r\n    overflow: hidden;\r\n}\r\n\r\n#dock-panel {\r\n    /* top: 5px;\r\n    left: 5px;\r\n    right: 5px;\r\n    bottom: 5px; */\r\n    position: relative;\r\n}\r\n\r\n#main {\r\n    position: absolute;\r\n    top: 0;\r\n    left: 1px;\r\n    right: 1px;\r\n    bottom: 1px;\r\n}\r\n\r\nbody.p-mod-override-cursor * {\r\n    cursor: inherit !important;\r\n}\r\n\r\n\r\n/*\r\n* Content\r\n*/\r\n\r\n.content {\r\n    min-width: 50px;\r\n    min-height: 50px;\r\n    display: flex;\r\n    flex-direction: column;\r\n    padding: 8px;\r\n    /* border: 1px solid #C0C0C0; */\r\n    border-top: none;\r\n    background: #262626;\r\n    /* box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2); */\r\n\r\n    flex: 1 1 auto;\r\n    /* border: 1px solid #505050; */\r\n   \r\n    overflow: auto;\r\n}\r\n\r\n\r\n.content input {\r\n    margin: 8px;\r\n}\r\n\r\n.content red {\r\n    background: #E74C3C;\r\n}\r\n\r\n.yellow {\r\n    /* background: #F1C40F; */\r\n}\r\n\r\n.green>div {\r\n    background: #27AE60;\r\n}\r\n\r\n.blue>div {\r\n    background: #3498DB;\r\n}", ""]);
+exports.push([module.i, "body {\r\n    margin: 0;\r\n    padding: 0;\r\n    background: #080808ff;\r\n    overflow: hidden;\r\n}\r\n\r\n#dock-panel {\r\n    position: relative;\r\n}\r\n\r\n#main {\r\n    position: absolute;\r\n    top: 1px;\r\n    left: 1px;\r\n    right: 1px;\r\n    bottom: 1px;\r\n}\r\n\r\nbody.p-mod-override-cursor * {\r\n    cursor: inherit !important;\r\n}\r\n\r\n\r\n/*\r\n* Content\r\n*/\r\n\r\n\r\n\r\n\r\n.content input {\r\n    margin: 8px;\r\n}\r\n\r\n.content red {\r\n    background: #E74C3C;\r\n}\r\n\r\n.yellow {\r\n    /* background: #F1C40F; */\r\n}\r\n\r\n.green>div {\r\n    background: #27AE60;\r\n}\r\n\r\n.blue>div {\r\n    background: #3498DB;\r\n}", ""]);
 
 // exports
 
@@ -24018,7 +24018,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "/*\r\n* Tab bar\r\n*/\r\n\r\n.p-TabBar {\r\n    display: flex;\r\n    -webkit-user-select: none;\r\n    -moz-user-select: none;\r\n    -ms-user-select: none;\r\n    user-select: none;\r\n}\r\n\r\n.p-TabBar[data-orientation='horizontal'] {\r\n    flex-direction: row;\r\n}\r\n\r\n.p-TabBar[data-orientation='vertical'] {\r\n    flex-direction: column;\r\n}\r\n\r\n.p-TabBar-content {\r\n    margin: 0;\r\n    padding: 0;\r\n    display: flex;\r\n    flex: 1 1 auto;\r\n    list-style-type: none;\r\n}\r\n\r\n.p-TabBar[data-orientation='horizontal']>.p-TabBar-content {\r\n    flex-direction: row;\r\n}\r\n\r\n.p-TabBar[data-orientation='vertical']>.p-TabBar-content {\r\n    flex-direction: column;\r\n}\r\n\r\n.p-TabBar-tab {\r\n    display: flex;\r\n    flex-direction: row;\r\n    box-sizing: border-box;\r\n    overflow: hidden;\r\n}\r\n\r\n.p-TabBar-tabIcon,\r\n.p-TabBar-tabCloseIcon {\r\n    flex: 0 0 auto;\r\n}\r\n\r\n.p-TabBar-tabLabel {\r\n    flex: 1 1 auto;\r\n    overflow: hidden;\r\n    white-space: nowrap;\r\n}\r\n\r\n.p-TabBar-tab.p-mod-hidden {\r\n    display: none !important;\r\n}\r\n\r\n.p-TabBar.p-mod-dragging .p-TabBar-tab {\r\n    position: relative;\r\n}\r\n\r\n.p-TabBar.p-mod-dragging[data-orientation='horizontal'] .p-TabBar-tab {\r\n    left: 0;\r\n    transition: left 150ms ease;\r\n}\r\n\r\n.p-TabBar.p-mod-dragging[data-orientation='vertical'] .p-TabBar-tab {\r\n    top: 0;\r\n    transition: top 150ms ease;\r\n}\r\n\r\n.p-TabBar.p-mod-dragging .p-TabBar-tab.p-mod-dragging {\r\n    transition: none;\r\n}\r\n\r\n.p-TabPanel-tabBar {\r\n    z-index: 1;\r\n}\r\n\r\n.p-TabPanel-stackedPanel {\r\n    z-index: 0;\r\n}\r\n\r\n.p-TabBar {\r\n    min-height: 24px;\r\n    max-height: 24px;\r\n}\r\n\r\n.p-TabBar-content {\r\n    min-width: 0;\r\n    min-height: 0;\r\n    align-items: flex-end;\r\n    /* border-bottom: 1px solid #C0C0C0; */\r\n}\r\n\r\n.p-TabBar-tab {\r\n    padding: 0px 10px;\r\n    background: #1a191aff;\r\n    color: #F0F0F0;\r\n    font: 12px Segoe UI, Helvetica, Arial, sans-serif;\r\n    flex: 0 1 125px;\r\n    min-height: 23px;\r\n    max-height: 23px;\r\n    min-width: 35px;\r\n    margin-left: -1px;\r\n    line-height: 22px;\r\n    /* border-left: 1px solid #141414ff; */\r\n    border-right: 1px solid #141414ff;\r\n}\r\n\r\n.p-TabBar-tab.p-mod-current {\r\n    background: #262626ff;\r\n}\r\n\r\n.p-TabBar-tab:hover:not(.p-mod-current) {\r\n    background: #202020;\r\n}\r\n\r\n.p-TabBar-tab:first-child {\r\n    margin-left: 0;\r\n}\r\n\r\n\r\n.p-TabBar-tabIcon,\r\n.p-TabBar-tabLabel,\r\n.p-TabBar-tabCloseIcon {\r\n    display: inline-block;\r\n}\r\n\r\n.p-TabBar-tab.p-mod-closable>.p-TabBar-tabCloseIcon {\r\n    margin-left: 4px;\r\n}\r\n\r\n.p-TabBar-tab.p-mod-closable>.p-TabBar-tabCloseIcon:before {\r\n    content: 'X';\r\n    font-family: Arial, Helvetica, sans-serif;\r\n}\r\n\r\n.p-TabBar-tab.p-mod-drag-image {\r\n    min-height: 23px;\r\n    max-height: 23px;\r\n    min-width: 125px;\r\n    border: none;\r\n    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);\r\n    transform: translateX(-40%) translateY(-58%);\r\n}", ""]);
+exports.push([module.i, "/*\r\n* Tab bar\r\n*/\r\n\r\n.p-TabBar {\r\n    display: flex;\r\n    -webkit-user-select: none;\r\n    -moz-user-select: none;\r\n    -ms-user-select: none;\r\n    user-select: none;\r\n    min-height: 24px;\r\n    max-height: 24px;\r\n    background-color: #141414ff;\r\n}\r\n\r\n.p-TabBar[data-orientation='horizontal'] {\r\n    flex-direction: row;\r\n}\r\n\r\n.p-TabBar[data-orientation='vertical'] {\r\n    flex-direction: column;\r\n}\r\n\r\n.p-TabBar-content {\r\n    margin: 0;\r\n    padding: 0;\r\n    display: flex;\r\n    flex: 1 1 auto;\r\n    list-style-type: none;\r\n}\r\n\r\n.p-TabBar[data-orientation='horizontal']>.p-TabBar-content {\r\n    flex-direction: row;\r\n}\r\n\r\n.p-TabBar[data-orientation='vertical']>.p-TabBar-content {\r\n    flex-direction: column;\r\n}\r\n\r\n.p-TabBar-tab {\r\n    display: flex;\r\n    flex-direction: row;\r\n    box-sizing: border-box;\r\n    overflow: hidden;\r\n    padding: 0px 10px;\r\n    background: #1a191aff;\r\n    color: #F0F0F0;\r\n    font: 12px Segoe UI, Helvetica, Arial, sans-serif;\r\n    flex: 0 1 125px;\r\n    min-height: 24px;\r\n    max-height: 24px;\r\n    min-width: 35px;\r\n    margin-left: -1px;\r\n    line-height: 22px;\r\n    border-right: 1px solid #141414ff;\r\n}\r\n\r\n.p-TabBar-tabIcon,\r\n.p-TabBar-tabCloseIcon {\r\n    flex: 0 0 auto;\r\n}\r\n\r\n.p-TabBar-tabLabel {\r\n    flex: 1 1 auto;\r\n    overflow: hidden;\r\n    white-space: nowrap;\r\n}\r\n\r\n.p-TabBar-tab.p-mod-hidden {\r\n    display: none !important;\r\n}\r\n\r\n.p-TabBar.p-mod-dragging .p-TabBar-tab {\r\n    position: relative;\r\n}\r\n\r\n.p-TabBar.p-mod-dragging[data-orientation='horizontal'] .p-TabBar-tab {\r\n    left: 0;\r\n    transition: left 150ms ease;\r\n}\r\n\r\n.p-TabBar.p-mod-dragging[data-orientation='vertical'] .p-TabBar-tab {\r\n    top: 0;\r\n    transition: top 150ms ease;\r\n}\r\n\r\n.p-TabBar.p-mod-dragging .p-TabBar-tab.p-mod-dragging {\r\n    transition: none;\r\n}\r\n\r\n.p-TabPanel-tabBar {\r\n    z-index: 1;\r\n}\r\n\r\n.p-TabPanel-stackedPanel {\r\n    z-index: 0;\r\n}\r\n\r\n\r\n.p-TabBar-content {\r\n    min-width: 0;\r\n    min-height: 0;\r\n    align-items: flex-end;\r\n    /* border-bottom: 1px solid #C0C0C0; */\r\n}\r\n\r\n\r\n\r\n.p-TabBar-tab.p-mod-current {\r\n    background: #262626ff;\r\n}\r\n\r\n.p-TabBar-tab:hover:not(.p-mod-current) {\r\n    background: #202020;\r\n}\r\n\r\n.p-TabBar-tab:first-child {\r\n    margin-left: 0;\r\n}\r\n\r\n\r\n.p-TabBar-tabIcon,\r\n.p-TabBar-tabLabel,\r\n.p-TabBar-tabCloseIcon {\r\n    display: inline-block;\r\n}\r\n\r\n.p-TabBar-tab.p-mod-closable>.p-TabBar-tabCloseIcon {\r\n    margin-left: 4px;\r\n}\r\n\r\n.p-TabBar-tab.p-mod-closable>.p-TabBar-tabCloseIcon:before {\r\n    content: 'X';\r\n    font-family: 12px Arial, Helvetica, sans-serif;\r\n}\r\n\r\n.p-TabBar-tab.p-mod-drag-image {\r\n    min-height: 23px;\r\n    max-height: 23px;\r\n    min-width: 125px;\r\n    border: none;\r\n    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);\r\n    transform: translateX(-40%) translateY(-58%);\r\n}", ""]);
 
 // exports
 
@@ -24037,7 +24037,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\r\n/*\r\n* Widget\r\n*/\r\n\r\n.p-Widget {\r\n    box-sizing: border-box;\r\n    position: relative;\r\n    overflow: hidden;\r\n    cursor: default;\r\n}\r\n\r\n.p-Widget.p-mod-hidden {\r\n    display: none !important;\r\n}", ""]);
+exports.push([module.i, "\r\n/*\r\n* Widget\r\n*/\r\n\r\n.p-Widget {\r\n    box-sizing: border-box;\r\n    position: relative;\r\n    overflow: hidden;\r\n    cursor: default;\r\n}\r\n\r\n\r\n\r\n.p-Widget.p-mod-hidden {\r\n    display: none !important;\r\n}\r\n\r\n.p-DockPanel-widget {\r\n    min-width: 100px;\r\n    min-height: 100px;\r\n    /* display: flex; */\r\n    /* flex-direction: column; */\r\n    padding: 4px;\r\n    /* border: 1px solid #C0C0C0; */\r\n    /* border-top: none; */\r\n    background: #262626;\r\n    /* box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2); */\r\n\r\n    /* flex: 1 1 auto; */\r\n    /* border: 1px solid #505050; */\r\n   \r\n    /* overflow: auto; */\r\n}", ""]);
 
 // exports
 
@@ -25493,7 +25493,6 @@ __webpack_require__(/*! ./style/App.css */ "./src/renderer/style/App.css");
 var Toolbar_1 = __webpack_require__(/*! ./components/Toolbar */ "./src/renderer/components/Toolbar.tsx");
 var StatusBar_1 = __webpack_require__(/*! ./components/StatusBar */ "./src/renderer/components/StatusBar.tsx");
 var WorkspacePanel_1 = __webpack_require__(/*! ./widgets/panel/WorkspacePanel */ "./src/renderer/widgets/panel/WorkspacePanel.tsx");
-var GameView_1 = __webpack_require__(/*! ./widgets/GameView */ "./src/renderer/widgets/GameView.tsx");
 var App = /** @class */ (function (_super) {
     __extends(App, _super);
     function App() {
@@ -25505,7 +25504,7 @@ var App = /** @class */ (function (_super) {
     App.prototype.render = function () {
         return (React.createElement("div", { id: "App" },
             React.createElement(Toolbar_1.default, null),
-            React.createElement(WorkspacePanel_1.default, { children: [React.createElement(GameView_1.default, null)] }),
+            React.createElement(WorkspacePanel_1.default, null),
             React.createElement(StatusBar_1.default, null)));
     };
     return App;
@@ -25580,7 +25579,8 @@ var Toolbar = /** @class */ (function (_super) {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     Toolbar.prototype.render = function () {
-        return (React.createElement("div", { className: 'toolbar' }));
+        return (React.createElement("div", { className: 'toolbar' },
+            React.createElement("button", { className: 'buttonTest' }, " Build")));
     };
     return Toolbar;
 }(React.Component));
@@ -25713,7 +25713,10 @@ var style = {
 var GameView = /** @class */ (function (_super) {
     __extends(GameView, _super);
     function GameView() {
-        return _super !== null && _super.apply(this, arguments) || this;
+        var _this = _super !== null && _super.apply(this, arguments) || this;
+        _this.width = 100;
+        _this.height = 100;
+        return _this;
     }
     GameView.prototype.componentDidMount = function () {
         // this.container = $('#gameView');
@@ -25733,6 +25736,44 @@ var GameView = /** @class */ (function (_super) {
     return GameView;
 }(React.Component));
 exports.default = GameView;
+
+
+/***/ }),
+
+/***/ "./src/renderer/widgets/WrapperWidget.ts":
+/*!***********************************************!*\
+  !*** ./src/renderer/widgets/WrapperWidget.ts ***!
+  \***********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+var widgets_1 = __webpack_require__(/*! @phosphor/widgets */ "./node_modules/@phosphor/widgets/lib/index.js");
+var WrapperWidget = /** @class */ (function (_super) {
+    __extends(WrapperWidget, _super);
+    function WrapperWidget(name, node) {
+        var _this = _super.call(this, { node: node }) || this;
+        //this.setFlag(Widget.Flag.DisallowLayout);
+        _this.title.label = name;
+        _this.title.closable = true;
+        _this.title.caption = 'Long description for:';
+        return _this;
+    }
+    return WrapperWidget;
+}(widgets_1.Widget));
+exports.default = WrapperWidget;
 
 
 /***/ }),
@@ -25767,15 +25808,10 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var widgets_1 = __webpack_require__(/*! @phosphor/widgets */ "./node_modules/@phosphor/widgets/lib/index.js");
 var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-//import { createPortal } from "react-dom";
+var WrapperWidget_1 = __webpack_require__(/*! ../WrapperWidget */ "./src/renderer/widgets/WrapperWidget.ts");
+var react_dom_1 = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
 __webpack_require__(/*! ./style/index.css */ "./src/renderer/widgets/panel/style/index.css");
-// class WrapperWidget extends Widget {
-//     constructor(name: string, node: HTMLElement) {
-//         super({ node });
-//         //this.setFlag(Widget.Flag.DisallowLayout);
-//         this.title.label = name;
-//     }
-// }
+var GameView_1 = __webpack_require__(/*! ../GameView */ "./src/renderer/widgets/GameView.tsx");
 /**
  * Create a placeholder content widget.
  */
@@ -25797,17 +25833,14 @@ var WorkspacePanel = /** @class */ (function (_super) {
     WorkspacePanel.prototype.componentWillMount = function () {
         this.dock = new widgets_1.DockPanel();
         var children = [];
-        for (var index = 0; index < 5; index++) {
-            var element = createContent('Yellow');
-            children.push(element);
-        }
         var widgetInfos = [];
-        for (var _i = 0, children_1 = children; _i < children_1.length; _i++) {
-            var component = children_1[_i];
-            //let node = document.createElement("div");
-            //let widget = new WrapperWidget("Widget Name", node);
-            this.dock.addWidget(component);
-            //widgetInfos.push({ node, component });
+        for (var index = 0; index < 5; index++) {
+            //const element = createContent('Yellow');
+            var node = document.createElement("div");
+            var widget = new WrapperWidget_1.default("Widget Name", node);
+            //children.push(widget);
+            this.dock.addWidget(widget);
+            widgetInfos.push({ node: node, component: React.createElement(GameView_1.default, null) });
         }
         this.setState(__assign({}, this.state, { widgetInfos: widgetInfos }));
         this.dock.id = 'main';
@@ -25839,16 +25872,12 @@ var WorkspacePanel = /** @class */ (function (_super) {
         if (w !== this.width || h !== this.height) {
             this.width = w;
             this.height = h;
-            this.elem.style.width = w.toString() + 'px';
-            this.elem.style.height = h.toString() + 'px';
-            this.elem.style.minWidth = w.toString() + 'px';
-            this.elem.style.minHeight = h.toString() + 'px';
-            // this.elem.style.top = '1px';
-            // this.elem.style.left = '1px';
-            // this.elem.style.right = '1px';
-            // this.elem.style.bottom = '1px';
-            //this.container.outerHeight(h - 64);
-            //this.layout.updateSize();
+            var strW = w.toString() + 'px';
+            var strH = h.toString() + 'px';
+            this.elem.style.width = strW;
+            this.elem.style.height = strH;
+            this.elem.style.minWidth = strW;
+            this.elem.style.minHeight = strH;
         }
     };
     WorkspacePanel.prototype.componentDidMount = function () {
@@ -25866,10 +25895,14 @@ var WorkspacePanel = /** @class */ (function (_super) {
     WorkspacePanel.prototype.render = function () {
         return (
         //<div ref={(c) => this.elem = c}>
-        React.createElement("div", { id: 'dock-panel' }));
+        React.createElement("div", { id: 'dock-panel' },
+            this.state.widgetInfos.map(function (widgetInfo) {
+                return react_dom_1.createPortal(widgetInfo.component, widgetInfo.node);
+            }),
+            ";"));
     };
     return WorkspacePanel;
-}(React.PureComponent));
+}(React.Component));
 exports.default = WorkspacePanel;
 
 

@@ -8,8 +8,8 @@ const style : React.CSSProperties = {
 
 export default class GameView extends React.Component {
 
-    private width:number;
-    private height:number;
+    private width:number = 100;
+    private height:number = 100;
 
     componentDidMount() {
 

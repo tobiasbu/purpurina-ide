@@ -11,16 +11,12 @@ body {
 }
 
 #dock-panel {
-    /* top: 5px;
-    left: 5px;
-    right: 5px;
-    bottom: 5px; */
     position: relative;
 }
 
 #main {
     position: absolute;
-    top: 0;
+    top: 1px;
     left: 1px;
     right: 1px;
     bottom: 1px;
@@ -35,22 +31,7 @@ body.p-mod-override-cursor * {
 * Content
 */
 
-.content {
-    min-width: 50px;
-    min-height: 50px;
-    display: flex;
-    flex-direction: column;
-    padding: 8px;
-    /* border: 1px solid #C0C0C0; */
-    border-top: none;
-    background: #262626;
-    /* box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2); */
 
-    flex: 1 1 auto;
-    /* border: 1px solid #505050; */
-   
-    overflow: auto;
-}
 
 
 .content input {

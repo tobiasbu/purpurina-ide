@@ -8,7 +8,7 @@ import './style/App.css';
 import Toolbar from "./components/Toolbar";
 import StatusBar from "./components/StatusBar";
 import WorkspacePanel from "./widgets/panel/WorkspacePanel";
-import GameView from "./widgets/GameView";
+
 
 export default class App extends React.Component {
 
@@ -28,7 +28,7 @@ export default class App extends React.Component {
     return (
       <div id="App" >
         <Toolbar />
-        <WorkspacePanel children={[<GameView/>]} />
+        <WorkspacePanel/>
         <StatusBar />
       </div>
     );
