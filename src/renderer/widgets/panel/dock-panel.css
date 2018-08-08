@@ -1,311 +1,152 @@
  body {
-    margin: 0;
-    padding: 0;
-    background: #F5F6F7;
-}
+     margin: 0;
+     padding: 0;
+     background: #F5F6F7;
+     overflow: hidden;
+ }
 
-body.p-mod-override-cursor * {
-    cursor: inherit !important;
-}
+ #dock-panel {
+     top: 5px;
+     left: 5px;
+     right: 5px;
+     bottom: 5px;
+     position: relative;
+ }
 
+ #main {
+     position: absolute;
+     top: 10px;
+     left: 10px;
+     right: 10px;
+     bottom: 10px;
+ }
 
-#dock-panel {
-    top: 5px;
-	left: 5px;
-	right: 5px;
-	bottom: 5px; 
-    position: relative;
-}
+ body.p-mod-override-cursor * {
+     cursor: inherit !important;
+ }
 
-#main {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    right: 10px;
-    bottom: 10px;
-}
+ /*
+* DockPanel
+*/
 
-.p-Widget {
-    box-sizing: border-box;
-    position: relative;
-    overflow: hidden;
-    /* cursor: default;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none; */
-}
+ .p-DockPanel-overlay {
+     background: rgba(255, 255, 255, 0.6);
+     border: 1px dashed black;
+     transition-property: top, left, right, bottom;
+     transition-duration: 150ms;
+     transition-timing-function: ease;
+ }
 
-.p-Widget.p-mod-hidden {
-    display: none;
-}
+ /*
+ * Tab bar
+ */
 
-.p-SplitPanel {
-    z-index: 0;
-}
+ .p-TabBar {
+     min-height: 24px;
+     max-height: 24px;
+ }
 
-.p-SplitPanel-child {
-    z-index: 0;
-}
+ .p-TabBar-content {
+     min-width: 0;
+     min-height: 0;
+     align-items: flex-end;
+     border-bottom: 1px solid #C0C0C0;
+ }
 
-.p-SplitPanel-handle {
-    z-index: 1;
-}
+ .p-TabBar-tab {
+     padding: 0px 10px;
+     background: #E5E5E5;
+     border: 1px solid #C0C0C0;
+     border-bottom: none;
+     font: 12px Helvetica, Arial, sans-serif;
+     flex: 0 1 125px;
+     min-height: 20px;
+     max-height: 20px;
+     min-width: 35px;
+     margin-left: -1px;
+     line-height: 20px;
+ }
 
-.p-SplitPanel-handle.p-mod-hidden {
-    display: none;
-}
+ .p-TabBar-tab.p-mod-current {
+     background: white;
+ }
 
-.p-SplitPanel-handle:after {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    content: '';
-}
+ .p-TabBar-tab:hover:not(.p-mod-current) {
+     background: #F0F0F0;
+ }
 
-.p-SplitPanel.p-mod-horizontal>.p-SplitPanel-handle {
-    cursor: ew-resize;
-}
+ .p-TabBar-tab:first-child {
+     margin-left: 0;
+ }
 
-.p-SplitPanel.p-mod-vertical>.p-SplitPanel-handle {
-    cursor: ns-resize;
-}
+ .p-TabBar-tab.p-mod-current {
+     min-height: 23px;
+     max-height: 23px;
+     transform: translateY(1px);
+ }
 
-.p-SplitPanel.p-mod-horizontal>.p-SplitPanel-handle:after {
-    left: 50%;
-    min-width: 7px;
-    transform: translateX(-50%);
-}
+ .p-TabBar-tabIcon,
+ .p-TabBar-tabLabel,
+ .p-TabBar-tabCloseIcon {
+     display: inline-block;
+ }
 
-.p-SplitPanel.p-mod-vertical>.p-SplitPanel-handle:after {
-    top: 50%;
-    min-height: 7px;
-    transform: translateY(-50%);
-}
+ .p-TabBar-tab.p-mod-closable>.p-TabBar-tabCloseIcon {
+     margin-left: 4px;
+ }
 
-.p-TabBar {
-    display: flex;
-    flex-direction: column;
-}
+ .p-TabBar-tab.p-mod-closable>.p-TabBar-tabCloseIcon:before {
+     content: '\f00d';
+     font-family: Arial, Helvetica, sans-serif;
+ }
 
-.p-TabBar-header,
-.p-TabBar-footer {
-    flex: 0 0 auto;
-}
+ .p-TabBar-tab.p-mod-drag-image {
+     min-height: 23px;
+     max-height: 23px;
+     min-width: 125px;
+     border: none;
+     box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+     transform: translateX(-40%) translateY(-58%);
+ }
 
-.p-TabBar-body {
-    display: flex;
-    flex-direction: row;
-    flex: 1 1 auto;
-}
+ /*
+ * Content
+ */
 
-.p-TabBar-content {
-    display: flex;
-    flex-direction: row;
-    flex: 1 1 auto;
-    margin: 0;
-    padding: 0;
-    list-style-type: none;
-}
+ .content {
+     min-width: 50px;
+     min-height: 50px;
+     display: flex;
+     flex-direction: column;
+     padding: 8px;
+     border: 1px solid #C0C0C0;
+     border-top: none;
+     background: white;
+     box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+ }
 
-.p-TabBar-tab {
-    display: flex;
-    flex-direction: row;
-    box-sizing: border-box;
-    overflow: hidden;
-}
+ .content>div {
+     flex: 1 1 auto;
+     border: 1px solid #505050;
+     overflow: auto;
+ }
 
-.p-TabBar-tabIcon,
-.p-TabBar-tabCloseIcon {
-    flex: 0 0 auto;
-}
+ .content input {
+     margin: 8px;
+ }
 
-.p-TabBar-tabText {
-    flex: 1 1 auto;
-    overflow: hidden;
-    white-space: nowrap;
-}
+ .red>div {
+     background: #E74C3C;
+ }
 
-.p-TabBar.p-mod-dragging .p-TabBar-tab {
-    position: relative;
-    left: 0;
-    transition: left 150ms ease;
-    /* keep in sync with JS */
-}
+ .yellow>div {
+     background: #F1C40F;
+ }
 
-.p-TabBar.p-mod-dragging .p-TabBar-tab.p-mod-dragging {
-    transition: none;
-}
+ .green>div {
+     background: #27AE60;
+ }
 
-.p-TabPanel-tabBar {
-    z-index: 1;
-}
-
-.p-TabPanel-stackedPanel {
-    z-index: 0;
-}
-
-.p-DockPanel {
-    position: relative;
-    z-index: 0;
-}
-
-.p-DockPanel>.p-Widget {
-    position: absolute;
-    z-index: 0;
-}
-
-.p-DockPanel-overlay {
-    box-sizing: border-box;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 0;
-    height: 0;
-    z-index: 1;
-    pointer-events: none;
-}
-
-.p-TabBar-tab.p-mod-hidden,
-.p-DockPanel-overlay.p-mod-hidden {
-    display: none;
-}
-
-
-
-
-.CodeMirrorWidget {
-    border: 1px solid #C0C0C0;
-    min-width: 200px;
-    min-height: 200px;
-}
-
-.content {
-    border: 1px solid black;
-    min-width: 50px;
-    min-height: 50px;
-}
-
-.red {
-    background: #E74C3C;
-}
-
-.yellow {
-    background: #F1C40F;
-}
-
-.green {
-    background: #27AE60;
-}
-
-.blue {
-    background: #3498DB;
-}
-
-.p-DockTabPanel {
-    padding-right: 2px;
-    padding-bottom: 2px;
-}
-
-.p-DockTabPanel>.p-StackedPanel {
-    padding: 10px;
-    background: white;
-    border: 1px solid #C0C0C0;
-    border-top: none;
-    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
-}
-
-.p-DockPanel-overlay {
-    background: rgba(255, 255, 255, 0.6);
-    border: 1px dashed black;
-}
-
-.p-DockPanel-handle {
-    cursor: n-resize;
-}
-
-.p-DockPanel-overlay.p-mod-root-top,
-.p-DockPanel-overlay.p-mod-root-left,
-.p-DockPanel-overlay.p-mod-root-right,
-.p-DockPanel-overlay.p-mod-root-bottom,
-.p-DockPanel-overlay.p-mod-root-center {
-    border-width: 2px;
-}
-
-.p-TabBar {
-    min-height: 24px;
-    max-height: 24px;
-}
-
-.p-TabBar-header {
-    display: none;
-}
-
-.p-TabBar-footer {
-    flex: 0 0 1px;
-    background: #C0C0C0;
-}
-
-.p-TabBar-content {
-    min-width: 0;
-    align-items: flex-end;
-}
-
-.p-TabBar-tab {
-    flex: 0 1 125px;
-    min-height: 20px;
-    max-height: 20px;
-    min-width: 35px;
-    margin-left: -1px;
-    border: 1px solid #C0C0C0;
-    border-bottom: none;
-    padding: 0px 10px;
-    background: #E5E5E5;
-    font: 12px Helvetica, Arial, sans-serif;
-}
-
-.p-TabBar-tab:first-child {
-    margin-left: 0;
-}
-
-.p-TabBar-tab.p-mod-current {
-    min-height: 23px;
-    max-height: 23px;
-    background: white;
-    transform: translateY(1px);
-}
-
-.p-TabBar-tab:hover:not(.p-mod-current) {
-    background: #F0F0F0;
-}
-
-.p-TabBar-tabLabel {
-    margin: auto 0;
-    vertical-align: middle;
-}
-
-.p-TabBar-tabIcon,
-.p-TabBar-tabText,
-.p-TabBar-tabCloseIcon {
-    line-height: 20px;
-}
-
-.p-TabBar-tab.p-mod-closable>.p-TabBar-tabCloseIcon {
-    margin-left: 4px;
-}
-
-.p-TabBar-tab.p-mod-closable>.p-TabBar-tabCloseIcon:before {
-    content: '\F00D';
-    font-family: Arial, Helvetica, sans-serif;
-}
-
-.p-TabBar-tab.p-mod-drag-image {
-    min-height: 23px;
-    max-height: 23px;
-    min-width: 125px;
-    border: none;
-    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
-    transform: translateX(-40%) translateY(-58%);
-} 
+ .blue>div {
+     background: #3498DB;
+ }

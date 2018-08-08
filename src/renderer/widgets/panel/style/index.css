@@ -1,0 +1,73 @@
+@import './dockpanel.css';
+@import './widget.css';
+@import './tabbar.css';
+@import './splitpanel.css';
+
+body {
+    margin: 0;
+    padding: 0;
+    background: #F5F6F7;
+    overflow: hidden;
+}
+
+#dock-panel {
+    /* top: 5px;
+    left: 5px;
+    right: 5px;
+    bottom: 5px; */
+    position: relative;
+}
+
+#main {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    right: 10px;
+    bottom: 10px;
+}
+
+body.p-mod-override-cursor * {
+    cursor: inherit !important;
+}
+
+
+/*
+* Content
+*/
+
+.content {
+    min-width: 50px;
+    min-height: 50px;
+    display: flex;
+    flex-direction: column;
+    padding: 8px;
+    border: 1px solid #C0C0C0;
+    border-top: none;
+    background: white;
+    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+
+    flex: 1 1 auto;
+    border: 1px solid #505050;
+    overflow: auto;
+}
+
+
+.content input {
+    margin: 8px;
+}
+
+.content red {
+    background: #E74C3C;
+}
+
+.yellow {
+    background: #F1C40F;
+}
+
+.green>div {
+    background: #27AE60;
+}
+
+.blue>div {
+    background: #3498DB;
+}

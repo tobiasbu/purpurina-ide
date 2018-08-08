@@ -57,6 +57,7 @@
     "react-dom": "^16.4.1",
     "react-scripts": "1.1.4",
     "ts-loader": "^4.4.2",
+    "ts-node": "^7.0.0",
     "typescript": "^2.9.2",
     "webpack": "^4.16.1",
     "webpack-merge": "^4.1.3"
