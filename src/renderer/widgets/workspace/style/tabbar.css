@@ -22,6 +22,9 @@
 }
 
 .p-TabBar-content {
+    min-width: 0;
+    min-height: 0;
+    align-items: flex-end;
     margin: 0;
     padding: 0;
     display: flex;
@@ -96,16 +99,6 @@
     z-index: 0;
 }
 
-
-.p-TabBar-content {
-    min-width: 0;
-    min-height: 0;
-    align-items: flex-end;
-    /* border-bottom: 1px solid #C0C0C0; */
-}
-
-
-
 .p-TabBar-tab.p-mod-current {
     background: #262626ff;
 }
@@ -117,7 +110,6 @@
 .p-TabBar-tab:first-child {
     margin-left: 0;
 }
-
 
 .p-TabBar-tabIcon,
 .p-TabBar-tabLabel,

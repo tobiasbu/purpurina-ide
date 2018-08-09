@@ -1,15 +1,16 @@
-
 import * as React from "react";
-// import WidgetPropsBase from "./WidgetBase";
+import {ComponentBase} from "../base/Component";
+
+
 
 const style : React.CSSProperties = {
-    background: 'blue'
+    background: '#171717',
+    border: '1px solid black'
 }
 
-export default class GameView extends React.Component {
 
-    private width:number = 100;
-    private height:number = 100;
+export default class GameView extends ComponentBase {
+
 
     componentDidMount() {
 
@@ -27,8 +28,12 @@ export default class GameView extends React.Component {
         // }, this);
     }
 
+ 
+
     render() {
-        return(<canvas id='gameView' width={this.width} height={this.height} style={style}/>)
+        const w = this.state.width.toString(10) + 'px';
+        const h = this.state.height.toString(10) + 'px';
+        return(<canvas className='gameView' width={w} height={h} style={style}/>)
     }
 
 }

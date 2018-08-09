@@ -21,7 +21,6 @@
     min-height: 100px;
     /* display: flex; */
     /* flex-direction: column; */
-    padding: 4px;
     /* border: 1px solid #C0C0C0; */
     /* border-top: none; */
     background: #262626;
@@ -31,4 +30,8 @@
     /* border: 1px solid #505050; */
    
     /* overflow: auto; */
+}
+
+.p-Widget-wrapper {
+    margin: 4px;
 }

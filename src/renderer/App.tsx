@@ -7,7 +7,7 @@ import './style/App.css';
 //import mainLayoutConfig from './layout/mainLayoutConfig';
 import Toolbar from "./components/Toolbar";
 import StatusBar from "./components/StatusBar";
-import WorkspacePanel from "./widgets/panel/WorkspacePanel";
+import WorkspacePanel from "./widgets/workspace/WorkspacePanel";
 
 
 export default class App extends React.Component {
@@ -15,12 +15,7 @@ export default class App extends React.Component {
   // private test(event: React.MouseEvent<HTMLButtonElement>) {
   //   ipcRenderer.send("build");
   // }
-
-  workspaceWidgets : any[];
-
-  componentWillMount() {
-    this.workspaceWidgets = [];
-    
+  componentWillMount() {   
   }
 
   render() {

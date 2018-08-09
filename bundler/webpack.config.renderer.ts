@@ -13,8 +13,10 @@ const ENTRY_PATH = './src/renderer';
 
 export default (env: any) => {
 
+    const mode = (env.dev) ? 'development' : 'production';
+
     const config: webpack.Configuration = {
-        mode: (env.dev) ? 'development' : 'production',
+        mode: mode,
         devtool: 'cheap-module-source-map',
         watch: env.dev || env.build_watch,
         target: 'electron-renderer',
@@ -75,7 +77,7 @@ export default (env: any) => {
 
             // NODE_ENV should be production so that modules do not perform certain development checks
             new webpack.DefinePlugin({
-                'process.env.NODE_ENV': JSON.stringify('production'),
+                'process.env.NODE_ENV': JSON.stringify(mode),
                 env: JSON.stringify(process.env)
             }),
 
