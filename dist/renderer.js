@@ -23901,7 +23901,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\r\n.toolbar {\r\n    height: 28px;\r\n    background:#222222;\r\n    width: 100%;\r\n    display: block;\r\n}\r\n\r\n.statusbar {\r\n    height: 22px;\r\n    background:#3e0636ff;\r\n    width: 100%;\r\n    display: block;\r\n}", ""]);
+exports.push([module.i, "\r\n\r\n\r\n.toolbar {\r\n    height: 28px;\r\n    background:#222222;\r\n    width: 100%;\r\n    display: block;\r\n}\r\n\r\n.statusbar {\r\n    height: 22px;\r\n    background:#3e0636ff;\r\n    width: 100%;\r\n    display: block;\r\n}", ""]);
 
 // exports
 
@@ -23940,6 +23940,25 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 // module
 exports.push([module.i, ".App {\n\n}\n\n.App-logo {\n  animation: App-logo-spin infinite 20s linear;\n  height: 80px;\n}\n\n.App-header {\n  background-color: #222;\n  height: 150px;\n  padding: 20px;\n  color: white;\n}\n\n.App-title {\n  font-size: 1.5em;\n}\n\n.App-intro {\n  font-size: large;\n}\n\n@keyframes App-logo-spin {\n  from { transform: rotate(0deg); }\n  to { transform: rotate(360deg); }\n}\n\n.build {\n  width: 200px;\n  height: 24px;\n}", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/index.js!./src/renderer/widgets/game/style.css":
+/*!***********************************************************************!*\
+  !*** ./node_modules/css-loader!./src/renderer/widgets/game/style.css ***!
+  \***********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "body {\r\n    font: 12px Segoe UI, Helvetica, Arial, sans-serif;\r\n    color: #F0F0F0;\r\n}\r\n\r\nfieldset {\r\n    border: none;\r\n}\r\n\r\n.flex-wrapper {\r\n    display: flex;\r\n    flex-direction: row;\r\n    justify-content: space-between;\r\n    align-items: stretch;\r\n}\r\n\r\n.flex-wrapper>div {\r\n    flex: 1 1 auto;\r\n}\r\n\r\ninput {\r\n    /* width: 50%; */\r\n    height: 14px;\r\n    border: 1px solid #000;\r\n    background: #141414ff;\r\n    color: #F0F0F0;\r\n    padding: 3px;\r\n}\r\n\r\ninput[type=number]::-webkit-inner-spin-button,\r\ninput[type=number]::-webkit-outer-spin-button {\r\n    -webkit-appearance: none;\r\n    -moz-appearance: none;\r\n    appearance: none;\r\n    margin: 0;\r\n}\r\n\r\ninput[type=\"number\"] {\r\n    -moz-appearance: textfield;\r\n}\r\n\r\nlabel {\r\n    /* min-width: 10%; */\r\n    margin: auto;\r\n    text-transform: capitalize;\r\n}", ""]);
 
 // exports
 
@@ -47865,7 +47884,6 @@ var ReactWidgetBase = /** @class */ (function (_super) {
         this._reactElement = ReactElement;
         this._reactComponent = ReactDOM.render(ReactElement, host);
         this._reactComponent.setState({ width: this._width, height: this._height });
-        console.log('update');
         //this._originalComponentWillUpdate = this._reactComponent.componentWillUpdate;
         //this._reactComponent.componentWillUpdate = this.onUpdate.bind(this);
     };
@@ -47947,6 +47965,73 @@ exports.default = GameView;
 
 /***/ }),
 
+/***/ "./src/renderer/widgets/game/Inspector.tsx":
+/*!*************************************************!*\
+  !*** ./src/renderer/widgets/game/Inspector.tsx ***!
+  \*************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+var Component_1 = __webpack_require__(/*! ../base/Component */ "./src/renderer/widgets/base/Component.ts");
+__webpack_require__(/*! ./style.css */ "./src/renderer/widgets/game/style.css");
+var Inspector = /** @class */ (function (_super) {
+    __extends(Inspector, _super);
+    function Inspector() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    Inspector.prototype.render = function () {
+        return (React.createElement("div", { className: 'flex-wrapper' },
+            React.createElement("label", null, "X"),
+            React.createElement("input", { type: 'number' }),
+            React.createElement("label", null, "Y"),
+            React.createElement("input", { type: 'number' })));
+    };
+    return Inspector;
+}(Component_1.ComponentBase));
+exports.default = Inspector;
+
+
+/***/ }),
+
+/***/ "./src/renderer/widgets/game/style.css":
+/*!*********************************************!*\
+  !*** ./src/renderer/widgets/game/style.css ***!
+  \*********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(/*! !../../../../node_modules/css-loader!./style.css */ "./node_modules/css-loader/index.js!./src/renderer/widgets/game/style.css");
+if(typeof content === 'string') content = [[module.i, content, '']];
+// Prepare cssTransformation
+var transform;
+
+var options = {"hmr":true}
+options.transform = transform
+// add the styles to the DOM
+var update = __webpack_require__(/*! ../../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+if(content.locals) module.exports = content.locals;
+// Hot Module Replacement
+if(false) {}
+
+/***/ }),
+
 /***/ "./src/renderer/widgets/workspace/WorkspacePanel.tsx":
 /*!***********************************************************!*\
   !*** ./src/renderer/widgets/workspace/WorkspacePanel.tsx ***!
@@ -47966,14 +48051,6 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-var __assign = (this && this.__assign) || Object.assign || function(t) {
-    for (var s, i = 1, n = arguments.length; i < n; i++) {
-        s = arguments[i];
-        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-            t[p] = s[p];
-    }
-    return t;
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 var widgets_1 = __webpack_require__(/*! @phosphor/widgets */ "./node_modules/@phosphor/widgets/lib/index.js");
 var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
@@ -47981,6 +48058,7 @@ var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 __webpack_require__(/*! ./style/index.css */ "./src/renderer/widgets/workspace/style/index.css");
 var GameView_1 = __webpack_require__(/*! ../game/GameView */ "./src/renderer/widgets/game/GameView.tsx");
 var ReactWidgetBase_1 = __webpack_require__(/*! ../base/ReactWidgetBase */ "./src/renderer/widgets/base/ReactWidgetBase.ts");
+var Inspector_1 = __webpack_require__(/*! ../game/Inspector */ "./src/renderer/widgets/game/Inspector.tsx");
 var WorkspacePanel = /** @class */ (function (_super) {
     __extends(WorkspacePanel, _super);
     function WorkspacePanel() {
@@ -47988,17 +48066,21 @@ var WorkspacePanel = /** @class */ (function (_super) {
     }
     WorkspacePanel.prototype.componentWillMount = function () {
         this.dock = new widgets_1.DockPanel();
-        var widgetInfos = [];
-        for (var index = 0; index < 5; index++) {
-            //const element = createContent('Yellow');
-            //let node = document.createElement("div");
-            var widget = new ReactWidgetBase_1.default('Game View', GameView_1.default); //new WrapperWidget("Widget Name", node);
-            //children.push(widget);
-            this.dock.addWidget(widget, { mode: 'split-bottom' });
-            //widgetInfos.push({ node, component: <GameView/> });
-        }
-        this.setState(__assign({}, this.state, { widgetInfos: widgetInfos }));
+        //let widgetInfos = [];
+        var widget = new ReactWidgetBase_1.default('Game View', GameView_1.default);
+        this.dock.addWidget(widget);
+        widget = new ReactWidgetBase_1.default('Inspector', Inspector_1.default);
+        this.dock.addWidget(widget, { mode: 'split-right' });
         this.dock.id = 'main';
+        // for (let index = 0; index < 5; index++) {
+        //     //const element = createContent('Yellow');
+        //     //let node = document.createElement("div");
+        //     let widget = new ReactWidgetBase('Game View', GameView); //new WrapperWidget("Widget Name", node);
+        //     //children.push(widget);
+        //     this.dock.addWidget(widget, {mode:'split-bottom'});
+        //     //widgetInfos.push({ node, component: <GameView/> });
+        // }
+        //this.setState({ ...this.state, widgetInfos });
         //let parent = this.dock.handleEvent.bind(this.dock);
         // const wrapper = (event: any) => {
         //     if (event.type === 'p-dragover') {
@@ -48048,9 +48130,7 @@ var WorkspacePanel = /** @class */ (function (_super) {
         };
     };
     WorkspacePanel.prototype.render = function () {
-        return (
-        //<div ref={(c) => this.elem = c}>
-        React.createElement("div", { id: 'dock-panel' }));
+        return (React.createElement("div", { id: 'dock-panel' }));
     };
     return WorkspacePanel;
 }(React.Component));

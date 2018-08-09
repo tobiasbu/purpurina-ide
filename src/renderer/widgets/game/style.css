@@ -1,0 +1,46 @@
+body {
+    font: 12px Segoe UI, Helvetica, Arial, sans-serif;
+    color: #F0F0F0;
+}
+
+fieldset {
+    border: none;
+}
+
+.flex-wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: stretch;
+}
+
+.flex-wrapper>div {
+    flex: 1 1 auto;
+}
+
+input {
+    /* width: 50%; */
+    height: 14px;
+    border: 1px solid #000;
+    background: #141414ff;
+    color: #F0F0F0;
+    padding: 3px;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    margin: 0;
+}
+
+input[type="number"] {
+    -moz-appearance: textfield;
+}
+
+label {
+    /* min-width: 10%; */
+    margin: auto;
+    text-transform: capitalize;
+}

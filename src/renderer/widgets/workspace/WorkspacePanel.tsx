@@ -5,6 +5,7 @@ import * as React from "react";
 import './style/index.css';
 import GameView from "../game/GameView";
 import ReactWidgetBase from '../base/ReactWidgetBase';
+import Inspector from "../game/Inspector";
 
 
 // /**
@@ -43,20 +44,26 @@ export default class WorkspacePanel extends React.Component<any, IDockState> {
     componentWillMount() {
 
         this.dock = new DockPanel();
-        let widgetInfos = [];
-        for (let index = 0; index < 5; index++) {
-            //const element = createContent('Yellow');
-            //let node = document.createElement("div");
-
-            let widget = new ReactWidgetBase('Game View', GameView); //new WrapperWidget("Widget Name", node);
-
-            //children.push(widget);
-            this.dock.addWidget(widget, {mode:'split-bottom'});
-            //widgetInfos.push({ node, component: <GameView/> });
-        }
-
-        this.setState({ ...this.state, widgetInfos });
+        //let widgetInfos = [];
+        let widget = new ReactWidgetBase('Game View', GameView); 
+        this.dock.addWidget(widget);
+        widget = new ReactWidgetBase('Inspector', Inspector); 
+        this.dock.addWidget(widget, {mode:'split-right'});
         this.dock.id = 'main';
+
+        // for (let index = 0; index < 5; index++) {
+        //     //const element = createContent('Yellow');
+        //     //let node = document.createElement("div");
+
+        //     let widget = new ReactWidgetBase('Game View', GameView); //new WrapperWidget("Widget Name", node);
+
+        //     //children.push(widget);
+        //     this.dock.addWidget(widget, {mode:'split-bottom'});
+        //     //widgetInfos.push({ node, component: <GameView/> });
+        // }
+
+        //this.setState({ ...this.state, widgetInfos });
+        
         //let parent = this.dock.handleEvent.bind(this.dock);
 
         // const wrapper = (event: any) => {
@@ -121,7 +128,6 @@ export default class WorkspacePanel extends React.Component<any, IDockState> {
 
     render() {
         return (
-            //<div ref={(c) => this.elem = c}>
             <div id='dock-panel' />
         );
     }

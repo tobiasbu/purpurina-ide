@@ -59,7 +59,7 @@ export default class ReactWidgetBase extends Widget {
         this._reactElement = ReactElement;
         this._reactComponent = ReactDOM.render(ReactElement, host);
         this._reactComponent.setState({width: this._width, height: this._height})
-        console.log('update')
+
         //this._originalComponentWillUpdate = this._reactComponent.componentWillUpdate;
         //this._reactComponent.componentWillUpdate = this.onUpdate.bind(this);
 
