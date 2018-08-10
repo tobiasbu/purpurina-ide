@@ -45,10 +45,10 @@ export default class WorkspacePanel extends React.Component<any, IDockState> {
 
         this.dock = new DockPanel();
         //let widgetInfos = [];
-        let widget = new ReactWidgetBase('Game View', GameView); 
+        let widget = new GameView(); 
         this.dock.addWidget(widget);
-        widget = new ReactWidgetBase('Inspector', Inspector); 
-        this.dock.addWidget(widget, {mode:'split-right'});
+        let widget2 = new ReactWidgetBase('Inspector', Inspector); 
+        this.dock.addWidget(widget2, {mode:'split-right'});
         this.dock.id = 'main';
 
         // for (let index = 0; index < 5; index++) {

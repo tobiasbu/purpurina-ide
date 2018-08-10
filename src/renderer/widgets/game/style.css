@@ -1,5 +1,5 @@
 body {
-    font: 12px Segoe UI, Helvetica, Arial, sans-serif;
+    font: 11px Segoe UI, Helvetica, Arial, sans-serif;
     color: #F0F0F0;
 }
 
@@ -7,24 +7,57 @@ fieldset {
     border: none;
 }
 
-.flex-wrapper {
+#inspector> :nth-child(n) {
+    margin-bottom: 4px;
+}
+
+.flex-container {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: stretch;
 }
 
-.flex-wrapper>div {
-    flex: 1 1 auto;
+.flex-container>.flex-horizontal {
+    display: inline-flex;
+    min-width: 50%;
+    width: auto;
 }
 
-input {
-    /* width: 50%; */
+.flex-horizontal {
+    display: inline-flex;
+    min-width: 50%;
+    width: auto;
+}
+
+.horizotal-group {
+    display: contents;
+    min-width: 0;
+}
+
+.flex-container>.flex-horizontal:nth-child(1n+2)
+/*(an + b)*/
+
+    {
+    margin-left: 4px;
+    min-width: calc(50% - 4px);
+}
+
+input,
+input[type="number"],
+input.checkbox+label {
+    width: auto;
     height: 14px;
     border: 1px solid #000;
     background: #141414ff;
     color: #F0F0F0;
+    font-size: 11px;
+}
+
+.text-input {
+    flex: auto;
     padding: 3px;
+    min-width: inherit;
 }
 
 input[type=number]::-webkit-inner-spin-button,
@@ -39,8 +72,74 @@ input[type="number"] {
     -moz-appearance: textfield;
 }
 
-label {
-    /* min-width: 10%; */
+.text-label {
     margin: auto;
     text-transform: capitalize;
 }
+
+.number {
+    min-width: 20px;
+    cursor: col-resize;
+}
+
+input[type="checkbox"] {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none; 
+    display: none;
+    visibility: hidden;
+    padding: 0;
+    border: 0
+}
+
+/* -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none; */
+
+/* display: none; */
+
+/* 
+    position: absolute;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    width: 1px;
+    margin: -1px;
+    padding: 0;
+    border: 0;*/
+
+.checkbox-container {
+    cursor: pointer;
+    min-width: 20px;
+    margin: auto;
+}
+
+.checkbox-container .checkbox-indicator {
+    display: inline-block;
+    vertical-align: middle;
+    pointer-events: none;
+}
+input[type="checkbox"]+label::after {
+    content: none;
+}
+
+input.checkbox+.checkbox-indicator {
+    width: 12px;
+    height: 12px;
+    /* cursor: pointer; */
+    /* text-shadow: 1px 1px 1px rgba(0, 0, 0, .2); */
+    color: #f3f3f3;
+    text-align: center;
+    line-height: 8px;
+    /* display: inline-block; */
+}
+
+input[type="checkbox"]:checked+.checkbox-indicator::after {
+    content: "\2713";
+    vertical-align: middle;
+}
+
+/* 
+input[type="checkbox"]:checked+label::after {
+    content: "\2713";
+} */

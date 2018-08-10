@@ -3,12 +3,12 @@ import * as ReactDOM from "react-dom";
 import { Widget } from "@phosphor/widgets";
 import { Message } from "@phosphor/messaging";
 
-import { ComponentBase } from "./Component";
+import { ReactComponentBase } from "./ReactComponentBase";
 
 
 export default class ReactWidgetBase extends Widget {
 
-    private _wrapperElement:HTMLElement;
+    private _wrapperElement: HTMLElement;
     private _reactClass: any;
     private _reactElement: React.ComponentElement<{}, React.Component<{}, React.ComponentState, any>>
     private _reactComponent: React.Component;
@@ -16,7 +16,7 @@ export default class ReactWidgetBase extends Widget {
     private _height: number;
     private _originalComponentWillUpdate: <P, S>(nextProps: Readonly<P>, nextState: Readonly<S>, nextContext: any) => void;
 
-    constructor(name: string, reactClass: ComponentBase | any) {
+    constructor(name: string, reactClass: ReactComponentBase | any) {
         super();
         //this.setFlag(Widget.Flag.DisallowLayout);
         this.title.label = name;
@@ -55,10 +55,10 @@ export default class ReactWidgetBase extends Widget {
     protected onUpdateRequest(msg: Message): void {
 
         const host = this.node.firstChild as Element;
-        const ReactElement = React.createElement(this._reactClass);
+        const ReactElement = React.createElement(this._reactClass, { parent: this });
         this._reactElement = ReactElement;
         this._reactComponent = ReactDOM.render(ReactElement, host);
-        this._reactComponent.setState({width: this._width, height: this._height})
+        this._reactComponent.setState({ width: this._width, height: this._height })
 
         //this._originalComponentWillUpdate = this._reactComponent.componentWillUpdate;
         //this._reactComponent.componentWillUpdate = this.onUpdate.bind(this);
@@ -66,20 +66,18 @@ export default class ReactWidgetBase extends Widget {
     }
 
     protected onResize(msg: Widget.ResizeMessage) {
-        
+
         //const computed = window.getComputedStyle(this._wrapperElement);
         //const paddingHorizontal = parseFloat(computed.paddingLeft.replace('px','')) + parseFloat(computed.paddingRight.replace('px','')); //.getPropertyValue('padding'); //.replace('px',','); //.split(',');
         //const paddingVertical = parseFloat(computed.paddingBottom.replace('px','')) + parseFloat(computed.paddingTop.replace('px',''));
-        
+
         this._width = msg.width - 10;
         this._height = msg.height - 10;
-
-        console.log( this._wrapperElement)
 
         if (this._reactComponent !== undefined) {
             this._reactComponent.setState({
                 width: Math.round(this._width),
-                height:  Math.round(this._height)
+                height: Math.round(this._height)
             })
 
             if (this._originalComponentWillUpdate !== undefined) {

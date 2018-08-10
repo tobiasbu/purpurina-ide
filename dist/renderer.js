@@ -23958,7 +23958,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "body {\r\n    font: 12px Segoe UI, Helvetica, Arial, sans-serif;\r\n    color: #F0F0F0;\r\n}\r\n\r\nfieldset {\r\n    border: none;\r\n}\r\n\r\n.flex-wrapper {\r\n    display: flex;\r\n    flex-direction: row;\r\n    justify-content: space-between;\r\n    align-items: stretch;\r\n}\r\n\r\n.flex-wrapper>div {\r\n    flex: 1 1 auto;\r\n}\r\n\r\ninput {\r\n    /* width: 50%; */\r\n    height: 14px;\r\n    border: 1px solid #000;\r\n    background: #141414ff;\r\n    color: #F0F0F0;\r\n    padding: 3px;\r\n}\r\n\r\ninput[type=number]::-webkit-inner-spin-button,\r\ninput[type=number]::-webkit-outer-spin-button {\r\n    -webkit-appearance: none;\r\n    -moz-appearance: none;\r\n    appearance: none;\r\n    margin: 0;\r\n}\r\n\r\ninput[type=\"number\"] {\r\n    -moz-appearance: textfield;\r\n}\r\n\r\nlabel {\r\n    /* min-width: 10%; */\r\n    margin: auto;\r\n    text-transform: capitalize;\r\n}", ""]);
+exports.push([module.i, "body {\r\n    font: 11px Segoe UI, Helvetica, Arial, sans-serif;\r\n    color: #F0F0F0;\r\n}\r\n\r\nfieldset {\r\n    border: none;\r\n}\r\n\r\n#inspector> :nth-child(n) {\r\n    margin-bottom: 4px;\r\n}\r\n\r\n.flex-container {\r\n    display: flex;\r\n    flex-direction: row;\r\n    justify-content: space-between;\r\n    align-items: stretch;\r\n}\r\n\r\n.flex-container>.flex-horizontal {\r\n    display: inline-flex;\r\n    min-width: 50%;\r\n    width: auto;\r\n}\r\n\r\n.flex-horizontal {\r\n    display: inline-flex;\r\n    min-width: 50%;\r\n    width: auto;\r\n}\r\n\r\n.horizotal-group {\r\n    display: contents;\r\n    min-width: 0;\r\n}\r\n\r\n.flex-container>.flex-horizontal:nth-child(1n+2)\r\n/*(an + b)*/\r\n\r\n    {\r\n    margin-left: 4px;\r\n    min-width: calc(50% - 4px);\r\n}\r\n\r\ninput,\r\ninput[type=\"number\"],\r\ninput.checkbox+label {\r\n    width: auto;\r\n    height: 14px;\r\n    border: 1px solid #000;\r\n    background: #141414ff;\r\n    color: #F0F0F0;\r\n    font-size: 11px;\r\n}\r\n\r\n.text-input {\r\n    flex: auto;\r\n    padding: 3px;\r\n    min-width: inherit;\r\n}\r\n\r\ninput[type=number]::-webkit-inner-spin-button,\r\ninput[type=number]::-webkit-outer-spin-button {\r\n    -webkit-appearance: none;\r\n    -moz-appearance: none;\r\n    appearance: none;\r\n    margin: 0;\r\n}\r\n\r\ninput[type=\"number\"] {\r\n    -moz-appearance: textfield;\r\n}\r\n\r\n.text-label {\r\n    margin: auto;\r\n    text-transform: capitalize;\r\n}\r\n\r\n.number {\r\n    min-width: 20px;\r\n    cursor: col-resize;\r\n}\r\n\r\ninput[type=\"checkbox\"] {\r\n    -webkit-appearance: none;\r\n    -moz-appearance: none;\r\n    appearance: none; \r\n    display: none;\r\n    visibility: hidden;\r\n    padding: 0;\r\n    border: 0\r\n}\r\n\r\n/* -webkit-appearance: none;\r\n    -moz-appearance: none;\r\n    appearance: none; */\r\n\r\n/* display: none; */\r\n\r\n/* \r\n    position: absolute;\r\n    overflow: hidden;\r\n    clip: rect(0 0 0 0);\r\n    height: 1px;\r\n    width: 1px;\r\n    margin: -1px;\r\n    padding: 0;\r\n    border: 0;*/\r\n\r\n.checkbox-container {\r\n    cursor: pointer;\r\n    min-width: 20px;\r\n    margin: auto;\r\n}\r\n\r\n.checkbox-container .checkbox-indicator {\r\n    display: inline-block;\r\n    vertical-align: middle;\r\n    pointer-events: none;\r\n}\r\ninput[type=\"checkbox\"]+label::after {\r\n    content: none;\r\n}\r\n\r\ninput.checkbox+.checkbox-indicator {\r\n    width: 12px;\r\n    height: 12px;\r\n    /* cursor: pointer; */\r\n    /* text-shadow: 1px 1px 1px rgba(0, 0, 0, .2); */\r\n    color: #f3f3f3;\r\n    text-align: center;\r\n    line-height: 8px;\r\n    /* display: inline-block; */\r\n}\r\n\r\ninput[type=\"checkbox\"]:checked+.checkbox-indicator::after {\r\n    content: \"\\2713\";\r\n    vertical-align: middle;\r\n}\r\n\r\n/* \r\ninput[type=\"checkbox\"]:checked+label::after {\r\n    content: \"\\2713\";\r\n} */", ""]);
 
 // exports
 
@@ -47553,6 +47553,95 @@ exports.default = App;
 
 /***/ }),
 
+/***/ "./src/renderer/components/Checkbox.tsx":
+/*!**********************************************!*\
+  !*** ./src/renderer/components/Checkbox.tsx ***!
+  \**********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+;
+var Checkbox = /** @class */ (function (_super) {
+    __extends(Checkbox, _super);
+    function Checkbox() {
+        var _this = _super !== null && _super.apply(this, arguments) || this;
+        _this.state = {
+            checked: true,
+            disabled: false
+        };
+        _this.handleChange = function (event) {
+            var state = _this.state;
+            if (state.disabled) {
+                return;
+            }
+            var props = _this.props;
+            _this.toggle();
+            if (props.onChange !== undefined) {
+                props.onChange({
+                    nativeEvent: event.nativeEvent,
+                    isChecked: state.checked,
+                    isDisabled: state.disabled,
+                    target: _this
+                });
+            }
+        };
+        return _this;
+    }
+    Object.defineProperty(Checkbox.prototype, "checked", {
+        // constructor(props) {
+        //     super(props);
+        //     //const checked = 'checked' in props ? props.checked : props.defaultChecked;
+        //     // this.state = {
+        //     //     checked,
+        //     //     disabled,
+        //     // };
+        // }
+        get: function () {
+            if (!this.checkbox) {
+                return null;
+            }
+            return this.checkbox.checked;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Checkbox.prototype.toggle = function () {
+        this.setState(function (_a) {
+            var checked = _a.checked;
+            return ({
+                checked: !checked,
+            });
+        });
+    };
+    Checkbox.prototype.render = function () {
+        var _a = this.state, checked = _a.checked, disabled = _a.disabled;
+        var name = this.props.name;
+        var self = this;
+        return (React.createElement("label", { className: 'checkbox-container' },
+            React.createElement("input", { className: 'checkbox', type: "checkbox", name: name, disabled: disabled, checked: checked, onChange: this.handleChange }),
+            React.createElement("label", { className: 'checkbox-indicator', htmlFor: 'checkbox' })));
+    };
+    return Checkbox;
+}(React.Component));
+exports.default = Checkbox;
+
+
+/***/ }),
+
 /***/ "./src/renderer/components/StatusBar.tsx":
 /*!***********************************************!*\
   !*** ./src/renderer/components/StatusBar.tsx ***!
@@ -47653,6 +47742,356 @@ if(false) {}
 
 /***/ }),
 
+/***/ "./src/renderer/engine/structures/List.ts":
+/*!************************************************!*\
+  !*** ./src/renderer/engine/structures/List.ts ***!
+  \************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var MergeSort_1 = __webpack_require__(/*! ./useful/MergeSort */ "./src/renderer/engine/structures/useful/MergeSort.ts");
+var List = /** @class */ (function () {
+    function List(elements, unique) {
+        this.unique = unique || true;
+        this.list = [];
+        if (elements !== null && Array.isArray(elements)) {
+            for (var i = 0; i < elements.length; i++)
+                this.push(elements[i]);
+        }
+    }
+    Object.defineProperty(List.prototype, "size", {
+        // [n: number]: T; = this.list[n];
+        get: function () { return this.list.length; },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(List.prototype, "length", {
+        get: function () { return this.list.length; },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(List.prototype, "contents", {
+        get: function () { return this.list; },
+        enumerable: true,
+        configurable: true
+    });
+    List.prototype.first = function () {
+        if (this.list.length > 0)
+            return this.list[0];
+        else
+            return null;
+    };
+    List.prototype.last = function () {
+        if (this.list.length > 0) {
+            var idx = this.list.length - 1;
+            return this.list[idx];
+        }
+        else
+            return null;
+    };
+    List.prototype.push = function (child) {
+        if (this.unique) {
+            if (this.indexOf(child) === -1)
+                this.list.push(child);
+        }
+        else {
+            this.list.push(child);
+        }
+        return child;
+    };
+    List.prototype.pushFront = function (child) {
+        if (this.unique) {
+            if (this.indexOf(child) === -1)
+                this.list.unshift(child);
+        }
+        else {
+            this.list.unshift(child);
+        }
+        return child;
+    };
+    List.prototype.insert = function (child, index) {
+        if (index === undefined)
+            index = 0;
+        if (this.list.length === 0)
+            return this.push(child);
+        if (index >= 0 && index <= this.list.length) {
+            if (this.unique) {
+                if (this.indexOf(child) === -1)
+                    this.list.splice(index, 0, child);
+            }
+            else {
+                this.list.splice(index, 0, child);
+            }
+        }
+        return child;
+    };
+    List.prototype.indexOf = function (child) {
+        return this.list.indexOf(child);
+    };
+    List.prototype.get = function (index) {
+        return this.list[index];
+    };
+    List.prototype.at = function (index) {
+        return this.list[index];
+    };
+    List.prototype.erase = function (child) {
+        var idx = this.list.indexOf(child);
+        var childToErase = null;
+        if (idx !== -1)
+            childToErase = this.list.splice(idx, 1);
+        return childToErase;
+    };
+    List.prototype.eraseAt = function (index) {
+        var child = this.list[index];
+        if (child)
+            this.list.splice(index, 1);
+        return child;
+    };
+    List.prototype.eraseList = function (listToRemove, size, destroy) {
+        if (destroy === undefined)
+            destroy = false;
+        if (Array.isArray(listToRemove)) {
+            if (size === undefined)
+                size = listToRemove.length;
+            for (var i = 0; i < size; i++) {
+                var child = listToRemove[i];
+                this.erase(child);
+            }
+        }
+        else {
+            if (size === undefined)
+                size = listToRemove.size;
+            for (var i = 0; i < size; i++) {
+                var child = listToRemove.at(i);
+                this.erase(child);
+            }
+        }
+    };
+    List.prototype.eraseIndexedList = function (listToRemove) {
+        var size = listToRemove.length;
+        if (Array.isArray(listToRemove)) {
+            for (var i = 0; i < size; i++) {
+                var index = listToRemove[i];
+                this.eraseAt(index);
+            }
+        }
+        else {
+            for (var i = 0; i < size; i++) {
+                var index = listToRemove.at(i);
+                this.eraseAt(index);
+            }
+        }
+        return this;
+    };
+    List.prototype.pop = function () {
+        return this.list.pop();
+    };
+    List.prototype.popFront = function () {
+        return this.list.shift();
+    };
+    List.prototype.has = function (child) {
+        return (this.list.indexOf(child) > -1);
+    };
+    List.prototype.hasAt = function (index) {
+        return this.list[index] !== undefined;
+    };
+    List.prototype.empty = function () {
+        return (this.list.length === 0);
+    };
+    List.prototype.clear = function () {
+        /*let i = this.list.length;
+
+        while(i--) {
+            this.erase(this.list[i]);
+        }*/
+        this.list.length = 0;
+        return this;
+    };
+    List.prototype.splice = function (start, count, items) {
+        var _a;
+        if (items === undefined)
+            return this.list.splice(start, count);
+        else
+            return (_a = this.list).splice.apply(_a, [start, count].concat(items));
+    };
+    List.prototype.destroy = function () {
+        this.clear();
+        this.list = [];
+        // this.parent = null;
+    };
+    List.prototype.concat = function (otherList, clearOther) {
+        if (clearOther === undefined)
+            clearOther = false;
+        if (clearOther) {
+            this.list = this.list.concat(otherList.contents.splice(0));
+        }
+        else {
+            this.list = this.list.concat(otherList.contents);
+        }
+        return this;
+    };
+    List.prototype.each = function (callback, context) {
+        //let params = [];
+        var args = [];
+        for (var _i = 2; _i < arguments.length; _i++) {
+            args[_i - 2] = arguments[_i];
+        }
+        var content = this.list;
+        var r;
+        // let istart = (context === undefined) ? 1 : 2;
+        // for (let i = istart; i < arguments.length; i++)
+        //     params.push(arguments[i]);
+        for (var i = 0; i < content.length; i++) {
+            if (context === undefined) {
+                r = callback(content[i], i, args);
+            }
+            else {
+                r = callback.call(context, content[i], i, args);
+            }
+            if (r !== undefined) {
+                return r;
+            }
+            //break;
+        }
+        return r;
+    };
+    List.prototype.sort = function (predicate) {
+        if (predicate === undefined)
+            return undefined;
+        return MergeSort_1.default(this.list, predicate);
+        //childs.sort(predicate);
+    };
+    List.prototype.find = function (predicate) {
+        if (predicate === undefined)
+            return undefined;
+        var size = this.list.length;
+        for (var i = 0; i < size; i++) {
+            if (predicate(this.list[i])) {
+                return this.list[i];
+            }
+        }
+        return null;
+    };
+    List.prototype.swap = function (childA, childB) {
+        if (childA === childB)
+            return undefined;
+        var idx0 = this.indexOf(childA);
+        var idx1 = this.indexOf(childB);
+        if (idx0 < 0 || idx1 < 0) {
+            throw new Error('DataList.swap: Could not swap childrens. The objects are not in the list.');
+        }
+        this.list[idx0] = childA;
+        this.list[idx1] = childB;
+        return this;
+    };
+    List.prototype.swapByIndex = function (indexA, indexB) {
+        if (indexA === indexB)
+            return undefined;
+        var cA = this.at(indexA);
+        var cB = this.at(indexB);
+        if (cA === undefined || cB === undefined) {
+            throw new Error('DataList.swapByIndex: Could not swap childrens by index. The objects are not in the list.');
+        }
+        this.list[indexA] = cA;
+        this.list[indexB] = cB;
+        return this;
+    };
+    List.prototype.reverse = function () {
+        this.list.reverse();
+        return this;
+    };
+    return List;
+}());
+exports.default = List;
+
+
+/***/ }),
+
+/***/ "./src/renderer/engine/structures/useful/MergeSort.ts":
+/*!************************************************************!*\
+  !*** ./src/renderer/engine/structures/useful/MergeSort.ts ***!
+  \************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+// http://www.stoimen.com/blog/2010/07/02/friday-algorithms-javascript-merge-sort/
+// https://codereview.stackexchange.com/questions/87000/fast-merge-sort-in-javascript
+function mergeSort(array, predicate) {
+    var size = array.length;
+    if (size < 2)
+        return array;
+    if (predicate === undefined) {
+        predicate = function (a, b) {
+            return a < b ? -1 : a === b ? 0 : 1;
+        };
+    }
+    /*function merge(left, right)
+    {
+        var result = [];
+ 
+        while (left.length && right.length) {
+            if (left[0] <= right[0]) {
+                result.push(left.shift());
+            } else {
+                result.push(right.shift());
+            }
+        }
+     
+        while (left.length)
+            result.push(left.shift());
+     
+        while (right.length)
+            result.push(right.shift());
+     
+        return result;
+    }*/
+    function merge(begin, begin_right, end) {
+        // Create a copy of the left and right halves.
+        var left_size = begin_right - begin;
+        var right_size = end - begin_right;
+        var left = array.slice(begin, begin_right);
+        var right = array.slice(begin_right, end);
+        // Merge left and right halves back into original array.
+        var i = begin, j = 0, k = 0;
+        while (j < left_size && k < right_size)
+            if (predicate(left[j], right[k]) <= 0)
+                array[i++] = left[j++];
+            else
+                array[i++] = right[k++];
+        // At this point, at least one of the two halves is finished.
+        // Copy any remaining elements from left array back to original array.
+        while (j < left_size)
+            array[i++] = left[j++];
+        // Copy any remaining elements from right array back to original array.
+        while (k < right_size)
+            array[i++] = right[k++];
+        return array;
+    }
+    function msort(start, end) {
+        var len = end - start;
+        if (len < 2)
+            return;
+        var mid = start + (len >>> 1);
+        //let left = list.slice(start, mid);
+        //let right = list.slice(mid, end);
+        msort(start, mid);
+        msort(mid, end);
+        return merge(start, mid, end);
+    }
+    //let mid = 0 + (size >>> 1);
+    return msort(0, size); //mid,size);
+}
+exports.default = mergeSort;
+
+
+/***/ }),
+
 /***/ "./src/renderer/index.css":
 /*!********************************!*\
   !*** ./src/renderer/index.css ***!
@@ -47700,6 +48139,130 @@ var appNode = (React.createElement(react_redux_1.Provider, { store: store_1.defa
     React.createElement(App_1.default, null)));
 ReactDOM.render(appNode, rootNode);
 //registerServiceWorker();
+
+
+/***/ }),
+
+/***/ "./src/renderer/internal/UUID.ts":
+/*!***************************************!*\
+  !*** ./src/renderer/internal/UUID.ts ***!
+  \***************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+// 10000000 + -1000 + -4000 + -80000000 + -100000000000,
+var n = 1e7 + -1e3 + -4e3 + -8e3 + -1e11;
+var UUIDGenerator = /** @class */ (function () {
+    function UUIDGenerator() {
+    }
+    /**
+     * Generates a UUID
+     * @param a Placeholder
+     */
+    UUIDGenerator.prototype.generate = function (a) {
+        if (a) {
+            // if the placeholder was passed, return
+            // unless b is 8, in which case  a random number from  8 to 11 in hexadecimal
+            return (a ^ Math.random() * 16 >> a / 4).toString(16);
+        }
+        else {
+            // or otherwise a concatenated string:
+            // replacing zeroes, ones, and eights with random hex digits
+            return n.toString().replace(/[018]/g, this.generate);
+        }
+    };
+    UUIDGenerator.prototype.simple = function (from, length) {
+        if (!from)
+            from = 2;
+        if (!length)
+            length = 10;
+        return Math.random().toString(36).substr(from, length);
+    };
+    return UUIDGenerator;
+}());
+var UUID = new UUIDGenerator();
+exports.default = UUID;
+
+
+/***/ }),
+
+/***/ "./src/renderer/internal/canvas/CanvasPool.ts":
+/*!****************************************************!*\
+  !*** ./src/renderer/internal/canvas/CanvasPool.ts ***!
+  \****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var List_1 = __webpack_require__(/*! ../../engine/structures/List */ "./src/renderer/engine/structures/List.ts");
+var UUID_1 = __webpack_require__(/*! ../UUID */ "./src/renderer/internal/UUID.ts");
+// based in pixi
+var CanvasPoolManager = /** @class */ (function () {
+    function CanvasPoolManager() {
+        this._list = new List_1.default();
+    }
+    CanvasPoolManager.prototype.create = function (width, height) {
+        var canvasContainer = this.firstFree();
+        var canvas;
+        if (!width)
+            width = 100;
+        if (!height)
+            height = 100;
+        // no parent found
+        if (canvasContainer === null) {
+            canvasContainer = {
+                // parent: gameParent,
+                canvas: document.createElement('canvas'),
+                initialWidth: width,
+                initialHeight: height,
+                id: UUID_1.default.simple(),
+                using: true,
+            };
+            this._list.push(canvasContainer);
+            canvas = canvasContainer.canvas;
+            canvas.id = canvasContainer.id;
+        }
+        else {
+            // canvasContainer.parent = gameParent;
+            canvas = canvasContainer.canvas;
+        }
+        canvas.width = width;
+        canvas.height = height;
+        return canvas;
+    };
+    // filter(gameParent) { // functional programming
+    //     var list = scintilla.CanvasList.list;
+    //     return list.parent === gameParent;
+    // }
+    CanvasPoolManager.prototype.firstFree = function () {
+        this._list.each(function (canvas) {
+            if (!canvas.using) {
+                return canvas;
+            }
+        });
+        return null;
+    };
+    CanvasPoolManager.prototype.remove = function (parent) {
+        var list = this._list;
+        for (var i = 0; i < list.length; i++) {
+            if (list[i].parent === parent) {
+                list[i].parent = null;
+            }
+        }
+    };
+    CanvasPoolManager.prototype.clear = function () {
+        /// TODO
+    };
+    return CanvasPoolManager;
+}());
+var CanvasPool = new CanvasPoolManager();
+Object.seal(CanvasPool);
+exports.default = CanvasPool;
 
 
 /***/ }),
@@ -47788,10 +48351,10 @@ if(false) {}
 
 /***/ }),
 
-/***/ "./src/renderer/widgets/base/Component.ts":
-/*!************************************************!*\
-  !*** ./src/renderer/widgets/base/Component.ts ***!
-  \************************************************/
+/***/ "./src/renderer/widgets/base/ReactComponentBase.ts":
+/*!*********************************************************!*\
+  !*** ./src/renderer/widgets/base/ReactComponentBase.ts ***!
+  \*********************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -47809,9 +48372,9 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-var ComponentBase = /** @class */ (function (_super) {
-    __extends(ComponentBase, _super);
-    function ComponentBase(props, initialState) {
+var ReactComponentBase = /** @class */ (function (_super) {
+    __extends(ReactComponentBase, _super);
+    function ReactComponentBase(props) {
         var _this = _super.call(this, props) || this;
         _this.state = {
             width: 0,
@@ -47820,11 +48383,11 @@ var ComponentBase = /** @class */ (function (_super) {
         return _this;
         //this.state = initialState;
     }
-    ComponentBase.prototype.componentWillMount = function () {
+    ReactComponentBase.prototype.componentWillMount = function () {
     };
-    return ComponentBase;
+    return ReactComponentBase;
 }(React.Component));
-exports.ComponentBase = ComponentBase;
+exports.ReactComponentBase = ReactComponentBase;
 
 
 /***/ }),
@@ -47880,7 +48443,7 @@ var ReactWidgetBase = /** @class */ (function (_super) {
     };
     ReactWidgetBase.prototype.onUpdateRequest = function (msg) {
         var host = this.node.firstChild;
-        var ReactElement = React.createElement(this._reactClass);
+        var ReactElement = React.createElement(this._reactClass, { parent: this });
         this._reactElement = ReactElement;
         this._reactComponent = ReactDOM.render(ReactElement, host);
         this._reactComponent.setState({ width: this._width, height: this._height });
@@ -47893,7 +48456,6 @@ var ReactWidgetBase = /** @class */ (function (_super) {
         //const paddingVertical = parseFloat(computed.paddingBottom.replace('px','')) + parseFloat(computed.paddingTop.replace('px',''));
         this._width = msg.width - 10;
         this._height = msg.height - 10;
-        console.log(this._wrapperElement);
         if (this._reactComponent !== undefined) {
             this._reactComponent.setState({
                 width: Math.round(this._width),
@@ -47906,6 +48468,80 @@ var ReactWidgetBase = /** @class */ (function (_super) {
     return ReactWidgetBase;
 }(widgets_1.Widget));
 exports.default = ReactWidgetBase;
+
+
+/***/ }),
+
+/***/ "./src/renderer/widgets/base/WidgetBase.ts":
+/*!*************************************************!*\
+  !*** ./src/renderer/widgets/base/WidgetBase.ts ***!
+  \*************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+var widgets_1 = __webpack_require__(/*! @phosphor/widgets */ "./node_modules/@phosphor/widgets/lib/index.js");
+var WidgetBase = /** @class */ (function (_super) {
+    __extends(WidgetBase, _super);
+    function WidgetBase(name) {
+        var _this = _super.call(this) || this;
+        //this.setFlag(Widget.Flag.DisallowLayout);
+        _this.title.label = name;
+        _this.title.closable = true;
+        _this.title.caption = name;
+        _this._wrapperElement = document.createElement('div');
+        _this._wrapperElement.className = 'p-Widget-wrapper';
+        _this.node.appendChild(_this._wrapperElement);
+        return _this;
+    }
+    Object.defineProperty(WidgetBase.prototype, "height", {
+        get: function () {
+            return this._height;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(WidgetBase.prototype, "width", {
+        get: function () {
+            return this._width;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    WidgetBase.prototype.appendChild = function (child) {
+        this._wrapperElement.appendChild(child);
+    };
+    WidgetBase.prototype.onAfterAttach = function (_msg) {
+        this.update();
+    };
+    WidgetBase.prototype.onResize = function (msg) {
+        //const computed = window.getComputedStyle(this._wrapperElement);
+        //const paddingHorizontal = parseFloat(computed.paddingLeft.replace('px','')) + parseFloat(computed.paddingRight.replace('px','')); //.getPropertyValue('padding'); //.replace('px',','); //.split(',');
+        //const paddingVertical = parseFloat(computed.paddingBottom.replace('px','')) + parseFloat(computed.paddingTop.replace('px',''));
+        this._width = msg.width - 8;
+        this._height = msg.height - 8;
+        // rect.x = clientRect.left + window.pageXOffset - document.documentElement.clientLeft;
+        // rect.y = clientRect.top + window.pageYOffset - document.documentElement.clientTop;
+        this.onResizeEvent({
+            width: Math.round(this._width),
+            height: Math.round(this._height)
+        });
+    };
+    return WidgetBase;
+}(widgets_1.Widget));
+exports.default = WidgetBase;
 
 
 /***/ }),
@@ -47930,18 +48566,23 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-var Component_1 = __webpack_require__(/*! ../base/Component */ "./src/renderer/widgets/base/Component.ts");
+var WidgetBase_1 = __webpack_require__(/*! ../base/WidgetBase */ "./src/renderer/widgets/base/WidgetBase.ts");
+var CanvasPool_1 = __webpack_require__(/*! ../../internal/canvas/CanvasPool */ "./src/renderer/internal/canvas/CanvasPool.ts");
 var style = {
-    background: '#171717',
+    backgroundColor: '#171717',
     border: '1px solid black'
 };
 var GameView = /** @class */ (function (_super) {
     __extends(GameView, _super);
     function GameView() {
-        return _super !== null && _super.apply(this, arguments) || this;
-    }
-    GameView.prototype.componentDidMount = function () {
+        var _this = _super.call(this, "Game View") || this;
+        _this.title.caption = "Game View";
+        _this.title.label = "Game View";
+        _this._canvas = CanvasPool_1.default.create();
+        _this.appendChild(_this._canvas);
+        _this._canvas.style.backgroundColor = style.backgroundColor;
+        return _this;
+        //this.props.parent.node.appendChild(this._canvas);
         // this.container = $('#gameView');
         // this.container.outerWidth(this.props.glContainer.width);
         // this.container.outerHeight(this.props.glContainer.height);
@@ -47952,14 +48593,15 @@ var GameView = /** @class */ (function (_super) {
         //     this.container.outerWidth(this.width);
         //     this.container.outerHeight(this.height);
         // }, this);
-    };
-    GameView.prototype.render = function () {
-        var w = this.state.width.toString(10) + 'px';
-        var h = this.state.height.toString(10) + 'px';
-        return (React.createElement("canvas", { className: 'gameView', width: w, height: h, style: style }));
+    }
+    GameView.prototype.onResizeEvent = function (resizeEvent) {
+        var w = resizeEvent.width;
+        var h = resizeEvent.height;
+        this._canvas.width = w;
+        this._canvas.height = h;
     };
     return GameView;
-}(Component_1.ComponentBase));
+}(WidgetBase_1.default));
 exports.default = GameView;
 
 
@@ -47986,22 +48628,32 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-var Component_1 = __webpack_require__(/*! ../base/Component */ "./src/renderer/widgets/base/Component.ts");
+var ReactComponentBase_1 = __webpack_require__(/*! ../base/ReactComponentBase */ "./src/renderer/widgets/base/ReactComponentBase.ts");
 __webpack_require__(/*! ./style.css */ "./src/renderer/widgets/game/style.css");
+var Checkbox_1 = __webpack_require__(/*! ../../components/Checkbox */ "./src/renderer/components/Checkbox.tsx");
 var Inspector = /** @class */ (function (_super) {
     __extends(Inspector, _super);
     function Inspector() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
+    Inspector.prototype.check = function () {
+    };
     Inspector.prototype.render = function () {
-        return (React.createElement("div", { className: 'flex-wrapper' },
-            React.createElement("label", null, "X"),
-            React.createElement("input", { type: 'number' }),
-            React.createElement("label", null, "Y"),
-            React.createElement("input", { type: 'number' })));
+        return (React.createElement("div", { id: 'inspector' },
+            React.createElement("div", { className: 'flex-container' },
+                React.createElement("div", { className: 'horizotal-group' },
+                    React.createElement(Checkbox_1.default, null),
+                    React.createElement("input", { className: 'text-input', type: 'textfield' }))),
+            React.createElement("div", { className: 'flex-container' },
+                React.createElement("div", { className: 'flex-horizontal' },
+                    React.createElement("label", { className: 'text-label number' }, "X"),
+                    React.createElement("input", { className: 'text-input', type: 'number' })),
+                React.createElement("div", { className: 'flex-horizontal' },
+                    React.createElement("label", { className: 'text-label number' }, "Y"),
+                    React.createElement("input", { className: 'text-input', type: 'number' })))));
     };
     return Inspector;
-}(Component_1.ComponentBase));
+}(ReactComponentBase_1.ReactComponentBase));
 exports.default = Inspector;
 
 
@@ -48067,10 +48719,10 @@ var WorkspacePanel = /** @class */ (function (_super) {
     WorkspacePanel.prototype.componentWillMount = function () {
         this.dock = new widgets_1.DockPanel();
         //let widgetInfos = [];
-        var widget = new ReactWidgetBase_1.default('Game View', GameView_1.default);
+        var widget = new GameView_1.default();
         this.dock.addWidget(widget);
-        widget = new ReactWidgetBase_1.default('Inspector', Inspector_1.default);
-        this.dock.addWidget(widget, { mode: 'split-right' });
+        var widget2 = new ReactWidgetBase_1.default('Inspector', Inspector_1.default);
+        this.dock.addWidget(widget2, { mode: 'split-right' });
         this.dock.id = 'main';
         // for (let index = 0; index < 5; index++) {
         //     //const element = createContent('Yellow');
