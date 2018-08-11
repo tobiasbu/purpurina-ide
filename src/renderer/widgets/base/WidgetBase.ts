@@ -1,6 +1,6 @@
 import { Widget } from "@phosphor/widgets";
 import { Message } from "@phosphor/messaging";
-import { WidgetResizeEvent } from "../../typings/widgetinterfaces";
+import { WidgetResizeEvent } from "../../typings/WidgetInterfaces";
 
 
 export default abstract class WidgetBase extends Widget {

@@ -221,7 +221,7 @@ export default class List<T>
         return this;
     }
 
-    each(callback: ListEachFunction<T>, context?: any, ...args: any[]): T {
+    each(callback: ListEachFunction<T>, context?: any, ...args: any[]): T|any {
         //let params = [];
 
         let content = this.list;

@@ -19,11 +19,11 @@ class CanvasPoolManager {
         let canvasContainer: ICanvasContainer = this.firstFree();
         let canvas: HTMLCanvasElement;
 
-        if (!width)
+        if (width === undefined)
             width = 100;
 
-        if (!height)
-        height = 100;
+        if (!height === undefined)
+            height = 100;
 
         // no parent found
         if (canvasContainer === null) {

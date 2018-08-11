@@ -47742,6 +47742,1111 @@ if(false) {}
 
 /***/ }),
 
+/***/ "./src/renderer/engine/math/MathUtils.ts":
+/*!***********************************************!*\
+  !*** ./src/renderer/engine/math/MathUtils.ts ***!
+  \***********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var MathUtils = /** @class */ (function () {
+    function MathUtils() {
+        this.radtodeg = Math.PI / 180;
+        this.degtorad = 180 / Math.PI;
+        this.TAU = Math.PI * 2;
+        //HALFPI : Math.PI / 2,
+        this.EPSILON = Math.pow(2, -52);
+        this.HALFPI = 1.5707963267948966;
+    }
+    MathUtils.prototype.floor = function (value) {
+        return (value >> 0);
+    };
+    MathUtils.prototype.round = function (value) {
+        // With a bitwise or.
+        //let rounded = (0.5 + value) | 0;
+        // FASTEST - A double bitwise not.
+        return ~~(0.5 + value);
+        // Finally, a left bitwise shift.
+        //rounded = (0.5 + value) << 0;
+    };
+    MathUtils.prototype.abs = function (value) {
+        return ((value < 0) ? (-value) : (value));
+    };
+    MathUtils.prototype.max = function (a, b) {
+        return (a < b) ? b : a;
+    };
+    MathUtils.prototype.min = function (a, b) {
+        return !(b < a) ? a : b;
+    };
+    MathUtils.prototype.sign = function (value) {
+        return (value < 0) ? -1 : (value > 0) ? 1 : 0;
+    };
+    MathUtils.prototype.clamp = function (value, min, max) {
+        return (value > min) ? (value < max) ? value : max : min;
+    };
+    MathUtils.prototype.lerp = function (fromValue, toValue, t) {
+        return (1.0 - t) * fromValue + t * toValue;
+    };
+    MathUtils.prototype.clampedLerp = function (fromValue, toValue, t) {
+        t = this.clamp(t, 0.0, 1.0);
+        return this.lerp(fromValue, toValue, t);
+    };
+    MathUtils.prototype.impreciseLerp = function (fromValue, toValue, t) {
+        return fromValue + t * (toValue - fromValue);
+    };
+    MathUtils.prototype.distance = function (x0, y0, x1, y1) {
+        return Math.sqrt((x0 -= x1) * x0 + (y0 -= y1) * y0);
+    };
+    MathUtils.prototype.angleBetween = function (x0, y0, x1, y1) {
+        var angle = this.degToRad(Math.atan2(y1 - y0, x1 - x0));
+        if (angle < 0 && angle >= -180)
+            angle = 360 + angle;
+        return angle;
+    };
+    MathUtils.prototype.radToDeg = function (radians) {
+        return radians * this.radtodeg;
+    };
+    MathUtils.prototype.degToRad = function (degrees) {
+        return degrees * this.degtorad;
+    };
+    MathUtils.prototype.manhattan = function (from_x, from_y, to_x, to_y) {
+        return {
+            x: this.abs(to_x - from_x),
+            y: this.abs(to_y - from_y)
+        };
+    };
+    MathUtils.prototype.inManhattanRadius = function (from_x, from_y, to_x, to_y, radius, radius_y) {
+        if (radius_y === undefined)
+            radius_y = radius;
+        var dist = this.manhattan(from_x, from_y, to_x, to_y);
+        if (dist.x <= radius && dist.y <= radius_y)
+            return true;
+        else
+            return false;
+    };
+    MathUtils.prototype.average = function () {
+        var args = [];
+        for (var _i = 0; _i < arguments.length; _i++) {
+            args[_i] = arguments[_i];
+        }
+        var length = args.length;
+        if (length === 0)
+            return 0;
+        return (this.sum.apply(this, args) / length);
+    };
+    MathUtils.prototype.sum = function () {
+        var args = [];
+        for (var _i = 0; _i < arguments.length; _i++) {
+            args[_i] = arguments[_i];
+        }
+        var length = args.length;
+        if (length === 0)
+            return 0;
+        var r = args[0];
+        for (var i = 1; i < length; i++) {
+            r += args[i];
+        }
+        return r;
+    };
+    MathUtils.prototype.sub = function () {
+        var args = [];
+        for (var _i = 0; _i < arguments.length; _i++) {
+            args[_i] = arguments[_i];
+        }
+        var length = args.length;
+        if (length === 0)
+            return 0;
+        var r = args[0];
+        for (var i = 1; i < length; i++) {
+            r -= args[i];
+        }
+        return r;
+    };
+    MathUtils.prototype.lerpAngle = function (fromValue, toValue, t) {
+        /*var shortest_angle = ((((toValue - fromValue) % 360) + 540) % 360) - 180;
+        return shortest_angle * t;*/
+        var end = toValue;
+        var start = fromValue;
+        var difference = Math.abs(end - start);
+        if (difference > 180) {
+            // We need to add on to one of the values.
+            if (end > start) {
+                // We'll add it on to start...
+                start += 360;
+            }
+            else {
+                // Add it on to end.
+                end += 360;
+            }
+        }
+        // Interpolate it.
+        var value = (start + ((end - start) * t));
+        if (value >= 0 && value <= 360)
+            return value;
+        // Wrap it..
+        return (value % 360);
+    };
+    return MathUtils;
+}());
+;
+Object.freeze(MathUtils);
+exports.default = new MathUtils;
+
+
+/***/ }),
+
+/***/ "./src/renderer/engine/math/easing/Ease.ts":
+/*!*************************************************!*\
+  !*** ./src/renderer/engine/math/easing/Ease.ts ***!
+  \*************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var EaseIn_1 = __webpack_require__(/*! ./EaseIn */ "./src/renderer/engine/math/easing/EaseIn.ts");
+var EaseOut_1 = __webpack_require__(/*! ./EaseOut */ "./src/renderer/engine/math/easing/EaseOut.ts");
+var EaseInOut_1 = __webpack_require__(/*! ./EaseInOut */ "./src/renderer/engine/math/easing/EaseInOut.ts");
+var EasingType_1 = __webpack_require__(/*! ./EasingType */ "./src/renderer/engine/math/easing/EasingType.ts");
+/**
+ * Easing functions
+ */
+var Ease = {
+    /**
+     * Ease-in functions
+     */
+    in: EaseIn_1.default,
+    /**
+     * Ease-out functions
+     */
+    out: EaseOut_1.default,
+    /**
+     * Ease-in-out functions
+     */
+    inout: EaseInOut_1.default,
+    Type: EasingType_1.EasingType,
+};
+Object.freeze(Ease);
+exports.default = Ease;
+
+
+/***/ }),
+
+/***/ "./src/renderer/engine/math/easing/EaseIn.ts":
+/*!***************************************************!*\
+  !*** ./src/renderer/engine/math/easing/EaseIn.ts ***!
+  \***************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var MathUtils_1 = __webpack_require__(/*! ../MathUtils */ "./src/renderer/engine/math/MathUtils.ts");
+var EasingType_1 = __webpack_require__(/*! ./EasingType */ "./src/renderer/engine/math/easing/EasingType.ts");
+var EaseInFunctions = /** @class */ (function () {
+    function EaseInFunctions() {
+    }
+    /**
+     *
+     * @param {Number} from
+     * @param {Number} to
+     * @param {Number} t
+     * @param {Number} [duration]
+     */
+    EaseInFunctions.prototype.linear = function (from, to, t) {
+        return MathUtils_1.default.lerp(from, to, t);
+    };
+    EaseInFunctions.prototype.stepped = function (from, to, t) {
+        if (t < 0.5)
+            return from;
+        return from + to;
+    };
+    EaseInFunctions.prototype.cut = function (from, to, t, levels) {
+        if (levels === undefined)
+            levels = 2;
+        return MathUtils_1.default.lerp(from, to, MathUtils_1.default.floor(t * levels) / levels);
+    };
+    EaseInFunctions.prototype.sine = function (from, to, t) {
+        return to * (Math.sin(t * MathUtils_1.default.HALFPI - MathUtils_1.default.HALFPI) + 1) + from;
+    };
+    EaseInFunctions.prototype.power = function (from, to, t, power) {
+        return to * Math.pow(t, power) + from;
+    };
+    EaseInFunctions.prototype.quadratic = function (from, to, t) {
+        return this.power(from, to, t, 2);
+    };
+    EaseInFunctions.prototype.cubic = function (from, to, t) {
+        return this.power(from, to, t, 3);
+    };
+    EaseInFunctions.prototype.quartic = function (from, to, t) {
+        return this.power(from, to, t, 4);
+    };
+    EaseInFunctions.prototype.quintic = function (from, to, t) {
+        return this.power(from, to, t, 5);
+    };
+    EaseInFunctions.prototype.exponential = function (from, to, t) {
+        return (t == 0) ? from : to * Math.pow(2, 10 * (t - 1)) + from;
+    };
+    EaseInFunctions.prototype.circ = function (from, to, t) {
+        return -to * (Math.sqrt(1 - t * t) - 1) + from;
+    };
+    EaseInFunctions.prototype.elastic = function (from, to, t, duration) {
+        if (duration === undefined)
+            duration = 1;
+        if (t == 0)
+            return from;
+        if ((t /= duration) == 1)
+            return from + to;
+        var p = duration * 0.3;
+        var s = p / 4;
+        // this is a fix, again, with post-increment operators
+        var postFix = to * Math.pow(2, 10 * (t -= 1));
+        return -(postFix * Math.sin((t * duration - s) * (2 * Math.PI) / p)) + from;
+    };
+    EaseInFunctions.prototype.back = function (from, to, t) {
+        return to * t * t * ((EasingType_1.EASE_BACK_CONST + 1) * t - EasingType_1.EASE_BACK_CONST) + from;
+    };
+    /**
+     * Ease-in by specific EasingType.
+     *
+     * @param {EasingType} type The type of easing
+     * @param {Number} from Start point
+     * @param {Number} to End point
+     * @param {Number} t Normalized time
+     * @param {Number} [arg] Additional argument for specific types:
+     *
+     * @constant EasingType.CUT: The cell levels of the interpolation
+     * @constant EasintType.ELASTIC: The duration of the easing.
+     * @constant EasintType.POWER: The pow product.
+     */
+    EaseInFunctions.prototype.by = function (type, from, to, t, arg) {
+        if (arg === undefined)
+            arg = 3;
+        switch (type) {
+            case EasingType_1.EasingType.NONE:
+                return t;
+            case EasingType_1.EasingType.STEPPED:
+                return this.stepped(from, to, t);
+            case EasingType_1.EasingType.CUT:
+                return this.cut(from, to, t, arg);
+            case EasingType_1.EasingType.LINEAR:
+                return this.linear(from, to, t);
+            case EasingType_1.EasingType.SINE:
+                return this.sine(from, to, t);
+            case EasingType_1.EasingType.QUADRATIC:
+                return this.power(from, to, t, 2);
+            case EasingType_1.EasingType.CUBIC:
+                return this.power(from, to, t, 3);
+            case EasingType_1.EasingType.QUARTIC:
+                return this.power(from, to, t, 4);
+            case EasingType_1.EasingType.QUINTIC:
+                return this.power(from, to, t, 5);
+            case EasingType_1.EasingType.POWER:
+                return this.power(from, to, t, arg);
+            case EasingType_1.EasingType.EXPONENTIAL:
+                return this.exponential(from, to, t);
+            case EasingType_1.EasingType.CIRC:
+                return this.circ(from, to, t);
+            case EasingType_1.EasingType.BACK:
+                return this.back(from, to, t);
+            case EasingType_1.EasingType.ELASTIC:
+                return this.elastic(from, to, t, arg);
+        }
+        return t;
+    };
+    return EaseInFunctions;
+}());
+;
+var EaseIn = new EaseInFunctions();
+exports.default = EaseIn;
+
+
+/***/ }),
+
+/***/ "./src/renderer/engine/math/easing/EaseInOut.ts":
+/*!******************************************************!*\
+  !*** ./src/renderer/engine/math/easing/EaseInOut.ts ***!
+  \******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var MathUtils_1 = __webpack_require__(/*! ../MathUtils */ "./src/renderer/engine/math/MathUtils.ts");
+var EaseIn_1 = __webpack_require__(/*! ./EaseIn */ "./src/renderer/engine/math/easing/EaseIn.ts");
+var EasingType_1 = __webpack_require__(/*! ./EasingType */ "./src/renderer/engine/math/easing/EasingType.ts");
+var EaseInOutFunctions = /** @class */ (function () {
+    function EaseInOutFunctions() {
+    }
+    EaseInOutFunctions.prototype.linear = function (from, to, t) {
+        return MathUtils_1.default.lerp(from, to, t);
+    };
+    EaseInOutFunctions.prototype.stepped = function (from, to, t) {
+        return to * ((t < 0.5) ? 0 : 1) + from;
+    };
+    EaseInOutFunctions.prototype.cut = function (from, to, t, levels) {
+        if (levels === undefined)
+            levels = 2;
+        return MathUtils_1.default.lerp(from, to, MathUtils_1.default.floor(t * levels) / levels);
+    };
+    EaseInOutFunctions.prototype.sine = function (from, to, t) {
+        return to * ((Math.sin(t * Math.PI - MathUtils_1.default.HALFPI) + 1) / 2) + from;
+    };
+    EaseInOutFunctions.prototype.power = function (from, to, t, power) {
+        t *= 2;
+        if (t < 1)
+            return EaseIn_1.default.power(from, to, t, power) / 2;
+        var sign = (power % 2 == 0) ? -1 : 1;
+        return to * (sign / 2.0 * (Math.pow(s - 2, power) + sign * 2)) + from;
+    };
+    EaseInOutFunctions.prototype.quadratic = function (from, to, t) {
+        return this.power(from, to, t, 2);
+    };
+    EaseInOutFunctions.prototype.cubic = function (from, to, t) {
+        return this.power(from, to, t, 3);
+    };
+    EaseInOutFunctions.prototype.quartic = function (from, to, t) {
+        return this.power(from, to, t, 4);
+    };
+    EaseInOutFunctions.prototype.quintic = function (from, to, t) {
+        return this.power(from, to, t, 5);
+    };
+    EaseInOutFunctions.prototype.exponential = function (from, to, t) {
+        if (t == 0.0 || t == 1.0)
+            return (to * t) + from;
+        if (t < 0.5) {
+            return (to * 0.5 * Math.pow(2, (20 * t) - 10)) + from;
+        }
+        else {
+            return (to * -0.5 * Math.pow(2, (-20 * t) + 10) + 1) + from;
+        }
+    };
+    EaseInOutFunctions.prototype.circ = function (from, to, t) {
+        if (t / 2 < 1)
+            return -to / 2 * (Math.sqrt(1 - t * t) - 1) + from;
+        return to / 2 * (Math.sqrt(1 - t * (t -= 2)) + 1) + from;
+    };
+    EaseInOutFunctions.prototype.elastic = function (from, to, t, duration) {
+        if (duration === undefined)
+            duration = 1;
+        if (t == 0)
+            return from;
+        if ((t /= duration / 2) == 2)
+            return from + to;
+        var p = duration * (0.3 * 1.5);
+        var s = p / 4;
+        var postFix = 0;
+        if (to >= Math.abs(to)) {
+            s = p / (2 * Math.PI) * Math.asin(to / to);
+        }
+        if (t < 1) {
+            postFix = to * Math.pow(2, 10 * (t -= 1));
+            return -0.5 * (postFix * Math.sin((t * duration - s) * (2 * Math.PI) / p)) + from;
+        }
+        // postIncrement is evil
+        postFix = to * Math.pow(2, -10 * (t -= 1));
+        return postFix * Math.sin((t * duration - s) * (2 * Math.PI) / p) * 0.5 + to + from;
+    };
+    EaseInOutFunctions.prototype.back = function (from, to, t) {
+        if (t == 0)
+            return from;
+        if ((t /= 0.5) == 2)
+            return from + to;
+        var p = (.3 * 1.5);
+        var s = EasingType_1.EASE_BACK_CONST;
+        if (t < 1)
+            return to / 2 * (t * t * (((s *= (1.525)) + 1) * t - s)) + from;
+        return to / 2 * ((t -= 2) * t * (((s *= (1.525)) + 1) * t + s) + 2) + from;
+    };
+    /**
+     * Ease-in and ease out by specific EasingType.
+     *
+     * @param {EasingType} type The type of easing
+     * @param {Number} from Start point
+     * @param {Number} to End point
+     * @param {Number} t Normalized time
+     * @param {Number} [arg] Additional argument for specific types:
+     *
+     * @constant EasingType.CUT: The cell levels of the interpolation
+     * @constant EasintType.ELASTIC: The duration of the easing.
+     * @constant EasintType.POWER: The pow product.
+     */
+    EaseInOutFunctions.prototype.by = function (type, from, to, t, arg) {
+        if (arg === undefined)
+            arg = 1;
+        switch (type) {
+            case EasingType_1.EasingType.NONE:
+                return t;
+            case EasingType_1.EasingType.CUT:
+                return this.cut(from, to, t, arg);
+            case EasingType_1.EasingType.LINEAR:
+                return this.linear(from, to, t);
+            case EasingType_1.EasingType.SINE:
+                return this.sine(from, to, t);
+            case EasingType_1.EasingType.QUADRATIC:
+                return this.power(from, to, t, 2);
+            case EasingType_1.EasingType.CUBIC:
+                return this.power(from, to, t, 3);
+            case EasingType_1.EasingType.QUARTIC:
+                return this.power(from, to, t, 4);
+            case EasingType_1.EasingType.QUINTIC:
+                return this.power(from, to, t, 5);
+            case EasingType_1.EasingType.POWER:
+                return this.power(from, to, t, arg);
+            case EasingType_1.EasingType.EXPONENTIAL:
+                return this.exponential(from, to, t);
+            case EasingType_1.EasingType.CIRC:
+                return this.circ(from, to, t);
+            case EasingType_1.EasingType.BACK:
+                return this.back(from, to, t);
+            case EasingType_1.EasingType.ELASTIC:
+                return this.elastic(from, to, t, arg);
+        }
+        return t;
+    };
+    return EaseInOutFunctions;
+}());
+var EaseInOut = new EaseInOutFunctions();
+Object.freeze(EaseInOut);
+exports.default = EaseInOut;
+
+
+/***/ }),
+
+/***/ "./src/renderer/engine/math/easing/EaseOut.ts":
+/*!****************************************************!*\
+  !*** ./src/renderer/engine/math/easing/EaseOut.ts ***!
+  \****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var MathUtils_1 = __webpack_require__(/*! ../MathUtils */ "./src/renderer/engine/math/MathUtils.ts");
+var EasingType_1 = __webpack_require__(/*! ./EasingType */ "./src/renderer/engine/math/easing/EasingType.ts");
+var EaseOutFunction = /** @class */ (function () {
+    function EaseOutFunction() {
+    }
+    EaseOutFunction.prototype.linear = function (from, to, t) {
+        return MathUtils_1.default.lerp(from, to, t);
+    };
+    EaseOutFunction.prototype.stepped = function (from, to, t) {
+        return to * ((t < 0.5) ? 0 : 1) + from;
+    };
+    EaseOutFunction.prototype.cut = function (from, to, t, levels) {
+        if (levels === undefined)
+            levels = 2;
+        return MathUtils_1.default.lerp(from, to, MathUtils_1.default.floor(t * levels) / levels);
+    };
+    EaseOutFunction.prototype.sine = function (from, to, t) {
+        return -from * (Math.sin(t * MathUtils_1.default.HALFPI) + 1) + from + to;
+    };
+    EaseOutFunction.prototype.power = function (from, to, t, power) {
+        var sign = power % 2 == 0 ? -1 : 1;
+        return to * (sign * Math.pow(t - 1, power) + sign) + from;
+    };
+    EaseOutFunction.prototype.quadratic = function (from, to, t) {
+        return this.power(from, to, t, 2);
+    };
+    EaseOutFunction.prototype.cubic = function (from, to, t) {
+        return this.power(from, to, t, 3);
+    };
+    EaseOutFunction.prototype.quartic = function (from, to, t) {
+        return this.power(from, to, t, 4);
+    };
+    EaseOutFunction.prototype.quintic = function (from, to, t) {
+        return this.power(from, to, t, 5);
+    };
+    EaseOutFunction.prototype.exponential = function (from, to, t) {
+        return (t == 1) ? from : to * (1 - Math.pow(2, 10 * t)) + from;
+    };
+    EaseOutFunction.prototype.circ = function (from, to, t) {
+        return to * Math.sqrt(1 - (t - 1) * t) + from;
+    };
+    EaseOutFunction.prototype.elastic = function (from, to, t, duration) {
+        if (duration === undefined)
+            duration = 1;
+        if (t == 0)
+            return from;
+        if ((t /= duration) == 1)
+            return from + to;
+        var p = duration * 0.3;
+        var s = p / 4;
+        return (to * Math.pow(2, -10 * t) * Math.sin((t - s) * (2 * Math.PI) / p) + 1) + from;
+    };
+    EaseOutFunction.prototype.back = function (from, to, t) {
+        //let f = (1 - t);
+        //return to * (1 - (f * f * f - f * Mathf.Sin(f * Math.PI))) + from;
+        return to * ((t - 1) * t * ((EasingType_1.EASE_BACK_CONST + 1) * t + EasingType_1.EASE_BACK_CONST) + 1) + from;
+    };
+    /**
+     * Ease-out by specific EasingType.
+     *
+     * @param {EasingType} type The type of easing
+     * @param {Number} from Start point
+     * @param {Number} to End point
+     * @param {Number} t Normalized time
+     * @param {Number} [arg] Additional argument for specific types:
+     *
+     * @constant EasingType.CUT: The cell levels of the interpolation
+     * @constant EasintType.ELASTIC: The duration of the easing.
+     * @constant EasintType.POWER: The pow product.
+     */
+    EaseOutFunction.prototype.by = function (type, from, to, t, arg) {
+        if (arg === undefined)
+            arg = 1;
+        switch (type) {
+            case EasingType_1.EasingType.NONE:
+                return t;
+            case EasingType_1.EasingType.STEPPED:
+                return this.stepped(from, to, t);
+            case EasingType_1.EasingType.CUT:
+                return this.cut(from, to, t, arg);
+            case EasingType_1.EasingType.LINEAR:
+                return this.linear(from, to, t);
+            case EasingType_1.EasingType.SINE:
+                return this.sine(from, to, t);
+            case EasingType_1.EasingType.QUADRATIC:
+                return this.power(from, to, t, 2);
+            case EasingType_1.EasingType.CUBIC:
+                return this.power(from, to, t, 3);
+            case EasingType_1.EasingType.QUARTIC:
+                return this.power(from, to, t, 4);
+            case EasingType_1.EasingType.QUINTIC:
+                return this.power(from, to, t, 5);
+            case EasingType_1.EasingType.POWER:
+                return this.power(from, to, t, arg);
+            case EasingType_1.EasingType.EXPONENTIAL:
+                return this.exponential(from, to, t);
+            case EasingType_1.EasingType.CIRC:
+                return this.circ(from, to, t);
+            case EasingType_1.EasingType.BACK:
+                return this.back(from, to, t);
+            case EasingType_1.EasingType.ELASTIC:
+                return this.elastic(from, to, t, arg);
+        }
+        return t;
+    };
+    return EaseOutFunction;
+}());
+var EaseOut = new EaseOutFunction();
+exports.default = EaseOut;
+//module.exports = EaseOut;
+
+
+/***/ }),
+
+/***/ "./src/renderer/engine/math/easing/EasingType.ts":
+/*!*******************************************************!*\
+  !*** ./src/renderer/engine/math/easing/EasingType.ts ***!
+  \*******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+/**
+ * Describes the easing method type
+ */
+var EasingType;
+(function (EasingType) {
+    /**
+     * No easing : 0
+     */
+    EasingType[EasingType["NONE"] = 0] = "NONE";
+    /**
+     * Clamped interpolation between tMin and tMax : 1
+     */
+    EasingType[EasingType["STEPPED"] = 1] = "STEPPED";
+    /**
+     * Linear interpolation : 2
+     */
+    EasingType[EasingType["LINEAR"] = 2] = "LINEAR";
+    EasingType[EasingType["CUT"] = 3] = "CUT";
+    EasingType[EasingType["SINE"] = 4] = "SINE";
+    EasingType[EasingType["QUADRATIC"] = 5] = "QUADRATIC";
+    EasingType[EasingType["CUBIC"] = 6] = "CUBIC";
+    EasingType[EasingType["QUARTIC"] = 7] = "QUARTIC";
+    EasingType[EasingType["QUINTIC"] = 8] = "QUINTIC";
+    EasingType[EasingType["POWER"] = 9] = "POWER";
+    EasingType[EasingType["EXPONENTIAL"] = 10] = "EXPONENTIAL";
+    EasingType[EasingType["CIRC"] = 11] = "CIRC";
+    EasingType[EasingType["BACK"] = 12] = "BACK";
+    EasingType[EasingType["ELASTIC"] = 13] = "ELASTIC";
+    EasingType[EasingType["BOUNCE"] = 14] = "BOUNCE";
+})(EasingType = exports.EasingType || (exports.EasingType = {}));
+;
+exports.EASE_BACK_CONST = 1.70158;
+
+
+/***/ }),
+
+/***/ "./src/renderer/engine/render/color/Color.ts":
+/*!***************************************************!*\
+  !*** ./src/renderer/engine/render/color/Color.ts ***!
+  \***************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var MathUtils_1 = __webpack_require__(/*! ../../math/MathUtils */ "./src/renderer/engine/math/MathUtils.ts");
+var ParseColor_1 = __webpack_require__(/*! ./components/ParseColor */ "./src/renderer/engine/render/color/components/ParseColor.ts");
+var Ease_1 = __webpack_require__(/*! ../../math/easing/Ease */ "./src/renderer/engine/math/easing/Ease.ts");
+var EasingType_1 = __webpack_require__(/*! ../../math/easing/EasingType */ "./src/renderer/engine/math/easing/EasingType.ts");
+function ColorNormUpdate(color) {
+    color._css = 'rgba(' +
+        MathUtils_1.default.floor(color.r * 255) + ',' +
+        MathUtils_1.default.floor(color.g * 255) + ',' +
+        MathUtils_1.default.floor(color.b * 255) + ',' +
+        color.a + ')';
+}
+function ColorUpdate(color) {
+    return 'rgba(' +
+        color.r + ',' +
+        color.g + ',' +
+        color.b + ',' +
+        color.a + ')';
+}
+var Color = /** @class */ (function () {
+    function Color(r, g, b, a) {
+        if (r === undefined)
+            r = 0;
+        if (g === undefined)
+            g = 0;
+        if (b === undefined)
+            b = 0;
+        if (a === undefined)
+            a = 1;
+        this._r = r;
+        this._g = g;
+        this._b = b;
+        this._a = a;
+        this._css = ColorUpdate(this);
+    }
+    Object.defineProperty(Color.prototype, "rgba", {
+        get: function () {
+            return this._css;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Color.prototype, "r", {
+        get: function () {
+            return this._r;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Color.prototype, "g", {
+        get: function () {
+            return this._g;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Color.prototype, "b", {
+        get: function () {
+            return this._b;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Color.prototype, "a", {
+        get: function () {
+            return this._a;
+        },
+        set: function (value) {
+            this._a = value;
+            this._css = ColorUpdate(this);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Color.prototype.set = function (color) {
+        ParseColor_1.default(this, color);
+        ColorUpdate(this);
+        return this;
+    };
+    Color.prototype.setNorm = function (r, g, b, a) {
+        if (r === undefined)
+            return this;
+        this._r = Math.round(r * 255.0);
+        this._g = Math.round(g * 255.0);
+        this._b = Math.round(b * 255.0);
+        if (a !== undefined) {
+            this._a = Math.round(a * 255.0);
+        }
+        this._css = ColorUpdate(this);
+        return this;
+    };
+    Color.prototype.setRGB = function (r, g, b) {
+        return this.setRGBA(r, g, b, 255);
+    };
+    Color.prototype.setRGBA = function (r, g, b, a) {
+        if (r === undefined)
+            return this;
+        this._r = r || 0;
+        this._g = g || 0;
+        this._b = b || 0;
+        if (a !== undefined) {
+            this._a = a;
+        }
+        this._css = ColorUpdate(this);
+        return this;
+    };
+    Color.prototype.setColor = function (color, a) {
+        this._r = color.r;
+        this._g = color.g;
+        this._b = color.b;
+        if (a !== undefined) {
+            this._a = a;
+        }
+        else {
+            this._a = color.a;
+        }
+        this._css = ColorUpdate(this);
+        return this;
+    };
+    Color.prototype.parse = function (value) {
+        var parsedValue = ParseColor_1.default(value);
+        this._r = parsedValue.r;
+        this._g = parsedValue.g;
+        this._b = parsedValue.b;
+        this._a = parsedValue.a;
+        ColorUpdate(this);
+        return this;
+    };
+    Color.prototype.lerp = function (toColor, t) {
+        this._r = MathUtils_1.default.lerp(this._r, toColor.r, t);
+        this._g = MathUtils_1.default.lerp(this._g, toColor.g, t);
+        this._b = MathUtils_1.default.lerp(this._b, toColor.b, t);
+        this._a = MathUtils_1.default.lerp(this._a, toColor.a, t);
+        ColorUpdate(this);
+        return this;
+    };
+    /*ease(to, t, easingType, easingMode, easingArg) {
+         if (easingType === undefined) easingType = EasingType.LINEAR;
+         if (easingMode === undefined) easingMode = 0;
+         if (easingArg === undefined) easingArg = 1;
+ 
+        let easer = Ease.in;
+
+         switch (easingMode) {
+             case 1: {
+                easer = Ease.out;
+                break;
+             }
+             case 2: {
+                easer = Ease.inout;
+                break;
+             }
+         }
+
+         this._r = easer.by(easingType, this._r, to.r, t, easingArg);
+         this._g = easer.by(easingType, this._g, to.g, t, easingArg);
+         this._b = easer.by(easingType, this._b, to.b, t, easingArg);
+         this._a = easer.by(easingType, this._a, to.a, t, easingArg);
+
+         ColorUpdate(this);
+         return this;
+    }*/
+    Color.prototype.to32 = function () {
+        /// TODO
+    };
+    Color.prototype.toCSS = function () {
+        /// TODO
+    };
+    Color.prototype.toInt = function () {
+        /// TODO
+    };
+    Color.prototype.toHex = function () {
+        /// TODO
+    };
+    // static functions
+    Color.ease = function (from, to, t, easingType, easingMode, easingArg, destinationColor) {
+        if (easingType === undefined)
+            easingType = EasingType_1.EasingType.LINEAR;
+        if (easingMode === undefined)
+            easingMode = 0;
+        if (easingArg === undefined)
+            easingArg = 3;
+        var easer = Ease_1.default.in;
+        switch (easingMode) {
+            case 1:
+                {
+                    easer = Ease_1.default.out;
+                    break;
+                }
+            case 2:
+                {
+                    easer = Ease_1.default.inout;
+                    break;
+                }
+        }
+        if (destinationColor === undefined)
+            destinationColor = new Color();
+        destinationColor.setRGBA(easer.by(easingType, from.r, to.r, t, easingArg), easer.by(easingType, from.g, to.g, t, easingArg), easer.by(easingType, from.b, to.b, t, easingArg), easer.by(easingType, from.a, to.a, t, easingArg));
+        return destinationColor;
+    };
+    Object.defineProperty(Color, "red", {
+        get: function () {
+            return new Color(255, 0, 0);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Color, "green", {
+        get: function () {
+            return new Color(0, 255, 0);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Color, "blue", {
+        get: function () {
+            return new Color(0, 0, 255);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Color, "cyan", {
+        get: function () {
+            return new Color(0, 255, 255);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Color, "magenta", {
+        get: function () {
+            return new Color(255, 0, 255);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Color, "yellow", {
+        get: function () {
+            return new Color(255, 255, 0);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Color, "black", {
+        get: function () {
+            return new Color(0);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Color, "white", {
+        get: function () {
+            return new Color(255);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Color, "gray", {
+        get: function () {
+            return new Color(255 / 2.0);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Color, "transparent", {
+        get: function () {
+            return new Color(0, 0, 0, 0);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    return Color;
+}());
+exports.default = Color;
+
+
+/***/ }),
+
+/***/ "./src/renderer/engine/render/color/components/CSSToColor.ts":
+/*!*******************************************************************!*\
+  !*** ./src/renderer/engine/render/color/components/CSSToColor.ts ***!
+  \*******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var Color_1 = __webpack_require__(/*! ../Color */ "./src/renderer/engine/render/color/Color.ts");
+var CSS_REGEX_PATTERN = /^(?:\w*|rgba?)\(?\s*(\d+)\s*\,?(?:\s*(\d+)\s*)?\,?(?:\s*(\d+)\s*)?\,?(?:\s*(\d+(?:\.\d+)?))?\s*\)?$/;
+function CSSToColor(value, source) {
+    var color;
+    if (source === undefined) {
+        color = new Color_1.default();
+    }
+    else {
+        color = source;
+    }
+    var regex = (CSS_REGEX_PATTERN).exec(value.toLowerCase());
+    if (regex) {
+        var r = parseInt(regex[0], 10) || 0;
+        var g = parseInt(regex[1], 10) || 0;
+        var b = parseInt(regex[3], 10) || 0;
+        var a = 1;
+        if (regex[4] !== undefined)
+            a = parseFloat(regex[4]) || 1;
+        color.setRGBA(r, g, b, a);
+    }
+    return color;
+}
+exports.default = CSSToColor;
+
+
+/***/ }),
+
+/***/ "./src/renderer/engine/render/color/components/HexToColor.ts":
+/*!*******************************************************************!*\
+  !*** ./src/renderer/engine/render/color/components/HexToColor.ts ***!
+  \*******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var Color_1 = __webpack_require__(/*! ../Color */ "./src/renderer/engine/render/color/Color.ts");
+var HEX_SHORTHAND_REGEX_PATTERN = /^#?([a-f\d])([a-f\d])([a-f\d])([a-f\d])?$/i;
+var HEX_REGEX_PATTERN = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})?$/i;
+// Source: https://stackoverflow.com/questions/5623838/rgb-to-hex-and-hex-to-rgb
+function HexToColor(value, source) {
+    var color;
+    if (source === undefined)
+        color = new Color_1.default();
+    else
+        color = source;
+    // Hexadecimal can contains alpha in short '#f00e' or full '#F00eaecd'
+    // Expand shorthand form (e.g. "03F") to full form (e.g. "0033FF")
+    value = value.replace(HEX_SHORTHAND_REGEX_PATTERN, function (m, r, g, b, a) {
+        if (a !== undefined)
+            a = 'F';
+        return r + r + g + g + b + b + a + a;
+    });
+    var result = HEX_REGEX_PATTERN.exec(value);
+    if (result) {
+        color.setRGBA(parseInt(result[1], 16), parseInt(result[2], 16), parseInt(result[3], 16), (result[4] === undefined) ? 1 : parseInt(result[4], 16));
+    }
+    return color;
+}
+exports.default = HexToColor;
+
+
+/***/ }),
+
+/***/ "./src/renderer/engine/render/color/components/IntToColor.ts":
+/*!*******************************************************************!*\
+  !*** ./src/renderer/engine/render/color/components/IntToColor.ts ***!
+  \*******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var Color_1 = __webpack_require__(/*! ../Color */ "./src/renderer/engine/render/color/Color.ts");
+function IntToColor(value, source) {
+    var color = source || new Color_1.default();
+    var r, g, b, a;
+    if (value >= 16777216) // 256 ^ 3
+        a = value >>> 24;
+    else
+        a = 1;
+    r = value >> 16 & 0xFF;
+    g = value >> 8 & 0xFF;
+    b = value & 0xFF;
+    color.setRGBA(r, g, b, a);
+    return color;
+}
+exports.default = IntToColor;
+
+
+/***/ }),
+
+/***/ "./src/renderer/engine/render/color/components/ObjectToColor.ts":
+/*!**********************************************************************!*\
+  !*** ./src/renderer/engine/render/color/components/ObjectToColor.ts ***!
+  \**********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var Color_1 = __webpack_require__(/*! ../Color */ "./src/renderer/engine/render/color/Color.ts");
+function ObjectToColor(value, source) {
+    if (source === undefined) {
+        return new Color_1.default(value.r, value.g, value.b, value.a);
+    }
+    else {
+        return source.setRGBA(value.r, value.g, value.b, value.a);
+    }
+}
+exports.default = ObjectToColor;
+
+
+/***/ }),
+
+/***/ "./src/renderer/engine/render/color/components/ParseColor.ts":
+/*!*******************************************************************!*\
+  !*** ./src/renderer/engine/render/color/components/ParseColor.ts ***!
+  \*******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var IntToColor_1 = __webpack_require__(/*! ./IntToColor */ "./src/renderer/engine/render/color/components/IntToColor.ts");
+var CSSToColor_1 = __webpack_require__(/*! ./CSSToColor */ "./src/renderer/engine/render/color/components/CSSToColor.ts");
+var HexToColor_1 = __webpack_require__(/*! ./HexToColor */ "./src/renderer/engine/render/color/components/HexToColor.ts");
+var ObjectToColor_1 = __webpack_require__(/*! ./ObjectToColor */ "./src/renderer/engine/render/color/components/ObjectToColor.ts");
+function isNumber(x) {
+    return typeof x === "number";
+}
+function isString(x) {
+    return typeof x === "string";
+}
+function isObject(x) {
+    return typeof x === "object";
+}
+function parseColor(value, source) {
+    if (isNumber(value)) {
+        return IntToColor_1.default(value, source);
+    }
+    else if (isString(value)) {
+        if (value.substr(0, 3).toLowerCase() === 'rgb') {
+            return CSSToColor_1.default(value, source);
+        }
+        else {
+            return HexToColor_1.default(value, source);
+        }
+    }
+    else if (isObject(value)) {
+        return ObjectToColor_1.default(value, source);
+    }
+}
+exports.default = parseColor;
+
+
+/***/ }),
+
 /***/ "./src/renderer/engine/structures/List.ts":
 /*!************************************************!*\
   !*** ./src/renderer/engine/structures/List.ts ***!
@@ -48209,9 +49314,9 @@ var CanvasPoolManager = /** @class */ (function () {
     CanvasPoolManager.prototype.create = function (width, height) {
         var canvasContainer = this.firstFree();
         var canvas;
-        if (!width)
+        if (width === undefined)
             width = 100;
-        if (!height)
+        if (!height === undefined)
             height = 100;
         // no parent found
         if (canvasContainer === null) {
@@ -48263,6 +49368,234 @@ var CanvasPoolManager = /** @class */ (function () {
 var CanvasPool = new CanvasPoolManager();
 Object.seal(CanvasPool);
 exports.default = CanvasPool;
+
+
+/***/ }),
+
+/***/ "./src/renderer/internal/canvas/CanvasSmoothing.ts":
+/*!*********************************************************!*\
+  !*** ./src/renderer/internal/canvas/CanvasSmoothing.ts ***!
+  \*********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var RendererProperties_1 = __webpack_require__(/*! ../renderer/RendererProperties */ "./src/renderer/internal/renderer/RendererProperties.ts");
+function getImageSmoothPrefix(context) {
+    var vendors = ['i', 'webkitI', 'msI', 'mozI', 'oI'];
+    for (var i = 0; i < vendors.length; i++) {
+        var s = vendors[i] + 'mageSmoothingEnabled';
+        if (context[s] !== undefined)
+            return s;
+    }
+    return null;
+}
+var CanvasSmoothing = /** @class */ (function () {
+    function CanvasSmoothing(context) {
+        this.context = context;
+        this.imageSmoothPrefix = getImageSmoothPrefix(context);
+    }
+    CanvasSmoothing.prototype.setEnable = function (flag) {
+        if (flag === undefined)
+            flag = true;
+        if (this.imageSmoothPrefix)
+            this.context[this.imageSmoothPrefix] = flag;
+    };
+    CanvasSmoothing.prototype.set = function (renderType) {
+        if (renderType == RendererProperties_1.RenderingType.Nearest) {
+            this.setEnable(false);
+        }
+        else {
+            this.setEnable(true);
+        }
+    };
+    return CanvasSmoothing;
+}());
+exports.default = CanvasSmoothing;
+
+
+/***/ }),
+
+/***/ "./src/renderer/internal/renderer/CanvasRenderer.ts":
+/*!**********************************************************!*\
+  !*** ./src/renderer/internal/renderer/CanvasRenderer.ts ***!
+  \**********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var Color_1 = __webpack_require__(/*! ../../engine/render/color/Color */ "./src/renderer/engine/render/color/Color.ts");
+var CanvasSmoothing_1 = __webpack_require__(/*! ../canvas/CanvasSmoothing */ "./src/renderer/internal/canvas/CanvasSmoothing.ts");
+var RendererProperties_1 = __webpack_require__(/*! ./RendererProperties */ "./src/renderer/internal/renderer/RendererProperties.ts");
+var CanvasRenderer = /** @class */ (function () {
+    function CanvasRenderer(DOMCanvas, canvasBuffer) {
+        this._alpha = 1;
+        this._renderContext = '2d';
+        this.doubleBuffer = false;
+        this._renderingType = RendererProperties_1.RenderingType.Linear;
+        // this._interpolation = InterpolationType.None;
+        this._canvas = DOMCanvas;
+        this._context = DOMCanvas.getContext('2d', { alpha: false });
+        if (canvasBuffer !== undefined) {
+            this._contextBuffer = canvasBuffer.getContext('2d', { alpha: false });
+            this._canvasBuffer = canvasBuffer;
+            this._doubleBuffer = true;
+        }
+        else {
+            this._canvasBuffer = null;
+            this._contextBuffer = null;
+            this._doubleBuffer = false;
+        }
+        this._smoothing = new CanvasSmoothing_1.default(this._context);
+        //this.layer = new RenderLayerManagement();
+        this._backgroundColor = Color_1.default.black;
+        this._alpha = 1;
+    }
+    Object.defineProperty(CanvasRenderer.prototype, "doubleBuffer", {
+        get: function () {
+            return this._doubleBuffer;
+        },
+        set: function (value) {
+            this._doubleBuffer = value;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(CanvasRenderer.prototype, "renderContext", {
+        get: function () {
+            return this._renderContext;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(CanvasRenderer.prototype, "canvasBuffer", {
+        get: function () {
+            if (this._doubleBuffer) {
+                return this._canvasBuffer;
+            }
+            else {
+                return this._canvas;
+            }
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(CanvasRenderer.prototype, "context", {
+        get: function () {
+            if (this._doubleBuffer) {
+                return this._contextBuffer;
+            }
+            else {
+                return this._context;
+            }
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(CanvasRenderer.prototype, "drawCalls", {
+        get: function () {
+            return this._drawCalls;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(CanvasRenderer.prototype, "canvas", {
+        get: function () {
+            return this._canvas;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(CanvasRenderer.prototype, "backgroundColor", {
+        get: function () { return this._backgroundColor; },
+        set: function (value) {
+            this._backgroundColor.set(value);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(CanvasRenderer.prototype, "alpha", {
+        get: function () { return this._alpha; },
+        set: function (value) {
+            // if (this._alpha !== value) {
+            //     this.currentContext.globalAlpha = value;
+            //     this._alpha = value;
+            // }
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(CanvasRenderer.prototype, "renderingType", {
+        get: function () {
+            return this._renderingType;
+        },
+        set: function (value) {
+            if (this._renderingType !== value) {
+                this._smoothing.set(value);
+                this._renderingType = value;
+            }
+        },
+        enumerable: true,
+        configurable: true
+    });
+    CanvasRenderer.prototype.resize = function (width, height) {
+        this._canvas.width = width;
+        this._canvas.height = height;
+        if (this._doubleBuffer === true) {
+            this._canvasBuffer.width = width;
+            this._canvasBuffer.height = height;
+        }
+    };
+    CanvasRenderer.prototype.repaint = function () {
+        this._context.drawImage(this._canvasBuffer, 0, 0);
+        // this._context.putImageData(this._canvasBuffer, 0,0)
+    };
+    return CanvasRenderer;
+}());
+exports.default = CanvasRenderer;
+
+
+/***/ }),
+
+/***/ "./src/renderer/internal/renderer/RendererProperties.ts":
+/*!**************************************************************!*\
+  !*** ./src/renderer/internal/renderer/RendererProperties.ts ***!
+  \**************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+/**
+ * Defines the type of canvas ImageRendering
+ */
+var RenderingType;
+(function (RenderingType) {
+    RenderingType[RenderingType["Nearest"] = 0] = "Nearest";
+    RenderingType[RenderingType["Linear"] = 1] = "Linear";
+})(RenderingType = exports.RenderingType || (exports.RenderingType = {}));
+var InterpolationType;
+(function (InterpolationType) {
+    /**
+     * Default value that uses the browser’s standard algorithm (bicubic) to maximize the appearance of an image.
+     */
+    InterpolationType[InterpolationType["Auto"] = 0] = "Auto";
+    /**
+     * the contrast, colors and edges of the image will be preserved without any smoothing or blurring.
+     * According to the spec this was specifically intended for pixel art. This value applies to images scaled up or down.
+     */
+    InterpolationType[InterpolationType["CrispEdges"] = 1] = "CrispEdges";
+    /**
+     * As the image changes size the browser will preserve its pixelated style by using nearest-neighbour scaling.
+     * This value only applies to images that are scaled up.
+     */
+    InterpolationType[InterpolationType["Pixelated"] = 2] = "Pixelated";
+})(InterpolationType = exports.InterpolationType || (exports.InterpolationType = {}));
 
 
 /***/ }),
@@ -48348,6 +49681,41 @@ var update = __webpack_require__(/*! ../../../node_modules/style-loader/lib/addS
 if(content.locals) module.exports = content.locals;
 // Hot Module Replacement
 if(false) {}
+
+/***/ }),
+
+/***/ "./src/renderer/system/SystemFactory.ts":
+/*!**********************************************!*\
+  !*** ./src/renderer/system/SystemFactory.ts ***!
+  \**********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var CanvasRenderer_1 = __webpack_require__(/*! ../internal/renderer/CanvasRenderer */ "./src/renderer/internal/renderer/CanvasRenderer.ts");
+var CanvasPool_1 = __webpack_require__(/*! ../internal/canvas/CanvasPool */ "./src/renderer/internal/canvas/CanvasPool.ts");
+var SystemCreator = /** @class */ (function () {
+    function SystemCreator() {
+    }
+    SystemCreator.prototype.createRenderer = function (contextID, doubleBuffer) {
+        var domCanvas = CanvasPool_1.default.create();
+        var canvasBuffer;
+        var renderer;
+        if (doubleBuffer) {
+            canvasBuffer = CanvasPool_1.default.create();
+        }
+        if (contextID === '2d') {
+            renderer = new CanvasRenderer_1.default(domCanvas, canvasBuffer);
+        }
+        return renderer;
+    };
+    return SystemCreator;
+}());
+var SystemFactory = new SystemCreator();
+exports.default = SystemFactory;
+
 
 /***/ }),
 
@@ -48567,7 +49935,7 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var WidgetBase_1 = __webpack_require__(/*! ../base/WidgetBase */ "./src/renderer/widgets/base/WidgetBase.ts");
-var CanvasPool_1 = __webpack_require__(/*! ../../internal/canvas/CanvasPool */ "./src/renderer/internal/canvas/CanvasPool.ts");
+var SystemFactory_1 = __webpack_require__(/*! ../../system/SystemFactory */ "./src/renderer/system/SystemFactory.ts");
 var style = {
     backgroundColor: '#171717',
     border: '1px solid black'
@@ -48578,9 +49946,9 @@ var GameView = /** @class */ (function (_super) {
         var _this = _super.call(this, "Game View") || this;
         _this.title.caption = "Game View";
         _this.title.label = "Game View";
-        _this._canvas = CanvasPool_1.default.create();
-        _this.appendChild(_this._canvas);
-        _this._canvas.style.backgroundColor = style.backgroundColor;
+        _this._renderer = SystemFactory_1.default.createRenderer('2d', true);
+        // this._canvas.style.backgroundColor = style.backgroundColor;
+        _this.appendChild(_this._renderer.canvas);
         return _this;
         //this.props.parent.node.appendChild(this._canvas);
         // this.container = $('#gameView');
@@ -48594,11 +49962,43 @@ var GameView = /** @class */ (function (_super) {
         //     this.container.outerHeight(this.height);
         // }, this);
     }
+    GameView.prototype.onAfterAttach = function () {
+    };
+    GameView.prototype.repaint = function () {
+        var context = this._renderer.context;
+        var width = this._renderer.canvas.width;
+        var height = this._renderer.canvas.height;
+        context.clearRect(0, 0, width, height);
+        context.fillStyle = '#000';
+        context.fillRect(0, 0, width, height);
+        var x = 100;
+        var y = 100;
+        var lw = 80; // 73
+        var th = 16; // 12
+        var tw = 24; // 17
+        // render.drawCalls = 0;     
+        context.beginPath();
+        context.moveTo(x, y);
+        context.lineCap = 'square';
+        context.lineWidth = 2;
+        context.strokeStyle = 'white';
+        context.lineTo(x + lw, y);
+        context.stroke();
+        context.beginPath();
+        context.lineWidth = 0;
+        context.strokeStyle = 'none';
+        context.fillStyle = 'white';
+        context.moveTo(x + lw, y - th / 2);
+        context.lineTo(x + lw, y + th / 2);
+        context.lineTo(x + lw + tw, y);
+        context.fill();
+        this._renderer.repaint();
+    };
     GameView.prototype.onResizeEvent = function (resizeEvent) {
         var w = resizeEvent.width;
         var h = resizeEvent.height;
-        this._canvas.width = w;
-        this._canvas.height = h;
+        this._renderer.resize(w, h);
+        this.repaint();
     };
     return GameView;
 }(WidgetBase_1.default));
