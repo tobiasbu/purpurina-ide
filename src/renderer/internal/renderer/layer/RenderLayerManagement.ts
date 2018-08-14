@@ -1,7 +1,7 @@
 
 import RenderLayer from './RenderLayer';
 import List from '../../../engine/structures/List';
-import Renderable from '../../modules/renderables/Renderable';
+//import Renderable from '../../modules/renderables/Renderable';
 
 export default class RenderLayersManagement {
 

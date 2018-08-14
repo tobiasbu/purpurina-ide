@@ -55,7 +55,7 @@ export default function startMouseListener(this: MouseSystem, target: HTMLElemen
     target.addEventListener('mouseenter', handler, config);
     target.addEventListener('mouseleave', handler, config);
     this.wheelEventName = getMouseWheelEvent();
-    target.addEventListener( this.wheelEventName, handler, config);
+    target.addEventListener(this.wheelEventName, handler, config);
 
     return handler;
 

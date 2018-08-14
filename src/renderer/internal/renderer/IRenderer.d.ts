@@ -9,7 +9,6 @@ export default interface IRenderer {
      */
     readonly doubleBuffer: boolean;
 
-    // imageRendering = null;
     /**
      * Type of renderer context '2d' or 'webgl'
      */
