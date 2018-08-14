@@ -1,9 +1,8 @@
 import * as React from "react";
 import WidgetBase from "../base/WidgetBase";
-import CanvasPool from '../../internal/canvas/CanvasPool'
 import { WidgetResizeEvent } from "../../typings/widgetinterfaces";
-import IRenderer from './../../internal/renderer/IRenderer';
-import SystemFactory from '../../system/SystemFactory'
+import SystemFactory, { SceneViewEditorSystems } from '../../system/SystemFactory'
+import CanvasRenderer from "../../internal/renderer/CanvasRenderer";
 
 
 const style: React.CSSProperties = {
@@ -14,17 +13,17 @@ const style: React.CSSProperties = {
 
 export default class GameView extends WidgetBase {
 
-
-    private _canvas: HTMLCanvasElement;
-    private _renderer: IRenderer;
-
+    private _renderer: CanvasRenderer;
+    private _editor:SceneViewEditorSystems;
 
     constructor() {
         super("Game View");
 
         this.title.caption = "Game View";
         this.title.label = "Game View";
-        this._renderer = SystemFactory.createRenderer('2d', true);
+        this._editor = SystemFactory.createSceneViewEditor();
+        this._renderer =  this._editor.renderer as CanvasRenderer;
+        //this._renderer = SystemFactory.createRenderer('2d', true) as CanvasRenderer;
 
         // this._canvas.style.backgroundColor = style.backgroundColor;
         
@@ -56,7 +55,7 @@ export default class GameView extends WidgetBase {
     }
 
     repaint() {
-        const context = this._renderer.context as CanvasRenderingContext2D;
+        const context = this._renderer.context;
         const width = this._renderer.canvas.width;
         const height = this._renderer.canvas.height;
 
@@ -75,19 +74,19 @@ export default class GameView extends WidgetBase {
 
         context.beginPath();
         context.moveTo(x,y);
-        context.lineCap = 'square';
-        context.lineWidth = 2;
-        context.strokeStyle = 'white';
         context.lineTo(x + lw,y);
+        context.lineCap = 'square';
+        context.lineWidth = 1;
+        context.strokeStyle = 'white';
         context.stroke();
 
         context.beginPath();
-        context.lineWidth = 0;
-        context.strokeStyle = 'none';
-        context.fillStyle = 'white';
         context.moveTo(x + lw,y - th / 2);
         context.lineTo(x + lw,y + th / 2);
         context.lineTo(x + lw + tw,y);
+        context.lineWidth = 0;
+        context.strokeStyle = 'none';
+        context.fillStyle = 'white';
         context.fill();
 
         this._renderer.repaint();

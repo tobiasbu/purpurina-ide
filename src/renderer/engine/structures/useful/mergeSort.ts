@@ -1,10 +1,6 @@
 
 
 
-
-
-
-
 // http://www.stoimen.com/blog/2010/07/02/friday-algorithms-javascript-merge-sort/
 // https://codereview.stackexchange.com/questions/87000/fast-merge-sort-in-javascript
 export default function mergeSort<T>(array: T[], predicate?: MergeSortFunction<T>) {

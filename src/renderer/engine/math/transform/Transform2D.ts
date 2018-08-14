@@ -15,7 +15,6 @@ export default class Transform2D implements ITransform2D {
     private _rotation: number;
     private _isDirty: boolean;
 
-
     _cosSin: IVector2;
     _oldRotation: number;
 

@@ -30,7 +30,7 @@ export default interface ITransform2D {
     /**
      * The radian rotation
      */
-    readonly oldRotation: number;
+    //readonly oldRotation: number;
 
     /**
      * If the current transform should be recalculated

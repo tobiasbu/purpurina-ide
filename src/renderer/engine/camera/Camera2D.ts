@@ -60,10 +60,10 @@ export default class Camera2D implements ICamera2D {
 
         // this.width = game.config.camera.width;
         // this.height = game.config.camera.height;
-        this._aspectRatio = renderer.DOMCanvas.width / renderer.DOMCanvas.height;
+        this._aspectRatio = renderer.canvas.width / renderer.canvas.height;
 
         //   this._bounds = new Bounds2D(); // render bounds
-        this._viewBounds = new Bounds2D(0, 0, renderer.DOMCanvas.width, renderer.DOMCanvas.height); // global bounds
+        this._viewBounds = new Bounds2D(0, 0, renderer.canvas.width, renderer.canvas.height); // global bounds
         this._transform = new Transform2D();
         this._backgroundColor = new Color();
 

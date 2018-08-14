@@ -4,17 +4,19 @@
  */
 export default abstract class EngineSystem {
 
-    private _enabled: boolean;
-    private _name: string;
+    protected _enabled: boolean;
+    protected _initialized: boolean;
+    readonly systemName: string;
 
     constructor(systemName: string) {
-        this._name = systemName;
+        this.systemName = systemName;
         this._enabled = true;
+        this._initialized = false;
     }
 
-    get name(): string {
-        return this._name;
-    }
+    // get systemName(): string {
+    //     return this._systemName;
+    // }
 
     get enabled(): boolean {
         return this._enabled;
@@ -32,7 +34,7 @@ export default abstract class EngineSystem {
     }
 
     abstract reset();
-    abstract init();
+    abstract init(config?:any, ...args:any[]);
     abstract destroy();
     protected abstract onEnable();
     protected abstract onDisable();

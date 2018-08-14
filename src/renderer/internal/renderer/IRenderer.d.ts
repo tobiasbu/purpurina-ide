@@ -66,5 +66,5 @@ export default interface IRenderer {
      */
     resize(width: number, height: number);
 
-    repaint();
+    //repaint();
 }
