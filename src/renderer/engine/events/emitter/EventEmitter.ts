@@ -99,10 +99,16 @@ export default class EventEmitter {
             return false;
         }
         const listeners = this._eventsMap[evt];
+        const argsLen = args.length;
 
         if (uniqueListener(listeners)) {
             if (listeners.once) {
                 this.unbind(event, listeners.callback, undefined, true);
+            }
+
+            switch(argsLen) {
+                case 1: return listeners.callback.call(listeners.context, args[0]), true;
+                case 2: return listeners.callback.call(listeners.context, args[0], args[1]), true;
             }
 
             listeners.callback.call(listeners.context, args);

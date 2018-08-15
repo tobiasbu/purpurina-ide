@@ -23958,7 +23958,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "body {\r\n    font: 11px Segoe UI, Helvetica, Arial, sans-serif;\r\n    color: #F0F0F0;\r\n}\r\n\r\nfieldset {\r\n    border: none;\r\n}\r\n\r\n#inspector> :nth-child(n) {\r\n    margin-bottom: 4px;\r\n}\r\n\r\n.flex-container {\r\n    display: flex;\r\n    flex-direction: row;\r\n    justify-content: space-between;\r\n    align-items: stretch;\r\n}\r\n\r\n.flex-container>.flex-horizontal {\r\n    display: inline-flex;\r\n    min-width: 50%;\r\n    width: auto;\r\n}\r\n\r\n.flex-horizontal {\r\n    display: inline-flex;\r\n    min-width: 50%;\r\n    width: auto;\r\n}\r\n\r\n.horizotal-group {\r\n    display: contents;\r\n    min-width: 0;\r\n}\r\n\r\n.flex-container>.flex-horizontal:nth-child(1n+2)\r\n/*(an + b)*/\r\n\r\n    {\r\n    margin-left: 4px;\r\n    min-width: calc(50% - 4px);\r\n}\r\n\r\ninput,\r\ninput[type=\"number\"],\r\ninput.checkbox+label {\r\n    width: auto;\r\n    height: 14px;\r\n    border: 1px solid #000;\r\n    background: #141414ff;\r\n    color: #F0F0F0;\r\n    font-size: 11px;\r\n}\r\n\r\n.text-input {\r\n    flex: auto;\r\n    padding: 3px;\r\n    min-width: inherit;\r\n}\r\n\r\ninput[type=number]::-webkit-inner-spin-button,\r\ninput[type=number]::-webkit-outer-spin-button {\r\n    -webkit-appearance: none;\r\n    -moz-appearance: none;\r\n    appearance: none;\r\n    margin: 0;\r\n}\r\n\r\ninput[type=\"number\"] {\r\n    -moz-appearance: textfield;\r\n}\r\n\r\n.text-label {\r\n    margin: auto;\r\n    text-transform: capitalize;\r\n}\r\n\r\n.number {\r\n    min-width: 20px;\r\n    cursor: col-resize;\r\n}\r\n\r\ninput[type=\"checkbox\"] {\r\n    -webkit-appearance: none;\r\n    -moz-appearance: none;\r\n    appearance: none; \r\n    display: none;\r\n    visibility: hidden;\r\n    padding: 0;\r\n    border: 0\r\n}\r\n\r\n/* -webkit-appearance: none;\r\n    -moz-appearance: none;\r\n    appearance: none; */\r\n\r\n/* display: none; */\r\n\r\n/* \r\n    position: absolute;\r\n    overflow: hidden;\r\n    clip: rect(0 0 0 0);\r\n    height: 1px;\r\n    width: 1px;\r\n    margin: -1px;\r\n    padding: 0;\r\n    border: 0;*/\r\n\r\n.checkbox-container {\r\n    cursor: pointer;\r\n    min-width: 20px;\r\n    margin: auto;\r\n}\r\n\r\n.checkbox-container .checkbox-indicator {\r\n    display: inline-block;\r\n    vertical-align: middle;\r\n    pointer-events: none;\r\n}\r\ninput[type=\"checkbox\"]+label::after {\r\n    content: none;\r\n}\r\n\r\ninput.checkbox+.checkbox-indicator {\r\n    width: 12px;\r\n    height: 12px;\r\n    /* cursor: pointer; */\r\n    /* text-shadow: 1px 1px 1px rgba(0, 0, 0, .2); */\r\n    color: #f3f3f3;\r\n    text-align: center;\r\n    line-height: 8px;\r\n    /* display: inline-block; */\r\n}\r\n\r\ninput[type=\"checkbox\"]:checked+.checkbox-indicator::after {\r\n    content: \"\\2713\";\r\n    vertical-align: middle;\r\n}\r\n\r\n/* \r\ninput[type=\"checkbox\"]:checked+label::after {\r\n    content: \"\\2713\";\r\n} */", ""]);
+exports.push([module.i, "body {\r\n    font: 11px Segoe UI, Helvetica, Arial, sans-serif;\r\n    color: #F0F0F0;\r\n}\r\n\r\nfieldset {\r\n    border: none;\r\n}\r\n\r\n#inspector> :nth-child(n) {\r\n    margin-bottom: 4px;\r\n}\r\n\r\n.flex-container {\r\n    display: flex;\r\n    flex-direction: row;\r\n    justify-content: space-between;\r\n    align-items: stretch;\r\n}\r\n\r\n.flex-container>.flex-horizontal {\r\n    display: inline-flex;\r\n    /* min-width: 50%; */\r\n    width: auto;\r\n}\r\n\r\n.flex-horizontal {\r\n    display: inline-flex;\r\n    /* min-width: 50%; */\r\n    width: auto;\r\n}\r\n\r\n.horizotal-group {\r\n    display: contents;\r\n    min-width: 0;\r\n}\r\n\r\n/*(an + b)*/\r\n.flex-container>.flex-horizontal:nth-child(1n+2) {\r\n    margin-left: 4px;\r\n    min-width: 0;\r\n    /* min-width: calc(50% - 4px); */\r\n}\r\n\r\ninput,\r\ninput[type=\"number\"],\r\ninput.checkbox+label {\r\n    width: auto;\r\n    height: 14px;\r\n    border: 1px solid #000;\r\n    background: #141414ff;\r\n    color: #F0F0F0;\r\n    font-size: 11px;\r\n}\r\n\r\n.text-input {\r\n    flex: auto;\r\n    padding: 3px;\r\n    min-width: 0;\r\n}\r\n\r\ninput[type=number]::-webkit-inner-spin-button,\r\ninput[type=number]::-webkit-outer-spin-button {\r\n    -webkit-appearance: none;\r\n    -moz-appearance: none;\r\n    appearance: none;\r\n    margin: 0;\r\n}\r\n\r\ninput[type=\"number\"] {\r\n    -moz-appearance: textfield;\r\n}\r\n\r\n.text-label {\r\n    margin: auto 0;\r\n    text-transform: capitalize;\r\n}\r\n\r\n.number {\r\n    min-width: 10px;\r\n    cursor: col-resize;\r\n}\r\n\r\ninput[type=\"checkbox\"] {\r\n    -webkit-appearance: none;\r\n    -moz-appearance: none;\r\n    appearance: none;\r\n    display: none;\r\n    visibility: hidden;\r\n    padding: 0;\r\n    border: 0\r\n}\r\n\r\n/* -webkit-appearance: none;\r\n    -moz-appearance: none;\r\n    appearance: none; */\r\n\r\n/* display: none; */\r\n\r\n/* \r\n    position: absolute;\r\n    overflow: hidden;\r\n    clip: rect(0 0 0 0);\r\n    height: 1px;\r\n    width: 1px;\r\n    margin: -1px;\r\n    padding: 0;\r\n    border: 0;*/\r\n\r\n.checkbox-container {\r\n    cursor: pointer;\r\n    min-width: 20px;\r\n    margin: auto;\r\n}\r\n\r\n.checkbox-container .checkbox-indicator {\r\n    display: inline-block;\r\n    vertical-align: middle;\r\n    pointer-events: none;\r\n}\r\n\r\ninput[type=\"checkbox\"]+label::after {\r\n    content: none;\r\n}\r\n\r\ninput.checkbox+.checkbox-indicator {\r\n    width: 12px;\r\n    height: 12px;\r\n    /* cursor: pointer; */\r\n    /* text-shadow: 1px 1px 1px rgba(0, 0, 0, .2); */\r\n    color: #f3f3f3;\r\n    text-align: center;\r\n    line-height: 8px;\r\n    /* display: inline-block; */\r\n}\r\n\r\ninput[type=\"checkbox\"]:checked+.checkbox-indicator::after {\r\n    content: \"\\2713\";\r\n    vertical-align: middle;\r\n}\r\n\r\n.false {\r\n    color: rgb(75, 75, 75);\r\n}\r\n\r\nul {\r\n    list-style: none;\r\n    margin: 0;\r\n    padding: 0;\r\n}\r\n\r\n/* \r\ninput[type=\"checkbox\"]:checked+label::after {\r\n    content: \"\\2713\";\r\n} */", ""]);
 
 // exports
 
@@ -47742,6 +47742,353 @@ if(false) {}
 
 /***/ }),
 
+/***/ "./src/renderer/engine/events/emitter/EventEmitter.ts":
+/*!************************************************************!*\
+  !*** ./src/renderer/engine/events/emitter/EventEmitter.ts ***!
+  \************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var prefix = '~';
+var EventSubscription = /** @class */ (function () {
+    function EventSubscription(callback, context, once) {
+        this.callback = callback;
+        this.context = context;
+        this.once = once || false;
+    }
+    return EventSubscription;
+}());
+var EventsMap = /** @class */ (function () {
+    function EventsMap() {
+    }
+    return EventsMap;
+}());
+/**
+ * Clear event by name.
+ * @param emitter Reference to the `EventEmitter` instance.
+ * @param evt The Event name.
+ */
+function clearEvent(emitter, evt) {
+    if (--emitter._eventsCount === 0)
+        emitter._eventsMap = new EventsMap();
+    else
+        delete emitter._eventsMap[evt];
+}
+/**
+ * Add a listener for a given event.
+ * @param emitter Reference to the `EventEmitter` instance.
+ * @param event The event name.
+ * @param fn The listener function.
+ * @param context The context to invoke the listener with.
+ * @param once Specify if the listener is a one-time listener.
+ */
+function addListener(emitter, event, fn, context, once) {
+    if (typeof fn !== 'function') {
+        throw new TypeError('The listener must be a function');
+    }
+    var listener = new EventSubscription(fn, context || emitter, once);
+    var evt = prefix ? prefix + event : event;
+    var eventSubscribed = emitter._eventsMap[evt];
+    if (!eventSubscribed) {
+        emitter._eventsMap[evt] = listener;
+        emitter._eventsCount++;
+    }
+    else if (!eventSubscribed.callback) {
+        emitter._eventsMap[evt].push(listener);
+    }
+    else {
+        var eventSubscriber = [emitter._eventsMap[evt], listener];
+        emitter._eventsMap[evt] = eventSubscriber;
+    }
+}
+function uniqueListener(listener) {
+    return (listener.callback !== undefined);
+}
+/**
+ * EventEmitter based in https://github.com/primus/eventemitter3
+ * @author Arnout Kazemier
+ *
+ * Typescript Version by: Tobias Ulrich
+ *
+ */
+var EventEmitter = /** @class */ (function () {
+    /**
+     * Minimal `EventEmitter` interface that is molded against the Node.js
+     * `EventEmitter` interface.
+     *
+     * @constructor
+     * @public
+     */
+    function EventEmitter() {
+        /**
+         * Alias for unbind
+         */
+        this.off = this.unbind;
+        /**
+        * Alias for emit
+        */
+        this.trigger = this.emit;
+        this._eventsMap = new EventsMap();
+        this._eventsCount = 0;
+    }
+    /**
+     * Calls each of the listeners registered for a given event.
+     * @param event The event name.
+     * @param args Arguments
+     * @returns `true` if the event had listeners, else `false`.
+     */
+    EventEmitter.prototype.emit = function (event) {
+        var args = [];
+        for (var _i = 1; _i < arguments.length; _i++) {
+            args[_i - 1] = arguments[_i];
+        }
+        var evt = prefix ? prefix + event : event;
+        if (!this._eventsMap[evt]) {
+            return false;
+        }
+        var listeners = this._eventsMap[evt];
+        var argsLen = args.length;
+        if (uniqueListener(listeners)) {
+            if (listeners.once) {
+                this.unbind(event, listeners.callback, undefined, true);
+            }
+            switch (argsLen) {
+                case 1: return listeners.callback.call(listeners.context, args[0]), true;
+                case 2: return listeners.callback.call(listeners.context, args[0], args[1]), true;
+            }
+            listeners.callback.call(listeners.context, args);
+        }
+        else {
+            var len = listeners.length;
+            for (var i = 0; i < len; i++) {
+                if (listeners[i].once) {
+                    this.unbind(event, listeners[i].callback, undefined, true);
+                }
+                listeners[i].callback.call(listeners[i].context, args);
+            }
+        }
+        return true;
+    };
+    /**
+     * Add a listener for a given event.
+     * @param event The event name.
+     * @param callback The listener function.
+     * @param context Optional: The context to invoke the listener with.
+     * @returns {EventEmitter} `this`
+     */
+    EventEmitter.prototype.on = function (event, callback, context) {
+        addListener(this, event, callback, context, false);
+        return this;
+    };
+    /**
+     * Add a one-time listener for a given event.
+     * @param event The event name.
+     * @param callback The listener function.
+     * @param context Optional: The context to invoke the listener with.
+     * @returns {EventEmitter} `this`
+     */
+    EventEmitter.prototype.once = function (event, callback, context) {
+        addListener(this, event, callback, context, true);
+        return this;
+    };
+    /**
+     * Remove the listeners of a given event.
+     * @param event The event name.
+     * @param callback Only remove the listeners that match this function.
+     * @param context Only remove the listeners that have this context.
+     * @param once  Only remove one-time listeners.
+     * @returns {EventEmitter} `this`
+     */
+    EventEmitter.prototype.unbind = function (event, callback, context, once) {
+        var evt = prefix ? prefix + event : event;
+        if (!this._eventsMap[evt]) {
+            return this;
+        }
+        if (!callback) {
+            clearEvent(this, evt);
+            return this;
+        }
+        var listeners = this._eventsMap[evt];
+        if (uniqueListener(listeners)) {
+            if (listeners.callback === callback &&
+                (!once || listeners.once) &&
+                (!context || listeners.context === context)) {
+                clearEvent(this, evt);
+            }
+        }
+        else {
+            var events = [];
+            var length_1 = listeners.length;
+            for (var i = 0; i < length_1; i++) {
+                if (listeners[i].callback !== callback ||
+                    (once && !listeners[i].once) ||
+                    (context && listeners[i].context !== context)) {
+                    events.push(listeners[i]);
+                }
+            }
+            if (events.length) {
+                this._eventsMap[evt] = (events.length === 1) ? events[0] : events;
+            }
+            else {
+                clearEvent(this, evt);
+            }
+        }
+        return this;
+    };
+    /**
+     * Remove all listeners, or those of the specified event.
+     * @param event The event name.
+     * @returns {EventEmitter} `this`
+     */
+    EventEmitter.prototype.clear = function (event) {
+        if (event) {
+            var evt = prefix ? prefix + event : event;
+            if (this._eventsMap[evt]) {
+                clearEvent(this, evt);
+            }
+        }
+        else {
+            this._eventsMap = new EventsMap();
+            this._eventsCount = 0;
+        }
+        return this;
+    };
+    /**
+     * Return the number of listeners listening to a given event.
+     * @param event The event name.
+     * @returns {number} The number of listeners.
+     */
+    EventEmitter.prototype.listenerCount = function (event) {
+        var evt = prefix ? prefix + event : event;
+        var listeners = this._eventsMap[evt];
+        if (!listeners) {
+            return 0;
+        }
+        if (uniqueListener(listeners)) {
+            return 1;
+        }
+        else {
+            listeners.length;
+        }
+        return 0;
+    };
+    return EventEmitter;
+}());
+exports.default = EventEmitter;
+
+
+/***/ }),
+
+/***/ "./src/renderer/engine/math/ManagedVector2.ts":
+/*!****************************************************!*\
+  !*** ./src/renderer/engine/math/ManagedVector2.ts ***!
+  \****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+var Vector2_1 = __webpack_require__(/*! ./Vector2 */ "./src/renderer/engine/math/Vector2.ts");
+var ManagedVector2 = /** @class */ (function (_super) {
+    __extends(ManagedVector2, _super);
+    function ManagedVector2(x, y, managed) {
+        var _this = _super.call(this, x, y) || this;
+        _this.markDirty = managed || undefined;
+        return _this;
+    }
+    ManagedVector2.prototype.set = function (x, y) {
+        _super.prototype.set.call(this, x, y);
+        if (this.markDirty !== undefined)
+            this.markDirty();
+        return this;
+    };
+    ManagedVector2.prototype.move = function (x, y) {
+        _super.prototype.move.call(this, x, y);
+        if (this.markDirty !== undefined)
+            this.markDirty();
+        return this;
+    };
+    ManagedVector2.prototype.scale = function (x, y) {
+        _super.prototype.scale.call(this, x, y);
+        if (this.markDirty !== undefined)
+            this.markDirty();
+        return this;
+    };
+    ManagedVector2.prototype.rotate = function (radians) {
+        _super.prototype.rotate.call(this, radians);
+        if (this.markDirty !== undefined)
+            this.markDirty();
+        return this;
+    };
+    ManagedVector2.prototype.rotateAround = function (radians, other) {
+        _super.prototype.rotateAround.call(this, radians, other);
+        if (this.markDirty !== undefined)
+            this.markDirty();
+        return this;
+    };
+    ManagedVector2.prototype.copy = function (otherVector) {
+        _super.prototype.copy.call(this, otherVector);
+        if (this.markDirty !== undefined)
+            this.markDirty();
+        return this;
+    };
+    ManagedVector2.prototype.normalize = function () {
+        _super.prototype.normalize.call(this);
+        if (this.markDirty !== undefined)
+            this.markDirty();
+        return this;
+    };
+    ManagedVector2.prototype.round = function () {
+        _super.prototype.round.call(this);
+        if (this.markDirty !== undefined)
+            this.markDirty();
+        return this;
+    };
+    ManagedVector2.prototype.reverse = function () {
+        _super.prototype.reverse.call(this);
+        if (this.markDirty !== undefined)
+            this.markDirty();
+        return this;
+    };
+    ManagedVector2.prototype.add = function (other) {
+        _super.prototype.add.call(this, other);
+        if (this.markDirty !== undefined)
+            this.markDirty();
+        return this;
+    };
+    ManagedVector2.prototype.sub = function (other) {
+        _super.prototype.sub.call(this, other);
+        if (this.markDirty !== undefined)
+            this.markDirty();
+        return this;
+    };
+    ManagedVector2.prototype.perp = function () {
+        _super.prototype.perp.call(this);
+        if (this.markDirty !== undefined)
+            this.markDirty();
+        return this;
+    };
+    return ManagedVector2;
+}(Vector2_1.default));
+exports.default = ManagedVector2;
+
+
+/***/ }),
+
 /***/ "./src/renderer/engine/math/MathUtils.ts":
 /*!***********************************************!*\
   !*** ./src/renderer/engine/math/MathUtils.ts ***!
@@ -47894,6 +48241,775 @@ var MathUtils = /** @class */ (function () {
 ;
 Object.freeze(MathUtils);
 exports.default = new MathUtils;
+
+
+/***/ }),
+
+/***/ "./src/renderer/engine/math/Matrix3.ts":
+/*!*********************************************!*\
+  !*** ./src/renderer/engine/math/Matrix3.ts ***!
+  \*********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+/*
+
+
+* | a | b | x | * | 0 | 2 | 4 |
+* | c | d | y | * | 1 | 3 | 5 |
+* | 0 | 0 | 1 |
+
+* | 0 | 3 | 6 | * | a | c | x |
+* | 1 | 4 | 7 | * | b | d | y |
+* | 2 | 5 | 8 | * | 0 | 0 | 1 |
+
+a = scale_x
+b = cos
+x = x translate
+
+c = scale_y
+d = sin
+y = y translate
+
+HTML5/CSS3 uses matrices in column-major order based.
+
+*/
+Object.defineProperty(exports, "__esModule", { value: true });
+var Matrix3 = /** @class */ (function () {
+    /*
+    * Constructor is identity only
+    */
+    function Matrix3(a, b) {
+        /*a = a || i;
+        b = b || 0;
+        x = x || 0;
+    
+        c = c || 0;
+        d = d || i;
+        y = y || 0;*/
+        a = a || 0;
+        b = b || 0;
+        this._a = [];
+        // first column
+        this._a[0] = a;
+        this._a[1] = b;
+        this._a[2] = b;
+        // second column
+        this._a[3] = b;
+        this._a[4] = a;
+        this._a[5] = b;
+        // third column
+        this._a[6] = b;
+        this._a[7] = b;
+        this._a[8] = a;
+        //this._at = null;
+    }
+    Object.defineProperty(Matrix3.prototype, "a", {
+        get: function () {
+            return this._a;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Matrix3.prototype.at = function (i, j) {
+        return this._a[i + j * 3];
+    };
+    Matrix3.prototype.set = function (i, j, value) {
+        this._a[i + j * 3] = value;
+        return this;
+    };
+    Matrix3.prototype.setIdentity = function () {
+        return this.setTransform(1, 0, 0, 0, 1, 0, 0, 0, 1);
+    };
+    Matrix3.prototype.setTransform = function (a, b, c, d, e, f, g, h, i) {
+        this._a[0] = a;
+        this._a[1] = b;
+        this._a[2] = c; // 0
+        this._a[3] = d;
+        this._a[4] = e;
+        this._a[5] = f; // 0
+        this._a[6] = g; // x
+        this._a[7] = h; // y
+        this._a[8] = i;
+        return this;
+    };
+    Matrix3.prototype.translate = function (x, y) {
+        /* | a | b | x | * | 0 | 2 | 4 |
+        *  | c | d | y | * | 1 | 3 | 5 |
+      
+        * | 0 | 3 | 6 | * | a | c | x |
+        * | 1 | 4 | 7 | * | b | d | y |
+        * | 2 | 5 | 8 |
+        */
+        // 4 = 0 * x * 2 * y + 4
+        // 5 = 1 * x * 3 * y + 5
+        // 6 = 1 * x + 3 * y + 5
+        // 7 = 1 * x + 4 * y + 7
+        this._a[6] = this._a[0] * x + this._a[3] * y + this._a[6];
+        this._a[7] = this._a[1] * x + this._a[4] * y + this._a[7];
+        return this;
+    };
+    Matrix3.prototype.scale = function (x, y) {
+        if (y === undefined) {
+            y = x;
+        }
+        this._a[0] *= x; // a
+        this._a[1] *= x; // b
+        this._a[3] *= y; // c
+        this._a[4] *= y; // d
+        this._a[6] *= x; // x
+        this._a[7] *= y; // y
+        return this;
+    };
+    Matrix3.prototype.rotate = function (radianAngle) {
+        var cos = Math.cos(radianAngle);
+        var sin = Math.sin(radianAngle);
+        return this.radianRotate(cos, sin);
+    };
+    Matrix3.prototype.radianRotate = function (cos, sin) {
+        return this.transform(cos, sin, -sin, cos, 0, 0);
+    };
+    Matrix3.prototype.transform = function (a, b, c, d, x, y) {
+        var a00 = this._a[0]; // a
+        var a01 = this._a[1]; // b
+        var a10 = this._a[3]; // c
+        var a11 = this._a[4]; // d
+        var a20 = this._a[6]; // x
+        var a21 = this._a[7]; // y
+        this._a[0] = a * a00 + b * a10; // a * a0 + b * c0;
+        this._a[1] = a * a01 + b * a11; // a * b0 + b * d0;
+        this._a[3] = c * a00 + d * a10; // c * a0 + d * c0;
+        this._a[4] = c * a01 + d * a11; // c * b0 + d * d0;
+        this._a[6] = x * a00 + y * a10 + a20; // x * a0 + y * c0 + x0;
+        this._a[7] = x * a01 + y * a11 + a21; // x * b0 + y * d0 + y0;
+        return this;
+    };
+    Matrix3.prototype.setModelMatrix = function (position, scale, rotation) {
+        this._a[0] = rotation.x * scale.x; // a
+        this._a[1] = rotation.y * scale.x; // b
+        this._a[3] = -rotation.y * scale.y; // c
+        this._a[4] = rotation.x * scale.y; // d
+        this._a[6] = position.x; // x
+        this._a[7] = position.y; // y
+        /*if (origin !== undefined) {
+          this._a[6] -= origin.x * this._a[0] + origin.y * this._a[3];
+          this._a[7] -= origin.y * this._a[1] + origin.y * this._a[4];
+        }*/
+        return this;
+        /*
+        a  =  _transform._cosSin.x * _transform.scale.x;
+        b  = _transform._cosSin.y * _transform.scale.x;
+        c  = -_transform._cosSin.y * _transform.scale.y;
+        d  =  _transform._cosSin.x * _transform.scale.y;
+        x =  _transform.position.x;
+        y =  _transform.position.y;
+    
+        x -= _transform.origin.x * a + _transform.origin.y * c;
+        y -= _transform.origin.y * b + _transform.origin.y * d;
+        */
+    };
+    Matrix3.prototype.multiply = function (other) {
+        // faster way
+        var a00 = this._a[0]; // a - 0
+        var a01 = this._a[1]; // b - 1
+        var a10 = this._a[3]; // c - 3
+        var a11 = this._a[4]; // d - 4
+        var a20 = this._a[6]; // x - 6
+        var a21 = this._a[7]; // y - 7
+        this._a[0] = other.a[0] * a00 + other.a[1] * a10; // a1 * a0 + b1 * c0;
+        this._a[1] = other.a[0] * a01 + other.a[1] * a11; // a1 * b0 + b1 * d0;
+        this._a[3] = other.a[3] * a00 + other.a[4] * a10; // c1 * a0 + d1 * c0;
+        this._a[4] = other.a[3] * a01 + other.a[4] * a11; // c1 * b0 + d1 * d0;
+        this._a[6] = other.a[6] * a00 + other.a[7] * a10 + a20; // x1 * a0 + y1 * c0 + x0;
+        this._a[7] = other.a[6] * a01 + other.a[7] * a11 + a21; // x1 * b0 + y1 * d0 + y0;
+        return this;
+    };
+    Matrix3.prototype.concat = function (other) {
+        var a = this._a[0]; // a - 0
+        var b = this._a[1]; // b - 1
+        var c = this._a[3]; // c - 3
+        var d = this._a[4]; // d - 4
+        var x = this._a[6]; // x - 6
+        var y = this._a[7]; // y - 7
+        this._a[0] = a * other.a[0] + b * other.a[3]; // a * pt.a + b * pt.c;
+        this._a[1] = a * other.a[1] + b * other.a[4]; // a * pt.b + b * pt.d;
+        this._a[3] = c * other.a[0] + d * other.a[3]; // c * pt.a + d * pt.c;
+        this._a[4] = c * other.a[1] + d * other.a[4]; // c * pt.b + d * pt.d;
+        this._a[6] = x * other.a[0] + y * other.a[3] + other.a[6]; // x * pt.a + y * pt.c + pt.x;
+        this._a[7] = x * other.a[1] + y * other.a[4] + other.a[7]; // x * pt.b + y * pt.d + pt.y;
+        return this;
+    };
+    Matrix3.prototype.transformPoint = function (x, y) {
+        var point = { x: 0, y: 0 };
+        point.x = x * this._a[0] + y * this._a[3] + this._a[6];
+        point.y = x * this._a[1] + y * this._a[4] + this._a[7];
+        return point;
+    };
+    Matrix3.prototype.transpose = function () {
+        return this.setTransform(this._a[0], this._a[3], this._a[6], this._a[1], this._a[4], this._a[7], this._a[2], this._a[5], this._a[8]);
+    };
+    Matrix3.prototype.inversed = function () {
+        var det = Matrix3.determinant(this);
+        if (det === 0) {
+            return this;
+        }
+        var inv_det = 1.0 / det;
+        var a = this._a;
+        var b = [];
+        b[0] = inv_det * (a[4] * a[8] - a[5] * a[7]); // (m11*m22 - m12*m21)/det;
+        b[1] = inv_det * (a[2] * a[7] - a[1] * a[8]); // (m02*m21 - m01*m22)/det;
+        b[2] = inv_det * (a[1] * a[5] - a[2] * a[4]); // (m01*m12 - m02*m11)/det;
+        b[3] = inv_det * (a[5] * a[6] - a[3] * a[8]); // (m12*m20 - m10*m22)/det;
+        b[4] = inv_det * (a[0] * a[8] - a[2] * a[6]); // (m00*m22 - m02*m20)/det;
+        b[5] = inv_det * (a[2] * a[3] - a[0] * a[5]); // (m02*m10 - m00*m12)/det;
+        b[6] = inv_det * (a[3] * a[7] - a[4] * a[6]); // (m10*m21 - m11*m20)/det;
+        b[7] = inv_det * (a[1] * a[6] - a[0] * a[7]); // (m01*m20 - m00*m21)/det;
+        b[8] = inv_det * (a[0] * a[4] - a[1] * a[3]); // (m00*m11 - m01*m10)/det;
+        this._a = b;
+        return this;
+    };
+    Matrix3.prototype.toString = function () {
+        var str = "";
+        for (var y = 0; y < 3; y++) {
+            for (var x = 0; x < 3; x++) {
+                var val = this.at(y, x);
+                //str += val.toString() + " ";
+                //console.log("---- " + (x + y * 3).toString());
+                str += val + " ";
+            }
+            str += "\n";
+        }
+        return str;
+    };
+    Matrix3.identity = function () { return new Matrix3(1); };
+    Matrix3.zero = function () { return new Matrix3(0); };
+    Matrix3.transpose = function (mat) {
+        var copy = Matrix3.zero();
+        return copy.setTransform(mat.a[0], mat.a[3], mat.a[6], mat.a[1], mat.a[4], mat.a[7], mat.a[2], mat.a[5], mat.a[8]);
+    };
+    Matrix3.determinant = function (m) {
+        //m Y (row) X (column)
+        /*
+        * | 0 | 3 | 6 | * | a | c | x | * | m00 | m10 | m20 |
+        * | 1 | 4 | 7 | * | b | d | y | * | m01 | m11 | m21 |
+        * | 2 | 5 | 8 | * | 0 | 0 | 1 | * | m02 | m12 | m22 |
+        */
+        var det = m.a[0] * m.a[4] * m.a[8] + // m00*m11*m22 +
+            m.a[1] * m.a[5] * m.a[6] + // m01*m12*m20 +
+            m.a[2] * m.a[3] * m.a[7] - // m02*m10*m21 -
+            m.a[0] * m.a[5] * m.a[7] - // m00*m12*m21 - 
+            m.a[1] * m.a[3] * m.a[8] - // m01*m10*m22 - 
+            m.a[2] * m.a[4] * m.a[6]; // m02*m11*m20;
+        return det;
+    };
+    Matrix3.determinant2D = function (m) {
+        return (m.a[0] * m.a[4]) - (m.a[1] * m.a[3]);
+    };
+    Matrix3.inverse = function (m) {
+        var det = Matrix3.determinant(m);
+        if (det === 0) {
+            return m;
+        }
+        var inv_det = 1.0 / det;
+        var b = new Matrix3();
+        b.a[0] = inv_det * (m.a[4] * m.a[8] - m.a[5] * m.a[7]); // (m11*m22 - m12*m21)/det;
+        b.a[1] = inv_det * (m.a[2] * m.a[7] - m.a[1] * m.a[8]); // (m02*m21 - m01*m22)/det;
+        b.a[2] = inv_det * (m.a[1] * m.a[5] - m.a[2] * m.a[4]); // (m01*m12 - m02*m11)/det;
+        b.a[3] = inv_det * (m.a[5] * m.a[6] - m.a[3] * m.a[8]); // (m12*m20 - m10*m22)/det;
+        b.a[4] = inv_det * (m.a[0] * m.a[8] - m.a[2] * m.a[6]); // (m00*m22 - m02*m20)/det;
+        b.a[5] = inv_det * (m.a[2] * m.a[3] - m.a[0] * m.a[5]); // (m02*m10 - m00*m12)/det;
+        b.a[6] = inv_det * (m.a[3] * m.a[7] - m.a[4] * m.a[6]); // (m10*m21 - m11*m20)/det;
+        b.a[7] = inv_det * (m.a[1] * m.a[6] - m.a[0] * m.a[7]); // (m01*m20 - m00*m21)/det;
+        b.a[8] = inv_det * (m.a[0] * m.a[4] - m.a[1] * m.a[3]); // (m00*m11 - m01*m10)/det;
+        return b;
+    };
+    Matrix3.multiplySlow = function (a, b) {
+        var mat = Matrix3.zero(); // zeroes
+        var val;
+        for (var i = 0; i < 3; ++i) {
+            for (var j = 0; j < 3; ++j) {
+                for (var k = 0; k < 3; ++k) {
+                    val = mat.at(i, k);
+                    val += a.at(i, j) * b.at(j, k);
+                    mat.set(i, k, val);
+                }
+            }
+        }
+        return mat;
+    };
+    return Matrix3;
+}());
+exports.default = Matrix3;
+
+
+/***/ }),
+
+/***/ "./src/renderer/engine/math/Rect.ts":
+/*!******************************************!*\
+  !*** ./src/renderer/engine/math/Rect.ts ***!
+  \******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+/**
+* @class Rect
+*/
+var Rect = /** @class */ (function () {
+    function Rect(x, y, width, height) {
+        this.x = x || 0;
+        this.y = y || 0;
+        this.width = width || 0;
+        this.height = height || 0;
+    }
+    Object.defineProperty(Rect.prototype, "center", {
+        get: function () {
+            var vec = {
+                x: this.x + this.width / 2,
+                y: this.y + this.height / 2
+            };
+            return vec;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Rect.prototype.set = function (x, y, width, height) {
+        this.x = x;
+        this.y = y;
+        this.width = width;
+        this.height = height;
+        return this;
+    };
+    Rect.prototype.setPostion = function (x, y) {
+        this.x = x;
+        this.y = y;
+        return this;
+    };
+    Rect.prototype.setSize = function (width, height) {
+        this.width = width;
+        this.height = height;
+        return this;
+    };
+    Rect.prototype.copy = function (rect) {
+        this.x = rect.x;
+        this.y = rect.y;
+        this.width = rect.width;
+        this.height = rect.height;
+        return this;
+    };
+    Rect.prototype.intersects = function (rect) {
+        return Rect.intersects(this, rect);
+    };
+    Rect.prototype.contains = function (x, y) {
+        return Rect.contains(this, x, y);
+    };
+    Rect.intersects = function (rect1, rect2) {
+        if (rect1.width <= 0 || rect1.height <= 0 || rect2.width <= 0 || rect2.height <= 0)
+            return false;
+        return !(rect1.x > rect2.x + rect2.width ||
+            rect1.x + rect1.width < rect2.x ||
+            rect1.y > rect2.y + rect2.height ||
+            rect1.y + rect1.height < rect2.y);
+    };
+    Rect.contains = function (rect, x, y) {
+        if (rect.width <= 0 && rect.height <= 0)
+            return false;
+        return (x > rect.x &&
+            x < rect.x + rect.width &&
+            y >= rect.y &&
+            y < rect.y + rect.height);
+    };
+    Rect.intersectionArea = function (a, b) {
+        var out = new Rect();
+        if (Rect.intersects(a, b)) {
+            out.y = Math.max(a.y, b.y);
+            out.x = Math.max(a.x, b.x);
+            out.width = Math.min(a.x + a.width, b.x + b.width) - out.x;
+            out.height = Math.min(a.y + a.height, b.y + b.height) - out.y;
+        }
+        return out;
+    };
+    return Rect;
+}());
+exports.default = Rect;
+
+
+/***/ }),
+
+/***/ "./src/renderer/engine/math/Vector2.ts":
+/*!*********************************************!*\
+  !*** ./src/renderer/engine/math/Vector2.ts ***!
+  \*********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var MathUtils_1 = __webpack_require__(/*! ./MathUtils */ "./src/renderer/engine/math/MathUtils.ts");
+/**
+* Class for points and vectors.
+* @class Vector2
+* @constructor
+*/
+var Vector2 = /** @class */ (function () {
+    function Vector2(x, y) {
+        this.x = x || 0;
+        this.y = y || 0;
+    }
+    Object.defineProperty(Vector2.prototype, "magnitude", {
+        get: function () { return Math.sqrt((this.x * this.x) + (this.y * this.y)); },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Vector2.prototype, "normal", {
+        get: function () {
+            var mag = this.magnitude;
+            var vec = new Vector2(this.x / mag, this.y / mag);
+            return vec;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Vector2.prototype.set = function (x, y) {
+        this.x = x;
+        this.y = y || x;
+        return this;
+    };
+    Vector2.prototype.move = function (x, y) {
+        this.x += x;
+        this.y += y;
+        return this;
+    };
+    Vector2.prototype.scale = function (x, y) {
+        this.x *= x;
+        this.y *= y || x;
+        return this;
+    };
+    Vector2.prototype.rotate = function (radians) {
+        var x = this.x;
+        var y = this.y;
+        this.x = x * Math.cos(radians) - y * Math.sin(radians);
+        this.y = x * Math.sin(radians) + y * Math.cos(radians);
+        return this;
+    };
+    Vector2.prototype.rotateAround = function (radians, other) {
+        /*var x = this.x;
+        var y = this.y;*/
+        var dx = this.x - other.x;
+        var dy = this.y - other.y;
+        var c = Math.cos(radians);
+        var s = Math.sin(radians);
+        /*this.x = c * (x-other.x) - s * (y-other.y) + other.x;
+        this.y = s * (x-other.x) + c * (y-other.y) + other.y;*/
+        this.x = other.x + (c * dx - s * dy);
+        this.y = other.y + (s * dx + c * dy);
+        return this;
+    };
+    Vector2.prototype.copy = function (otherVector) {
+        this.x = otherVector.x;
+        this.y = otherVector.y;
+        return this;
+    };
+    Vector2.prototype.normalize = function () {
+        var mag = this.length();
+        if (mag > 0) {
+            this.x = this.x / mag;
+            this.y = this.y / mag;
+        }
+        return this;
+    };
+    Vector2.prototype.round = function () {
+        this.x = MathUtils_1.default.round(this.x);
+        this.y = MathUtils_1.default.round(this.y);
+        return this;
+    };
+    Vector2.prototype.reverse = function () {
+        this.x = -this.x;
+        this.y = -this.y;
+        return this;
+    };
+    Vector2.prototype.add = function (other) {
+        this.x += other.x;
+        this.y += other.y;
+        return this;
+    };
+    Vector2.prototype.sub = function (other) {
+        this.x -= other.x;
+        this.y -= other.y;
+        return this;
+    };
+    Vector2.prototype.perp = function () {
+        var x = this.x;
+        this.x = this.y;
+        this.y = -x;
+        return this;
+    };
+    Vector2.prototype.dot = function (other) {
+        return Vector2.dot(this, other);
+    };
+    Vector2.prototype.project = function (other) {
+        return Vector2.project(this, other);
+    };
+    Vector2.prototype.clone = function () {
+        return new Vector2(this.x, this.y);
+    };
+    Vector2.prototype.length = function () {
+        return Math.sqrt(this.squaredLenght());
+    };
+    Vector2.prototype.toString = function () {
+        return "{ x: " + this.x + ", y: " + this.y + " }";
+    };
+    Vector2.prototype.squaredLenght = function () {
+        return Vector2.dot(this, this);
+    };
+    Vector2.abs = function (vector) {
+        return new Vector2(Math.abs(vector.x), Math.abs(vector.y));
+    };
+    Vector2.scalar = function (a, b) {
+        return a.x * b.y - a.y * b.x;
+    };
+    Vector2.distance = function (a, b) {
+        return MathUtils_1.default.distance(a.x, a.y, b.x, b.y);
+    };
+    Vector2.angleBetween = function (a, b) {
+        return MathUtils_1.default.angleBetween(a.x, a.y, b.x, b.y);
+    };
+    Vector2.dot = function (a, b) {
+        return (a.x * b.x) + (a.y * b.y);
+    };
+    Vector2.project = function (a, b) {
+        var dp = Vector2.dot(a, b);
+        var proj = new Vector2((dp / (b.x * b.x + b.y * b.y)) * b.x, (dp / (b.x * b.x + b.y * b.y)) * b.y);
+        return proj;
+    };
+    ;
+    // project for unit vector
+    Vector2.projectNormal = function (a, b) {
+        var dp = Vector2.dot(a, b);
+        var proj = new Vector2(dp / b.x, dp / b.y);
+        return proj;
+    };
+    ;
+    Vector2.reflect = function (vec, axis) {
+        var r = Vector2.project(vec, axis);
+        r.scale(2);
+        r.sub(vec);
+        return r;
+    };
+    ;
+    Vector2.reflectNormal = function (vec, axis) {
+        var r = Vector2.projectNormal(vec, axis);
+        r.scale(2);
+        r.sub(vec);
+        return r;
+    };
+    ;
+    Vector2.lerp = function (a, b, t) {
+        var vec = new Vector2(MathUtils_1.default.lerp(a.x, b.x, t), MathUtils_1.default.lerp(a.y, b.y, t));
+        return vec;
+    };
+    return Vector2;
+}());
+exports.default = Vector2;
+
+
+/***/ }),
+
+/***/ "./src/renderer/engine/math/bounds/Bounds2D.ts":
+/*!*****************************************************!*\
+  !*** ./src/renderer/engine/math/bounds/Bounds2D.ts ***!
+  \*****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var Vector2_1 = __webpack_require__(/*! ../Vector2 */ "./src/renderer/engine/math/Vector2.ts");
+var Bounds2D = /** @class */ (function () {
+    function Bounds2D(x, y, width, height) {
+        this.min = new Vector2_1.default();
+        this.max = new Vector2_1.default();
+        if (x instanceof Bounds2D) {
+            this.min.copy(x.min);
+            this.max.copy(x.max);
+        }
+        else {
+            x = x || Infinity;
+            y = y || Infinity;
+            width = width || -Infinity;
+            height = height || -Infinity;
+            this.min.x = x;
+            this.min.y = y;
+            this.max.x = width;
+            this.max.y = height;
+        }
+    }
+    Object.defineProperty(Bounds2D.prototype, "center", {
+        get: function () {
+            return new Vector2_1.default((this.max.x - this.min.x) / 2, (this.max.y - this.min.y) / 2);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Bounds2D.prototype, "size", {
+        get: function () {
+            return new Vector2_1.default((this.max.x - this.min.x), (this.max.y - this.min.y));
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Bounds2D.prototype.set = function (minX, minY, maxX, maxY) {
+        this.min.set(minX, minY);
+        this.max.set(maxX, maxY);
+        //this.box.set(this.min.x,this.min.y,this.max.x-this.min.x,this.max.y-this.min.y);
+        return this;
+    };
+    Bounds2D.prototype.setMin = function (minX, minY) {
+        this.min.x = minX;
+        this.min.y = minY;
+        return this;
+    };
+    Bounds2D.prototype.setMax = function (maxX, maxY) {
+        this.max.x = maxX;
+        this.max.y = maxY;
+        return this;
+    };
+    Bounds2D.prototype.move = function (x, y) {
+        this.min.x += x;
+        this.min.y += y;
+        this.max.x += x;
+        this.max.y += y;
+    };
+    Bounds2D.prototype.intersects = function (bounds) {
+        return ((this.max.x >= bounds.min.x &&
+            this.max.y >= bounds.min.y &&
+            this.min.x <= bounds.max.x &&
+            this.min.y <= bounds.max.y) ||
+            (this.min.x >= bounds.max.x &&
+                this.min.y >= bounds.max.y &&
+                this.max.x <= bounds.min.x &&
+                this.max.y <= bounds.min.y));
+    };
+    Bounds2D.prototype.contains = function (x, y) {
+        return (x > this.min.x &&
+            y > this.min.y &&
+            x < this.max.x &&
+            y < this.max.y);
+    };
+    Bounds2D.prototype.expand = function (xRadius, yRadius) {
+        yRadius = yRadius || xRadius;
+        if (this.max.x > this.min.x) {
+            this.min.x -= xRadius;
+            this.max.x += xRadius;
+        }
+        else {
+            this.min.x += xRadius;
+            this.max.x -= xRadius;
+        }
+        if (this.max.y > this.min.y) {
+            this.min.y -= yRadius;
+            this.max.y += yRadius;
+        }
+        else {
+            this.min.y += yRadius;
+            this.max.y -= yRadius;
+        }
+        return this;
+    };
+    Bounds2D.prototype.decrease = function (xRadius, yRadius) {
+        return this.expand(-xRadius, -yRadius);
+    };
+    Bounds2D.prototype.merge = function (value) {
+        // merge with another bounds
+        if (value instanceof Bounds2D) {
+            this.min.x = Math.min(this.min.x, value.min.x);
+            this.min.y = Math.min(this.min.y, value.min.y);
+            this.max.x = Math.max(this.max.x, value.max.x);
+            this.max.y = Math.max(this.max.y, value.max.y);
+            return this;
+        }
+        else if (value instanceof Vector2_1.default) {
+            return this.mergeWithPoint(value.x, value.y);
+        }
+        else {
+            this.min.x = Math.min(this.min.x, value);
+            this.min.y = Math.min(this.min.y, value);
+            this.max.x = Math.max(this.max.x, value);
+            this.max.y = Math.max(this.max.y, value);
+            return this;
+        }
+    };
+    Bounds2D.prototype.mergeWithPoint = function (x, y) {
+        this.min.x = Math.min(this.min.x, x);
+        this.min.y = Math.min(this.min.y, y);
+        this.max.x = Math.max(this.max.x, x);
+        this.max.y = Math.max(this.max.y, y);
+        return this;
+    };
+    Bounds2D.prototype.extend = function (bounds) {
+        // min merge
+        if (bounds.min.x < this.min.x)
+            this.min.x = bounds.min.x;
+        if (bounds.min.y < this.min.y)
+            this.min.y = bounds.min.y;
+        // max merge
+        if (bounds.max.x > this.max.x)
+            this.max.x = bounds.max.x;
+        if (bounds.max.y > this.max.y)
+            this.max.y = bounds.max.y;
+        return this;
+    };
+    Bounds2D.prototype.extendByPoint = function (x, y) {
+        if (x < this.min.x)
+            this.min.x = x;
+        if (y < this.min.y)
+            this.min.y = y;
+        if (x > this.max.x)
+            this.max.x = x;
+        if (y > this.max.y)
+            this.max.y = y;
+        return this;
+    };
+    Bounds2D.prototype.limit = function (xmin, ymin, xmax, ymax) {
+        if (this.min.x < xmin)
+            this.min.x = xmin;
+        if (this.min.y < ymin)
+            this.min.y = ymin;
+        if (this.max.x > xmax)
+            this.max.x = xmax;
+        if (this.max.y > ymax)
+            this.max.y = ymax;
+    };
+    Bounds2D.prototype.offset = function (x, y) {
+        var o = {
+            x: x,
+            y: y
+        };
+        o.x -= this.min.x;
+        o.y -= this.min.y;
+        if (this.max.x > this.min.x)
+            o.x /= this.max.x - this.min.x;
+        if (this.max.y > this.min.y)
+            o.y /= this.max.y - this.min.y;
+        return o;
+    };
+    Bounds2D.prototype.toString = function () {
+        return "{ min: " + this.min.toString() + ", max: " + this.max.toString() + " }";
+    };
+    Bounds2D.prototype.copy = function (bounds) {
+        this.min.copy(bounds.min);
+        this.max.copy(bounds.max);
+        return this;
+    };
+    return Bounds2D;
+}());
+exports.default = Bounds2D;
 
 
 /***/ }),
@@ -49418,6 +50534,579 @@ exports.default = CanvasSmoothing;
 
 /***/ }),
 
+/***/ "./src/renderer/internal/editor/EditorCamera.ts":
+/*!******************************************************!*\
+  !*** ./src/renderer/internal/editor/EditorCamera.ts ***!
+  \******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var Matrix3_1 = __webpack_require__(/*! ../../engine/math/Matrix3 */ "./src/renderer/engine/math/Matrix3.ts");
+var ManagedVector2_1 = __webpack_require__(/*! ../../engine/math/ManagedVector2 */ "./src/renderer/engine/math/ManagedVector2.ts");
+var Bounds2D_1 = __webpack_require__(/*! ../../engine/math/bounds/Bounds2D */ "./src/renderer/engine/math/bounds/Bounds2D.ts");
+var Vector2_1 = __webpack_require__(/*! ../../engine/math/Vector2 */ "./src/renderer/engine/math/Vector2.ts");
+var MathUtils_1 = __webpack_require__(/*! ../../engine/math/MathUtils */ "./src/renderer/engine/math/MathUtils.ts");
+var EditorCamera = /** @class */ (function () {
+    function EditorCamera(renderer) {
+        this._maxZoom = 10;
+        this._minZoom = 0.00125;
+        this._zoomDelta = 0.025;
+        this._renderer = renderer;
+        this._position = new ManagedVector2_1.default(0, 0);
+        this._oldPosition = new Vector2_1.default();
+        this._matrix = Matrix3_1.default.identity();
+        this._inversedMatrix = Matrix3_1.default.identity();
+        this._resolution = 1;
+        this._invertedResolution = 1 / this._resolution;
+        this._viewBounds = new Bounds2D_1.default();
+        this._origin = { x: 0.5, y: 0.5 };
+        this._lastZoomOffset = {
+            x: 0,
+            y: 0
+        };
+        this.updateTransform();
+    }
+    Object.defineProperty(EditorCamera.prototype, "resolution", {
+        get: function () {
+            return this._resolution;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(EditorCamera.prototype, "matrix", {
+        get: function () {
+            return this._matrix;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(EditorCamera.prototype, "inversedMatrix", {
+        get: function () {
+            return this._inversedMatrix;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(EditorCamera.prototype, "position", {
+        get: function () {
+            return this._position;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    EditorCamera.prototype.zoom = function (delta, zoomPoint) {
+        var res = this._resolution;
+        var scaleDelta = delta * this._zoomDelta;
+        res = res + scaleDelta;
+        if (res > this._maxZoom) {
+            res = this._maxZoom;
+        }
+        else if (res < this._minZoom) {
+            res = this._minZoom;
+        }
+        this.prepareMove();
+        zoomPoint.x = zoomPoint.x * this._renderer.width;
+        zoomPoint.y = zoomPoint.y * this._renderer.height;
+        // var diff = {
+        //      x: zoomPoint.x - (this._renderer.width / 2),
+        //      y: zoomPoint.y - (this._renderer.height / 2)
+        //     }
+        this._oldPosition.copy(this._position);
+        zoomPoint = this.screenPointToWorld(zoomPoint.x, zoomPoint.y);
+        zoomPoint = Matrix3_1.default.inverse(this._matrix).transformPoint(zoomPoint.x, zoomPoint.y);
+        var scaleChange = res - this._resolution;
+        var offsetX = -(zoomPoint.x * scaleChange);
+        var offsetY = -(zoomPoint.y * scaleChange);
+        this._position.x += offsetX;
+        this._position.y += offsetY;
+        // this._position.x -= this._oldPosition.x;
+        // this._position.y -= this._oldPosition.y;
+        this._resolution = res;
+        this._invertedResolution = 1 / res;
+    };
+    EditorCamera.prototype.prepareMove = function () {
+        this._oldPosition.copy(this._position);
+    };
+    EditorCamera.prototype.move = function (position) {
+        this._position.x = this._oldPosition.x - position.x * this._invertedResolution;
+        this._position.y = this._oldPosition.y - position.y * this._invertedResolution;
+        //this._lastZoomOffset.x = position.x;
+        //this._lastZoomOffset.y = position.y;
+    };
+    EditorCamera.prototype.setPosition = function (position) {
+        this._position.x = position.x * this._resolution;
+        this._position.y = position.y * this._resolution;
+    };
+    EditorCamera.prototype.updateTransform = function () {
+        //const originX = this._renderer.width * this._origin.x;
+        //const originY = this._renderer.height * this._origin.y;
+        // const pos = {
+        //     x: this._position.x,
+        //     y: this._position.y 
+        // }
+        // this._matrix.setIdentity()
+        //     .scale(this._resolution, this._resolution)
+        //     .translate(-this._position.x, -this._position.y)
+        //     .translate(originX * this._invertedResolution, originY * this._invertedResolution);
+        // this._inversedMatrix.setIdentity()
+        //     .translate(-this._position.x * this._invertedResolution, -this._position.y * this._invertedResolution)
+        //     .translate(originX * this._invertedResolution, originY * this._invertedResolution);
+        this._matrix.setIdentity()
+            //.translate(-this._position.x, -this._position.y)
+            .scale(this._resolution, this._resolution)
+            .translate(-this._position.x, -this._position.y);
+        this._inversedMatrix.setIdentity()
+            .translate(-this._position.x * this._resolution, -this._position.y * this._resolution);
+        //.translate(originX, originY);
+        //factor.x = factor.x - (this._position.x * this._invertedResolution);
+        // + this._invertedResolution;// + this._resolution ;// * (this._resolution - this._invertedResolution);
+        //factor *= this._invertedResolution - this._resolution;
+        //const diff = this._position.x * (this._invertedResolution - this._resolution);
+        //let vec = this._matrix.transformPoint(this._position.x * this._invertedResolution, this._position.y * this._invertedResolution);
+        // this._inversedMatrix.setIdentity()
+        //     .translate(this.position.x * this._resolution, this.position.y * this._resolution)
+        //.scale(this._invertedResolution, this._invertedResolution)
+        //this._inversedMatrix.scale(this._resolution,this._resolution )
+        //.scale(this._invertedResolution, this._invertedResolution)
+        //.translate(this._position.x + diff, this._position.y * this._resolution)
+        //.scale(this._resolution, this._resolution)
+        //.translate(this._position.x * this._invertedResolution, this._position.y * this._invertedResolution)
+        // this._inversedMatrix.setModelMatrix({
+        //     x: this._position.x * factor,
+        //     y: this._position.y * factor
+        // }, { x: 1, y: 1 }, { x: 1, y: 0 })
+        //.scale(this._resolution, this._resolution)
+        //.scale(this._invertedResolution, this._invertedResolution);
+    };
+    EditorCamera.prototype.screenPointToWorld = function (x, y) {
+        var result = new Vector2_1.default(x, y);
+        var det = Matrix3_1.default.determinant2D(this._matrix);
+        if (!det) {
+            return result;
+        }
+        // inverse determinant
+        det = 1 / det;
+        // inverse matrix
+        var m = this._matrix.a;
+        var a = m[4] * det;
+        var b = -m[1] * det;
+        var c = -m[3] * det;
+        var d = m[0] * det;
+        var e = (m[3] * m[7] - m[4] * m[6]) * det;
+        var f = (m[1] * m[6] - m[0] * m[7]) * det;
+        var cos = Math.cos(MathUtils_1.default.degtorad * 0);
+        var sin = Math.sin(MathUtils_1.default.degtorad * 0);
+        var scaledX = x * this._resolution + (this._position.x * cos - this._position.y * sin);
+        var scaledY = y * this._resolution + (this._position.x * sin + this._position.y * cos);
+        result.x = (scaledX * a + scaledY * c + e);
+        result.y = (scaledX * b + scaledY * d + f);
+        return result;
+    };
+    return EditorCamera;
+}());
+exports.default = EditorCamera;
+
+
+/***/ }),
+
+/***/ "./src/renderer/internal/editor/sceneView/SceneViewCursor.ts":
+/*!*******************************************************************!*\
+  !*** ./src/renderer/internal/editor/sceneView/SceneViewCursor.ts ***!
+  \*******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var MathUtils_1 = __webpack_require__(/*! ../../../engine/math/MathUtils */ "./src/renderer/engine/math/MathUtils.ts");
+var Rect_1 = __webpack_require__(/*! ../../../engine/math/Rect */ "./src/renderer/engine/math/Rect.ts");
+function getMouseWheelEvent() {
+    var prefix = "";
+    if (window.addEventListener) {
+        //_addEventListener = "addEventListener";
+    }
+    else {
+        //_addEventListener = "attachEvent";
+        prefix = "on";
+    }
+    var support = "onwheel" in document.createElement("div") ? "wheel" : // Modern browsers support "wheel"
+        document.onmousewheel !== undefined ? "mousewheel" : // Webkit and IE support at least "mousewheel"
+            "DOMMouseScroll"; // let's assume that remaining browsers are older Firefox
+    return prefix + support;
+}
+var CursorMode;
+(function (CursorMode) {
+    CursorMode[CursorMode["None"] = 0] = "None";
+    CursorMode[CursorMode["ViewZoom"] = 1] = "ViewZoom";
+    CursorMode[CursorMode["ViewMove"] = 2] = "ViewMove";
+    CursorMode[CursorMode["Selection"] = 3] = "Selection";
+})(CursorMode = exports.CursorMode || (exports.CursorMode = {}));
+var SceneViewCursor = /** @class */ (function () {
+    function SceneViewCursor(target, emitter, inputData) {
+        this.holding = false;
+        this.target = target;
+        this.emitter = emitter;
+        this._startPosition = { x: 0, y: 0 };
+        this._position = { x: 0, y: 0 };
+        this._selectionArea = new Rect_1.default();
+        this.inputData = inputData;
+        this.body = document.getElementsByTagName("BODY")[0];
+    }
+    Object.defineProperty(SceneViewCursor.prototype, "state", {
+        get: function () {
+            return this._state;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(SceneViewCursor.prototype, "startPosition", {
+        get: function () {
+            return this._startPosition;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(SceneViewCursor.prototype, "position", {
+        get: function () {
+            return this._position;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    SceneViewCursor.prototype.init = function () {
+        var _this = this;
+        var wheelEventName = getMouseWheelEvent();
+        var config = {
+            passive: false
+        };
+        this.target.addEventListener(wheelEventName, function (event) {
+            event.preventDefault();
+            //console.log(event)
+            _this._position.x = _this.inputData.transformX(event.clientX);
+            _this._position.y = _this.inputData.transformY(event.clientY);
+            var offset = {
+                x: _this.inputData.normTransformX(event.clientX),
+                y: _this.inputData.normTransformY(event.clientY)
+            };
+            var wheelDelta = MathUtils_1.default.sign(-event.deltaY); // || event.detail;
+            _this.emitter.emit('zoom', wheelDelta, offset);
+        }, config);
+        this.target.addEventListener('mousedown', function (event) {
+            event.preventDefault();
+            if (_this.state === CursorMode.None) {
+                _this._startPosition.x = _this.inputData.transformX(event.clientX);
+                _this._startPosition.y = _this.inputData.transformY(event.clientY);
+                if ((event.buttons & (4 || 0)) > 0) {
+                    _this._state = CursorMode.ViewMove;
+                    _this.emitter.emit('prepareViewMove');
+                    _this.holding = true;
+                    _this.target.style.cursor = 'grab';
+                    _this.body.style.cursor = 'grab';
+                }
+                else if ((event.buttons & (1 || 0)) > 0) {
+                    _this._state = CursorMode.Selection;
+                }
+            }
+        }, config);
+        document.addEventListener('mousemove', function (event) {
+            event.preventDefault();
+            event.stopPropagation();
+            if (_this.state !== CursorMode.None) {
+                _this._position.x = _this.inputData.transformX(event.clientX);
+                _this._position.y = _this.inputData.transformY(event.clientY);
+                if (_this.state === CursorMode.ViewMove) {
+                    _this.target.style.cursor = 'grabbing';
+                    _this.body.style.cursor = 'grabbing';
+                    if (_this._startPosition.x !== _this.position.x || _this._startPosition.y !== _this.position.y) {
+                        var deltaPos = {
+                            x: _this._position.x - _this._startPosition.x,
+                            y: _this._position.y - _this._startPosition.y
+                        };
+                        _this.emitter.emit('move', deltaPos);
+                    }
+                }
+                else if (_this.state === CursorMode.Selection) {
+                    var w = MathUtils_1.default.floor(_this.position.x - _this.startPosition.x);
+                    var h = MathUtils_1.default.floor(_this.position.y - _this.startPosition.y);
+                    _this._selectionArea.set(_this._startPosition.x, _this.startPosition.y, w, h);
+                    _this.emitter.emit('selection', _this._selectionArea);
+                }
+            }
+        }, config);
+        this.target.addEventListener('mousemove', function (event) {
+            event.preventDefault();
+            //event.stopPropagation();
+            _this._position.x = _this.inputData.transformX(event.clientX);
+            _this._position.y = _this.inputData.transformY(event.clientY);
+            _this.emitter.emit('redraw', _this._selectionArea);
+        });
+        document.addEventListener('mouseup', function (event) {
+            event.preventDefault();
+            _this._state = CursorMode.None;
+            _this.holding = false;
+            _this.target.style.cursor = 'default';
+            _this.body.style.cursor = 'default';
+            _this.emitter.emit('selection');
+        }, config);
+    };
+    return SceneViewCursor;
+}());
+exports.default = SceneViewCursor;
+
+
+/***/ }),
+
+/***/ "./src/renderer/internal/editor/sceneView/SceneViewEditor.ts":
+/*!*******************************************************************!*\
+  !*** ./src/renderer/internal/editor/sceneView/SceneViewEditor.ts ***!
+  \*******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var EditorCamera_1 = __webpack_require__(/*! ../EditorCamera */ "./src/renderer/internal/editor/EditorCamera.ts");
+var SceneViewInput_1 = __webpack_require__(/*! ./SceneViewInput */ "./src/renderer/internal/editor/sceneView/SceneViewInput.ts");
+var EventEmitter_1 = __webpack_require__(/*! ../../../engine/events/emitter/EventEmitter */ "./src/renderer/engine/events/emitter/EventEmitter.ts");
+var SceneViewCursor_1 = __webpack_require__(/*! ./SceneViewCursor */ "./src/renderer/internal/editor/sceneView/SceneViewCursor.ts");
+var MathUtils_1 = __webpack_require__(/*! ../../../engine/math/MathUtils */ "./src/renderer/engine/math/MathUtils.ts");
+var SceneViewEditor = /** @class */ (function () {
+    function SceneViewEditor(renderer) {
+        var _this = this;
+        this._renderer = renderer;
+        this._editorCamera = new EditorCamera_1.default(renderer);
+        this._emitter = new EventEmitter_1.default();
+        this._emitter.on('zoom', function (delta, zoomPoint) {
+            _this._editorCamera.zoom(delta, zoomPoint);
+            //this._editorCamera.setPosition(cursorPosition);
+            _this.update();
+            _this.render();
+        }, this);
+        this._emitter.on('move', function (cursorPosition) {
+            _this._editorCamera.move(cursorPosition);
+            //this._editorCamera.setPosition(cursorPosition);
+            _this.update();
+            _this.render();
+        }, this);
+        this._emitter.on('prepareViewMove', function () {
+            _this._editorCamera.prepareMove();
+        }, this);
+        this._emitter.on('selection', function (area) {
+            _this._selectionArea = area;
+            _this.render();
+        }, this);
+        this._emitter.on('redraw', function () {
+            _this.render();
+        });
+        this._editorInput = new SceneViewInput_1.default(this._renderer.canvas, this._emitter);
+        this._editorInput.init();
+        this.update();
+    }
+    Object.defineProperty(SceneViewEditor.prototype, "renderer", {
+        get: function () {
+            return this._renderer;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    SceneViewEditor.prototype.resize = function (width, height) {
+        this._renderer.resize(width, height);
+        this._editorInput.resize();
+        this.render();
+    };
+    SceneViewEditor.prototype.update = function () {
+        this._editorCamera.updateTransform();
+    };
+    SceneViewEditor.prototype.render = function () {
+        var ctx = this._renderer.context;
+        // scene
+        this._renderer.beginDraw();
+        this._renderer.draw();
+        var hanx = 0 * this._editorCamera.resolution;
+        var hany = 0 * this._editorCamera.resolution;
+        var lw = 80; // 73
+        var th = 16; // 12
+        var tw = 24; // 17
+        var h = this._renderer.height;
+        var w = this._renderer.width;
+        var f = (w / h) * 100 * this._editorCamera.resolution; //((w / h) * 100 * this._editorCamera.resolution);
+        var ws = MathUtils_1.default.floor(this._renderer.width / f);
+        var hs = this._renderer.height / f;
+        var xg = this._editorCamera.position.x % f;
+        var yg = this._editorCamera.position.y % f;
+        ctx.lineWidth = 0.25;
+        // for (let i = 0; i < ws; i++) {
+        //     ctx.beginPath();
+        //     ctx.moveTo(i * f + xg, 0);
+        //     ctx.lineTo(i * f + xg, h);
+        //     ctx.stroke();
+        // }
+        // for (let i = 0; i < hs; i++) {
+        //    ctx.beginPath();
+        //     ctx.moveTo(0, i * f + yg);
+        //     ctx.lineTo(w, i * f + yg);
+        //     ctx.stroke();
+        //     ctx.stroke();
+        // }
+        ctx.strokeStyle = 'white';
+        ctx.beginPath();
+        ctx.moveTo(w * 0.5, 0);
+        ctx.lineTo(w * 0.5, h);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.moveTo(0, h * 0.5);
+        ctx.lineTo(w, h * 0.5);
+        ctx.stroke();
+        // }
+        var editorCameraMatrix = this._editorCamera.matrix.a;
+        //console.log(this._editorCamera.matrix.toString());
+        ctx.setTransform(editorCameraMatrix[0], editorCameraMatrix[1], editorCameraMatrix[3], editorCameraMatrix[4], editorCameraMatrix[6], editorCameraMatrix[7]);
+        // const pos =this._editorCamera.matrix.transformPoint(this._editorInput.cursor.position.x,this._editorInput.cursor.position.y);
+        // console.log(pos);
+        // if (
+        //     pos.x > 0 && pos.y > 0
+        //     && pos.x < 100 && pos.y < 100) {
+        //     ctx.fillStyle = 'red';
+        // } else {
+        //     ctx.fillStyle = 'blue';
+        // }
+        ctx.fillStyle = 'blue';
+        ctx.fillRect(0, 0, 100, 100);
+        var inv = this._editorCamera.inversedMatrix.a;
+        ctx.setTransform(inv[0], inv[1], inv[3], inv[4], inv[6], inv[7]);
+        // render.drawCalls = 0;     
+        ctx.beginPath();
+        ctx.moveTo(hanx, hany);
+        ctx.lineTo(hanx + lw, hany);
+        ctx.lineCap = 'square';
+        ctx.lineWidth = 1;
+        ctx.strokeStyle = 'white';
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.moveTo(hanx + lw, hany - th / 2);
+        ctx.lineTo(hanx + lw, hany + th / 2);
+        ctx.lineTo(hanx + lw + tw, hany);
+        ctx.lineWidth = 0;
+        ctx.strokeStyle = 'none';
+        ctx.fillStyle = 'white';
+        ctx.fill();
+        // handles
+        ctx.setTransform(1, 0, 0, 1, 0, 0);
+        if (this._editorInput.cursor.state === SceneViewCursor_1.CursorMode.Selection) {
+            ctx.strokeStyle = 'rgb(33, 69, 128)';
+            ctx.lineWidth = 1;
+            ctx.strokeRect(this._selectionArea.x, this._selectionArea.y, this._selectionArea.width, this._selectionArea.height);
+            ctx.fillStyle = 'rgba(33, 69, 128, 0.2)';
+            ctx.fillRect(this._selectionArea.x, this._selectionArea.y, this._selectionArea.width, this._selectionArea.height);
+        }
+        this._renderer.endDraw();
+    };
+    return SceneViewEditor;
+}());
+exports.default = SceneViewEditor;
+
+
+/***/ }),
+
+/***/ "./src/renderer/internal/editor/sceneView/SceneViewInput.ts":
+/*!******************************************************************!*\
+  !*** ./src/renderer/internal/editor/sceneView/SceneViewInput.ts ***!
+  \******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var SceneViewInputData_1 = __webpack_require__(/*! ./SceneViewInputData */ "./src/renderer/internal/editor/sceneView/SceneViewInputData.ts");
+var SceneViewCursor_1 = __webpack_require__(/*! ./SceneViewCursor */ "./src/renderer/internal/editor/sceneView/SceneViewCursor.ts");
+var SceneViewInput = /** @class */ (function () {
+    function SceneViewInput(target, emitter) {
+        this.inputData = new SceneViewInputData_1.default(target);
+        this._cursor = new SceneViewCursor_1.default(target, emitter, this.inputData);
+    }
+    Object.defineProperty(SceneViewInput.prototype, "cursor", {
+        get: function () {
+            return this._cursor;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    SceneViewInput.prototype.resize = function () {
+        this.inputData.updateClientRect();
+    };
+    SceneViewInput.prototype.init = function () {
+        this._cursor.init();
+    };
+    return SceneViewInput;
+}());
+exports.default = SceneViewInput;
+
+
+/***/ }),
+
+/***/ "./src/renderer/internal/editor/sceneView/SceneViewInputData.ts":
+/*!**********************************************************************!*\
+  !*** ./src/renderer/internal/editor/sceneView/SceneViewInputData.ts ***!
+  \**********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var MathUtils_1 = __webpack_require__(/*! ../../../engine/math/MathUtils */ "./src/renderer/engine/math/MathUtils.ts");
+var Rect_1 = __webpack_require__(/*! ../../../engine/math/Rect */ "./src/renderer/engine/math/Rect.ts");
+var SceneViewInputData = /** @class */ (function () {
+    function SceneViewInputData(canvas) {
+        this.canvas = canvas;
+        this.clientRect = new Rect_1.default();
+        this.boundingClientRect = null;
+        this.updateClientRect();
+    }
+    SceneViewInputData.prototype.updateClientRect = function () {
+        var rect = this.clientRect;
+        var clientRect = this.canvas.getBoundingClientRect();
+        this.boundingClientRect = clientRect;
+        rect.x = clientRect.left + window.pageXOffset - document.documentElement.clientLeft;
+        rect.y = clientRect.top + window.pageYOffset - document.documentElement.clientTop;
+        rect.width = clientRect.width;
+        rect.height = clientRect.height;
+    };
+    SceneViewInputData.prototype.transformX = function (x) {
+        var rect = this.boundingClientRect;
+        return MathUtils_1.default.floor((x - rect.left) / (rect.right - rect.left) * this.canvas.width);
+    };
+    SceneViewInputData.prototype.transformY = function (y) {
+        var rect = this.boundingClientRect;
+        return MathUtils_1.default.floor((y - rect.top) / (rect.bottom - rect.top) * this.canvas.height);
+    };
+    SceneViewInputData.prototype.normTransformX = function (x) {
+        var rect = this.boundingClientRect;
+        return (x - rect.left) / (rect.right - rect.left);
+    };
+    SceneViewInputData.prototype.normTransformY = function (y) {
+        var rect = this.boundingClientRect;
+        return (y - rect.top) / (rect.bottom - rect.top);
+    };
+    SceneViewInputData.prototype.clientRectTransformX = function (x) {
+        return (x - this.clientRect.x) * this.scale.x;
+    };
+    SceneViewInputData.prototype.clientRectTransformY = function (y) {
+        return (y - this.clientRect.y) * this.scale.y;
+    };
+    return SceneViewInputData;
+}());
+exports.default = SceneViewInputData;
+
+
+/***/ }),
+
 /***/ "./src/renderer/internal/renderer/CanvasRenderer.ts":
 /*!**********************************************************!*\
   !*** ./src/renderer/internal/renderer/CanvasRenderer.ts ***!
@@ -49427,63 +51116,23 @@ exports.default = CanvasSmoothing;
 
 "use strict";
 
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
 Object.defineProperty(exports, "__esModule", { value: true });
-var Color_1 = __webpack_require__(/*! ../../engine/render/color/Color */ "./src/renderer/engine/render/color/Color.ts");
-var CanvasSmoothing_1 = __webpack_require__(/*! ../canvas/CanvasSmoothing */ "./src/renderer/internal/canvas/CanvasSmoothing.ts");
-var RendererProperties_1 = __webpack_require__(/*! ./RendererProperties */ "./src/renderer/internal/renderer/RendererProperties.ts");
-var CanvasRenderer = /** @class */ (function () {
+var Renderer_1 = __webpack_require__(/*! ./Renderer */ "./src/renderer/internal/renderer/Renderer.ts");
+var CanvasRenderer = /** @class */ (function (_super) {
+    __extends(CanvasRenderer, _super);
     function CanvasRenderer(DOMCanvas, canvasBuffer) {
-        this._alpha = 1;
-        this._renderContext = '2d';
-        this.doubleBuffer = false;
-        this._renderingType = RendererProperties_1.RenderingType.Linear;
-        // this._interpolation = InterpolationType.None;
-        this._canvas = DOMCanvas;
-        this._context = DOMCanvas.getContext('2d', { alpha: false });
-        if (canvasBuffer !== undefined) {
-            this._contextBuffer = canvasBuffer.getContext('2d', { alpha: false });
-            this._canvasBuffer = canvasBuffer;
-            this._doubleBuffer = true;
-        }
-        else {
-            this._canvasBuffer = null;
-            this._contextBuffer = null;
-            this._doubleBuffer = false;
-        }
-        this._smoothing = new CanvasSmoothing_1.default(this._context);
-        //this.layer = new RenderLayerManagement();
-        this._backgroundColor = Color_1.default.black;
-        this._alpha = 1;
+        return _super.call(this, '2d', DOMCanvas, canvasBuffer) || this;
     }
-    Object.defineProperty(CanvasRenderer.prototype, "doubleBuffer", {
-        get: function () {
-            return this._doubleBuffer;
-        },
-        set: function (value) {
-            this._doubleBuffer = value;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(CanvasRenderer.prototype, "renderContext", {
-        get: function () {
-            return this._renderContext;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(CanvasRenderer.prototype, "canvasBuffer", {
-        get: function () {
-            if (this._doubleBuffer) {
-                return this._canvasBuffer;
-            }
-            else {
-                return this._canvas;
-            }
-        },
-        enumerable: true,
-        configurable: true
-    });
     Object.defineProperty(CanvasRenderer.prototype, "context", {
         get: function () {
             if (this._doubleBuffer) {
@@ -49496,21 +51145,160 @@ var CanvasRenderer = /** @class */ (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(CanvasRenderer.prototype, "drawCalls", {
+    CanvasRenderer.prototype.repaint = function () {
+        this._context.drawImage(this._canvasBuffer, 0, 0);
+        // this._context.putImageData(this._canvasBuffer, 0,0)
+    };
+    // public get interpolation(): InterpolationType {
+    //     return this._interpolation;
+    // }
+    // public set interpolation(value: InterpolationType) {
+    //     if (value !== this._interpolation) {
+    //         this._interpolation = value;
+    //     }
+    // }
+    CanvasRenderer.prototype.beginDraw = function () {
+        var ctx = this.context;
+        ctx.setTransform(1, 0, 0, 1, 0, 0);
+        if (this._clear) {
+            ctx.clearRect(0, 0, this._canvas.width, this._canvas.height);
+        }
+        ctx.fillStyle = this._backgroundColor.rgba;
+        ctx.fillRect(0, 0, this._canvas.width, this._canvas.height);
+    };
+    CanvasRenderer.prototype.draw = function () {
+        // if (!this._enable)
+        //    return;
+        var ctx = this.context;
+        if (this._alpha !== 1) {
+            ctx.globalAlpha = 1;
+            this._alpha = 1;
+        }
+        ctx.globalCompositeOperation = 'source-over';
+    };
+    CanvasRenderer.prototype.endDraw = function () {
+        var ctx = this.context;
+        ctx.globalAlpha = 1;
+        ctx.globalCompositeOperation = 'source-over';
+        if (this._doubleBuffer) { // is is double buffer, submit to the real context
+            this._context.drawImage(this._canvasBuffer, 0, 0);
+        }
+    };
+    return CanvasRenderer;
+}(Renderer_1.default));
+exports.default = CanvasRenderer;
+
+
+/***/ }),
+
+/***/ "./src/renderer/internal/renderer/Renderer.ts":
+/*!****************************************************!*\
+  !*** ./src/renderer/internal/renderer/Renderer.ts ***!
+  \****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var Color_1 = __webpack_require__(/*! ../../engine/render/color/Color */ "./src/renderer/engine/render/color/Color.ts");
+var CanvasSmoothing_1 = __webpack_require__(/*! ../canvas/CanvasSmoothing */ "./src/renderer/internal/canvas/CanvasSmoothing.ts");
+var RendererProperties_1 = __webpack_require__(/*! ./RendererProperties */ "./src/renderer/internal/renderer/RendererProperties.ts");
+var Renderer = /** @class */ (function () {
+    function Renderer(contextID, DOMCanvas, canvasBuffer) {
+        this._alpha = 1;
+        this._renderContext = contextID;
+        this.doubleBuffer = false;
+        this._renderingType = RendererProperties_1.RenderingType.Linear;
+        // this._interpolation = InterpolationType.None;
+        this._canvas = DOMCanvas;
+        this._context = DOMCanvas.getContext(contextID, { alpha: false });
+        if (canvasBuffer !== undefined) {
+            this._contextBuffer = canvasBuffer.getContext(contextID, { alpha: false });
+            this._canvasBuffer = canvasBuffer;
+            this._doubleBuffer = true;
+        }
+        else {
+            this._canvasBuffer = null;
+            this._contextBuffer = null;
+            this._doubleBuffer = false;
+        }
+        this._smoothing = new CanvasSmoothing_1.default(this._context);
+        this._clear = true;
+        //this.layer = new RenderLayerManagement();
+        this._backgroundColor = Color_1.default.black;
+        this._alpha = 1;
+    }
+    Object.defineProperty(Renderer.prototype, "width", {
+        get: function () {
+            return this._canvas.width;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Renderer.prototype, "height", {
+        get: function () {
+            return this._canvas.height;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Renderer.prototype, "doubleBuffer", {
+        get: function () {
+            return this._doubleBuffer;
+        },
+        set: function (value) {
+            this._doubleBuffer = value;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Renderer.prototype, "renderContext", {
+        get: function () {
+            return this._renderContext;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Renderer.prototype, "canvasBuffer", {
+        get: function () {
+            if (this._doubleBuffer) {
+                return this._canvasBuffer;
+            }
+            else {
+                return this._canvas;
+            }
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Renderer.prototype, "context", {
+        get: function () {
+            if (this._doubleBuffer) {
+                return this._contextBuffer;
+            }
+            else {
+                return this._context;
+            }
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Renderer.prototype, "drawCalls", {
         get: function () {
             return this._drawCalls;
         },
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(CanvasRenderer.prototype, "canvas", {
+    Object.defineProperty(Renderer.prototype, "canvas", {
         get: function () {
             return this._canvas;
         },
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(CanvasRenderer.prototype, "backgroundColor", {
+    Object.defineProperty(Renderer.prototype, "backgroundColor", {
         get: function () { return this._backgroundColor; },
         set: function (value) {
             this._backgroundColor.set(value);
@@ -49518,7 +51306,7 @@ var CanvasRenderer = /** @class */ (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(CanvasRenderer.prototype, "alpha", {
+    Object.defineProperty(Renderer.prototype, "alpha", {
         get: function () { return this._alpha; },
         set: function (value) {
             // if (this._alpha !== value) {
@@ -49529,7 +51317,7 @@ var CanvasRenderer = /** @class */ (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(CanvasRenderer.prototype, "renderingType", {
+    Object.defineProperty(Renderer.prototype, "renderingType", {
         get: function () {
             return this._renderingType;
         },
@@ -49542,7 +51330,7 @@ var CanvasRenderer = /** @class */ (function () {
         enumerable: true,
         configurable: true
     });
-    CanvasRenderer.prototype.resize = function (width, height) {
+    Renderer.prototype.resize = function (width, height) {
         this._canvas.width = width;
         this._canvas.height = height;
         if (this._doubleBuffer === true) {
@@ -49550,13 +51338,9 @@ var CanvasRenderer = /** @class */ (function () {
             this._canvasBuffer.height = height;
         }
     };
-    CanvasRenderer.prototype.repaint = function () {
-        this._context.drawImage(this._canvasBuffer, 0, 0);
-        // this._context.putImageData(this._canvasBuffer, 0,0)
-    };
-    return CanvasRenderer;
+    return Renderer;
 }());
-exports.default = CanvasRenderer;
+exports.default = Renderer;
 
 
 /***/ }),
@@ -49696,6 +51480,7 @@ if(false) {}
 Object.defineProperty(exports, "__esModule", { value: true });
 var CanvasRenderer_1 = __webpack_require__(/*! ../internal/renderer/CanvasRenderer */ "./src/renderer/internal/renderer/CanvasRenderer.ts");
 var CanvasPool_1 = __webpack_require__(/*! ../internal/canvas/CanvasPool */ "./src/renderer/internal/canvas/CanvasPool.ts");
+var SceneViewEditor_1 = __webpack_require__(/*! ../internal/editor/sceneView/SceneViewEditor */ "./src/renderer/internal/editor/sceneView/SceneViewEditor.ts");
 var SystemCreator = /** @class */ (function () {
     function SystemCreator() {
     }
@@ -49710,6 +51495,19 @@ var SystemCreator = /** @class */ (function () {
             renderer = new CanvasRenderer_1.default(domCanvas, canvasBuffer);
         }
         return renderer;
+    };
+    SystemCreator.prototype.createSceneViewEditor = function () {
+        var renderer = this.createRenderer('2d', true);
+        // let input = new InputManager();
+        // input.init({
+        //     mouse: {
+        //         enable: true,
+        //         target: renderer.canvas,
+        //     }
+        // },
+        //     renderer);
+        var editor = new SceneViewEditor_1.default(renderer);
+        return editor;
     };
     return SystemCreator;
 }());
@@ -49740,6 +51538,13 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+var Base = /** @class */ (function (_super) {
+    __extends(Base, _super);
+    function Base() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    return Base;
+}(React.Component));
 var ReactComponentBase = /** @class */ (function (_super) {
     __extends(ReactComponentBase, _super);
     function ReactComponentBase(props) {
@@ -49754,7 +51559,7 @@ var ReactComponentBase = /** @class */ (function (_super) {
     ReactComponentBase.prototype.componentWillMount = function () {
     };
     return ReactComponentBase;
-}(React.Component));
+}(Base));
 exports.ReactComponentBase = ReactComponentBase;
 
 
@@ -49914,10 +51719,50 @@ exports.default = WidgetBase;
 
 /***/ }),
 
-/***/ "./src/renderer/widgets/game/GameView.tsx":
-/*!************************************************!*\
-  !*** ./src/renderer/widgets/game/GameView.tsx ***!
-  \************************************************/
+/***/ "./src/renderer/widgets/game/EntityList.tsx":
+/*!**************************************************!*\
+  !*** ./src/renderer/widgets/game/EntityList.tsx ***!
+  \**************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(React) {
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+var ReactComponentBase_1 = __webpack_require__(/*! ../base/ReactComponentBase */ "./src/renderer/widgets/base/ReactComponentBase.ts");
+var EntityList = /** @class */ (function (_super) {
+    __extends(EntityList, _super);
+    function EntityList() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    EntityList.prototype.render = function () {
+        return (React.createElement("div", { id: 'entityList' },
+            React.createElement("input", { className: 'text-input', type: 'textfield', defaultValue: 'Search...' }),
+            React.createElement("ul", null,
+                React.createElement("li", null, "asdasd"))));
+    };
+    return EntityList;
+}(ReactComponentBase_1.ReactComponentBase));
+exports.default = EntityList;
+
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! react */ "./node_modules/react/index.js")))
+
+/***/ }),
+
+/***/ "./src/renderer/widgets/game/GameView.ts":
+/*!***********************************************!*\
+  !*** ./src/renderer/widgets/game/GameView.ts ***!
+  \***********************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -49946,9 +51791,11 @@ var GameView = /** @class */ (function (_super) {
         var _this = _super.call(this, "Game View") || this;
         _this.title.caption = "Game View";
         _this.title.label = "Game View";
-        _this._renderer = SystemFactory_1.default.createRenderer('2d', true);
+        _this._editor = SystemFactory_1.default.createSceneViewEditor();
+        //this._renderer = this._editor.renderer as CanvasRenderer;
+        //this._renderer = SystemFactory.createRenderer('2d', true) as CanvasRenderer;
         // this._canvas.style.backgroundColor = style.backgroundColor;
-        _this.appendChild(_this._renderer.canvas);
+        _this.appendChild(_this._editor.renderer.canvas);
         return _this;
         //this.props.parent.node.appendChild(this._canvas);
         // this.container = $('#gameView');
@@ -49965,40 +51812,41 @@ var GameView = /** @class */ (function (_super) {
     GameView.prototype.onAfterAttach = function () {
     };
     GameView.prototype.repaint = function () {
-        var context = this._renderer.context;
-        var width = this._renderer.canvas.width;
-        var height = this._renderer.canvas.height;
-        context.clearRect(0, 0, width, height);
-        context.fillStyle = '#000';
-        context.fillRect(0, 0, width, height);
-        var x = 100;
-        var y = 100;
-        var lw = 80; // 73
-        var th = 16; // 12
-        var tw = 24; // 17
-        // render.drawCalls = 0;     
-        context.beginPath();
-        context.moveTo(x, y);
-        context.lineCap = 'square';
-        context.lineWidth = 2;
-        context.strokeStyle = 'white';
-        context.lineTo(x + lw, y);
-        context.stroke();
-        context.beginPath();
-        context.lineWidth = 0;
-        context.strokeStyle = 'none';
-        context.fillStyle = 'white';
-        context.moveTo(x + lw, y - th / 2);
-        context.lineTo(x + lw, y + th / 2);
-        context.lineTo(x + lw + tw, y);
-        context.fill();
-        this._renderer.repaint();
+        // const context = this._renderer.context;
+        // const width = this._renderer.canvas.width;
+        // const height = this._renderer.canvas.height;
+        // context.clearRect(0, 0, width, height);
+        // context.fillStyle = '#000';
+        // context.fillRect(0, 0, width, height);
+        // const x = 100;
+        // const y = 100;
+        // const lw = 80; // 73
+        // const th = 16; // 12
+        // const tw = 24; // 17
+        // // render.drawCalls = 0;     
+        // context.beginPath();
+        // context.moveTo(x, y);
+        // context.lineTo(x + lw, y);
+        // context.lineCap = 'square';
+        // context.lineWidth = 1;
+        // context.strokeStyle = 'white';
+        // context.stroke();
+        // context.beginPath();
+        // context.moveTo(x + lw, y - th / 2);
+        // context.lineTo(x + lw, y + th / 2);
+        // context.lineTo(x + lw + tw, y);
+        // context.lineWidth = 0;
+        // context.strokeStyle = 'none';
+        // context.fillStyle = 'white';
+        // context.fill();
+        // this._renderer.repaint();
     };
     GameView.prototype.onResizeEvent = function (resizeEvent) {
         var w = resizeEvent.width;
         var h = resizeEvent.height;
-        this._renderer.resize(w, h);
-        this.repaint();
+        this._editor.resize(w, h);
+        //this._renderer.resize(w, h);
+        //this.repaint();
     };
     return GameView;
 }(WidgetBase_1.default));
@@ -50031,30 +51879,51 @@ var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 var ReactComponentBase_1 = __webpack_require__(/*! ../base/ReactComponentBase */ "./src/renderer/widgets/base/ReactComponentBase.ts");
 __webpack_require__(/*! ./style.css */ "./src/renderer/widgets/game/style.css");
 var Checkbox_1 = __webpack_require__(/*! ../../components/Checkbox */ "./src/renderer/components/Checkbox.tsx");
+var styleVecLabel = {
+    minWidth: '20%'
+};
+var styleVec = {
+    flex: 'auto'
+};
 var Inspector = /** @class */ (function (_super) {
     __extends(Inspector, _super);
     function Inspector() {
-        return _super !== null && _super.apply(this, arguments) || this;
+        var _this = _super !== null && _super.apply(this, arguments) || this;
+        _this.activeFlag = 'true';
+        return _this;
     }
-    Inspector.prototype.check = function () {
+    // state = {
+    //     activeFlag: 'true'
+    // }
+    Inspector.prototype.active = function (event) {
+        var activeFlag;
+        if (event.isChecked) {
+            activeFlag = 'true';
+        }
+        else {
+            activeFlag = 'false';
+        }
+        //this.setState({activeFlag});
     };
     Inspector.prototype.render = function () {
-        return (React.createElement("div", { id: 'inspector' },
+        return (React.createElement("div", { id: 'inspector', className: this.activeFlag },
             React.createElement("div", { className: 'flex-container' },
                 React.createElement("div", { className: 'horizotal-group' },
-                    React.createElement(Checkbox_1.default, null),
+                    React.createElement(Checkbox_1.default, { onChange: this.active }),
                     React.createElement("input", { className: 'text-input', type: 'textfield' }))),
             React.createElement("div", { className: 'flex-container' },
-                React.createElement("div", { className: 'flex-horizontal' },
+                React.createElement("div", { className: 'flex-horizontal', style: styleVecLabel },
+                    React.createElement("label", { className: 'text-label' }, "Position")),
+                React.createElement("div", { className: 'flex-horizontal', style: styleVec },
                     React.createElement("label", { className: 'text-label number' }, "X"),
-                    React.createElement("input", { className: 'text-input', type: 'number' })),
-                React.createElement("div", { className: 'flex-horizontal' },
+                    React.createElement("input", { className: 'text-input', type: 'number' }),
                     React.createElement("label", { className: 'text-label number' }, "Y"),
                     React.createElement("input", { className: 'text-input', type: 'number' })))));
     };
     return Inspector;
 }(ReactComponentBase_1.ReactComponentBase));
 exports.default = Inspector;
+//export default connect(,mapDispatchToProps)(Inspector);
 
 
 /***/ }),
@@ -50108,9 +51977,10 @@ var widgets_1 = __webpack_require__(/*! @phosphor/widgets */ "./node_modules/@ph
 var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 //import { createPortal } from "react-dom";
 __webpack_require__(/*! ./style/index.css */ "./src/renderer/widgets/workspace/style/index.css");
-var GameView_1 = __webpack_require__(/*! ../game/GameView */ "./src/renderer/widgets/game/GameView.tsx");
+var GameView_1 = __webpack_require__(/*! ../game/GameView */ "./src/renderer/widgets/game/GameView.ts");
 var ReactWidgetBase_1 = __webpack_require__(/*! ../base/ReactWidgetBase */ "./src/renderer/widgets/base/ReactWidgetBase.ts");
 var Inspector_1 = __webpack_require__(/*! ../game/Inspector */ "./src/renderer/widgets/game/Inspector.tsx");
+var EntityList_1 = __webpack_require__(/*! ../game/EntityList */ "./src/renderer/widgets/game/EntityList.tsx");
 var WorkspacePanel = /** @class */ (function (_super) {
     __extends(WorkspacePanel, _super);
     function WorkspacePanel() {
@@ -50121,7 +51991,9 @@ var WorkspacePanel = /** @class */ (function (_super) {
         //let widgetInfos = [];
         var widget = new GameView_1.default();
         this.dock.addWidget(widget);
-        var widget2 = new ReactWidgetBase_1.default('Inspector', Inspector_1.default);
+        var widget2 = new ReactWidgetBase_1.default('Entities', EntityList_1.default);
+        this.dock.addWidget(widget2, { mode: 'split-right' });
+        widget2 = new ReactWidgetBase_1.default('Inspector', Inspector_1.default);
         this.dock.addWidget(widget2, { mode: 'split-right' });
         this.dock.id = 'main';
         // for (let index = 0; index < 5; index++) {

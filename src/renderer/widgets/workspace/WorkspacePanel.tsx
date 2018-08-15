@@ -6,6 +6,7 @@ import './style/index.css';
 import GameView from "../game/GameView";
 import ReactWidgetBase from '../base/ReactWidgetBase';
 import Inspector from "../game/Inspector";
+import EntityList from '../game/EntityList';
 
 
 // /**
@@ -47,8 +48,11 @@ export default class WorkspacePanel extends React.Component<any, IDockState> {
         //let widgetInfos = [];
         let widget = new GameView(); 
         this.dock.addWidget(widget);
-        let widget2 = new ReactWidgetBase('Inspector', Inspector); 
+        let widget2 = new ReactWidgetBase('Entities', EntityList); 
         this.dock.addWidget(widget2, {mode:'split-right'});
+        widget2 = new ReactWidgetBase('Inspector', Inspector); 
+        this.dock.addWidget(widget2, {mode:'split-right'});
+       
         this.dock.id = 'main';
 
         // for (let index = 0; index < 5; index++) {

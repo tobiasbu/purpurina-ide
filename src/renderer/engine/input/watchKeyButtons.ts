@@ -1,5 +1,5 @@
 import KeyButtonControl, { KeyButtonStatus } from "./keyButton/KeyButtonControl";
-import CustomMap from "../../engine/structures/CustomMap";
+import CustomMap from "../structures/CustomMap";
 
 /**
  * 

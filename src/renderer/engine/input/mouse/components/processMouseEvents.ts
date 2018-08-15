@@ -2,7 +2,7 @@ import { processKeyButtonDown, processKeyButtonUp } from '../../keyButton/proces
 import KeyButtonControl from '../../keyButton/KeyButtonControl';
 import MouseSystem from '../MouseSystem';
 import SharedInputData from '../../SharedInputData';
-import MathUtils from '../../../../engine/math/MathUtils';
+import MathUtils from '../../../math/MathUtils';
 
 /*
  Left button=1, 

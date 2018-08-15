@@ -1,13 +1,9 @@
 import CanvasRenderer from "../internal/renderer/CanvasRenderer";
 import CanvasPool from "../internal/canvas/CanvasPool";
-import Renderer from "../internal/renderer/IRenderer";
 import { ContextID } from "../internal/renderer/RendererProperties";
-import InputManager from "../engine/input/InputManager";
+import SceneViewEditor from "../internal/editor/sceneView/SceneViewEditor";
+import Renderer from "../internal/renderer/Renderer";
 
-export interface SceneViewEditorSystems {
-    renderer: Renderer;
-    input: InputManager;
-}
 
 class SystemCreator {
 
@@ -29,20 +25,18 @@ class SystemCreator {
 
     }
 
-    createSceneViewEditor(): SceneViewEditorSystems {
+    createSceneViewEditor(): SceneViewEditor {
         let renderer = this.createRenderer('2d', true);
-        let input = new InputManager();
-        input.init({
-            mouse: {
-                enable: true,
-                target: renderer.canvas,
-            }
-        },
-            renderer);
-        let editor: SceneViewEditorSystems = {
-            input: input,
-            renderer: renderer
-        };
+        // let input = new InputManager();
+        // input.init({
+        //     mouse: {
+        //         enable: true,
+        //         target: renderer.canvas,
+        //     }
+        // },
+        //     renderer);
+        let editor = new SceneViewEditor(renderer);
+
         return editor;
     }
 

@@ -20,13 +20,13 @@ fieldset {
 
 .flex-container>.flex-horizontal {
     display: inline-flex;
-    min-width: 50%;
+    /* min-width: 50%; */
     width: auto;
 }
 
 .flex-horizontal {
     display: inline-flex;
-    min-width: 50%;
+    /* min-width: 50%; */
     width: auto;
 }
 
@@ -35,12 +35,11 @@ fieldset {
     min-width: 0;
 }
 
-.flex-container>.flex-horizontal:nth-child(1n+2)
 /*(an + b)*/
-
-    {
+.flex-container>.flex-horizontal:nth-child(1n+2) {
     margin-left: 4px;
-    min-width: calc(50% - 4px);
+    min-width: 0;
+    /* min-width: calc(50% - 4px); */
 }
 
 input,
@@ -57,7 +56,7 @@ input.checkbox+label {
 .text-input {
     flex: auto;
     padding: 3px;
-    min-width: inherit;
+    min-width: 0;
 }
 
 input[type=number]::-webkit-inner-spin-button,
@@ -73,19 +72,19 @@ input[type="number"] {
 }
 
 .text-label {
-    margin: auto;
+    margin: auto 0;
     text-transform: capitalize;
 }
 
 .number {
-    min-width: 20px;
+    min-width: 10px;
     cursor: col-resize;
 }
 
 input[type="checkbox"] {
     -webkit-appearance: none;
     -moz-appearance: none;
-    appearance: none; 
+    appearance: none;
     display: none;
     visibility: hidden;
     padding: 0;
@@ -119,6 +118,7 @@ input[type="checkbox"] {
     vertical-align: middle;
     pointer-events: none;
 }
+
 input[type="checkbox"]+label::after {
     content: none;
 }
@@ -137,6 +137,16 @@ input.checkbox+.checkbox-indicator {
 input[type="checkbox"]:checked+.checkbox-indicator::after {
     content: "\2713";
     vertical-align: middle;
+}
+
+.false {
+    color: rgb(75, 75, 75);
+}
+
+ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
 }
 
 /* 

@@ -26,6 +26,7 @@ export default class Matrix3 {
 
     private _a: number[];
 
+
     /*
     * Constructor is identity only
     */
@@ -68,12 +69,12 @@ export default class Matrix3 {
         return this._a[i + j * 3];
     }
 
-    set(i: number, j: number, value: number): Matrix3 {
+    set(i: number, j: number, value: number): this {
         this._a[i + j * 3] = value;
         return this;
     }
 
-    setIdentity(): Matrix3 {
+    setIdentity(): this {
         return this.setTransform(
             1, 0, 0,
             0, 1, 0,
@@ -81,7 +82,7 @@ export default class Matrix3 {
         );
     }
 
-    setTransform(a, b, c, d, e, f, g, h, i): Matrix3 {
+    setTransform(a, b, c, d, e, f, g, h, i): this {
 
         this._a[0] = a;
         this._a[1] = b;
@@ -99,7 +100,7 @@ export default class Matrix3 {
 
     }
 
-    translate(x: number, y: number): Matrix3 {
+    translate(x: number, y: number): this {
 
 
         /* | a | b | x | * | 0 | 2 | 4 |
@@ -119,7 +120,11 @@ export default class Matrix3 {
         return this;
     }
 
-    scale(x: number, y: number): Matrix3 {
+    scale(x: number, y?: number): this {
+
+        if (y === undefined) {
+            y = x;
+        }
 
         this._a[0] *= x; // a
         this._a[1] *= x; // b
@@ -133,18 +138,18 @@ export default class Matrix3 {
 
     }
 
-    rotate(radianAngle): Matrix3 {
+    rotate(radianAngle): this {
         let cos = Math.cos(radianAngle);
         let sin = Math.sin(radianAngle);
 
         return this.radianRotate(cos, sin);
     }
 
-    radianRotate(cos: number, sin: number): Matrix3 {
+    radianRotate(cos: number, sin: number): this {
         return this.transform(cos, sin, -sin, cos, 0, 0);
     }
 
-    transform(a: number, b: number, c: number, d: number, x: number, y: number): Matrix3 {
+    transform(a: number, b: number, c: number, d: number, x: number, y: number): this {
         let a00 = this._a[0]; // a
         let a01 = this._a[1]; // b
 
@@ -166,7 +171,7 @@ export default class Matrix3 {
         return this;
     }
 
-    setModelMatrix(position, scale, rotation, origin) {
+    setModelMatrix(position: IVector2, scale: IVector2, rotation: IVector2): this {
         this._a[0] = rotation.x * scale.x; // a
         this._a[1] = rotation.y * scale.x; // b
         this._a[3] = -rotation.y * scale.y; // c
@@ -196,7 +201,7 @@ export default class Matrix3 {
     }
 
 
-    multiply(other) {
+    multiply(other: Matrix3): this {
 
         // faster way
         let a00 = this._a[0]; // a - 0
@@ -218,7 +223,7 @@ export default class Matrix3 {
         return this;
     }
 
-    concat(other) {
+    concat(other: Matrix3): this {
 
         let a = this._a[0]; // a - 0
         let b = this._a[1]; // b - 1
@@ -239,7 +244,7 @@ export default class Matrix3 {
         return this;
     }
 
-    transformPoint(x, y) {
+    transformPoint(x: number, y: number): IVector2 {
 
         let point = { x: 0, y: 0 }
 
@@ -249,7 +254,7 @@ export default class Matrix3 {
         return point;
     }
 
-    transpose() {
+    transpose(): this {
         return this.setTransform(
             this._a[0], this._a[3], this._a[6],
             this._a[1], this._a[4], this._a[7],
@@ -257,11 +262,39 @@ export default class Matrix3 {
         );
     }
 
+    inversed(): this {
+        const det = Matrix3.determinant(this);
+
+        if (det === 0) {
+            return this;
+        }
+        const inv_det = 1.0 / det;
+        const a = this._a;
+        const b:number[] = [];
+
+        b[0] = inv_det * (a[4] * a[8] - a[5] * a[7]); // (m11*m22 - m12*m21)/det;
+        b[1] = inv_det * (a[2] * a[7] - a[1] * a[8]); // (m02*m21 - m01*m22)/det;
+        b[2] = inv_det * (a[1] * a[5] - a[2] * a[4]); // (m01*m12 - m02*m11)/det;
+
+        b[3] = inv_det * (a[5] * a[6] - a[3] * a[8]); // (m12*m20 - m10*m22)/det;
+        b[4] = inv_det * (a[0] * a[8] - a[2] * a[6]); // (m00*m22 - m02*m20)/det;
+        b[5] = inv_det * (a[2] * a[3] - a[0] * a[5]); // (m02*m10 - m00*m12)/det;
+
+        b[6] = inv_det * (a[3] * a[7] - a[4] * a[6]); // (m10*m21 - m11*m20)/det;
+        b[7] = inv_det * (a[1] * a[6] - a[0] * a[7]); // (m01*m20 - m00*m21)/det;
+        b[8] = inv_det * (a[0] * a[4] - a[1] * a[3]); // (m00*m11 - m01*m10)/det;
+
+        this._a = b;
+
+        return this;
+
+    }
+
     toString(): string {
         let str = "";
         for (let y = 0; y < 3; y++) {
             for (let x = 0; x < 3; x++) {
-                let val = this.at(x, y);
+                let val = this.at(y, x);
                 //str += val.toString() + " ";
                 //console.log("---- " + (x + y * 3).toString());
                 str += val + " ";
@@ -287,6 +320,55 @@ export default class Matrix3 {
         );
 
     }
+
+    static determinant(m: Matrix3): number {
+        //m Y (row) X (column)
+
+        /*
+        * | 0 | 3 | 6 | * | a | c | x | * | m00 | m10 | m20 |
+        * | 1 | 4 | 7 | * | b | d | y | * | m01 | m11 | m21 |
+        * | 2 | 5 | 8 | * | 0 | 0 | 1 | * | m02 | m12 | m22 |
+        */
+
+        const det =
+            m.a[0] * m.a[4] * m.a[8] + // m00*m11*m22 +
+            m.a[1] * m.a[5] * m.a[6] + // m01*m12*m20 +
+            m.a[2] * m.a[3] * m.a[7] - // m02*m10*m21 -
+            m.a[0] * m.a[5] * m.a[7] - // m00*m12*m21 - 
+            m.a[1] * m.a[3] * m.a[8] - // m01*m10*m22 - 
+            m.a[2] * m.a[4] * m.a[6];  // m02*m11*m20;
+
+        return det;
+    }
+
+    static determinant2D(m: Matrix3): number {
+        return (m.a[0] * m.a[4]) - (m.a[1] * m.a[3]);
+    }
+
+    static inverse(m: Matrix3): Matrix3 {
+        const det = Matrix3.determinant(m);
+
+        if (det === 0) {
+            return m;
+        }
+        const inv_det = 1.0 / det;
+        const b = new Matrix3();
+
+        b.a[0] = inv_det * (m.a[4] * m.a[8] - m.a[5] * m.a[7]); // (m11*m22 - m12*m21)/det;
+        b.a[1] = inv_det * (m.a[2] * m.a[7] - m.a[1] * m.a[8]); // (m02*m21 - m01*m22)/det;
+        b.a[2] = inv_det * (m.a[1] * m.a[5] - m.a[2] * m.a[4]); // (m01*m12 - m02*m11)/det;
+
+        b.a[3] = inv_det * (m.a[5] * m.a[6] - m.a[3] * m.a[8]); // (m12*m20 - m10*m22)/det;
+        b.a[4] = inv_det * (m.a[0] * m.a[8] - m.a[2] * m.a[6]); // (m00*m22 - m02*m20)/det;
+        b.a[5] = inv_det * (m.a[2] * m.a[3] - m.a[0] * m.a[5]); // (m02*m10 - m00*m12)/det;
+
+        b.a[6] = inv_det * (m.a[3] * m.a[7] - m.a[4] * m.a[6]); // (m10*m21 - m11*m20)/det;
+        b.a[7] = inv_det * (m.a[1] * m.a[6] - m.a[0] * m.a[7]); // (m01*m20 - m00*m21)/det;
+        b.a[8] = inv_det * (m.a[0] * m.a[4] - m.a[1] * m.a[3]); // (m00*m11 - m01*m10)/det;
+
+        return b;
+    }
+
 
     static multiplySlow(a: Matrix3, b: Matrix3): Matrix3 {
         var mat = Matrix3.zero(); // zeroes

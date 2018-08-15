@@ -1,24 +1,19 @@
-import Rect from "../math/Rect";
-import Vector2 from "../math/Vector2";
-import IRenderer from "../renderer/IRenderer";
-import MathUtils from "../math/MathUtils";
-import IInputManager from "./IInputManager";
+import MathUtils from "../../../engine/math/MathUtils";
+import Rect from "../../../engine/math/Rect";
 
-export default class SharedInputData {
+export default class SceneViewInputData {
 
-    private manager: IInputManager;
     canvas: HTMLCanvasElement;
     private clientRect: Rect;
     private boundingClientRect: ClientRect | DOMRect;
     private scale: IVector2;
 
 
-    constructor(inputManager, renderer: IRenderer) {
-        this.manager = inputManager;
-        this.canvas = renderer.canvas;
+    constructor(canvas: HTMLCanvasElement) {
+        this.canvas = canvas;
         this.clientRect = new Rect();
         this.boundingClientRect = null;
-        this.scale = new Vector2(1, 1);
+        this.updateClientRect();
     }
 
     updateClientRect() {

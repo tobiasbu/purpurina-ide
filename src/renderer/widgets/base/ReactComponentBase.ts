@@ -13,7 +13,10 @@ export interface WidgetProps {
 
 
 
-export class ReactComponentBase extends React.Component<WidgetProps, WidgetState> {
+class Base<P extends WidgetProps, S extends WidgetState> extends React.Component<P,S> {
+}
+
+export class ReactComponentBase extends Base<WidgetProps,WidgetState> {
 
     state = {
         width: 0,

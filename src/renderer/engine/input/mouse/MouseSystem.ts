@@ -1,9 +1,9 @@
 import InputSystem, { MouseEventHandler } from '../InputSystem';
-import Vector2 from '../../../engine/math/Vector2';
-import List from '../../../engine/structures/List';
+import Vector2 from '../../math/Vector2';
+import List from '../../structures/List';
 import KeyButtonControl, { KeyButtonStatus } from '../keyButton/KeyButtonControl';
 import MouseConfig from './MouseConfig';
-import ObjectGet from '../../../engine/utils/object/ObjectGet';
+import ObjectGet from '../../utils/object/ObjectGet';
 import IMouseSystem, { MouseButton } from './IMouseSystem';
 import startMouseListener from './components/startMouseListeners';
 import SharedInputData from '../SharedInputData';
@@ -20,8 +20,8 @@ import { processMouseMove, processMouseButtonDown, processMouseButtonUp, process
 
 const LogicalMouseButton = {
     Left: 1,
-    Middle: 2,
-    Right: 4,
+    Middle: 4,
+    Right: 2,
     Back: 8,
     Forward: 16
 };

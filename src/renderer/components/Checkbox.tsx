@@ -1,5 +1,14 @@
 import * as React from "react";
 
+export interface ICheckBoxEvent {
+    target: Checkbox;
+    isChecked: boolean;
+    isDisabled: boolean;
+    nativeEvent: Event;
+};
+
+export type OnCheckBoxChange = (event: ICheckBoxEvent) => void;
+
 interface ICheckBoxState {
     checked: boolean;
     disabled: boolean;
@@ -7,15 +16,12 @@ interface ICheckBoxState {
 
 interface ICheckBoxProps {
     name?: string
-    onChange?: (event: ICheckBoxEvent) => void;
+    onChange?: OnCheckBoxChange;
 }
 
-interface ICheckBoxEvent {
-    target: Checkbox;
-    isChecked: boolean;
-    isDisabled: boolean;
-    nativeEvent: Event;
-};
+
+
+
 
 export default class Checkbox extends React.Component<ICheckBoxProps, ICheckBoxState> {
 

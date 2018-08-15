@@ -1,6 +1,6 @@
 import EngineSystem from "../../system/EngineSystem";
-import List from "../../engine/structures/List";
-import CustomMap from "../../engine/structures/CustomMap";
+import List from "../structures/List";
+import CustomMap from "../structures/CustomMap";
 import KeyButtonControl from "./keyButton/KeyButtonControl";
 import IInputSystem from "./IInputSystem";
 

@@ -3,7 +3,7 @@ import IRenderer from "./IRenderer";
 import CanvasSmoothing from "../canvas/CanvasSmoothing";
 import { RenderingType, ContextID } from "./RendererProperties";
 
-export default class Renderer implements IRenderer {
+export default abstract class Renderer implements IRenderer {
 
     protected _renderContext: ContextID;
     protected _context: CanvasRenderingContext2D | WebGLRenderingContext;
@@ -16,6 +16,7 @@ export default class Renderer implements IRenderer {
     protected _smoothing: CanvasSmoothing;
     protected _backgroundColor: Color;
     protected _alpha = 1;
+    protected _clear: boolean;
 
     constructor(contextID: ContextID, DOMCanvas: HTMLCanvasElement, canvasBuffer?: HTMLCanvasElement) {
 
@@ -41,11 +42,20 @@ export default class Renderer implements IRenderer {
         }
 
         this._smoothing = new CanvasSmoothing(this._context);
+        this._clear = true;
 
         //this.layer = new RenderLayerManagement();
         this._backgroundColor = Color.black;
         this._alpha = 1;
 
+    }
+
+    public get width(): number {
+        return this._canvas.width;
+    }
+
+    public get height(): number {
+        return this._canvas.height;
     }
 
     public get doubleBuffer(): boolean {
@@ -118,5 +128,9 @@ export default class Renderer implements IRenderer {
             this._canvasBuffer.height = height;
         }
     }
+
+    abstract beginDraw();
+    abstract draw();
+    abstract endDraw();
 
 }

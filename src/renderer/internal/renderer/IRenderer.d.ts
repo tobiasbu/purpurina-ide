@@ -31,6 +31,10 @@ export default interface IRenderer {
      */
     readonly context: CanvasRenderingContext2D | WebGLRenderingContext;
 
+    readonly width: number;
+
+    readonly height: number;
+
     /**
      * The canvas background color
      */
