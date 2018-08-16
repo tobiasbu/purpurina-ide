@@ -1,6 +1,6 @@
-import Color from "../../engine/render/color/Color";
+import Color from "../render/color/Color";
 import IRenderer from "./IRenderer";
-import CanvasSmoothing from "../canvas/CanvasSmoothing";
+import CanvasSmoothing from "./canvas/CanvasSmoothing";
 import { RenderingType, ContextID } from "./RendererProperties";
 
 export default abstract class Renderer implements IRenderer {
@@ -17,6 +17,8 @@ export default abstract class Renderer implements IRenderer {
     protected _backgroundColor: Color;
     protected _alpha = 1;
     protected _clear: boolean;
+    private _width: number;
+    private _height: number;
 
     constructor(contextID: ContextID, DOMCanvas: HTMLCanvasElement, canvasBuffer?: HTMLCanvasElement) {
 
@@ -41,6 +43,9 @@ export default abstract class Renderer implements IRenderer {
             this._doubleBuffer = false;
         }
 
+        this._width = DOMCanvas.width;
+        this._height =  DOMCanvas.height;
+
         this._smoothing = new CanvasSmoothing(this._context);
         this._clear = true;
 
@@ -51,11 +56,11 @@ export default abstract class Renderer implements IRenderer {
     }
 
     public get width(): number {
-        return this._canvas.width;
+        return this._width;
     }
 
     public get height(): number {
-        return this._canvas.height;
+        return this._height;
     }
 
     public get doubleBuffer(): boolean {
@@ -120,6 +125,8 @@ export default abstract class Renderer implements IRenderer {
     }
 
     resize(width: number, height: number) {
+        this._width = width;
+        this._height = height;
         this._canvas.width = width;
         this._canvas.height = height;
 

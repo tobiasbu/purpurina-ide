@@ -1,8 +1,10 @@
-import Color from "../../engine/render/color/Color";
+import Color from "../render/color/Color";
 import { RenderingType, ContextID } from "./RendererProperties";
 
 
-
+/**
+ * Interface for renderer context 
+ */
 export default interface IRenderer {
     /**
      * If the renderer is double buffered.
@@ -26,13 +28,20 @@ export default interface IRenderer {
      * The DOM canvas reference
      */
     readonly canvas: HTMLCanvasElement;
+
     /**
      * The drawing context
      */
     readonly context: CanvasRenderingContext2D | WebGLRenderingContext;
 
+    /**
+     * Width of the renderer
+     */
     readonly width: number;
 
+     /**
+     * Height of the renderer
+     */
     readonly height: number;
 
     /**

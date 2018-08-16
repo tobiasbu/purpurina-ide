@@ -5,13 +5,13 @@ import {EasingType} from '../../math/easing/EasingType';
 import { IColor } from './IColor';
 
 
-function ColorNormUpdate(color) {
-    color._css = 'rgba(' +
-        MathUtils.floor(color.r * 255) + ',' +
-        MathUtils.floor(color.g * 255) + ',' +
-        MathUtils.floor(color.b * 255) + ',' +
-        color.a + ')';
-}
+// function ColorNormUpdate(color) {
+//     color._css = 'rgba(' +
+//         MathUtils.floor(color.r * 255) + ',' +
+//         MathUtils.floor(color.g * 255) + ',' +
+//         MathUtils.floor(color.b * 255) + ',' +
+//         color.a + ')';
+// }
 
 function ColorUpdate(color: Color): string {
     return 'rgba(' +
@@ -67,7 +67,7 @@ export default class Color implements IColor {
 
     set(color: string | number | IColor): Color {
 
-        parseColor(this, color);
+        parseColor(color, this);
 
         ColorUpdate(this);
 

@@ -1,9 +1,9 @@
-import { StateAction, StoreState } from "../types";
+import { State, Action } from "../types";
 
 
 
 
-export default function mainReducer(state: StoreState, action: StateAction): StoreState {
+export default function mainReducer(state: State, action: Action<any>): State {
     switch (action.type) {
      // case INCREMENT_ENTHUSIASM:
        // return { ...state, enthusiasmLevel: state.enthusiasmLevel + 1 };

@@ -4,7 +4,7 @@ import MouseSystem from "./mouse/MouseSystem";
 import IMouseSystem from "./mouse/IMouseSystem";
 import SharedInputData from "./SharedInputData";
 import MouseConfig from "./mouse/MouseConfig";
-import IRenderer from "../../internal/renderer/IRenderer";
+import IRenderer from "../renderer/IRenderer";
 
 interface InputConfig {
     mouse: MouseConfig;
@@ -33,7 +33,7 @@ export default class InputManager extends EngineSystem implements IInputManager 
             return;
         }
 
-        this._inputData = new SharedInputData(this, renderer);
+        this._inputData = new SharedInputData(renderer);
         this._mouse.init(config.mouse, this._inputData);
         this._initialized = true;
     }

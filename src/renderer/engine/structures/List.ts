@@ -1,6 +1,9 @@
 
 
-import mergeSort from './useful/MergeSort'
+import mergeSort, { MergeSortFunction } from './useful/MergeSort'
+import { FindPredicate, ListEachFunction } from './types';
+
+
 
 
 export default class List<T>
@@ -221,7 +224,7 @@ export default class List<T>
         return this;
     }
 
-    each(callback: ListEachFunction<T>, context?: any, ...args: any[]): T|any {
+    each(callback: ListEachFunction<T>, context?: any, ...args: any[]): any {
         //let params = [];
 
         let content = this.list;
@@ -242,7 +245,6 @@ export default class List<T>
             if (r !== undefined) {
                 return r;
             }
-            //break;
         }
 
         return r;

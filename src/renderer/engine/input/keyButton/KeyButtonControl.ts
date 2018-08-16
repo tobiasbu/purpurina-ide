@@ -31,6 +31,8 @@ export default class KeyButtonControl {
 
     private _enabled: boolean;
     private _code: number;
+
+
     private _preventDefault = true;
     status: KeyButtonStatus;
     press = false;
@@ -61,6 +63,10 @@ export default class KeyButtonControl {
         this.upDuration = -2500;
       
 
+    }
+
+    public get code(): number {
+        return this._code;
     }
 
     public get preventDefault() {

@@ -15,11 +15,14 @@ export function addBinding(signal: Signal, binding: SignalBinding): void {
 export function indexOfListener(signal: Signal, listener: EventCallback, context: object): number {
 
     let r = signal._bindings.each(
-        function (element: SignalBinding, index: number) {
+        
+        (element: SignalBinding, index: number) => {
 
             if (element._listener === listener && element._context === context) {
                 return index;
             }
+
+            return undefined;
 
         });
 

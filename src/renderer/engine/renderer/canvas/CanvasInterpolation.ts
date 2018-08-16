@@ -1,4 +1,4 @@
-import { InterpolationType } from "../renderer/RendererProperties";
+import { InterpolationType } from "../RendererProperties";
 
 const CanvasInterpolation = {
 

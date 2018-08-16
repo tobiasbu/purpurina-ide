@@ -28,6 +28,14 @@ export default class SceneViewInputData {
         rect.height = clientRect.height;
     }
 
+    transform(position: IVector2): IVector2 {
+        let rect = this.boundingClientRect;
+        let pos = { x: 0, y: 0 };
+        pos.x = MathUtils.floor((position.x - rect.left) / (rect.right - rect.left) * this.canvas.width);
+        pos.y = MathUtils.floor((position.y - rect.top) / (rect.bottom - rect.top) * this.canvas.height);
+        return pos;
+    }
+
     transformX(x) {
         let rect = this.boundingClientRect;
         return MathUtils.floor((x - rect.left) / (rect.right - rect.left) * this.canvas.width);

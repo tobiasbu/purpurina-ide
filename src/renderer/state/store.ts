@@ -7,8 +7,6 @@ import {
 } from "redux";
 
 import { createLogger } from "redux-logger";
-
-import { StoreState } from "./types";
 import mainReducer from "./reducers";
 
 
@@ -33,9 +31,13 @@ const enhancer = compose(
   storeEnchanter
 );
 
-const initialState: StoreState = {
+// const initialState: State = {
+//   scene: {
+//     selectedEntity: null
+//   }
+// }
 
-}
+const initialState = {} as any;
 
 const store = createStore(mainReducer, initialState, enhancer);
 

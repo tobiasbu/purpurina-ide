@@ -4,14 +4,8 @@ import { ReactComponentBase, WidgetState, WidgetProps } from "../base/ReactCompo
 import './style.css';
 import Checkbox, { ICheckBoxEvent } from "../../components/Checkbox";
 import { connect } from "react-redux";
+import Vector2Input from "../../components/Vector2Input";
 
-const styleVecLabel = {
-    minWidth: '20%'
-}
-
-const styleVec:React.CSSProperties = {
-    flex:'auto'
-}
 
 interface InspectorState extends WidgetState {
     activeFlag: string;
@@ -44,21 +38,13 @@ export default class Inspector extends ReactComponentBase {
                         <input className='text-input' type='textfield'></input>
                     </div>
                 </div>
-                <div className='flex-container'>
-                    <div className='flex-horizontal' style={styleVecLabel}>
-                        <label className='text-label'>Position</label>
-                    </div>
-                    <div className='flex-horizontal' style={styleVec}>
-                        <label className='text-label number'>X</label><input className='text-input' type='number' />
-                    
-                        <label className='text-label number'>Y</label><input className='text-input' type='number' />
-                    </div>
-
-                </div>
+                <Vector2Input label='Position'/>
             </div>)
     }
 
 }
+
+
 
 
 //export default connect(,mapDispatchToProps)(Inspector);

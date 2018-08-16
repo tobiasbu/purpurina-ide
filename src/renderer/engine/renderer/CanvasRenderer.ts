@@ -21,11 +21,6 @@ export default class CanvasRenderer extends Renderer implements IRenderer {
         }
     }
 
-    repaint() {
-        this._context.drawImage(this._canvasBuffer, 0, 0);
-        // this._context.putImageData(this._canvasBuffer, 0,0)
-
-    }
 
     // public get interpolation(): InterpolationType {
     //     return this._interpolation;
@@ -68,16 +63,17 @@ export default class CanvasRenderer extends Renderer implements IRenderer {
             this._alpha = 1;
         }
 
-        ctx.globalCompositeOperation = 'source-over';
+        //ctx.globalCompositeOperation = 'source-over';
     }
 
     endDraw() {
+
         const ctx = this.context;
 
         ctx.globalAlpha = 1;
         ctx.globalCompositeOperation = 'source-over';
 
-        if (this._doubleBuffer) { // is is double buffer, submit to the real context
+        if (this._doubleBuffer) { // if is double buffer, submit to the real context
             this._context.drawImage(this._canvasBuffer, 0, 0);
         }
     }

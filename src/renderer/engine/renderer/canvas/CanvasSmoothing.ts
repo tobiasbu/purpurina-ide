@@ -1,4 +1,4 @@
-import { RenderingType } from "../renderer/RendererProperties";
+import { RenderingType } from "../RendererProperties";
 
 type ImageSmoothingVendorPrefix = 'imageSmoothingEnabled' | 'webkitImageSmoothingEnabled' | 'mozImageSmoothingEnabled' | 'oImageSmoothingEnabled' | 'msImageSmoothingEnabled'
 

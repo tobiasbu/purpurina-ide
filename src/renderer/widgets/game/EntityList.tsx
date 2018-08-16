@@ -1,3 +1,4 @@
+import * as React from "react";
 import { ReactComponentBase } from "../base/ReactComponentBase";
 
 

@@ -10,7 +10,7 @@ export default class ReactWidgetBase extends Widget {
 
     private _wrapperElement: HTMLElement;
     private _reactClass: any;
-    private _reactElement: React.ComponentElement<{}, React.Component<{}, React.ComponentState, any>>
+    //private _reactElement: React.ComponentElement<{}, React.Component<{}, React.ComponentState, any>>
     private _reactComponent: React.Component;
     private _width: number;
     private _height: number;
@@ -56,7 +56,7 @@ export default class ReactWidgetBase extends Widget {
 
         const host = this.node.firstChild as Element;
         const ReactElement = React.createElement(this._reactClass, { parent: this });
-        this._reactElement = ReactElement;
+        //this._reactElement = ReactElement;
         this._reactComponent = ReactDOM.render(ReactElement, host);
         this._reactComponent.setState({ width: this._width, height: this._height })
 

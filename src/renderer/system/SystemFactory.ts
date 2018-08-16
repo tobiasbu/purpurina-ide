@@ -1,8 +1,8 @@
-import CanvasRenderer from "../internal/renderer/CanvasRenderer";
-import CanvasPool from "../internal/canvas/CanvasPool";
-import { ContextID } from "../internal/renderer/RendererProperties";
+import CanvasRenderer from "../engine/renderer/CanvasRenderer";
+import CanvasPool from "../engine/renderer/canvas/CanvasPool";
+import { ContextID } from "../engine/renderer/RendererProperties";
 import SceneViewEditor from "../internal/editor/sceneView/SceneViewEditor";
-import Renderer from "../internal/renderer/Renderer";
+import Renderer from "../engine/renderer/Renderer";
 
 
 class SystemCreator {

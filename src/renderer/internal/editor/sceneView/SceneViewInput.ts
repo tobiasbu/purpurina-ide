@@ -1,5 +1,4 @@
 import EventEmitter from "../../../engine/events/emitter/EventEmitter";
-import MathUtils from "../../../engine/math/MathUtils";
 import SceneViewInputData from "./SceneViewInputData";
 import SceneViewCursor from "./SceneViewCursor";
 
@@ -7,8 +6,6 @@ import SceneViewCursor from "./SceneViewCursor";
 
 export default class SceneViewInput {
 
-    private target: HTMLElement;
-    private emitter: EventEmitter;
     private inputData: SceneViewInputData;
     private _cursor: SceneViewCursor;
     public get cursor(): SceneViewCursor {

@@ -1,8 +1,6 @@
-
-
-import List from '../../engine/structures/List';
-import UUID from '../UUID';
-import { ICanvasContainer } from '../../typings/ICanvasContainer';
+import List from '../../structures/List';
+import UUID from '../../../internal/UUID';
+import { ICanvasContainer } from '../../../typings/ICanvasContainer';
 
 
 // based in pixi
@@ -71,6 +69,7 @@ class CanvasPoolManager {
             if (!canvas.using) {
                 return canvas;
             }
+            return undefined;
         });
 
         return null;

@@ -37,4 +37,6 @@ export default function parseColor(value: number | string | IColor, source?: Col
     return ObjectToColor(value, source);
   }
 
+  throw new Error('Could not convert color.')
+
 }

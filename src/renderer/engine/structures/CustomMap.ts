@@ -1,7 +1,7 @@
+import { MapEachFunction, MapFindPredicate } from "./types";
 
 
-type MapEachFunction<V> = (key: string, value: V) => V | void
-type MapFindPredicate<V> = (property: string, value: V) => void | boolean | number;
+
 
 export default class CustomMap<K extends string | number, V> {
 

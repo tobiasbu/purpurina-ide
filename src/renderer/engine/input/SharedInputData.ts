@@ -2,19 +2,18 @@ import Rect from "../math/Rect";
 import Vector2 from "../math/Vector2";
 import IRenderer from "../renderer/IRenderer";
 import MathUtils from "../math/MathUtils";
-import IInputManager from "./IInputManager";
 
 export default class SharedInputData {
 
-    private manager: IInputManager;
+    //private manager: IInputManager;
     canvas: HTMLCanvasElement;
     private clientRect: Rect;
     private boundingClientRect: ClientRect | DOMRect;
     private scale: IVector2;
 
 
-    constructor(inputManager, renderer: IRenderer) {
-        this.manager = inputManager;
+    constructor(renderer: IRenderer) {
+        //this.manager = inputManager;
         this.canvas = renderer.canvas;
         this.clientRect = new Rect();
         this.boundingClientRect = null;

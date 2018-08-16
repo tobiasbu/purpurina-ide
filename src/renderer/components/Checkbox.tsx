@@ -85,7 +85,6 @@ export default class Checkbox extends React.Component<ICheckBoxProps, ICheckBoxS
     render() {
         const { checked, disabled } = this.state;
         const { name } = this.props;
-        const self = this;
 
         return (
 

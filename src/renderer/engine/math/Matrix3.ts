@@ -262,7 +262,7 @@ export default class Matrix3 {
         );
     }
 
-    inversed(): this {
+    inverse(): this {
         const det = Matrix3.determinant(this);
 
         if (det === 0) {

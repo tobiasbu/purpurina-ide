@@ -8,12 +8,20 @@ import ITransform2D from '../math/transform/ITransform2D';
 
 export default class Entity extends EntityBase //Hierarchy
 {
-    private _transform: ITransform2D;
+    protected _transform: ITransform2D;
     private _pool = null;
     private _pendingRemoval: boolean;
-
+   
     get isPooled(): boolean {
         return this._pool !== null;
+    }
+
+    public get pendingRemoval(): boolean {
+        return this._pendingRemoval;
+    }
+
+    public get transform():ITransform2D {
+        return this._transform;
     }
 
     constructor(name: string)

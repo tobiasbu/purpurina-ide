@@ -1,14 +1,14 @@
-import * as React from "react";
+//import * as React from "react";
 import WidgetBase from "../base/WidgetBase";
 import { WidgetResizeEvent } from "../../typings/WidgetInterfaces";
 import SystemFactory from '../../system/SystemFactory'
 import SceneViewEditor from "../../internal/editor/sceneView/SceneViewEditor";
 
 
-const style: React.CSSProperties = {
-    backgroundColor: '#171717',
-    border: '1px solid black'
-}
+// const style: React.CSSProperties = {
+//     backgroundColor: '#171717',
+//     border: '1px solid black'
+// }
 
 
 export default class GameView extends WidgetBase {
@@ -45,7 +45,7 @@ export default class GameView extends WidgetBase {
     }
 
     onAfterAttach() {
-
+        this._editor.init();
         
 
 

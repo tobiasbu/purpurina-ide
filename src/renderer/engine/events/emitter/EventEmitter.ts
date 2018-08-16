@@ -17,46 +17,6 @@ class EventsMap {
     [indexer: string]: EventSubscription[] | EventSubscription;
 }
 
-/**
- * Clear event by name.
- * @param emitter Reference to the `EventEmitter` instance.
- * @param evt The Event name.
- */
-function clearEvent(emitter: EventEmitter, evt: string) {
-    if (--emitter._eventsCount === 0) emitter._eventsMap = new EventsMap();
-    else delete emitter._eventsMap[evt];
-}
-
-/**
- * Add a listener for a given event.
- * @param emitter Reference to the `EventEmitter` instance.
- * @param event The event name.
- * @param fn The listener function.
- * @param context The context to invoke the listener with.
- * @param once Specify if the listener is a one-time listener.
- */
-function addListener(emitter: EventEmitter, event: string, fn: EventCallback, context: any, once: boolean) {
-    if (typeof fn !== 'function') {
-        throw new TypeError('The listener must be a function');
-    }
-
-    let listener = new EventSubscription(fn, context || emitter, once);
-    const evt = prefix ? prefix + event : event;
-
-    let eventSubscribed = emitter._eventsMap[evt] as EventSubscription;
-
-    if (!eventSubscribed) {
-        emitter._eventsMap[evt] = listener;
-        emitter._eventsCount++;
-    }
-    else if (!eventSubscribed.callback) {
-        (emitter._eventsMap[evt] as EventSubscription[]).push(listener);
-    }
-    else {
-        let eventSubscriber = [emitter._eventsMap[evt] as EventSubscription, listener];
-        emitter._eventsMap[evt] = eventSubscriber;
-    }
-}
 
 function uniqueListener(listener: EventSubscription | EventSubscription[]): listener is EventSubscription {
     return ((<EventSubscription>listener).callback !== undefined);
@@ -71,8 +31,8 @@ function uniqueListener(listener: EventSubscription | EventSubscription[]): list
  */
 export default class EventEmitter {
 
-    _eventsMap: EventsMap;
-    _eventsCount: number;
+    private _eventsMap: EventsMap;
+    private _eventsCount: number;
 
     /**
      * Minimal `EventEmitter` interface that is molded against the Node.js
@@ -85,6 +45,51 @@ export default class EventEmitter {
         this._eventsMap = new EventsMap();
         this._eventsCount = 0;
     }
+
+    /**
+     * Add a listener for a given event.
+     * @param emitter Reference to the `EventEmitter` instance.
+     * @param event The event name.
+     * @param fn The listener function.
+     * @param context The context to invoke the listener with.
+     * @param once Specify if the listener is a one-time listener.
+     */
+    private addListener(event: string, fn: EventCallback, context: any, once: boolean) {
+        if (typeof fn !== 'function') {
+            throw new TypeError('The listener must be a function');
+        }
+
+        let listener = new EventSubscription(fn, context || this, once);
+        const evt = prefix ? prefix + event : event;
+
+        let eventSubscribed = this._eventsMap[evt] as EventSubscription;
+
+        if (!eventSubscribed) {
+            this._eventsMap[evt] = listener;
+            this._eventsCount++;
+        }
+        else if (!eventSubscribed.callback) {
+            (this._eventsMap[evt] as EventSubscription[]).push(listener);
+        }
+        else {
+            let eventSubscriber = [this._eventsMap[evt] as EventSubscription, listener];
+            this._eventsMap[evt] = eventSubscriber;
+        }
+    }
+
+    /**
+     * Clear event by name.
+     * @param emitter Reference to the `EventEmitter` instance.
+     * @param evt The Event name.
+     */
+    private clearEvent(evt: string) {
+        if (--this._eventsCount === 0) {
+            this._eventsMap = new EventsMap();
+        } else {
+            delete this._eventsMap[evt];
+        }
+    }
+
 
     /**
      * Calls each of the listeners registered for a given event.
@@ -106,7 +111,7 @@ export default class EventEmitter {
                 this.unbind(event, listeners.callback, undefined, true);
             }
 
-            switch(argsLen) {
+            switch (argsLen) {
                 case 1: return listeners.callback.call(listeners.context, args[0]), true;
                 case 2: return listeners.callback.call(listeners.context, args[0], args[1]), true;
             }
@@ -136,7 +141,7 @@ export default class EventEmitter {
      * @returns {EventEmitter} `this`
      */
     on(event: string, callback: EventCallback, context?: any): this {
-        addListener(this, event, callback, context, false);
+        this.addListener(event, callback, context, false);
         return this;
     }
 
@@ -148,7 +153,7 @@ export default class EventEmitter {
      * @returns {EventEmitter} `this`
      */
     once(event: string, callback: EventCallback, context?: any): this {
-        addListener(this, event, callback, context, true);
+        this.addListener(event, callback, context, true);
         return this;
     }
 
@@ -168,7 +173,7 @@ export default class EventEmitter {
             return this;
         }
         if (!callback) {
-            clearEvent(this, evt);
+            this.clearEvent(evt);
             return this;
         }
 
@@ -178,7 +183,7 @@ export default class EventEmitter {
             if (listeners.callback === callback &&
                 (!once || listeners.once) &&
                 (!context || listeners.context === context)) {
-                clearEvent(this, evt);
+                this.clearEvent(evt);
             }
         } else {
             let events: EventSubscription[] = [];
@@ -195,7 +200,7 @@ export default class EventEmitter {
                 this._eventsMap[evt] = (events.length === 1) ? events[0] : events;
             }
             else {
-                clearEvent(this, evt);
+                this.clearEvent(evt);
             }
         }
         return this;
@@ -211,7 +216,7 @@ export default class EventEmitter {
         if (event) {
             const evt = prefix ? prefix + event : event;
             if (this._eventsMap[evt]) {
-                clearEvent(this, evt)
+                this.clearEvent(evt)
             }
         } else {
             this._eventsMap = new EventsMap();

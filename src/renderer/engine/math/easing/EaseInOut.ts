@@ -29,7 +29,7 @@ class EaseInOutFunctions {
             return EaseIn.power(from, to, t, power) / 2;
 
         let sign = (power % 2 == 0) ? -1 : 1;
-        return to * (sign / 2.0 * (Math.pow(s - 2, power) + sign * 2)) + from;
+        return to * (sign / 2.0 * (Math.pow(sign - 2, power) + sign * 2)) + from;
     }
 
     quadratic(from: number, to: number, t: number): number {
@@ -107,7 +107,7 @@ class EaseInOutFunctions {
         if ((t /= 0.5) == 2)
             return from + to;
 
-        let p = (.3 * 1.5);
+        //let p = (.3 * 1.5);
         let s = EASE_BACK_CONST;
 
         if (t < 1)

@@ -1,6 +1,6 @@
 import ITransform2D from "../math/transform/ITransform2D";
 import Bounds2D from "../math/bounds/Bounds2D";
-import IRenderer from "../../internal/renderer/IRenderer";
+import IRenderer from "../renderer/IRenderer";
 import Color from "../render/color/Color";
 import { IColor } from "../render/color/IColor";
 import Rect from "../math/Rect";
