@@ -9,11 +9,10 @@ const HANDLE_DIR_WIDTH = 16;
 const HANDLE_DIR_HEIGHT = 8;
 
 function drawHandle(ctx: CanvasRenderingContext2D, x: number, y: number, angle: number) {
+    const r = angle * MathUtils.degtorad;
     ctx.save();
-    ctx.translate(x, y)
-    ctx.rotate(angle * MathUtils.radtodeg)
-
-
+    ctx.translate(MathUtils.round(x), MathUtils.round(y));
+    ctx.rotate(r);
 
     ctx.beginPath();
     ctx.moveTo(0, 0);
@@ -27,7 +26,6 @@ function drawHandle(ctx: CanvasRenderingContext2D, x: number, y: number, angle: 
     ctx.moveTo(POSITION_HANDLE_SIZE, -HANDLE_DIR_HEIGHT);
     ctx.lineTo(POSITION_HANDLE_SIZE, HANDLE_DIR_HEIGHT);
     ctx.lineTo(POSITION_HANDLE_SIZE + HANDLE_DIR_WIDTH, 0);
-    ctx.lineWidth = 0;
     ctx.strokeStyle = 'none';
     ctx.fillStyle = 'white';
     ctx.fill();

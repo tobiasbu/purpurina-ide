@@ -2,8 +2,8 @@
 class MathUtils  {
 
 
-    readonly radtodeg = Math.PI / 180;
-    readonly degtorad = 180 / Math.PI;
+    readonly degtorad = Math.PI / 180;
+    readonly radtodeg  = 180 / Math.PI;
     readonly TAU = Math.PI * 2;
     //HALFPI : Math.PI / 2,
     readonly EPSILON = Math.pow(2, -52);

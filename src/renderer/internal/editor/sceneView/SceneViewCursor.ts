@@ -133,8 +133,8 @@ export default class SceneViewCursor {
 
                     if (this._startPosition.x !== position.x || this._startPosition.y !== position.y) {
                         const deltaPos = {
-                            x: -position.x + this._startPosition.x,
-                            y: -position.y + this._startPosition.y
+                            x: position.x - this._startPosition.x,
+                            y: position.y - this._startPosition.y
                         }
 
                         this.emitter.emit('move', deltaPos);

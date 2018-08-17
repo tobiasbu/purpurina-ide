@@ -48437,8 +48437,8 @@ exports.default = ManagedVector2;
 Object.defineProperty(exports, "__esModule", { value: true });
 var MathUtils = /** @class */ (function () {
     function MathUtils() {
-        this.radtodeg = Math.PI / 180;
-        this.degtorad = 180 / Math.PI;
+        this.degtorad = Math.PI / 180;
+        this.radtodeg = 180 / Math.PI;
         this.TAU = Math.PI * 2;
         //HALFPI : Math.PI / 2,
         this.EPSILON = Math.pow(2, -52);
@@ -48909,6 +48909,26 @@ var Rect = /** @class */ (function () {
                 y: this.y + this.height / 2
             };
             return vec;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Rect.prototype, "xMax", {
+        get: function () {
+            return this.x + this.width;
+        },
+        set: function (value) {
+            this.width = value - this.x;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Rect.prototype, "yMax", {
+        get: function () {
+            return this.y + this.height;
+        },
+        set: function (value) {
+            this.height = value - this.y;
         },
         enumerable: true,
         configurable: true
@@ -49841,145 +49861,6 @@ exports.EASE_BACK_CONST = 1.70158;
 
 /***/ }),
 
-/***/ "./src/renderer/engine/math/random/Mash.ts":
-/*!*************************************************!*\
-  !*** ./src/renderer/engine/math/random/Mash.ts ***!
-  \*************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-// type MashFunction = (data: string | number) => number;
-Object.defineProperty(exports, "__esModule", { value: true });
-function mash(data) {
-    var n = 0xefc8249d;
-    data = data.toString();
-    for (var i = 0; i < data.length; i++) {
-        n += data.charCodeAt(i);
-        var h = 0.02519603282416938 * n;
-        n = h >>> 0;
-        h -= n;
-        h *= n;
-        n = h >>> 0;
-        h -= n;
-        n += h * 0x100000000; // 2^32
-    }
-    return (n >>> 0) * 2.3283064365386963e-10; // 2^-32
-}
-exports.mash = mash;
-;
-// From http://baagoe.com/en/RandomMusings/javascript/
-// Johannes BaagÃ¸e <baagoe@baagoe.com>, 2010
-// export default function Mash(): MashFunction {
-//     // mash.version = 'Mash 0.9';
-//     return mash;
-// }
-
-
-/***/ }),
-
-/***/ "./src/renderer/engine/math/random/Random.ts":
-/*!***************************************************!*\
-  !*** ./src/renderer/engine/math/random/Random.ts ***!
-  \***************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var Mash_1 = __webpack_require__(/*! ./Mash */ "./src/renderer/engine/math/random/Mash.ts");
-var MathUtils_1 = __webpack_require__(/*! ../MathUtils */ "./src/renderer/engine/math/MathUtils.ts");
-// ms
-//const uint32 a = 214013;
-//const uint32 c = 2531011;
-// b
-//const RNG_A = 8253729;
-//const RNG_B = 2396403;
-// Alea
-var RNG_A = 2091639;
-var RNG_B = 2.3283064365386963e-10; // 2^-32;
-var FRAC = 1.1102230246251565e-16; // 2^-53
-// From http://baagoe.com/en/RandomMusings/javascript/
-var RandomGenerator = /** @class */ (function () {
-    function RandomGenerator() {
-        this.c = 1;
-        this.s0 = 0;
-        this.s1 = 0;
-        this.s2 = 0;
-        this.n = 0xefc8249d;
-    }
-    RandomGenerator.prototype.hash = function (data) {
-        var h;
-        var n = this.n;
-        data = data.toString();
-        for (var i = 0; i < data.length; i++) {
-            n += data.charCodeAt(i);
-            h = 0.02519603282416938 * n;
-            n = h >>> 0;
-            h -= n;
-            h *= n;
-            n = h >>> 0;
-            h -= n;
-            n += h * 0x100000000; // 2^32
-        }
-        this.n = n;
-        return (n >>> 0) * 2.3283064365386963e-10; // 2^-32
-    };
-    RandomGenerator.prototype.rand = function () {
-        // common lcg =  (a * seed + c);
-        var t = RNG_A * this.s0 + this.c * RNG_B; // 2^-32
-        this.s0 = this.s1;
-        this.s1 = this.s2;
-        this.c = t | 0;
-        this.s2 = t - this.c;
-        return this.s2;
-    };
-    RandomGenerator.prototype.uint32 = function () {
-        return this.rand() * 0x100000000; // ^32
-    };
-    RandomGenerator.prototype.frac = function () {
-        return this.rand() + (this.rand() * 0x200000 | 0) * FRAC;
-    };
-    // 0...1
-    RandomGenerator.prototype.real = function () {
-        return this.uint32() + this.frac();
-    };
-    // real range
-    RandomGenerator.prototype.range = function (from, to) {
-        return this.frac() * (to - from) + from;
-    };
-    // integer
-    RandomGenerator.prototype.irange = function (from, to) {
-        return MathUtils_1.default.floor(this.range(0, to - from) + from);
-        //MathUtils.floor(Math.random() * (max - min)) + min;
-    };
-    RandomGenerator.prototype.reset = function (seeds) {
-        // this.n = 0xefc8249d;
-        this.s0 = Mash_1.mash(' ');
-        this.s1 = Mash_1.mash(' ');
-        this.s2 = Mash_1.mash(' ');
-        this.c = 1;
-        for (var i = 0; i < seeds.length && (seeds[i] != null); i++) {
-            var seed = seeds[i];
-            this.s0 -= Mash_1.mash(seed);
-            this.s0 += ~~(this.s0 < 0);
-            this.s1 -= Mash_1.mash(seed);
-            this.s1 += ~~(this.s1 < 0);
-            this.s2 -= Mash_1.mash(seed);
-            this.s2 += ~~(this.s2 < 0);
-        }
-    };
-    return RandomGenerator;
-}());
-var Random = new RandomGenerator();
-Object.seal(Random);
-exports.default = Random;
-
-
-/***/ }),
-
 /***/ "./src/renderer/engine/math/transform/Transform2D.ts":
 /*!***********************************************************!*\
   !*** ./src/renderer/engine/math/transform/Transform2D.ts ***!
@@ -50686,7 +50567,6 @@ var CanvasRenderer = /** @class */ (function (_super) {
     // }
     CanvasRenderer.prototype.beginDraw = function () {
         var ctx = this.context;
-        ctx.setTransform(1, 0, 0, 1, 0, 0);
         if (this._clear) {
             ctx.clearRect(0, 0, this._canvas.width, this._canvas.height);
         }
@@ -50707,6 +50587,7 @@ var CanvasRenderer = /** @class */ (function (_super) {
         var ctx = this.context;
         ctx.globalAlpha = 1;
         ctx.globalCompositeOperation = 'source-over';
+        ctx.setTransform(1, 0, 0, 1, 0, 0);
         if (this._doubleBuffer) { // if is double buffer, submit to the real context
             this._context.drawImage(this._canvasBuffer, 0, 0);
         }
@@ -50868,6 +50749,9 @@ var Renderer = /** @class */ (function () {
             this._canvasBuffer.width = width;
             this._canvasBuffer.height = height;
         }
+    };
+    Renderer.prototype.setBackgroundColor = function (color) {
+        this._backgroundColor.set(color);
     };
     return Renderer;
 }());
@@ -51486,6 +51370,86 @@ exports.default = UUID;
 
 /***/ }),
 
+/***/ "./src/renderer/internal/editor/CanvasDrawer.ts":
+/*!******************************************************!*\
+  !*** ./src/renderer/internal/editor/CanvasDrawer.ts ***!
+  \******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var CanvasDrawer = /** @class */ (function () {
+    function CanvasDrawer(canvasRenderer) {
+        this._outlineWidth = 0;
+        this._fillStyle = 'white';
+        this._strokeStyle = 'white';
+        this._canvasRenderer = canvasRenderer;
+        this._ctx = canvasRenderer.context;
+    }
+    Object.defineProperty(CanvasDrawer.prototype, "context", {
+        get: function () {
+            return this._ctx;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(CanvasDrawer.prototype, "color", {
+        set: function (value) {
+            this._ctx.fillStyle = value;
+            this._fillStyle = this._ctx.fillStyle;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(CanvasDrawer.prototype, "outlineColor", {
+        set: function (value) {
+            if (this._ctx.strokeStyle !== value) {
+                this._ctx.strokeStyle = value;
+                this._strokeStyle = this._ctx.strokeStyle;
+            }
+        },
+        enumerable: true,
+        configurable: true
+    });
+    CanvasDrawer.prototype.line = function (fromX, fromY, toX, toY) {
+        this._ctx.beginPath();
+        this._ctx.moveTo(fromX, fromY);
+        this._ctx.lineTo(toX, toY);
+        this._ctx.stroke();
+    };
+    CanvasDrawer.prototype.rect = function (x, y, width, height, color) {
+        if (!color) {
+            this._ctx.fillStyle = this._fillStyle;
+        }
+        else {
+            this.color = color;
+        }
+        this._ctx.strokeStyle = color;
+        this._ctx.fillRect(x, y, width, height);
+    };
+    CanvasDrawer.prototype.outlineRect = function (x, y, width, height, outlineColor, outlineWidth) {
+        if (!outlineWidth)
+            outlineWidth = this._outlineWidth;
+        if (!outlineColor) {
+            this._ctx.strokeStyle = this._strokeStyle;
+        }
+        else {
+            this.outlineColor = outlineColor;
+        }
+        if (outlineWidth > 0) {
+            this._ctx.lineWidth = outlineWidth;
+            this._ctx.strokeRect(x, y, width, height);
+        }
+    };
+    return CanvasDrawer;
+}());
+exports.CanvasDrawer = CanvasDrawer;
+
+
+/***/ }),
+
 /***/ "./src/renderer/internal/editor/EditorCamera.ts":
 /*!******************************************************!*\
   !*** ./src/renderer/internal/editor/EditorCamera.ts ***!
@@ -51497,23 +51461,24 @@ exports.default = UUID;
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var Matrix3_1 = __webpack_require__(/*! ../../engine/math/Matrix3 */ "./src/renderer/engine/math/Matrix3.ts");
-var ManagedVector2_1 = __webpack_require__(/*! ../../engine/math/ManagedVector2 */ "./src/renderer/engine/math/ManagedVector2.ts");
 var Vector2_1 = __webpack_require__(/*! ../../engine/math/Vector2 */ "./src/renderer/engine/math/Vector2.ts");
 var MathUtils_1 = __webpack_require__(/*! ../../engine/math/MathUtils */ "./src/renderer/engine/math/MathUtils.ts");
 var EditorCamera = /** @class */ (function () {
     function EditorCamera(renderer) {
         this._maxZoom = 10;
-        this._minZoom = 0.0125;
-        this._zoomDelta = 0.025;
+        this._minZoom = 0.05;
+        this._zoomDelta = 0.05;
+        this._originFactor = 0.5;
         this._renderer = renderer;
-        this._position = new ManagedVector2_1.default(0, 0);
+        this._position = new Vector2_1.default(0, 0);
         this._oldPosition = new Vector2_1.default();
+        this._origin = new Vector2_1.default();
         this._matrix = Matrix3_1.default.identity();
         this._handlesMatrix = Matrix3_1.default.identity();
         this._resolution = 1;
         this._invertedResolution = 1 / this._resolution;
         //this._viewBounds = new Bounds2D();
-        this._origin = { x: 0.5, y: 0.5 };
+        this.resize();
         this.updateTransform();
     }
     Object.defineProperty(EditorCamera.prototype, "resolution", {
@@ -51551,6 +51516,27 @@ var EditorCamera = /** @class */ (function () {
         enumerable: true,
         configurable: true
     });
+    Object.defineProperty(EditorCamera.prototype, "offsetX", {
+        get: function () {
+            return -(this._position.x - this._origin.x) * this._resolution;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(EditorCamera.prototype, "offsetY", {
+        get: function () {
+            return -(this._position.y - this._origin.y) * this._resolution;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(EditorCamera.prototype, "zoomFactor", {
+        get: function () {
+            return (this._resolution - this._minZoom) / (this._maxZoom - this._minZoom);
+        },
+        enumerable: true,
+        configurable: true
+    });
     EditorCamera.prototype.zoom = function (delta, zoomPoint) {
         var res = this._resolution;
         var scaleDelta = delta * this._zoomDelta;
@@ -51561,10 +51547,6 @@ var EditorCamera = /** @class */ (function () {
         else if (res < this._minZoom) {
             res = this._minZoom;
         }
-        //this._oldPosition.copy(this._position);
-        //zoomPoint = this.screenPointToWorld(zoomPoint.x, zoomPoint.y);
-        //zoomPoint = Matrix3.inverse(this._matrix).transformPoint(zoomPoint.x, zoomPoint.y);
-        //const scaleChange = (res - this._resolution);
         // determine the point on where the slide is zoomed in
         var zoom_target = { x: 0, y: 0 };
         zoom_target.x = (zoomPoint.x - this._position.x) / this._resolution;
@@ -51572,25 +51554,19 @@ var EditorCamera = /** @class */ (function () {
         // calculate x and y based on zoom
         //this._position.x = -zoom_target.x * res + zoomPoint.x
         //this._position.x = -zoom_target.y * res + zoomPoint.y
-        var originX = this._renderer.width * this._origin.x;
-        var originY = this._renderer.height * this._origin.y;
         //this._position.x -= originX * this._invertedResolution;
         //this._position.x -= originY * this._invertedResolution
-        this._position.x -= zoomPoint.x / (this._resolution * res) - zoomPoint.x / this._resolution;
-        this._position.y -= zoomPoint.y / (this._resolution * res) - zoomPoint.y / this._resolution;
-        //this._position.x += zoomPoint.x / res - zoomPoint.x /  this._resolution
-        //this._position.x += zoomPoint.y / res - zoomPoint.y /  this._resolution;
-        // apply zoom
-        this._resolution = res;
-        this._invertedResolution = 1 / res;
-        //this._position.x += originX * this._invertedResolution;
-        //this._position.x += originY * this._invertedResolution
+        //this._position.x -= zoomPoint.x/(this._resolution*res) - zoomPoint.x/this._resolution;
+        //this._position.y -= zoomPoint.y/(this._resolution*res) - zoomPoint.y/this._resolution;
         // const offsetX = -(zoomPoint.x * scaleChange) / this._resolution;
         // const offsetY = -(zoomPoint.y * scaleChange) / this._resolution;
         // this._position.x += offsetX;
         // this._position.y += offsetY;
-        // this._position.x -= this._oldPosition.x;
-        // this._position.y -= this._oldPosition.y;
+        this._position.x -= (zoomPoint.x / res) - (zoomPoint.x / this._resolution);
+        this._position.y -= (zoomPoint.y / res) - (zoomPoint.y / this._resolution);
+        // apply zoom
+        this._resolution = res;
+        this._invertedResolution = 1 / res;
     };
     EditorCamera.prototype.prepareMove = function () {
         this._oldPosition.copy(this._position);
@@ -51605,48 +51581,31 @@ var EditorCamera = /** @class */ (function () {
         this._position.x = position.x * this._resolution;
         this._position.y = position.y * this._resolution;
     };
+    EditorCamera.prototype.resize = function () {
+        var originX = this._renderer.width * this._originFactor;
+        var originY = this._renderer.height * this._originFactor;
+        this._origin.x = originX;
+        this._origin.y = originY;
+    };
     EditorCamera.prototype.updateTransform = function () {
-        var a = this._renderer.width / this._renderer.height;
-        var originX = this._renderer.width * this._origin.x;
-        var originY = this._renderer.height * this._origin.y;
-        //const res = this._resolution * a;
-        //const ires = this._invertedResolution;
+        //const a = this._renderer.width / this._renderer.height;
         this._matrix.setIdentity()
-            .scale(this._resolution, this._resolution)
-            .translate(this._position.x, this._position.y)
-            .translate(originX * this._invertedResolution, originY * this._invertedResolution);
-        // this._inversedMatrix.setIdentity()
-        //     .translate(-this._position.x * this._invertedResolution, -this._position.y * this._invertedResolution)
-        //     .translate(originX * this._invertedResolution, originY * this._invertedResolution);
+            .translate(-(this._position.x - this._origin.x), -(this._position.y - this._origin.y))
+            .scale(this._resolution, this._resolution);
+        //.translate(-originX * this._invertedResolution, -originY * this._invertedResolution)
+        this._handlesMatrix.setIdentity()
+            .translate(MathUtils_1.default.round(-(this._position.x - this._origin.x) * this._resolution) + 0.5, MathUtils_1.default.round(-(this._position.y - this._origin.y) * this._resolution) + 0.5);
         // this._matrix.setIdentity()
         // .translate(-this._position.x, -this._position.y)
         //     .scale(this._resolution, this._resolution)
         //     .translate(-this._position.x, -this._position.y)
-        this._handlesMatrix.setIdentity()
-            .translate(this._position.x * this._resolution, this._position.y * this._resolution)
-            .translate(originX, originY);
-        //.translate(originX, originY)
-        //.translate(-this._position.x * this._resolution, -this._position.y * this._resolution)
-        //.translate(originX, originY);
-        //factor.x = factor.x - (this._position.x * this._invertedResolution);
-        // + this._invertedResolution;// + this._resolution ;// * (this._resolution - this._invertedResolution);
-        //factor *= this._invertedResolution - this._resolution;
-        //const diff = this._position.x * (this._invertedResolution - this._resolution);
-        //let vec = this._matrix.transformPoint(this._position.x * this._invertedResolution, this._position.y * this._invertedResolution);
-        // this._inversedMatrix.setIdentity()
-        //     .translate(this.position.x * this._resolution, this.position.y * this._resolution)
-        //.scale(this._invertedResolution, this._invertedResolution)
-        //this._inversedMatrix.scale(this._resolution,this._resolution )
-        //.scale(this._invertedResolution, this._invertedResolution)
-        //.translate(this._position.x + diff, this._position.y * this._resolution)
-        //.scale(this._resolution, this._resolution)
-        //.translate(this._position.x * this._invertedResolution, this._position.y * this._invertedResolution)
-        // this._inversedMatrix.setModelMatrix({
-        //     x: this._position.x * factor,
-        //     y: this._position.y * factor
-        // }, { x: 1, y: 1 }, { x: 1, y: 0 })
-        //.scale(this._resolution, this._resolution)
-        //.scale(this._invertedResolution, this._invertedResolution);
+        // this._handlesMatrix.setIdentity()
+        //     .translate(
+        //         this._position.x * this._resolution,
+        //         this._position.y * this._resolution)
+        //     .translate(originX, originY)
+        //.translate(this._position.x, this._position.y)
+        //.translate(originX * this._invertedResolution, originY * this._invertedResolution)
     };
     EditorCamera.prototype.screenPointToWorld = function (x, y) {
         var result = new Vector2_1.default(x, y);
@@ -51695,9 +51654,10 @@ var POSITION_HANDLE_SIZE = 80;
 var HANDLE_DIR_WIDTH = 16;
 var HANDLE_DIR_HEIGHT = 8;
 function drawHandle(ctx, x, y, angle) {
+    var r = angle * MathUtils_1.default.degtorad;
     ctx.save();
-    ctx.translate(x, y);
-    ctx.rotate(angle * MathUtils_1.default.radtodeg);
+    ctx.translate(MathUtils_1.default.round(x), MathUtils_1.default.round(y));
+    ctx.rotate(r);
     ctx.beginPath();
     ctx.moveTo(0, 0);
     ctx.lineTo(POSITION_HANDLE_SIZE, 0);
@@ -51709,7 +51669,6 @@ function drawHandle(ctx, x, y, angle) {
     ctx.moveTo(POSITION_HANDLE_SIZE, -HANDLE_DIR_HEIGHT);
     ctx.lineTo(POSITION_HANDLE_SIZE, HANDLE_DIR_HEIGHT);
     ctx.lineTo(POSITION_HANDLE_SIZE + HANDLE_DIR_WIDTH, 0);
-    ctx.lineWidth = 0;
     ctx.strokeStyle = 'none';
     ctx.fillStyle = 'white';
     ctx.fill();
@@ -51743,6 +51702,81 @@ var EditorHandles = /** @class */ (function () {
     return EditorHandles;
 }());
 exports.default = EditorHandles;
+
+
+/***/ }),
+
+/***/ "./src/renderer/internal/editor/sceneView/Guidelines.ts":
+/*!**************************************************************!*\
+  !*** ./src/renderer/internal/editor/sceneView/Guidelines.ts ***!
+  \**************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var MathUtils_1 = __webpack_require__(/*! ../../../engine/math/MathUtils */ "./src/renderer/engine/math/MathUtils.ts");
+var Vector2_1 = __webpack_require__(/*! ../../../engine/math/Vector2 */ "./src/renderer/engine/math/Vector2.ts");
+var Guidelines = /** @class */ (function () {
+    function Guidelines(renderer) {
+        this.spacing = 1000;
+        this._renderer = renderer;
+        this._parallax = new Vector2_1.default();
+    }
+    Guidelines.prototype.computeLineScale = function (size, spacing) {
+        return MathUtils_1.default.floor(size / spacing) + 1;
+    };
+    Guidelines.prototype.update = function (camera) {
+        var spacing = this.spacing * camera.resolution;
+        var subDivisionSpacing = (this.spacing / 2) * camera.resolution;
+        this.subDivisionSpacing = subDivisionSpacing;
+        this.t = camera.zoomFactor * subDivisionSpacing / 2; // subDivisionSpacing / camera.invertedResolution;
+        console.log(this.t);
+        this._maxHorizontalLines = this.computeLineScale(this._renderer.width, spacing);
+        this._subMax = this.computeLineScale(this._renderer.width, subDivisionSpacing);
+        this.subParallax = camera.offsetX % subDivisionSpacing - 1;
+        this._parallax.x = camera.offsetX % spacing - 1;
+        this._horizontalSpacing = spacing;
+        this._maxVerticalLines = this.computeLineScale(this._renderer.height, spacing); //MathUtils.round(this._renderer.height / spacing) + 1;
+        this._parallax.y = camera.offsetY % spacing - 1;
+        this._verticalSpacing = spacing;
+        //const halfWidth = w / 2;
+        //const midX = halfWidth * this._editorCamera.resolution;
+        //const maxHorizontalHalfGrids = MathUtils.round((halfWidth / horizontalSpacing));// * this._editorCamera.resolution;
+        ////-this._editorCamera.position.x * this._editorCamera.resolution;
+        //const halfGridWidth = ((maxHorizontalGrids*horizontalSpacing) / 2);
+        //const gridOffsetX = halfGridWidth % horizontalSpacing-1;
+    };
+    Guidelines.prototype.render = function (draw) {
+        draw.context.setTransform(1, 0, 0, 1, 0.5, 0.5);
+        draw.outlineColor = 'rgb(255, 255, 255, 0.2)';
+        var total = 0;
+        for (var x = 0; x <= this._maxHorizontalLines; x++) {
+            var space = x * this._horizontalSpacing;
+            var xx = MathUtils_1.default.round(this._parallax.x + space);
+            if (xx > this._renderer.width)
+                break;
+            draw.line(xx, 0, xx, this._renderer.height);
+            total++;
+        }
+        //console.log(total);
+        for (var y = 0; y <= this._maxVerticalLines; y++) {
+            var space = y * this._verticalSpacing;
+            var yy = MathUtils_1.default.round(this._parallax.y + space);
+            draw.line(0, yy, this._renderer.width, yy);
+        }
+        var alpha = MathUtils_1.default.clampedLerp(0, 0.2, this.t);
+        draw.outlineColor = 'rgb(255, 255, 255,' + alpha + ')';
+        for (var x = 0; x <= this._subMax; x++) {
+            var space = x * this.subDivisionSpacing;
+            var xx = MathUtils_1.default.round(this.subParallax + space);
+            draw.line(xx, 0, xx, this._renderer.height);
+        }
+    };
+    return Guidelines;
+}());
+exports.default = Guidelines;
 
 
 /***/ }),
@@ -51864,8 +51898,8 @@ var SceneViewCursor = /** @class */ (function () {
                     _this._body.style.cursor = 'grabbing';
                     if (_this._startPosition.x !== position.x || _this._startPosition.y !== position.y) {
                         var deltaPos = {
-                            x: -position.x + _this._startPosition.x,
-                            y: -position.y + _this._startPosition.y
+                            x: position.x - _this._startPosition.x,
+                            y: position.y - _this._startPosition.y
                         };
                         _this.emitter.emit('move', deltaPos);
                     }
@@ -51908,9 +51942,10 @@ var EventEmitter_1 = __webpack_require__(/*! ../../../engine/events/emitter/Even
 var SceneViewCursor_1 = __webpack_require__(/*! ./SceneViewCursor */ "./src/renderer/internal/editor/sceneView/SceneViewCursor.ts");
 var EntityTest_1 = __webpack_require__(/*! ../../../engine/entity/EntityTest */ "./src/renderer/engine/entity/EntityTest.ts");
 var compute_1 = __webpack_require__(/*! ../../../engine/math/transform/compute */ "./src/renderer/engine/math/transform/compute.ts");
-var Random_1 = __webpack_require__(/*! ../../../engine/math/random/Random */ "./src/renderer/engine/math/random/Random.ts");
 var Bounds2D_1 = __webpack_require__(/*! ../../../engine/math/bounds/Bounds2D */ "./src/renderer/engine/math/bounds/Bounds2D.ts");
 var EditorHandles_1 = __webpack_require__(/*! ../EditorHandles */ "./src/renderer/internal/editor/EditorHandles.ts");
+var CanvasDrawer_1 = __webpack_require__(/*! ../CanvasDrawer */ "./src/renderer/internal/editor/CanvasDrawer.ts");
+var Guidelines_1 = __webpack_require__(/*! ./Guidelines */ "./src/renderer/internal/editor/sceneView/Guidelines.ts");
 var list = [];
 function renderRect(context, entity, color) {
     if (color === void 0) { color = 'blue'; }
@@ -51927,14 +51962,18 @@ function renderRect(context, entity, color) {
     context.fillRect(0, 0, 100, 100);
 }
 function createEntities() {
-    for (var i = 0; i < 10; i++) {
-        var x = Random_1.default.irange(-500, 500);
-        var y = Random_1.default.irange(-500, 500);
-        var e = new EntityTest_1.default('My Object');
-        e.transform.position.x = x;
-        e.transform.position.y = y;
-        list.push(e);
-    }
+    var e = new EntityTest_1.default('My Object');
+    e.transform.position.x = -50;
+    e.transform.position.y = -50;
+    list.push(e);
+    // for (let i = 0; i < 10; i++) {
+    //     const x = Random.irange(-500, 500);
+    //     const y = Random.irange(-500, 500);
+    //     let e = new EntityTest('My Object');
+    //     e.transform.position.x = x;
+    //     e.transform.position.y = y;
+    //     list.push(e);
+    // }
 }
 var SceneViewEditor = /** @class */ (function () {
     function SceneViewEditor(renderer) {
@@ -51943,6 +51982,8 @@ var SceneViewEditor = /** @class */ (function () {
         this._emitter = new EventEmitter_1.default();
         this._editorInput = new SceneViewInput_1.default(this._renderer.canvas, this._emitter);
         this._handles = new EditorHandles_1.default(this._editorCamera);
+        this.draw = new CanvasDrawer_1.CanvasDrawer(renderer);
+        this._guides = new Guidelines_1.default(renderer);
         createEntities();
     }
     SceneViewEditor.prototype.init = function () {
@@ -51992,11 +52033,13 @@ var SceneViewEditor = /** @class */ (function () {
     SceneViewEditor.prototype.resize = function (width, height) {
         this._renderer.resize(width, height);
         this._editorInput.resize();
+        this._editorCamera.resize();
         this.update();
         this.render();
     };
     SceneViewEditor.prototype.update = function () {
         this._editorCamera.updateTransform();
+        this._guides.update(this._editorCamera);
         for (var i = 0; i < list.length; i++) {
             compute_1.computeTransform2D(list[i].transform);
             list[i].transform.matrix.concat(this._editorCamera.matrix);
@@ -52006,6 +52049,7 @@ var SceneViewEditor = /** @class */ (function () {
         var ctx = this._renderer.context;
         // scene
         this._renderer.beginDraw();
+        this._guides.render(this.draw);
         this._renderer.draw();
         for (var i = 0; i < list.length; i++) {
             var color = 'blue';
@@ -52045,48 +52089,25 @@ var SceneViewEditor = /** @class */ (function () {
         // ctx.moveTo(0, h * 0.5);
         // ctx.lineTo(w, h * 0.5);
         // ctx.stroke();
-        // }
-        //const editorCameraMatrix = this._editorCamera.matrix.a;
         var inv = this._editorCamera.handlesMatrix.a;
-        // ctx.setTransform(
-        //     inv[0], inv[1],
-        //     inv[3], inv[4],
-        //     inv[6],
-        //     inv[7]
-        // );
-        // for (let i = 0; i < 10; i++) {
-        //     ctx.beginPath();
-        //     ctx.moveTo(0, i * 100);
-        //     ctx.lineTo(w * this._editorCamera.resolution, i * 100);
-        //     ctx.stroke();
-        //     ctx.stroke();
-        // }
-        // ctx.setTransform(
-        //     editorCameraMatrix[0], editorCameraMatrix[1],
-        //     editorCameraMatrix[3], editorCameraMatrix[4],
-        //     editorCameraMatrix[6],
-        //     editorCameraMatrix[7]
-        // );
-        // const pos =this._editorCamera.matrix.transformPoint(this._editorInput.cursor.position.x,this._editorInput.cursor.position.y);
-        // console.log(pos);
-        // if (
-        //     pos.x > 0 && pos.y > 0
-        //     && pos.x < 100 && pos.y < 100) {
-        //     ctx.fillStyle = 'red';
-        // } else {
-        //     ctx.fillStyle = 'blue';
-        // }
-        // ctx.fillStyle = 'blue';
-        // ctx.fillRect(-50, -50, 100, 100);
         ctx.setTransform(inv[0], inv[1], inv[3], inv[4], inv[6], inv[7]);
         this._handles.render(ctx);
-        ctx.setTransform(1, 0, 0, 1, 0, 0);
+        ctx.setTransform(1, 0, 0, 1, 0.5, 0.5);
         if (this._editorInput.cursor.mode === SceneViewCursor_1.CursorMode.Selection) {
-            ctx.strokeStyle = 'rgb(33, 69, 128)';
-            ctx.lineWidth = 1;
-            ctx.strokeRect(this._selectionArea.x, this._selectionArea.y, this._selectionArea.width, this._selectionArea.height);
-            ctx.fillStyle = 'rgba(33, 69, 128, 0.2)';
-            ctx.fillRect(this._selectionArea.x, this._selectionArea.y, this._selectionArea.width, this._selectionArea.height);
+            if (this._selectionArea.xMax > this._renderer.width) {
+                this._selectionArea.xMax = this._renderer.width - 1;
+            }
+            else if (this._selectionArea.xMax < 0) {
+                this._selectionArea.xMax = 0;
+            }
+            if (this._selectionArea.yMax > this._renderer.height) {
+                this._selectionArea.yMax = this._renderer.height - 1;
+            }
+            else if (this._selectionArea.yMax < 0) {
+                this._selectionArea.yMax = 0;
+            }
+            this.draw.rect(this._selectionArea.x, this._selectionArea.y, this._selectionArea.width, this._selectionArea.height, 'rgba(33, 69, 128, 0.2)');
+            this.draw.outlineRect(this._selectionArea.x, this._selectionArea.y, this._selectionArea.width, this._selectionArea.height, 'rgb(33, 69, 128)', 1);
         }
         this._renderer.endDraw();
     };
@@ -52476,10 +52497,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var CanvasRenderer_1 = __webpack_require__(/*! ../engine/renderer/CanvasRenderer */ "./src/renderer/engine/renderer/CanvasRenderer.ts");
 var CanvasPool_1 = __webpack_require__(/*! ../engine/renderer/canvas/CanvasPool */ "./src/renderer/engine/renderer/canvas/CanvasPool.ts");
 var SceneViewEditor_1 = __webpack_require__(/*! ../internal/editor/sceneView/SceneViewEditor */ "./src/renderer/internal/editor/sceneView/SceneViewEditor.ts");
-var SystemCreator = /** @class */ (function () {
-    function SystemCreator() {
-    }
-    SystemCreator.prototype.createRenderer = function (contextID, doubleBuffer) {
+var SystemFactory;
+(function (SystemFactory) {
+    function createRenderer(contextID, doubleBuffer) {
         var domCanvas = CanvasPool_1.default.create();
         var canvasBuffer;
         var renderer;
@@ -52490,9 +52510,11 @@ var SystemCreator = /** @class */ (function () {
             renderer = new CanvasRenderer_1.default(domCanvas, canvasBuffer);
         }
         return renderer;
-    };
-    SystemCreator.prototype.createSceneViewEditor = function () {
-        var renderer = this.createRenderer('2d', true);
+    }
+    SystemFactory.createRenderer = createRenderer;
+    function createSceneViewEditor() {
+        var renderer = createRenderer('2d', true);
+        renderer.setBackgroundColor('#141414ff');
         // let input = new InputManager();
         // input.init({
         //     mouse: {
@@ -52503,10 +52525,10 @@ var SystemCreator = /** @class */ (function () {
         //     renderer);
         var editor = new SceneViewEditor_1.default(renderer);
         return editor;
-    };
-    return SystemCreator;
-}());
-var SystemFactory = new SystemCreator();
+    }
+    SystemFactory.createSceneViewEditor = createSceneViewEditor;
+})(SystemFactory || (SystemFactory = {}));
+// const SystemFactory = new SystemCreator();
 exports.default = SystemFactory;
 
 

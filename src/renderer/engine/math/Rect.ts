@@ -17,12 +17,28 @@ export default class Rect {
     }
 
     get center(): IVector2 {
-        let vec:IVector2 = {
-            x:  this.x + this.width / 2,
-            y:  this.y + this.height / 2
+        let vec: IVector2 = {
+            x: this.x + this.width / 2,
+            y: this.y + this.height / 2
         };
 
         return vec;
+    }
+
+    get xMax(): number {
+        return this.x + this.width;
+    }
+
+    get yMax(): number {
+        return this.y + this.height;
+    }
+
+    set xMax(value: number) {
+        this.width = value - this.x;       
+    }
+
+    set yMax(value: number) {
+        this.height = value - this.y;
     }
 
     set(x: number, y: number, width: number, height: number): Rect {

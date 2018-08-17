@@ -36,12 +36,6 @@ export default class CanvasRenderer extends Renderer implements IRenderer {
 
         const ctx = this.context;
 
-        ctx.setTransform(
-            1, 0,
-            0, 1,
-            0,
-            0
-        );
 
         if (this._clear) {
             ctx.clearRect(0, 0, this._canvas.width, this._canvas.height);
@@ -73,9 +67,14 @@ export default class CanvasRenderer extends Renderer implements IRenderer {
         ctx.globalAlpha = 1;
         ctx.globalCompositeOperation = 'source-over';
 
+        ctx.setTransform(1,0,0,1,0,0);
+        
+
         if (this._doubleBuffer) { // if is double buffer, submit to the real context
             this._context.drawImage(this._canvasBuffer, 0, 0);
         }
+
+
     }
 
 }

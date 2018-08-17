@@ -10,6 +10,10 @@ import Transform2D from "../../../engine/math/transform/Transform2D";
 import Random from "../../../engine/math/random/Random";
 import Bounds2D from "../../../engine/math/bounds/Bounds2D";
 import EditorHandles from "../EditorHandles";
+import MathUtils from "../../../engine/math/MathUtils";
+import { CanvasDrawer } from "../CanvasDrawer";
+import CanvasRenderer from "../../../engine/renderer/CanvasRenderer";
+import Guidelines from "./Guidelines";
 
 let list: EntityTest[] = []
 
@@ -32,14 +36,18 @@ function renderRect(context: CanvasRenderingContext2D, entity: EntityTest, color
 }
 
 function createEntities() {
-    for (let i = 0; i < 10; i++) {
-        const x = Random.irange(-500, 500);
-        const y = Random.irange(-500, 500);
-        let e = new EntityTest('My Object');
-        e.transform.position.x = x;
-        e.transform.position.y = y;
-        list.push(e);
-    }
+    let e = new EntityTest('My Object');
+    e.transform.position.x = -50;
+    e.transform.position.y = -50;
+    list.push(e);
+    // for (let i = 0; i < 10; i++) {
+    //     const x = Random.irange(-500, 500);
+    //     const y = Random.irange(-500, 500);
+    //     let e = new EntityTest('My Object');
+    //     e.transform.position.x = x;
+    //     e.transform.position.y = y;
+    //     list.push(e);
+    // }
 }
 
 export default class SceneViewEditor {
@@ -47,8 +55,10 @@ export default class SceneViewEditor {
     private _editorCamera: EditorCamera;
     private _handles: EditorHandles;
     private _editorInput: SceneViewInput;
+    private _guides: Guidelines;
     private _emitter: EventEmitter;
     private _selectionArea: Rect;
+    private draw: CanvasDrawer;
 
     constructor(renderer: Renderer) {
         this._renderer = renderer;
@@ -56,6 +66,8 @@ export default class SceneViewEditor {
         this._emitter = new EventEmitter();
         this._editorInput = new SceneViewInput(this._renderer.canvas, this._emitter);
         this._handles = new EditorHandles(this._editorCamera);
+        this.draw = new CanvasDrawer(renderer as CanvasRenderer);
+        this._guides = new Guidelines(renderer);
         createEntities();
     }
 
@@ -91,7 +103,7 @@ export default class SceneViewEditor {
         }, this)
 
         this._emitter.on('select', (cursorPosition: IVector2) => {
-           
+
             for (let i = 0; i < list.length; i++) {
                 let b = new Bounds2D();
                 computeBounds2D(b, list[i].transform.matrix, 100, 100, { x: 0, y: 0 });
@@ -118,6 +130,7 @@ export default class SceneViewEditor {
     resize(width: number, height: number) {
         this._renderer.resize(width, height);
         this._editorInput.resize();
+        this._editorCamera.resize();
         this.update();
         this.render();
 
@@ -125,6 +138,7 @@ export default class SceneViewEditor {
 
     private update() {
         this._editorCamera.updateTransform();
+        this._guides.update( this._editorCamera);
         for (let i = 0; i < list.length; i++) {
             computeTransform2D(list[i].transform as Transform2D);
             list[i].transform.matrix.concat(this._editorCamera.matrix);
@@ -139,6 +153,8 @@ export default class SceneViewEditor {
         // scene
 
         this._renderer.beginDraw();
+
+        this._guides.render(this.draw);
 
         this._renderer.draw();
 
@@ -198,52 +214,7 @@ export default class SceneViewEditor {
         // ctx.stroke();
 
 
-
-        // }
-
-        //const editorCameraMatrix = this._editorCamera.matrix.a;
         const inv = this._editorCamera.handlesMatrix.a;
-
-
-        // ctx.setTransform(
-        //     inv[0], inv[1],
-        //     inv[3], inv[4],
-        //     inv[6],
-        //     inv[7]
-        // );
-
-        // for (let i = 0; i < 10; i++) {
-        //     ctx.beginPath();
-        //     ctx.moveTo(0, i * 100);
-        //     ctx.lineTo(w * this._editorCamera.resolution, i * 100);
-        //     ctx.stroke();
-        //     ctx.stroke();
-        // }
-
-        // ctx.setTransform(
-        //     editorCameraMatrix[0], editorCameraMatrix[1],
-        //     editorCameraMatrix[3], editorCameraMatrix[4],
-        //     editorCameraMatrix[6],
-        //     editorCameraMatrix[7]
-        // );
-
-
-
-        // const pos =this._editorCamera.matrix.transformPoint(this._editorInput.cursor.position.x,this._editorInput.cursor.position.y);
-
-        // console.log(pos);
-
-        // if (
-        //     pos.x > 0 && pos.y > 0
-        //     && pos.x < 100 && pos.y < 100) {
-        //     ctx.fillStyle = 'red';
-        // } else {
-        //     ctx.fillStyle = 'blue';
-        // }
-
-        // ctx.fillStyle = 'blue';
-        // ctx.fillRect(-50, -50, 100, 100);
-
 
 
         ctx.setTransform(
@@ -258,22 +229,29 @@ export default class SceneViewEditor {
         ctx.setTransform(
             1, 0,
             0, 1,
-            0,
-            0
+            0.5,
+            0.5
         );
 
         if (this._editorInput.cursor.mode === CursorMode.Selection) {
 
 
-            ctx.strokeStyle = 'rgb(33, 69, 128)';
-            ctx.lineWidth = 1;
-            ctx.strokeRect(
-                this._selectionArea.x,
-                this._selectionArea.y, this._selectionArea.width, this._selectionArea.height)
-            ctx.fillStyle = 'rgba(33, 69, 128, 0.2)';
-            ctx.fillRect(
-                this._selectionArea.x,
-                this._selectionArea.y, this._selectionArea.width, this._selectionArea.height)
+            if (this._selectionArea.xMax > this._renderer.width) {
+                this._selectionArea.xMax = this._renderer.width - 1;
+            } else if (this._selectionArea.xMax < 0) {
+                this._selectionArea.xMax = 0;
+            }
+
+            if (this._selectionArea.yMax > this._renderer.height) {
+                this._selectionArea.yMax = this._renderer.height - 1;
+            } else if (this._selectionArea.yMax < 0) {
+                this._selectionArea.yMax = 0;
+            }
+
+            this.draw.rect(this._selectionArea.x, this._selectionArea.y, this._selectionArea.width, this._selectionArea.height, 'rgba(33, 69, 128, 0.2)');
+            this.draw.outlineRect(this._selectionArea.x, this._selectionArea.y, this._selectionArea.width, this._selectionArea.height, 'rgb(33, 69, 128)', 1)
+
+
         }
 
         this._renderer.endDraw();

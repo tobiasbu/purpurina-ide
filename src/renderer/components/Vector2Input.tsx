@@ -176,6 +176,7 @@ export default class Vector2Input extends React.Component<IVector2InputProps, IV
             value = this.changeAxisInitialValue + (Math.floor(-delta) * 0.1);
             //if (focus.target.name === 'x-axis') {
 
+
             this.setState({ x: value.toFixed(4) });
 
             //this._xAxisInput.value = value.toString();

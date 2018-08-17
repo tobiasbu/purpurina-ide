@@ -2,6 +2,7 @@ import Color from "../render/color/Color";
 import IRenderer from "./IRenderer";
 import CanvasSmoothing from "./canvas/CanvasSmoothing";
 import { RenderingType, ContextID } from "./RendererProperties";
+import { IColor } from "../render/color/IColor";
 
 export default abstract class Renderer implements IRenderer {
 
@@ -134,6 +135,10 @@ export default abstract class Renderer implements IRenderer {
             this._canvasBuffer.width = width;
             this._canvasBuffer.height = height;
         }
+    }
+
+    setBackgroundColor(color: string | number | IColor) {
+        this._backgroundColor.set(color);
     }
 
     abstract beginDraw();

@@ -1,28 +1,26 @@
 import Matrix3 from "../../engine/math/Matrix3";
-import ManagedVector2 from "../../engine/math/ManagedVector2";
-import Bounds2D from "../../engine/math/bounds/Bounds2D";
 import Vector2 from "../../engine/math/Vector2";
 import IRenderer from "../../engine/renderer/IRenderer";
 import MathUtils from "../../engine/math/MathUtils";
 
 export default class EditorCamera {
-    private _renderer: IRenderer;
+
     private _matrix: Matrix3;
-    private _position: ManagedVector2;
+    private _position: Vector2;
     //private _lastZoomOffset: IVector2;
     private _oldPosition: Vector2;
     private _resolution: number;
+
     //private _viewBounds: Bounds2D;
     private _handlesMatrix: Matrix3;
     private _maxZoom: number = 10;
-    private _minZoom: number = 0.0125;
-    private _zoomDelta: number = 0.025;
-    private _origin: IVector2;
+    private _minZoom: number = 0.05;
+    private _zoomDelta: number = 0.05;
 
     private _invertedResolution: number;
-
-
-    origin: number;
+    private _originFactor: number = 0.5;
+    private _origin: Vector2;
+    _renderer: IRenderer;
 
     public get resolution(): number {
         return this._resolution;
@@ -44,20 +42,31 @@ export default class EditorCamera {
         return this._invertedResolution;
     }
 
+    public get offsetX(): number {
+        return -(this._position.x - this._origin.x) * this._resolution;
+    }
+
+    public get offsetY(): number {
+        return -(this._position.y - this._origin.y) * this._resolution;
+    }
+
+    public get zoomFactor(): number {
+        return (this._resolution-this._minZoom) / (this._maxZoom-this._minZoom);
+    }
 
     constructor(renderer: IRenderer) {
         this._renderer = renderer;
-        this._position = new ManagedVector2(0, 0);
+        this._position = new Vector2(0, 0);
         this._oldPosition = new Vector2();
+        this._origin = new Vector2();
+
         this._matrix = Matrix3.identity();
         this._handlesMatrix = Matrix3.identity();
         this._resolution = 1;
         this._invertedResolution = 1 / this._resolution;
+
         //this._viewBounds = new Bounds2D();
-        this._origin = { x: 0.5, y: 0.5 };
-
-
-
+        this.resize();
         this.updateTransform();
     }
 
@@ -73,43 +82,22 @@ export default class EditorCamera {
         }
 
 
-        //this._oldPosition.copy(this._position);
-        //zoomPoint = this.screenPointToWorld(zoomPoint.x, zoomPoint.y);
-        //zoomPoint = Matrix3.inverse(this._matrix).transformPoint(zoomPoint.x, zoomPoint.y);
-
-        //const scaleChange = (res - this._resolution);
-
         // determine the point on where the slide is zoomed in
         let zoom_target = { x: 0, y: 0 };
-        zoom_target.x = (zoomPoint.x -  this._position.x) / this._resolution;
-        zoom_target.y = (zoomPoint.y -  this._position.y) / this._resolution;
+        zoom_target.x = (zoomPoint.x - this._position.x) / this._resolution;
+        zoom_target.y = (zoomPoint.y - this._position.y) / this._resolution;
 
-       
+
 
         // calculate x and y based on zoom
         //this._position.x = -zoom_target.x * res + zoomPoint.x
         //this._position.x = -zoom_target.y * res + zoomPoint.y
-
-        const originX = this._renderer.width * this._origin.x;
-        const originY = this._renderer.height * this._origin.y;
-
         //this._position.x -= originX * this._invertedResolution;
         //this._position.x -= originY * this._invertedResolution
 
-        this._position.x -= zoomPoint.x/(this._resolution*res) - zoomPoint.x/this._resolution;
-        this._position.y -= zoomPoint.y/(this._resolution*res) - zoomPoint.y/this._resolution;
-        
-        //this._position.x += zoomPoint.x / res - zoomPoint.x /  this._resolution
-        //this._position.x += zoomPoint.y / res - zoomPoint.y /  this._resolution;
+        //this._position.x -= zoomPoint.x/(this._resolution*res) - zoomPoint.x/this._resolution;
+        //this._position.y -= zoomPoint.y/(this._resolution*res) - zoomPoint.y/this._resolution;
 
-         // apply zoom
-         this._resolution = res;
-         this._invertedResolution = 1 / res;
-
-
-        //this._position.x += originX * this._invertedResolution;
-        //this._position.x += originY * this._invertedResolution
-    
 
         // const offsetX = -(zoomPoint.x * scaleChange) / this._resolution;
         // const offsetY = -(zoomPoint.y * scaleChange) / this._resolution;
@@ -118,11 +106,13 @@ export default class EditorCamera {
         // this._position.y += offsetY;
 
 
+        this._position.x -= (zoomPoint.x / res) - (zoomPoint.x / this._resolution);
+        this._position.y -= (zoomPoint.y / res) - (zoomPoint.y / this._resolution);
 
-        // this._position.x -= this._oldPosition.x;
-        // this._position.y -= this._oldPosition.y;
+        // apply zoom
+        this._resolution = res;
+        this._invertedResolution = 1 / res;
 
-        
 
 
     }
@@ -143,27 +133,28 @@ export default class EditorCamera {
         this._position.y = position.y * this._resolution;
     }
 
+    resize() {
+        const originX = this._renderer.width * this._originFactor;
+        const originY = this._renderer.height * this._originFactor;
+        this._origin.x = originX;
+        this._origin.y = originY;
+    }
+
     updateTransform() {
 
-        const a = this._renderer.width / this._renderer.height;
-        const originX = this._renderer.width * this._origin.x;
-        const originY = this._renderer.height * this._origin.y;
+        //const a = this._renderer.width / this._renderer.height;
 
-        //const res = this._resolution * a;
-        //const ires = this._invertedResolution;
-
-   
 
         this._matrix.setIdentity()
+            .translate(-(this._position.x - this._origin.x), -(this._position.y - this._origin.y))
             .scale(this._resolution, this._resolution)
-            .translate(this._position.x, this._position.y)
-            .translate(originX * this._invertedResolution, originY * this._invertedResolution)
+        //.translate(-originX * this._invertedResolution, -originY * this._invertedResolution)
 
+        this._handlesMatrix.setIdentity()
+            .translate(
+                MathUtils.round(-(this._position.x - this._origin.x) * this._resolution) + 0.5,
+                MathUtils.round(-(this._position.y - this._origin.y) * this._resolution) + 0.5);
 
-
-        // this._inversedMatrix.setIdentity()
-        //     .translate(-this._position.x * this._invertedResolution, -this._position.y * this._invertedResolution)
-        //     .translate(originX * this._invertedResolution, originY * this._invertedResolution);
 
 
         // this._matrix.setIdentity()
@@ -171,42 +162,14 @@ export default class EditorCamera {
         //     .scale(this._resolution, this._resolution)
         //     .translate(-this._position.x, -this._position.y)
 
-        this._handlesMatrix.setIdentity()
-            .translate(
-                this._position.x * this._resolution,
-                this._position.y * this._resolution)
-            .translate(originX, originY)
+        // this._handlesMatrix.setIdentity()
+        //     .translate(
+        //         this._position.x * this._resolution,
+        //         this._position.y * this._resolution)
+        //     .translate(originX, originY)
 
-        //.translate(originX, originY)
-        //.translate(-this._position.x * this._resolution, -this._position.y * this._resolution)
-
-        //.translate(originX, originY);
-
-        //factor.x = factor.x - (this._position.x * this._invertedResolution);
-
-        // + this._invertedResolution;// + this._resolution ;// * (this._resolution - this._invertedResolution);
-        //factor *= this._invertedResolution - this._resolution;
-
-        //const diff = this._position.x * (this._invertedResolution - this._resolution);
-
-        //let vec = this._matrix.transformPoint(this._position.x * this._invertedResolution, this._position.y * this._invertedResolution);
-
-        // this._inversedMatrix.setIdentity()
-        //     .translate(this.position.x * this._resolution, this.position.y * this._resolution)
-        //.scale(this._invertedResolution, this._invertedResolution)
-        //this._inversedMatrix.scale(this._resolution,this._resolution )
-
-        //.scale(this._invertedResolution, this._invertedResolution)
-        //.translate(this._position.x + diff, this._position.y * this._resolution)
-        //.scale(this._resolution, this._resolution)
-        //.translate(this._position.x * this._invertedResolution, this._position.y * this._invertedResolution)
-
-        // this._inversedMatrix.setModelMatrix({
-        //     x: this._position.x * factor,
-        //     y: this._position.y * factor
-        // }, { x: 1, y: 1 }, { x: 1, y: 0 })
-        //.scale(this._resolution, this._resolution)
-        //.scale(this._invertedResolution, this._invertedResolution);
+        //.translate(this._position.x, this._position.y)
+        //.translate(originX * this._invertedResolution, originY * this._invertedResolution)
 
 
     }

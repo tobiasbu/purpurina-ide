@@ -5,9 +5,9 @@ import SceneViewEditor from "../internal/editor/sceneView/SceneViewEditor";
 import Renderer from "../engine/renderer/Renderer";
 
 
-class SystemCreator {
+module SystemFactory {
 
-    createRenderer(contextID: ContextID, doubleBuffer: boolean): Renderer | CanvasRenderer {
+    export function createRenderer(contextID: ContextID, doubleBuffer: boolean): Renderer | CanvasRenderer {
 
         let domCanvas = CanvasPool.create();
         let canvasBuffer;
@@ -25,8 +25,9 @@ class SystemCreator {
 
     }
 
-    createSceneViewEditor(): SceneViewEditor {
-        let renderer = this.createRenderer('2d', true);
+    export function createSceneViewEditor(): SceneViewEditor {
+        let renderer = createRenderer('2d', true);
+        renderer.setBackgroundColor('#141414ff');
         // let input = new InputManager();
         // input.init({
         //     mouse: {
@@ -42,6 +43,6 @@ class SystemCreator {
 
 }
 
-const SystemFactory = new SystemCreator();
+// const SystemFactory = new SystemCreator();
 
 export default SystemFactory;
