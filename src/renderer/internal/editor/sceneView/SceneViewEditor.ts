@@ -13,7 +13,7 @@ import EditorHandles from "../EditorHandles";
 import MathUtils from "../../../engine/math/MathUtils";
 import { CanvasDrawer } from "../CanvasDrawer";
 import CanvasRenderer from "../../../engine/renderer/CanvasRenderer";
-import Guidelines from "./Guidelines";
+import Guidelines from "./guidelines/Guidelines";
 
 let list: EntityTest[] = []
 

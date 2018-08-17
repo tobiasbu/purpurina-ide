@@ -1,8 +1,8 @@
-import MathUtils from "../../../engine/math/MathUtils";
-import IRenderer from "../../../engine/renderer/IRenderer";
-import EditorCamera from "../EditorCamera";
-import Vector2 from "../../../engine/math/Vector2";
-import { CanvasDrawer } from "../CanvasDrawer";
+import MathUtils from "../../../../engine/math/MathUtils";
+import IRenderer from "../../../../engine/renderer/IRenderer";
+import EditorCamera from "../../EditorCamera";
+import Vector2 from "../../../../engine/math/Vector2";
+import { CanvasDrawer } from "../../CanvasDrawer";
 
 
 
@@ -14,14 +14,14 @@ export default class Guidelines {
     private _renderer: IRenderer;
     private _scaledSpacing: number;
     private _maxHorizontalLines: number;
-    private _subMax:number;
+    private _subMax: number;
     private _horizontalSpacing: number;
     private _maxVerticalLines: number;
     private _verticalSpacing: number;
-    
+
     private _parallax: Vector2;
-    subParallax:number;
-    t:number;
+    subParallax: number;
+    t: number;
 
     constructor(renderer: IRenderer) {
         this._renderer = renderer;
@@ -34,7 +34,7 @@ export default class Guidelines {
 
     update(camera: EditorCamera) {
 
-        
+
         const spacing = this.spacing * camera.resolution;
         const subDivisionSpacing = (this.spacing / 2) * camera.resolution;
 
@@ -46,11 +46,11 @@ export default class Guidelines {
         this._subMax = this.computeLineScale(this._renderer.width, subDivisionSpacing);
 
         this.subParallax = camera.offsetX % subDivisionSpacing - 1;
-        
+
         this._parallax.x = camera.offsetX % spacing - 1;
         this._horizontalSpacing = spacing;
 
-        this._maxVerticalLines =  this.computeLineScale(this._renderer.height, spacing); //MathUtils.round(this._renderer.height / spacing) + 1;
+        this._maxVerticalLines = this.computeLineScale(this._renderer.height, spacing); //MathUtils.round(this._renderer.height / spacing) + 1;
         this._parallax.y = camera.offsetY % spacing - 1;
         this._verticalSpacing = spacing;
 
@@ -108,7 +108,7 @@ export default class Guidelines {
         }
 
 
-        
+
 
     }
 
