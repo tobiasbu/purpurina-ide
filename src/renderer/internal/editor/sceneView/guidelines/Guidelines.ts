@@ -22,6 +22,7 @@ export default class Guidelines {
     private _parallax: Vector2;
     subParallax: number;
     t: number;
+    origin: Vector2;
 
     constructor(renderer: IRenderer) {
         this._renderer = renderer;
@@ -40,14 +41,15 @@ export default class Guidelines {
 
         this.subDivisionSpacing = subDivisionSpacing;
         this.t = camera.zoomFactor * subDivisionSpacing / 2 // subDivisionSpacing / camera.invertedResolution;
-        console.log(this.t)
+        //console.log(this.t)
 
         this._maxHorizontalLines = this.computeLineScale(this._renderer.width, spacing);
         this._subMax = this.computeLineScale(this._renderer.width, subDivisionSpacing);
 
         this.subParallax = camera.offsetX % subDivisionSpacing - 1;
 
-        this._parallax.x = camera.offsetX % spacing - 1;
+   
+        this._parallax.x = (camera.offsetX % spacing - 1);
         this._horizontalSpacing = spacing;
 
         this._maxVerticalLines = this.computeLineScale(this._renderer.height, spacing); //MathUtils.round(this._renderer.height / spacing) + 1;
@@ -74,7 +76,7 @@ export default class Guidelines {
             0.5
         );
 
-        draw.outlineColor = 'rgb(255, 255, 255, 0.2)';
+        draw.outlineColor = 'rgb(255, 255, 255, 0.1)';
 
         let total = 0;
 
@@ -85,9 +87,18 @@ export default class Guidelines {
             if (xx > this._renderer.width)
                 break;
 
+            if (x >= this._maxHorizontalLines / 2 && x <= this._maxHorizontalLines / 2) {
+                draw.outlineColor = 'rgb(255, 0, 0, 1)';
+            } else {
+                draw.outlineColor = 'rgb(255, 255, 255, 0.1)';
+
+            }
+
             draw.line(xx, 0, xx, this._renderer.height);
             total++;
         }
+
+        draw.outlineColor = 'rgb(255, 255, 255, 0.15)';
 
         //console.log(total);
 
@@ -97,11 +108,14 @@ export default class Guidelines {
             draw.line(0, yy, this._renderer.width, yy);
         }
 
-        let alpha = MathUtils.clampedLerp(0, 0.2, this.t);
+        let alpha = MathUtils.clampedLerp(0, 0.15, 0.5);
 
-        draw.outlineColor = 'rgb(255, 255, 255,' + alpha + ')';
+        draw.outlineColor = 'rgb(255, 0, 0,' + alpha + ')';
 
-        for (let x = 0; x <= this._subMax; x++) {
+        for (let x = 1; x <= this._subMax; x++) {
+
+
+
             const space = x * this.subDivisionSpacing;
             const xx = MathUtils.round(this.subParallax + space);
             draw.line(xx, 0, xx, this._renderer.height);

@@ -51518,14 +51518,14 @@ var EditorCamera = /** @class */ (function () {
     });
     Object.defineProperty(EditorCamera.prototype, "offsetX", {
         get: function () {
-            return -(this._position.x - this._origin.x) * this._resolution;
+            return -this._position.x * this._resolution + this.origin.x;
         },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(EditorCamera.prototype, "offsetY", {
         get: function () {
-            return -(this._position.y - this._origin.y) * this._resolution;
+            return -this._position.y * this._resolution + this.origin.y;
         },
         enumerable: true,
         configurable: true
@@ -51533,6 +51533,13 @@ var EditorCamera = /** @class */ (function () {
     Object.defineProperty(EditorCamera.prototype, "zoomFactor", {
         get: function () {
             return (this._resolution - this._minZoom) / (this._maxZoom - this._minZoom);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(EditorCamera.prototype, "origin", {
+        get: function () {
+            return this._origin;
         },
         enumerable: true,
         configurable: true
@@ -51562,6 +51569,8 @@ var EditorCamera = /** @class */ (function () {
         // const offsetY = -(zoomPoint.y * scaleChange) / this._resolution;
         // this._position.x += offsetX;
         // this._position.y += offsetY;
+        zoomPoint.x -= this.origin.x;
+        zoomPoint.y -= this.origin.y;
         this._position.x -= (zoomPoint.x / res) - (zoomPoint.x / this._resolution);
         this._position.y -= (zoomPoint.y / res) - (zoomPoint.y / this._resolution);
         // apply zoom
@@ -51590,11 +51599,15 @@ var EditorCamera = /** @class */ (function () {
     EditorCamera.prototype.updateTransform = function () {
         //const a = this._renderer.width / this._renderer.height;
         this._matrix.setIdentity()
-            .translate(-(this._position.x - this._origin.x), -(this._position.y - this._origin.y))
+            //.translate(this._position.x, this._position.y) // translate
+            // center the view port to origin
+            .translate(this.origin.x * this.invertedResolution, this.origin.y * this.invertedResolution)
+            .translate(-this._position.x, -this._position.y)
             .scale(this._resolution, this._resolution);
         //.translate(-originX * this._invertedResolution, -originY * this._invertedResolution)
         this._handlesMatrix.setIdentity()
-            .translate(MathUtils_1.default.round(-(this._position.x - this._origin.x) * this._resolution) + 0.5, MathUtils_1.default.round(-(this._position.y - this._origin.y) * this._resolution) + 0.5);
+            .translate(MathUtils_1.default.round(this.origin.x), MathUtils_1.default.round(this.origin.y))
+            .translate(MathUtils_1.default.round(-this._position.x * this._resolution) + 0.5, MathUtils_1.default.round(-this._position.y * this._resolution) + 0.5);
         // this._matrix.setIdentity()
         // .translate(-this._position.x, -this._position.y)
         //     .scale(this._resolution, this._resolution)
@@ -51706,10 +51719,10 @@ exports.default = EditorHandles;
 
 /***/ }),
 
-/***/ "./src/renderer/internal/editor/sceneView/Guidelines.ts":
-/*!**************************************************************!*\
-  !*** ./src/renderer/internal/editor/sceneView/Guidelines.ts ***!
-  \**************************************************************/
+/***/ "./src/renderer/internal/editor/sceneView/CursorTransform.ts":
+/*!*******************************************************************!*\
+  !*** ./src/renderer/internal/editor/sceneView/CursorTransform.ts ***!
+  \*******************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -51717,66 +51730,55 @@ exports.default = EditorHandles;
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var MathUtils_1 = __webpack_require__(/*! ../../../engine/math/MathUtils */ "./src/renderer/engine/math/MathUtils.ts");
-var Vector2_1 = __webpack_require__(/*! ../../../engine/math/Vector2 */ "./src/renderer/engine/math/Vector2.ts");
-var Guidelines = /** @class */ (function () {
-    function Guidelines(renderer) {
-        this.spacing = 1000;
-        this._renderer = renderer;
-        this._parallax = new Vector2_1.default();
+var Rect_1 = __webpack_require__(/*! ../../../engine/math/Rect */ "./src/renderer/engine/math/Rect.ts");
+var SceneViewInputData = /** @class */ (function () {
+    function SceneViewInputData(canvas) {
+        this.canvas = canvas;
+        this.clientRect = new Rect_1.default();
+        this.boundingClientRect = null;
+        this.updateClientRect();
     }
-    Guidelines.prototype.computeLineScale = function (size, spacing) {
-        return MathUtils_1.default.floor(size / spacing) + 1;
+    SceneViewInputData.prototype.updateClientRect = function () {
+        var rect = this.clientRect;
+        var clientRect = this.canvas.getBoundingClientRect();
+        this.boundingClientRect = clientRect;
+        rect.x = clientRect.left + window.pageXOffset - document.documentElement.clientLeft;
+        rect.y = clientRect.top + window.pageYOffset - document.documentElement.clientTop;
+        rect.width = clientRect.width;
+        rect.height = clientRect.height;
     };
-    Guidelines.prototype.update = function (camera) {
-        var spacing = this.spacing * camera.resolution;
-        var subDivisionSpacing = (this.spacing / 2) * camera.resolution;
-        this.subDivisionSpacing = subDivisionSpacing;
-        this.t = camera.zoomFactor * subDivisionSpacing / 2; // subDivisionSpacing / camera.invertedResolution;
-        console.log(this.t);
-        this._maxHorizontalLines = this.computeLineScale(this._renderer.width, spacing);
-        this._subMax = this.computeLineScale(this._renderer.width, subDivisionSpacing);
-        this.subParallax = camera.offsetX % subDivisionSpacing - 1;
-        this._parallax.x = camera.offsetX % spacing - 1;
-        this._horizontalSpacing = spacing;
-        this._maxVerticalLines = this.computeLineScale(this._renderer.height, spacing); //MathUtils.round(this._renderer.height / spacing) + 1;
-        this._parallax.y = camera.offsetY % spacing - 1;
-        this._verticalSpacing = spacing;
-        //const halfWidth = w / 2;
-        //const midX = halfWidth * this._editorCamera.resolution;
-        //const maxHorizontalHalfGrids = MathUtils.round((halfWidth / horizontalSpacing));// * this._editorCamera.resolution;
-        ////-this._editorCamera.position.x * this._editorCamera.resolution;
-        //const halfGridWidth = ((maxHorizontalGrids*horizontalSpacing) / 2);
-        //const gridOffsetX = halfGridWidth % horizontalSpacing-1;
+    SceneViewInputData.prototype.transform = function (position) {
+        var rect = this.boundingClientRect;
+        var pos = { x: 0, y: 0 };
+        pos.x = MathUtils_1.default.floor((position.x - rect.left) / (rect.right - rect.left) * this.canvas.width);
+        pos.y = MathUtils_1.default.floor((position.y - rect.top) / (rect.bottom - rect.top) * this.canvas.height);
+        return pos;
     };
-    Guidelines.prototype.render = function (draw) {
-        draw.context.setTransform(1, 0, 0, 1, 0.5, 0.5);
-        draw.outlineColor = 'rgb(255, 255, 255, 0.2)';
-        var total = 0;
-        for (var x = 0; x <= this._maxHorizontalLines; x++) {
-            var space = x * this._horizontalSpacing;
-            var xx = MathUtils_1.default.round(this._parallax.x + space);
-            if (xx > this._renderer.width)
-                break;
-            draw.line(xx, 0, xx, this._renderer.height);
-            total++;
-        }
-        //console.log(total);
-        for (var y = 0; y <= this._maxVerticalLines; y++) {
-            var space = y * this._verticalSpacing;
-            var yy = MathUtils_1.default.round(this._parallax.y + space);
-            draw.line(0, yy, this._renderer.width, yy);
-        }
-        var alpha = MathUtils_1.default.clampedLerp(0, 0.2, this.t);
-        draw.outlineColor = 'rgb(255, 255, 255,' + alpha + ')';
-        for (var x = 0; x <= this._subMax; x++) {
-            var space = x * this.subDivisionSpacing;
-            var xx = MathUtils_1.default.round(this.subParallax + space);
-            draw.line(xx, 0, xx, this._renderer.height);
-        }
+    SceneViewInputData.prototype.transformX = function (x) {
+        var rect = this.boundingClientRect;
+        return MathUtils_1.default.floor((x - rect.left) / (rect.right - rect.left) * this.canvas.width);
     };
-    return Guidelines;
+    SceneViewInputData.prototype.transformY = function (y) {
+        var rect = this.boundingClientRect;
+        return MathUtils_1.default.floor((y - rect.top) / (rect.bottom - rect.top) * this.canvas.height);
+    };
+    SceneViewInputData.prototype.normTransformX = function (x) {
+        var rect = this.boundingClientRect;
+        return (x - rect.left) / (rect.right - rect.left);
+    };
+    SceneViewInputData.prototype.normTransformY = function (y) {
+        var rect = this.boundingClientRect;
+        return (y - rect.top) / (rect.bottom - rect.top);
+    };
+    SceneViewInputData.prototype.clientRectTransformX = function (x) {
+        return (x - this.clientRect.x) * this.scale.x;
+    };
+    SceneViewInputData.prototype.clientRectTransformY = function (y) {
+        return (y - this.clientRect.y) * this.scale.y;
+    };
+    return SceneViewInputData;
 }());
-exports.default = Guidelines;
+exports.default = SceneViewInputData;
 
 
 /***/ }),
@@ -51944,8 +51946,10 @@ var EntityTest_1 = __webpack_require__(/*! ../../../engine/entity/EntityTest */ 
 var compute_1 = __webpack_require__(/*! ../../../engine/math/transform/compute */ "./src/renderer/engine/math/transform/compute.ts");
 var Bounds2D_1 = __webpack_require__(/*! ../../../engine/math/bounds/Bounds2D */ "./src/renderer/engine/math/bounds/Bounds2D.ts");
 var EditorHandles_1 = __webpack_require__(/*! ../EditorHandles */ "./src/renderer/internal/editor/EditorHandles.ts");
+var MathUtils_1 = __webpack_require__(/*! ../../../engine/math/MathUtils */ "./src/renderer/engine/math/MathUtils.ts");
 var CanvasDrawer_1 = __webpack_require__(/*! ../CanvasDrawer */ "./src/renderer/internal/editor/CanvasDrawer.ts");
-var Guidelines_1 = __webpack_require__(/*! ./Guidelines */ "./src/renderer/internal/editor/sceneView/Guidelines.ts");
+var Guidelines_1 = __webpack_require__(/*! ./guidelines/Guidelines */ "./src/renderer/internal/editor/sceneView/guidelines/Guidelines.ts");
+var LineDivision_1 = __webpack_require__(/*! ./guidelines/LineDivision */ "./src/renderer/internal/editor/sceneView/guidelines/LineDivision.ts");
 var list = [];
 function renderRect(context, entity, color) {
     if (color === void 0) { color = 'blue'; }
@@ -51964,6 +51968,10 @@ function renderRect(context, entity, color) {
 function createEntities() {
     var e = new EntityTest_1.default('My Object');
     e.transform.position.x = -50;
+    e.transform.position.y = -50;
+    list.push(e);
+    e = new EntityTest_1.default('My Object');
+    e.transform.position.x = 1000 + -50;
     e.transform.position.y = -50;
     list.push(e);
     // for (let i = 0; i < 10; i++) {
@@ -52045,12 +52053,47 @@ var SceneViewEditor = /** @class */ (function () {
             list[i].transform.matrix.concat(this._editorCamera.matrix);
         }
     };
+    SceneViewEditor.prototype.getSubdivision = function (base, factor) {
+        var next = base / 2;
+        if (next <= factor) {
+            return base;
+        }
+        else {
+            return this.getSubdivision(next, factor);
+        }
+    };
     SceneViewEditor.prototype.render = function () {
         var ctx = this._renderer.context;
         // scene
         this._renderer.beginDraw();
-        this._guides.render(this.draw);
-        this._renderer.draw();
+        //this._guides.render(this.draw);
+        //MathUtils.floor(t * levels) / levels)
+        //let sudivisions =  MathUtils.floor((1-this._editorCamera.zoomFactor) * 1000);// / 1000;
+        var level = Math.abs((1 - this._editorCamera.resolution) * 1000) % 1000;
+        var subdivisions = this.getSubdivision(1000, level);
+        console.log(subdivisions);
+        var currentScaledSpacing = subdivisions * this._editorCamera.resolution; // 1000 * this._editorCamera.resolution;
+        var scaledSpacing = currentScaledSpacing;
+        //let nextSpacing = ((1-this._editorCamera.zoomFactor) * 500);
+        var division = new LineDivision_1.default();
+        division.subDivisionSpacing = scaledSpacing;
+        division.maxHorizontalLines = MathUtils_1.default.floor(this.renderer.width / scaledSpacing) + 1;
+        division.maxVerticalLines = MathUtils_1.default.floor(this.renderer.height / scaledSpacing) + 1;
+        division.parallax.x = (this._editorCamera.offsetX % scaledSpacing);
+        division.parallax.y = (this._editorCamera.offsetY % scaledSpacing);
+        // scaledSpacing /= 10;
+        // let divisionNext = new LineDivision();
+        // divisionNext.subDivisionSpacing = scaledSpacing;
+        // divisionNext.maxHorizontalLines = MathUtils.floor(this.renderer.width / scaledSpacing) + 1;
+        // divisionNext.maxVerticalLines = MathUtils.floor(this.renderer.height / scaledSpacing) + 1;
+        // divisionNext.parallax.x = this._editorCamera.offsetX % scaledSpacing;
+        // divisionNext.parallax.y = this._editorCamera.offsetY % scaledSpacing;
+        //divisionNext.depthAlpha = nextSpacing / currentSpacing;
+        var draw = this.draw;
+        draw.context.setTransform(1, 0, 0, 1, 0.5, 0.5);
+        division.render(draw, { x: this.renderer.width, y: this.renderer.height });
+        //divisionNext.render(draw,{x:this.renderer.width, y:this.renderer.height});
+        //this._renderer.draw();
         for (var i = 0; i < list.length; i++) {
             var color = 'blue';
             renderRect(ctx, list[i], color);
@@ -52128,11 +52171,11 @@ exports.default = SceneViewEditor;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var SceneViewInputData_1 = __webpack_require__(/*! ./SceneViewInputData */ "./src/renderer/internal/editor/sceneView/SceneViewInputData.ts");
+var CursorTransform_1 = __webpack_require__(/*! ./CursorTransform */ "./src/renderer/internal/editor/sceneView/CursorTransform.ts");
 var SceneViewCursor_1 = __webpack_require__(/*! ./SceneViewCursor */ "./src/renderer/internal/editor/sceneView/SceneViewCursor.ts");
 var SceneViewInput = /** @class */ (function () {
     function SceneViewInput(target, emitter) {
-        this.inputData = new SceneViewInputData_1.default(target);
+        this.inputData = new CursorTransform_1.default(target);
         this._cursor = new SceneViewCursor_1.default(target, emitter, this.inputData);
     }
     Object.defineProperty(SceneViewInput.prototype, "cursor", {
@@ -52155,66 +52198,142 @@ exports.default = SceneViewInput;
 
 /***/ }),
 
-/***/ "./src/renderer/internal/editor/sceneView/SceneViewInputData.ts":
-/*!**********************************************************************!*\
-  !*** ./src/renderer/internal/editor/sceneView/SceneViewInputData.ts ***!
-  \**********************************************************************/
+/***/ "./src/renderer/internal/editor/sceneView/guidelines/Guidelines.ts":
+/*!*************************************************************************!*\
+  !*** ./src/renderer/internal/editor/sceneView/guidelines/Guidelines.ts ***!
+  \*************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var MathUtils_1 = __webpack_require__(/*! ../../../engine/math/MathUtils */ "./src/renderer/engine/math/MathUtils.ts");
-var Rect_1 = __webpack_require__(/*! ../../../engine/math/Rect */ "./src/renderer/engine/math/Rect.ts");
-var SceneViewInputData = /** @class */ (function () {
-    function SceneViewInputData(canvas) {
-        this.canvas = canvas;
-        this.clientRect = new Rect_1.default();
-        this.boundingClientRect = null;
-        this.updateClientRect();
+var MathUtils_1 = __webpack_require__(/*! ../../../../engine/math/MathUtils */ "./src/renderer/engine/math/MathUtils.ts");
+var Vector2_1 = __webpack_require__(/*! ../../../../engine/math/Vector2 */ "./src/renderer/engine/math/Vector2.ts");
+var Guidelines = /** @class */ (function () {
+    function Guidelines(renderer) {
+        this.spacing = 1000;
+        this._renderer = renderer;
+        this._parallax = new Vector2_1.default();
     }
-    SceneViewInputData.prototype.updateClientRect = function () {
-        var rect = this.clientRect;
-        var clientRect = this.canvas.getBoundingClientRect();
-        this.boundingClientRect = clientRect;
-        rect.x = clientRect.left + window.pageXOffset - document.documentElement.clientLeft;
-        rect.y = clientRect.top + window.pageYOffset - document.documentElement.clientTop;
-        rect.width = clientRect.width;
-        rect.height = clientRect.height;
+    Guidelines.prototype.computeLineScale = function (size, spacing) {
+        return MathUtils_1.default.floor(size / spacing) + 1;
     };
-    SceneViewInputData.prototype.transform = function (position) {
-        var rect = this.boundingClientRect;
-        var pos = { x: 0, y: 0 };
-        pos.x = MathUtils_1.default.floor((position.x - rect.left) / (rect.right - rect.left) * this.canvas.width);
-        pos.y = MathUtils_1.default.floor((position.y - rect.top) / (rect.bottom - rect.top) * this.canvas.height);
-        return pos;
+    Guidelines.prototype.update = function (camera) {
+        var spacing = this.spacing * camera.resolution;
+        var subDivisionSpacing = (this.spacing / 2) * camera.resolution;
+        this.subDivisionSpacing = subDivisionSpacing;
+        this.t = camera.zoomFactor * subDivisionSpacing / 2; // subDivisionSpacing / camera.invertedResolution;
+        //console.log(this.t)
+        this._maxHorizontalLines = this.computeLineScale(this._renderer.width, spacing);
+        this._subMax = this.computeLineScale(this._renderer.width, subDivisionSpacing);
+        this.subParallax = camera.offsetX % subDivisionSpacing - 1;
+        this._parallax.x = (camera.offsetX % spacing - 1);
+        this._horizontalSpacing = spacing;
+        this._maxVerticalLines = this.computeLineScale(this._renderer.height, spacing); //MathUtils.round(this._renderer.height / spacing) + 1;
+        this._parallax.y = camera.offsetY % spacing - 1;
+        this._verticalSpacing = spacing;
+        //const halfWidth = w / 2;
+        //const midX = halfWidth * this._editorCamera.resolution;
+        //const maxHorizontalHalfGrids = MathUtils.round((halfWidth / horizontalSpacing));// * this._editorCamera.resolution;
+        ////-this._editorCamera.position.x * this._editorCamera.resolution;
+        //const halfGridWidth = ((maxHorizontalGrids*horizontalSpacing) / 2);
+        //const gridOffsetX = halfGridWidth % horizontalSpacing-1;
     };
-    SceneViewInputData.prototype.transformX = function (x) {
-        var rect = this.boundingClientRect;
-        return MathUtils_1.default.floor((x - rect.left) / (rect.right - rect.left) * this.canvas.width);
+    Guidelines.prototype.render = function (draw) {
+        draw.context.setTransform(1, 0, 0, 1, 0.5, 0.5);
+        draw.outlineColor = 'rgb(255, 255, 255, 0.1)';
+        var total = 0;
+        for (var x = 0; x <= this._maxHorizontalLines; x++) {
+            var space = x * this._horizontalSpacing;
+            var xx = MathUtils_1.default.round(this._parallax.x + space);
+            if (xx > this._renderer.width)
+                break;
+            if (x >= this._maxHorizontalLines / 2 && x <= this._maxHorizontalLines / 2) {
+                draw.outlineColor = 'rgb(255, 0, 0, 1)';
+            }
+            else {
+                draw.outlineColor = 'rgb(255, 255, 255, 0.1)';
+            }
+            draw.line(xx, 0, xx, this._renderer.height);
+            total++;
+        }
+        draw.outlineColor = 'rgb(255, 255, 255, 0.15)';
+        //console.log(total);
+        for (var y = 0; y <= this._maxVerticalLines; y++) {
+            var space = y * this._verticalSpacing;
+            var yy = MathUtils_1.default.round(this._parallax.y + space);
+            draw.line(0, yy, this._renderer.width, yy);
+        }
+        var alpha = MathUtils_1.default.clampedLerp(0, 0.15, 0.5);
+        draw.outlineColor = 'rgb(255, 0, 0,' + alpha + ')';
+        for (var x = 1; x <= this._subMax; x++) {
+            var space = x * this.subDivisionSpacing;
+            var xx = MathUtils_1.default.round(this.subParallax + space);
+            draw.line(xx, 0, xx, this._renderer.height);
+        }
     };
-    SceneViewInputData.prototype.transformY = function (y) {
-        var rect = this.boundingClientRect;
-        return MathUtils_1.default.floor((y - rect.top) / (rect.bottom - rect.top) * this.canvas.height);
-    };
-    SceneViewInputData.prototype.normTransformX = function (x) {
-        var rect = this.boundingClientRect;
-        return (x - rect.left) / (rect.right - rect.left);
-    };
-    SceneViewInputData.prototype.normTransformY = function (y) {
-        var rect = this.boundingClientRect;
-        return (y - rect.top) / (rect.bottom - rect.top);
-    };
-    SceneViewInputData.prototype.clientRectTransformX = function (x) {
-        return (x - this.clientRect.x) * this.scale.x;
-    };
-    SceneViewInputData.prototype.clientRectTransformY = function (y) {
-        return (y - this.clientRect.y) * this.scale.y;
-    };
-    return SceneViewInputData;
+    return Guidelines;
 }());
-exports.default = SceneViewInputData;
+exports.default = Guidelines;
+
+
+/***/ }),
+
+/***/ "./src/renderer/internal/editor/sceneView/guidelines/LineDivision.ts":
+/*!***************************************************************************!*\
+  !*** ./src/renderer/internal/editor/sceneView/guidelines/LineDivision.ts ***!
+  \***************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var MathUtils_1 = __webpack_require__(/*! ../../../../engine/math/MathUtils */ "./src/renderer/engine/math/MathUtils.ts");
+var LineDivision = /** @class */ (function () {
+    function LineDivision() {
+        this.depthAlpha = 0.1;
+        this.parallax = { x: 0, y: 0 };
+    }
+    // static subdivide(baseSpacing: number, factor: number, view: IVector2) {
+    //     const spacing = factor / baseSpacing;
+    //     let division = new LineDivision();
+    //     division.subDivisionSpacing = spacing;
+    //     division.maxHorizontalLines = MathUtils.floor(view.size.x / spacing) + 1;
+    //     division.minVerticalLines = MathUtils.floor(view.size.y / spacing) + 1;
+    //     division.parallax.x = view.offsetX % spacing - 1;
+    //     division.parallax.y = view.offsetY % spacing - 1;
+    //     division.depthAlpha = 1;
+    //     //parent.child = this;
+    //     if (factor > maxFactor) {
+    //         return division;
+    //     } else {
+    //         parent.child = LineDivision.subdivide();
+    //     }
+    // }
+    LineDivision.transformTree = function (parent, view) {
+    };
+    LineDivision.prototype.render = function (draw, rendererSize) {
+        draw.outlineColor = 'rgb(255, 255, 255,' + this.depthAlpha + ')';
+        // draw horizontal lines
+        for (var x = 0; x <= this.maxHorizontalLines; x++) {
+            var space = x * this.subDivisionSpacing;
+            var xx = MathUtils_1.default.round(this.parallax.x + space);
+            if (xx > rendererSize.x)
+                break;
+            draw.line(xx, 0, xx, rendererSize.y);
+        }
+        // draw vertical lines
+        for (var y = 0; y <= this.maxVerticalLines; y++) {
+            var space = y * this.subDivisionSpacing;
+            var yy = MathUtils_1.default.round(this.parallax.y + space);
+            draw.line(0, yy, rendererSize.x, yy);
+        }
+    };
+    return LineDivision;
+}());
+exports.default = LineDivision;
 
 
 /***/ }),

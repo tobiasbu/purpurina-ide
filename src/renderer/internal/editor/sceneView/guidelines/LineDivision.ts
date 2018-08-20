@@ -9,38 +9,43 @@ export default class LineDivision {
     parallax: IVector2;
 
     constructor() {
-        this.depthAlpha = 0;
+        this.depthAlpha = 0.1;
         this.parallax = { x: 0, y: 0 };
     }
 
 
 
-    static subdivide(parent: LineDivision, factor: number, view: IVector2) {
+    // static subdivide(baseSpacing: number, factor: number, view: IVector2) {
 
-        const spacing = parent.subDivisionSpacing / factor;
+    //     const spacing = factor / baseSpacing;
 
-        let division = new LineDivision(parent);
-        division.subDivisionSpacing = spacing;
-        division.maxHorizontalLines = MathUtils.floor(view.size.x / spacing) + 1;
-        division.minVerticalLines = MathUtils.floor(view.size.y / spacing) + 1;
-        division.parallax.x = view.offsetX % spacing - 1;
-        division.parallax.y = view.offsetY % spacing - 1;
-        division.depthAlpha = 1;
-        //parent.child = this;
+    //     let division = new LineDivision();
+    //     division.subDivisionSpacing = spacing;
+    //     division.maxHorizontalLines = MathUtils.floor(view.size.x / spacing) + 1;
+    //     division.minVerticalLines = MathUtils.floor(view.size.y / spacing) + 1;
+    //     division.parallax.x = view.offsetX % spacing - 1;
+    //     division.parallax.y = view.offsetY % spacing - 1;
+    //     division.depthAlpha = 1;
+    //     //parent.child = this;
 
-        if (factor > maxFactor) {
-            return division;
-        } else {
-            parent.child = LineDivision.subdivide();
-        }
-    }
+    //     if (factor > maxFactor) {
+    //         return division;
+    //     } else {
+    //         parent.child = LineDivision.subdivide();
+    //     }
+    // }
 
-    static transformTree(parent:LineDivision, view) {
-
-    }
     
 
+    static transformTree(parent: LineDivision, view) {
+
+    }
+
+
     render(draw: CanvasDrawer, rendererSize: IVector2) {
+
+        draw.outlineColor = 'rgb(255, 255, 255,' + this.depthAlpha + ')';
+
 
         // draw horizontal lines
         for (let x = 0; x <= this.maxHorizontalLines; x++) {

@@ -1,12 +1,12 @@
 import EventEmitter from "../../../engine/events/emitter/EventEmitter";
-import SceneViewInputData from "./SceneViewInputData";
+import CursorTransform from "./CursorTransform";
 import SceneViewCursor from "./SceneViewCursor";
 
 
 
 export default class SceneViewInput {
 
-    private inputData: SceneViewInputData;
+    private inputData: CursorTransform;
     private _cursor: SceneViewCursor;
     public get cursor(): SceneViewCursor {
         return this._cursor;
@@ -14,7 +14,7 @@ export default class SceneViewInput {
 
     constructor(target: HTMLCanvasElement, emitter: EventEmitter) {
         
-        this.inputData = new SceneViewInputData(target);
+        this.inputData = new CursorTransform(target);
         this._cursor = new SceneViewCursor(target, emitter, this.inputData);
     }
 

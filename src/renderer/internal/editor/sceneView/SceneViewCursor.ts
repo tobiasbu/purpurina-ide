@@ -1,5 +1,5 @@
 import EventEmitter from "../../../engine/events/emitter/EventEmitter";
-import SceneViewInputData from "./SceneViewInputData";
+import CursorTransform from "./CursorTransform";
 import MathUtils from "../../../engine/math/MathUtils";
 import Rect from "../../../engine/math/Rect";
 import Manager from '../../../manager';
@@ -42,7 +42,7 @@ export default class SceneViewCursor {
     target: HTMLElement;
     emitter: EventEmitter;
 
-    private inputData: SceneViewInputData;
+    private inputData: CursorTransform;
 
     public get mode(): CursorMode {
         return this._mode;
@@ -57,7 +57,7 @@ export default class SceneViewCursor {
     }
 
 
-    constructor(target: HTMLElement, emitter: EventEmitter, inputData: SceneViewInputData) {
+    constructor(target: HTMLElement, emitter: EventEmitter, inputData: CursorTransform) {
         this.target = target;
         this.emitter = emitter;
         this._startPosition = { x: 0, y: 0 };

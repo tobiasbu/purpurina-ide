@@ -14,6 +14,8 @@ import MathUtils from "../../../engine/math/MathUtils";
 import { CanvasDrawer } from "../CanvasDrawer";
 import CanvasRenderer from "../../../engine/renderer/CanvasRenderer";
 import Guidelines from "./guidelines/Guidelines";
+import LineDivision from "./guidelines/LineDivision";
+import Ease from "../../../engine/math/easing/Ease";
 
 let list: EntityTest[] = []
 
@@ -38,6 +40,11 @@ function renderRect(context: CanvasRenderingContext2D, entity: EntityTest, color
 function createEntities() {
     let e = new EntityTest('My Object');
     e.transform.position.x = -50;
+    e.transform.position.y = -50;
+    list.push(e);
+
+    e = new EntityTest('My Object');
+    e.transform.position.x = 1000 + -50;
     e.transform.position.y = -50;
     list.push(e);
     // for (let i = 0; i < 10; i++) {
@@ -145,6 +152,18 @@ export default class SceneViewEditor {
         }
     }
 
+    private getSubdivision(base, factor) {
+
+        const next = base / 2;
+
+        if (next <= factor) {
+            return base;
+        } else {
+            return this.getSubdivision(next, factor);
+        }
+
+    }
+
     private render() {
 
         const ctx = this._renderer.context as CanvasRenderingContext2D;
@@ -154,9 +173,54 @@ export default class SceneViewEditor {
 
         this._renderer.beginDraw();
 
-        this._guides.render(this.draw);
+        //this._guides.render(this.draw);
+        //MathUtils.floor(t * levels) / levels)
+        //let sudivisions =  MathUtils.floor((1-this._editorCamera.zoomFactor) * 1000);// / 1000;
+        let level = Math.abs((1-this._editorCamera.resolution) * 1000) % 1000;
 
-        this._renderer.draw();
+        let subdivisions = this.getSubdivision(1000, level);
+
+        console.log(subdivisions)
+
+        let currentScaledSpacing = subdivisions * this._editorCamera.resolution; // 1000 * this._editorCamera.resolution;
+        let scaledSpacing = currentScaledSpacing;
+        //let nextSpacing = ((1-this._editorCamera.zoomFactor) * 500);
+
+        let division = new LineDivision();
+        division.subDivisionSpacing = scaledSpacing;
+        division.maxHorizontalLines = MathUtils.floor(this.renderer.width / scaledSpacing) + 1;
+        division.maxVerticalLines = MathUtils.floor(this.renderer.height / scaledSpacing) + 1;
+        division.parallax.x = (this._editorCamera.offsetX % scaledSpacing);
+        division.parallax.y = (this._editorCamera.offsetY % scaledSpacing);
+  
+
+        // scaledSpacing /= 10;
+
+        // let divisionNext = new LineDivision();
+        // divisionNext.subDivisionSpacing = scaledSpacing;
+        // divisionNext.maxHorizontalLines = MathUtils.floor(this.renderer.width / scaledSpacing) + 1;
+        // divisionNext.maxVerticalLines = MathUtils.floor(this.renderer.height / scaledSpacing) + 1;
+        // divisionNext.parallax.x = this._editorCamera.offsetX % scaledSpacing;
+        // divisionNext.parallax.y = this._editorCamera.offsetY % scaledSpacing;
+        //divisionNext.depthAlpha = nextSpacing / currentSpacing;
+       
+
+        const draw = this.draw;
+
+        draw.context.setTransform(
+            1, 0,
+            0, 1,
+            0.5,
+            0.5
+        );
+
+        
+        division.render(draw,{x:this.renderer.width, y:this.renderer.height});
+        //divisionNext.render(draw,{x:this.renderer.width, y:this.renderer.height});
+
+       
+
+        //this._renderer.draw();
 
         for (let i = 0; i < list.length; i++) {
 

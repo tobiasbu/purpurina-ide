@@ -20,6 +20,8 @@ export default class EditorCamera {
     private _invertedResolution: number;
     private _originFactor: number = 0.5;
     private _origin: Vector2;
+
+
     _renderer: IRenderer;
 
     public get resolution(): number {
@@ -43,15 +45,19 @@ export default class EditorCamera {
     }
 
     public get offsetX(): number {
-        return -(this._position.x - this._origin.x) * this._resolution;
+        return -this._position.x * this._resolution + this.origin.x;
     }
 
     public get offsetY(): number {
-        return -(this._position.y - this._origin.y) * this._resolution;
+        return -this._position.y * this._resolution + this.origin.y;
     }
 
     public get zoomFactor(): number {
-        return (this._resolution-this._minZoom) / (this._maxZoom-this._minZoom);
+        return (this._resolution - this._minZoom) / (this._maxZoom - this._minZoom);
+    }
+
+    public get origin(): Vector2 {
+        return this._origin;
     }
 
     constructor(renderer: IRenderer) {
@@ -105,6 +111,8 @@ export default class EditorCamera {
         // this._position.x += offsetX;
         // this._position.y += offsetY;
 
+        zoomPoint.x -= this.origin.x;
+        zoomPoint.y -= this.origin.y;
 
         this._position.x -= (zoomPoint.x / res) - (zoomPoint.x / this._resolution);
         this._position.y -= (zoomPoint.y / res) - (zoomPoint.y / this._resolution);
@@ -146,14 +154,23 @@ export default class EditorCamera {
 
 
         this._matrix.setIdentity()
-            .translate(-(this._position.x - this._origin.x), -(this._position.y - this._origin.y))
+            //.translate(this._position.x, this._position.y) // translate
+            // center the view port to origin
+            .translate(
+                this.origin.x * this.invertedResolution,
+                this.origin.y * this.invertedResolution)
+            .translate(-this._position.x, -this._position.y)
             .scale(this._resolution, this._resolution)
+
         //.translate(-originX * this._invertedResolution, -originY * this._invertedResolution)
 
         this._handlesMatrix.setIdentity()
             .translate(
-                MathUtils.round(-(this._position.x - this._origin.x) * this._resolution) + 0.5,
-                MathUtils.round(-(this._position.y - this._origin.y) * this._resolution) + 0.5);
+                MathUtils.round(this.origin.x),
+                MathUtils.round(this.origin.y))
+            .translate(
+                MathUtils.round(-this._position.x * this._resolution) + 0.5,
+                MathUtils.round(-this._position.y * this._resolution) + 0.5);
 
 
 
