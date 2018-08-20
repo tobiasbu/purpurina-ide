@@ -64,9 +64,12 @@ export default class EditorHandles {
             //const lw = 80; // 73
             //const th = 16; // 12
             //const tw = 24; // 17
-            const x = (this._position.x + 50) * this._editorCamera.resolution;
-            const y = (this._position.y + 50) * this._editorCamera.resolution;
+            //const x = (this._position.x + 50) * this._editorCamera.resolution;// * this._editorCamera.aspectRatio;
+            //const y = (this._position.y + 50) * this._editorCamera.resolution;//  * this._editorCamera.aspectRatio;
 
+
+            const x = (this._position.x + 50) * this._editorCamera.resolution * this._editorCamera.aspectRatio;
+            const y = (this._position.y + 50) * this._editorCamera.resolution;
 
             drawHandle(ctx, x, y, 0);
             drawHandle(ctx, x, y, 270);

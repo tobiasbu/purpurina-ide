@@ -23920,7 +23920,7 @@ exports = module.exports = __webpack_require__(/*! ../../node_modules/css-loader
 
 
 // module
-exports.push([module.i, "body {\n  margin: 0;\n  padding: 0;\n  font-family: sans-serif;\n  overflow: hidden;\n  background: #000;\n}\n\n", ""]);
+exports.push([module.i, "body {\r\n  margin: 0;\r\n  padding: 0;\r\n  font-family: sans-serif;\r\n  overflow: hidden;\r\n  background: #000;\r\n}\r\n\r\n", ""]);
 
 // exports
 
@@ -23939,7 +23939,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, ".App {\n\n}\n\n.App-logo {\n  animation: App-logo-spin infinite 20s linear;\n  height: 80px;\n}\n\n.App-header {\n  background-color: #222;\n  height: 150px;\n  padding: 20px;\n  color: white;\n}\n\n.App-title {\n  font-size: 1.5em;\n}\n\n.App-intro {\n  font-size: large;\n}\n\n@keyframes App-logo-spin {\n  from { transform: rotate(0deg); }\n  to { transform: rotate(360deg); }\n}\n\n.build {\n  width: 200px;\n  height: 24px;\n}", ""]);
+exports.push([module.i, ".App {\r\n\r\n}\r\n\r\n.App-logo {\r\n  animation: App-logo-spin infinite 20s linear;\r\n  height: 80px;\r\n}\r\n\r\n.App-header {\r\n  background-color: #222;\r\n  height: 150px;\r\n  padding: 20px;\r\n  color: white;\r\n}\r\n\r\n.App-title {\r\n  font-size: 1.5em;\r\n}\r\n\r\n.App-intro {\r\n  font-size: large;\r\n}\r\n\r\n@keyframes App-logo-spin {\r\n  from { transform: rotate(0deg); }\r\n  to { transform: rotate(360deg); }\r\n}\r\n\r\n.build {\r\n  width: 200px;\r\n  height: 24px;\r\n}", ""]);
 
 // exports
 
@@ -51413,6 +51413,9 @@ var CanvasDrawer = /** @class */ (function () {
         enumerable: true,
         configurable: true
     });
+    CanvasDrawer.prototype.text = function (text, x, y) {
+        this._ctx.fillText(text, x, y);
+    };
     CanvasDrawer.prototype.line = function (fromX, fromY, toX, toY) {
         this._ctx.beginPath();
         this._ctx.moveTo(fromX, fromY);
@@ -51467,7 +51470,7 @@ var EditorCamera = /** @class */ (function () {
     function EditorCamera(renderer) {
         this._maxZoom = 10;
         this._minZoom = 0.05;
-        this._zoomDelta = 0.05;
+        this._zoomDelta = 0.0125; // //0.00625;
         this._originFactor = 0.5;
         this._renderer = renderer;
         this._position = new Vector2_1.default(0, 0);
@@ -51581,8 +51584,8 @@ var EditorCamera = /** @class */ (function () {
         this._oldPosition.copy(this._position);
     };
     EditorCamera.prototype.move = function (position) {
-        this._position.x = this._oldPosition.x - position.x * this._invertedResolution;
-        this._position.y = this._oldPosition.y - position.y * this._invertedResolution;
+        this._position.x = this._oldPosition.x - (position.x * this._invertedResolution);
+        this._position.y = this._oldPosition.y - (position.y * this._invertedResolution);
         //this._lastZoomOffset.x = position.x;
         //this._lastZoomOffset.y = position.y;
     };
@@ -51597,17 +51600,23 @@ var EditorCamera = /** @class */ (function () {
         this._origin.y = originY;
     };
     EditorCamera.prototype.updateTransform = function () {
-        //const a = this._renderer.width / this._renderer.height;
+        this.aspectRatio = this._renderer.width / this._renderer.height;
+        var a = 1 / this.aspectRatio;
+        this.invAspect = a;
         this._matrix.setIdentity()
             //.translate(this._position.x, this._position.y) // translate
             // center the view port to origin
-            .translate(this.origin.x * this.invertedResolution, this.origin.y * this.invertedResolution)
-            .translate(-this._position.x, -this._position.y)
-            .scale(this._resolution, this._resolution);
+            //
+            .translate(this.origin.x * this.invertedResolution * a, this.origin.y * this.invertedResolution * a)
+            .translate(-this._position.x * a, -this._position.y * a)
+            .scale(this._resolution, this._resolution)
+            .scale(this.aspectRatio, this.aspectRatio);
         //.translate(-originX * this._invertedResolution, -originY * this._invertedResolution)
         this._handlesMatrix.setIdentity()
+            //.scale(this.aspectRatio, this.aspectRatio)
             .translate(MathUtils_1.default.round(this.origin.x), MathUtils_1.default.round(this.origin.y))
             .translate(MathUtils_1.default.round(-this._position.x * this._resolution) + 0.5, MathUtils_1.default.round(-this._position.y * this._resolution) + 0.5);
+        //      .scale(a, a)
         // this._matrix.setIdentity()
         // .translate(-this._position.x, -this._position.y)
         //     .scale(this._resolution, this._resolution)
@@ -51706,7 +51715,9 @@ var EditorHandles = /** @class */ (function () {
             //const lw = 80; // 73
             //const th = 16; // 12
             //const tw = 24; // 17
-            var x = (this._position.x + 50) * this._editorCamera.resolution;
+            //const x = (this._position.x + 50) * this._editorCamera.resolution;// * this._editorCamera.aspectRatio;
+            //const y = (this._position.y + 50) * this._editorCamera.resolution;//  * this._editorCamera.aspectRatio;
+            var x = (this._position.x + 50) * this._editorCamera.resolution * this._editorCamera.aspectRatio;
             var y = (this._position.y + 50) * this._editorCamera.resolution;
             drawHandle(ctx, x, y, 0);
             drawHandle(ctx, x, y, 270);
@@ -51974,6 +51985,10 @@ function createEntities() {
     e.transform.position.x = 1000 + -50;
     e.transform.position.y = -50;
     list.push(e);
+    e = new EntityTest_1.default('My Object');
+    e.transform.position.x = 100;
+    e.transform.position.y = -50;
+    list.push(e);
     // for (let i = 0; i < 10; i++) {
     //     const x = Random.irange(-500, 500);
     //     const y = Random.irange(-500, 500);
@@ -52066,37 +52081,57 @@ var SceneViewEditor = /** @class */ (function () {
         var ctx = this._renderer.context;
         // scene
         this._renderer.beginDraw();
+        var draw = this.draw;
         //this._guides.render(this.draw);
         //MathUtils.floor(t * levels) / levels)
         //let sudivisions =  MathUtils.floor((1-this._editorCamera.zoomFactor) * 1000);// / 1000;
-        var level = Math.abs((1 - this._editorCamera.resolution) * 1000) % 1000;
-        var subdivisions = this.getSubdivision(1000, level);
-        console.log(subdivisions);
-        var currentScaledSpacing = subdivisions * this._editorCamera.resolution; // 1000 * this._editorCamera.resolution;
-        var scaledSpacing = currentScaledSpacing;
+        //let level = Math.abs((1-this._editorCamera.resolution);
+        var levels = 10; //10;
+        var tlevel = this._editorCamera.zoomFactor * levels;
+        var t = MathUtils_1.default.floor(tlevel) + 1;
+        var depth = tlevel % 1.0;
+        //console.log(t);
+        var zoom = MathUtils_1.default.round(this._editorCamera.resolution * 100);
+        //let subdivisions = this.getSubdivision(1000, level);
+        //console.log(subdivisions)
+        // 1000 * this._editorCamera.resolution;
+        var a = this._editorCamera.aspectRatio;
+        //let last = 1100 - (100 * (t - 1));
+        var currentSpacing = 1000 / t; //(1100 - (100 * t));//(1000 / t);
+        console.log(currentSpacing);
+        //console.log(currentSpacing)
+        var scaledSpacing = currentSpacing * this._editorCamera.resolution * a;
         //let nextSpacing = ((1-this._editorCamera.zoomFactor) * 500);
         var division = new LineDivision_1.default();
         division.subDivisionSpacing = scaledSpacing;
         division.maxHorizontalLines = MathUtils_1.default.floor(this.renderer.width / scaledSpacing) + 1;
         division.maxVerticalLines = MathUtils_1.default.floor(this.renderer.height / scaledSpacing) + 1;
-        division.parallax.x = (this._editorCamera.offsetX % scaledSpacing);
-        division.parallax.y = (this._editorCamera.offsetY % scaledSpacing);
-        // scaledSpacing /= 10;
-        // let divisionNext = new LineDivision();
-        // divisionNext.subDivisionSpacing = scaledSpacing;
-        // divisionNext.maxHorizontalLines = MathUtils.floor(this.renderer.width / scaledSpacing) + 1;
-        // divisionNext.maxVerticalLines = MathUtils.floor(this.renderer.height / scaledSpacing) + 1;
-        // divisionNext.parallax.x = this._editorCamera.offsetX % scaledSpacing;
-        // divisionNext.parallax.y = this._editorCamera.offsetY % scaledSpacing;
-        //divisionNext.depthAlpha = nextSpacing / currentSpacing;
-        var draw = this.draw;
+        division.parallax.x = (this._editorCamera.offsetX) % scaledSpacing;
+        division.parallax.y = (this._editorCamera.offsetY) % scaledSpacing;
+        var nextSpacing = currentSpacing / 10;
+        var nextSpacingScaled = nextSpacing * this._editorCamera.resolution * a;
+        var divisionNext = new LineDivision_1.default();
+        divisionNext.subDivisionSpacing = nextSpacingScaled;
+        divisionNext.maxHorizontalLines = MathUtils_1.default.floor(this.renderer.width / nextSpacingScaled) + 1;
+        divisionNext.maxVerticalLines = MathUtils_1.default.floor(this.renderer.height / nextSpacingScaled) + 1;
+        divisionNext.parallax.x = this._editorCamera.offsetX % nextSpacingScaled;
+        divisionNext.parallax.y = this._editorCamera.offsetY % nextSpacingScaled;
+        // console.log(depth);
+        // if (depth < 0.1)
+        //     depth = 0;
+        //depth -= 0.2;
+        divisionNext.depthAlpha = MathUtils_1.default.clampedLerp(0.0, 0.1, depth); // nextSpacingScaled / currentSpacing;
         draw.context.setTransform(1, 0, 0, 1, 0.5, 0.5);
-        division.render(draw, { x: this.renderer.width, y: this.renderer.height });
-        //divisionNext.render(draw,{x:this.renderer.width, y:this.renderer.height});
+        draw.color = 'white';
+        draw.text("Zoom: " + zoom.toString(), 16, 16);
+        var color = 'rgb(255, 255, 255,' + 0.1 + ')';
+        division.render(draw, { x: this.renderer.width, y: this.renderer.height }, color);
+        color = 'rgb(255, 255, 255,' + divisionNext.depthAlpha + ')';
+        divisionNext.render(draw, { x: this.renderer.width, y: this.renderer.height }, color);
         //this._renderer.draw();
         for (var i = 0; i < list.length; i++) {
-            var color = 'blue';
-            renderRect(ctx, list[i], color);
+            var color_1 = 'blue';
+            renderRect(ctx, list[i], color_1);
         }
         //
         // const a = (w / h);
@@ -52314,8 +52349,8 @@ var LineDivision = /** @class */ (function () {
     // }
     LineDivision.transformTree = function (parent, view) {
     };
-    LineDivision.prototype.render = function (draw, rendererSize) {
-        draw.outlineColor = 'rgb(255, 255, 255,' + this.depthAlpha + ')';
+    LineDivision.prototype.render = function (draw, rendererSize, color) {
+        draw.outlineColor = color;
         // draw horizontal lines
         for (var x = 0; x <= this.maxHorizontalLines; x++) {
             var space = x * this.subDivisionSpacing;

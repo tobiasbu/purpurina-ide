@@ -35,16 +35,16 @@ export default class LineDivision {
     //     }
     // }
 
-    
+
 
     static transformTree(parent: LineDivision, view) {
 
     }
 
 
-    render(draw: CanvasDrawer, rendererSize: IVector2) {
+    render(draw: CanvasDrawer, rendererSize: IVector2, color: string) {
 
-        draw.outlineColor = 'rgb(255, 255, 255,' + this.depthAlpha + ')';
+        draw.outlineColor = color;
 
 
         // draw horizontal lines

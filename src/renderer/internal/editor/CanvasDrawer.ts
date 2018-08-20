@@ -2,6 +2,7 @@ import CanvasRenderer from "../../engine/renderer/CanvasRenderer";
 
 export class CanvasDrawer {
 
+
     private _ctx: CanvasRenderingContext2D;
     
 
@@ -30,6 +31,10 @@ export class CanvasDrawer {
     constructor(canvasRenderer: CanvasRenderer) {
         this._canvasRenderer = canvasRenderer;
         this._ctx = canvasRenderer.context;
+    }
+
+    text(text: string, x: number, y: number): void {
+        this._ctx.fillText(text,x,y);
     }
 
     line(fromX: number, fromY: number, toX: number, toY: number) {

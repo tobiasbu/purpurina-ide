@@ -47,6 +47,11 @@ function createEntities() {
     e.transform.position.x = 1000 + -50;
     e.transform.position.y = -50;
     list.push(e);
+
+    e = new EntityTest('My Object');
+    e.transform.position.x = 100;
+    e.transform.position.y = -50;
+    list.push(e);
     // for (let i = 0; i < 10; i++) {
     //     const x = Random.irange(-500, 500);
     //     const y = Random.irange(-500, 500);
@@ -173,40 +178,66 @@ export default class SceneViewEditor {
 
         this._renderer.beginDraw();
 
+        const draw = this.draw;
+
         //this._guides.render(this.draw);
         //MathUtils.floor(t * levels) / levels)
         //let sudivisions =  MathUtils.floor((1-this._editorCamera.zoomFactor) * 1000);// / 1000;
-        let level = Math.abs((1-this._editorCamera.resolution) * 1000) % 1000;
+        //let level = Math.abs((1-this._editorCamera.resolution);
+        let levels = 10;//10;
+        let tlevel = this._editorCamera.zoomFactor * levels;
+        let t = MathUtils.floor(tlevel) + 1;
 
-        let subdivisions = this.getSubdivision(1000, level);
+        let depth = tlevel % 1.0;
 
-        console.log(subdivisions)
+        //console.log(t);
 
-        let currentScaledSpacing = subdivisions * this._editorCamera.resolution; // 1000 * this._editorCamera.resolution;
-        let scaledSpacing = currentScaledSpacing;
+        let zoom = MathUtils.round(this._editorCamera.resolution * 100);
+      
+
+        //let subdivisions = this.getSubdivision(1000, level);
+
+        //console.log(subdivisions)
+
+        // 1000 * this._editorCamera.resolution;
+        const a = this._editorCamera.aspectRatio;
+        //let last = 1100 - (100 * (t - 1));
+        let currentSpacing =  1000 / t//(1100 - (100 * t));//(1000 / t);
+        console.log(currentSpacing)
+        //console.log(currentSpacing)
+        let scaledSpacing = currentSpacing * this._editorCamera.resolution * a;
         //let nextSpacing = ((1-this._editorCamera.zoomFactor) * 500);
 
+       
         let division = new LineDivision();
         division.subDivisionSpacing = scaledSpacing;
         division.maxHorizontalLines = MathUtils.floor(this.renderer.width / scaledSpacing) + 1;
         division.maxVerticalLines = MathUtils.floor(this.renderer.height / scaledSpacing) + 1;
-        division.parallax.x = (this._editorCamera.offsetX % scaledSpacing);
-        division.parallax.y = (this._editorCamera.offsetY % scaledSpacing);
+        division.parallax.x = (this._editorCamera.offsetX) % scaledSpacing;
+        division.parallax.y = (this._editorCamera.offsetY) % scaledSpacing;
   
 
-        // scaledSpacing /= 10;
+        let nextSpacing = currentSpacing / 10;
+        let nextSpacingScaled = nextSpacing  * this._editorCamera.resolution * a;
 
-        // let divisionNext = new LineDivision();
-        // divisionNext.subDivisionSpacing = scaledSpacing;
-        // divisionNext.maxHorizontalLines = MathUtils.floor(this.renderer.width / scaledSpacing) + 1;
-        // divisionNext.maxVerticalLines = MathUtils.floor(this.renderer.height / scaledSpacing) + 1;
-        // divisionNext.parallax.x = this._editorCamera.offsetX % scaledSpacing;
-        // divisionNext.parallax.y = this._editorCamera.offsetY % scaledSpacing;
-        //divisionNext.depthAlpha = nextSpacing / currentSpacing;
+        let divisionNext = new LineDivision();
+        divisionNext.subDivisionSpacing = nextSpacingScaled;
+        divisionNext.maxHorizontalLines = MathUtils.floor(this.renderer.width / nextSpacingScaled) + 1;
+        divisionNext.maxVerticalLines = MathUtils.floor(this.renderer.height / nextSpacingScaled) + 1;
+        divisionNext.parallax.x = this._editorCamera.offsetX % nextSpacingScaled;
+        divisionNext.parallax.y = this._editorCamera.offsetY % nextSpacingScaled;
+
+        // console.log(depth);
+
+        // if (depth < 0.1)
+        //     depth = 0;
+
+        //depth -= 0.2;
+
+        divisionNext.depthAlpha =  MathUtils.clampedLerp(0.0, 0.1, depth) // nextSpacingScaled / currentSpacing;
        
 
-        const draw = this.draw;
-
+       
         draw.context.setTransform(
             1, 0,
             0, 1,
@@ -214,9 +245,15 @@ export default class SceneViewEditor {
             0.5
         );
 
+        draw.color = 'white';
+
+        draw.text("Zoom: " + zoom.toString(), 16,16);
         
-        division.render(draw,{x:this.renderer.width, y:this.renderer.height});
-        //divisionNext.render(draw,{x:this.renderer.width, y:this.renderer.height});
+        let color = 'rgb(255, 255, 255,' +  0.1 + ')'
+        division.render(draw,{x:this.renderer.width, y:this.renderer.height}, color);
+
+        color = 'rgb(255, 255, 255,' +  divisionNext.depthAlpha + ')';
+        divisionNext.render(draw,{x:this.renderer.width, y:this.renderer.height}, color);
 
        
 
