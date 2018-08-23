@@ -2,7 +2,7 @@
 import WidgetBase from "../base/WidgetBase";
 import { WidgetResizeEvent } from "../../typings/WidgetInterfaces";
 import SystemFactory from '../../system/SystemFactory'
-import SceneViewEditor from "../../internal/editor/sceneView/SceneViewEditor";
+import SceneView from "../../internal/editor/sceneView/SceneView";
 
 
 // const style: React.CSSProperties = {
@@ -11,9 +11,9 @@ import SceneViewEditor from "../../internal/editor/sceneView/SceneViewEditor";
 // }
 
 
-export default class GameView extends WidgetBase {
+export default class SceneViewWidget extends WidgetBase {
 
-    private _editor: SceneViewEditor;
+    private _editor: SceneView;
 
     constructor() {
         super("Game View");

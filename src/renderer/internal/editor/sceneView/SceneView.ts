@@ -1,5 +1,4 @@
 import Renderer from "../../../engine/renderer/Renderer";
-import EditorCamera from "../EditorCamera";
 import SceneViewInput from "./SceneViewInput";
 import EventEmitter from "../../../engine/events/emitter/EventEmitter";
 import { CursorMode } from "./SceneViewCursor";
@@ -7,17 +6,16 @@ import Rect from "../../../engine/math/Rect";
 import EntityTest from "../../../engine/entity/EntityTest";
 import { computeTransform2D, computeBounds2D } from "../../../engine/math/transform/compute";
 import Transform2D from "../../../engine/math/transform/Transform2D";
-import Random from "../../../engine/math/random/Random";
 import Bounds2D from "../../../engine/math/bounds/Bounds2D";
 import EditorHandles from "../EditorHandles";
-import MathUtils from "../../../engine/math/MathUtils";
 import { CanvasDrawer } from "../CanvasDrawer";
 import CanvasRenderer from "../../../engine/renderer/CanvasRenderer";
 import Guidelines from "./guidelines/Guidelines";
-import LineDivision from "./guidelines/LineDivision";
-import Ease from "../../../engine/math/easing/Ease";
+import View from "./View";
 
 let list: EntityTest[] = []
+
+
 
 function renderRect(context: CanvasRenderingContext2D, entity: EntityTest, color: string = 'blue') {
     const m = entity.transform.matrix;
@@ -62,32 +60,41 @@ function createEntities() {
     // }
 }
 
-export default class SceneViewEditor {
+
+
+export default class SceneView {
+
     private _renderer: Renderer;
-    private _editorCamera: EditorCamera;
     private _handles: EditorHandles;
     private _editorInput: SceneViewInput;
     private _guides: Guidelines;
     private _emitter: EventEmitter;
     private _selectionArea: Rect;
+    private _view:View;
     private draw: CanvasDrawer;
-
+ 
     constructor(renderer: Renderer) {
         this._renderer = renderer;
-        this._editorCamera = new EditorCamera(renderer);
         this._emitter = new EventEmitter();
+
+        this._view = new View();
+
         this._editorInput = new SceneViewInput(this._renderer.canvas, this._emitter);
-        this._handles = new EditorHandles(this._editorCamera);
+        this._handles = new EditorHandles(this._view);
         this.draw = new CanvasDrawer(renderer as CanvasRenderer);
-        this._guides = new Guidelines(renderer);
+        this._guides = new Guidelines(this._view);
+
         createEntities();
+        
     }
 
     init() {
 
+        
+
         this._emitter.on('zoom', (delta: number, zoomPoint: IVector2) => {
 
-            this._editorCamera.zoom(delta, zoomPoint);
+            this._view.zoom(delta, zoomPoint);
 
             //this._editorCamera.setPosition(cursorPosition);
             this.update();
@@ -97,7 +104,7 @@ export default class SceneViewEditor {
 
         this._emitter.on('move', (cursorPosition: IVector2) => {
 
-            this._editorCamera.move(cursorPosition);
+            this._view.move(cursorPosition);
 
             //this._editorCamera.setPosition(cursorPosition);
             this.update();
@@ -106,7 +113,7 @@ export default class SceneViewEditor {
         }, this);
 
         this._emitter.on('prepareViewMove', () => {
-            this._editorCamera.prepareMove();
+            this._view.prepareMove();
         }, this)
 
         this._emitter.on('selection', (area: Rect) => {
@@ -142,32 +149,21 @@ export default class SceneViewEditor {
     resize(width: number, height: number) {
         this._renderer.resize(width, height);
         this._editorInput.resize();
-        this._editorCamera.resize();
+        this._view.resize(width, height);
         this.update();
         this.render();
 
     }
 
     private update() {
-        this._editorCamera.updateTransform();
-        this._guides.update( this._editorCamera);
+        this._view.updateTransform();
+        this._guides.update(this._view);
         for (let i = 0; i < list.length; i++) {
             computeTransform2D(list[i].transform as Transform2D);
-            list[i].transform.matrix.concat(this._editorCamera.matrix);
+            list[i].transform.matrix.concat(this._view.camera.matrix);
         }
     }
 
-    private getSubdivision(base, factor) {
-
-        const next = base / 2;
-
-        if (next <= factor) {
-            return base;
-        } else {
-            return this.getSubdivision(next, factor);
-        }
-
-    }
 
     private render() {
 
@@ -178,86 +174,7 @@ export default class SceneViewEditor {
 
         this._renderer.beginDraw();
 
-        const draw = this.draw;
-
-        //this._guides.render(this.draw);
-        //MathUtils.floor(t * levels) / levels)
-        //let sudivisions =  MathUtils.floor((1-this._editorCamera.zoomFactor) * 1000);// / 1000;
-        //let level = Math.abs((1-this._editorCamera.resolution);
-        let levels = 10;//10;
-        let tlevel = this._editorCamera.zoomFactor * levels;
-        let t = MathUtils.floor(tlevel) + 1;
-
-        let depth = tlevel % 1.0;
-
-        //console.log(t);
-
-        let zoom = MathUtils.round(this._editorCamera.resolution * 100);
-      
-
-        //let subdivisions = this.getSubdivision(1000, level);
-
-        //console.log(subdivisions)
-
-        // 1000 * this._editorCamera.resolution;
-        const a = this._editorCamera.aspectRatio;
-        //let last = 1100 - (100 * (t - 1));
-        let currentSpacing =  1000 / t//(1100 - (100 * t));//(1000 / t);
-        console.log(currentSpacing)
-        //console.log(currentSpacing)
-        let scaledSpacing = currentSpacing * this._editorCamera.resolution * a;
-        //let nextSpacing = ((1-this._editorCamera.zoomFactor) * 500);
-
-       
-        let division = new LineDivision();
-        division.subDivisionSpacing = scaledSpacing;
-        division.maxHorizontalLines = MathUtils.floor(this.renderer.width / scaledSpacing) + 1;
-        division.maxVerticalLines = MathUtils.floor(this.renderer.height / scaledSpacing) + 1;
-        division.parallax.x = (this._editorCamera.offsetX) % scaledSpacing;
-        division.parallax.y = (this._editorCamera.offsetY) % scaledSpacing;
-  
-
-        let nextSpacing = currentSpacing / 10;
-        let nextSpacingScaled = nextSpacing  * this._editorCamera.resolution * a;
-
-        let divisionNext = new LineDivision();
-        divisionNext.subDivisionSpacing = nextSpacingScaled;
-        divisionNext.maxHorizontalLines = MathUtils.floor(this.renderer.width / nextSpacingScaled) + 1;
-        divisionNext.maxVerticalLines = MathUtils.floor(this.renderer.height / nextSpacingScaled) + 1;
-        divisionNext.parallax.x = this._editorCamera.offsetX % nextSpacingScaled;
-        divisionNext.parallax.y = this._editorCamera.offsetY % nextSpacingScaled;
-
-        // console.log(depth);
-
-        // if (depth < 0.1)
-        //     depth = 0;
-
-        //depth -= 0.2;
-
-        divisionNext.depthAlpha =  MathUtils.clampedLerp(0.0, 0.1, depth) // nextSpacingScaled / currentSpacing;
-       
-
-       
-        draw.context.setTransform(
-            1, 0,
-            0, 1,
-            0.5,
-            0.5
-        );
-
-        draw.color = 'white';
-
-        draw.text("Zoom: " + zoom.toString(), 16,16);
-        
-        let color = 'rgb(255, 255, 255,' +  0.1 + ')'
-        division.render(draw,{x:this.renderer.width, y:this.renderer.height}, color);
-
-        color = 'rgb(255, 255, 255,' +  divisionNext.depthAlpha + ')';
-        divisionNext.render(draw,{x:this.renderer.width, y:this.renderer.height}, color);
-
-       
-
-        //this._renderer.draw();
+        this._guides.render(this.draw, this._view);
 
         for (let i = 0; i < list.length; i++) {
 
@@ -269,53 +186,7 @@ export default class SceneViewEditor {
             renderRect(ctx, list[i], color);
         }
 
-
-        //
-        // const a = (w / h);
-        // const f = a * 100 * this._editorCamera.resolution;//((w / h) * 100 * this._editorCamera.resolution);
-        // //let xg = this._editorCamera.position.x * this._editorCamera.invertedResolution;
-        // //const ofx = (xg + w * 0.5) - xg;
-        // //xg = xg % ofx
-        // const ws = MathUtils.floor(w / f) + 1;
-        // const hs = this._renderer.height / f;
-
-        // const yg = this._editorCamera.position.y % f;
-        // ctx.lineWidth = 0.25;
-
-        // for (let i = 0; i < ws; i++) {
-        //     ctx.beginPath();
-        //     ctx.moveTo((i * f), 0);
-        //     ctx.lineTo((i * f), h);
-
-        //     ctx.stroke();
-
-        // }
-
-        // for (let i = 0; i < hs; i++) {
-        //    ctx.beginPath();
-        //     ctx.moveTo(0, i * f + yg);
-        //     ctx.lineTo(w, i * f + yg);
-        //     ctx.stroke();
-
-        //     ctx.stroke();
-
-        // }
-
-        // const h = this._renderer.height;
-        // const w = this._renderer.width;
-        // ctx.strokeStyle = 'white';
-        // ctx.beginPath();
-        // ctx.moveTo(w * 0.5, 0);
-        // ctx.lineTo(w * 0.5, h);
-        // ctx.stroke();
-
-        // ctx.beginPath();
-        // ctx.moveTo(0, h * 0.5);
-        // ctx.lineTo(w, h * 0.5);
-        // ctx.stroke();
-
-
-        const inv = this._editorCamera.handlesMatrix.a;
+        const inv = this._view.camera.handlesMatrix.a;
 
 
         ctx.setTransform(
@@ -325,7 +196,7 @@ export default class SceneViewEditor {
             inv[7]
         );
 
-        this._handles.render(ctx);
+        this._handles.render(this.draw);
 
         ctx.setTransform(
             1, 0,

@@ -1,73 +1,117 @@
-import MathUtils from "../../../../engine/math/MathUtils";
-import IRenderer from "../../../../engine/renderer/IRenderer";
-import EditorCamera from "../../EditorCamera";
-import Vector2 from "../../../../engine/math/Vector2";
 import { CanvasDrawer } from "../../CanvasDrawer";
+import Grid from "./Grid";
+import View from "../View";
+import EaseInOut from "../../../../engine/math/easing/EaseInOut";
+import MathUtils from "../../../../engine/math/MathUtils";
 
+const BASESPACING = 10000;
 
+function getSpacing(base: number, factor: number): number {
+    const next = base / 10;
+
+    if (factor === base) {
+        return base;
+    }
+
+    if (next <= factor) {
+        return base;
+    } else {
+        return getSpacing(next, factor);
+    }
+}
 
 export default class Guidelines {
 
-    private spacing: number = 1000;
-    private subDivisionSpacing: number;
 
-    private _renderer: IRenderer;
-    private _scaledSpacing: number;
-    private _maxHorizontalLines: number;
-    private _subMax: number;
-    private _horizontalSpacing: number;
-    private _maxVerticalLines: number;
-    private _verticalSpacing: number;
+    private mainGrid: Grid;
+    private subGrid: Grid;
+    private baseSpacing: number;
+    private nextSpacing: number;
+    private oldNextSpacing: number;
+    private oldSpacingFactor: number;
 
-    private _parallax: Vector2;
-    subParallax: number;
-    t: number;
-    origin: Vector2;
-
-    constructor(renderer: IRenderer) {
-        this._renderer = renderer;
-        this._parallax = new Vector2();
+    constructor(view: View) {
+        this.mainGrid = new Grid();
+        this.subGrid = new Grid();
+        this.subGrid.skipNth = 10;
+        const camera = view.camera;
+        const spacingFactor = camera.invertedResolution * 100;
+        this.baseSpacing = getSpacing(BASESPACING, spacingFactor);
+        this.nextSpacing = this.baseSpacing / 10;
+        this.oldNextSpacing = this.baseSpacing;
     }
 
-    private computeLineScale(size: number, spacing: number) {
-        return MathUtils.floor(size / spacing) + 1;
+    update(view: View) {
+
+        const camera = view.camera;
+        //let zoom = MathUtils.round(camera.resolution * 100);
+
+
+
+        const spacingFactor = camera.invertedResolution * 100;
+
+        //console.log(spacingFactor + ' ' + this.oldNextSpacing)
+
+
+
+        // to avoid recursive function
+        if (this.oldSpacingFactor !== spacingFactor) {
+            if (spacingFactor >= BASESPACING) { // reset
+                this.baseSpacing = BASESPACING;
+                this.nextSpacing = BASESPACING / 10;
+            } else {
+
+                //const next = this.baseSpacing / 10;
+                if (this.nextSpacing >= spacingFactor) {
+                    this.oldNextSpacing = this.nextSpacing;
+                    this.baseSpacing = this.nextSpacing;
+                    this.nextSpacing = this.baseSpacing / 10;
+                } else if (this.oldNextSpacing < spacingFactor) {
+                    const base = getSpacing(BASESPACING, spacingFactor);
+                    this.baseSpacing = base;
+                    this.nextSpacing = base / 10;
+                    this.oldNextSpacing  = base;
+                }
+                
+                // }
+
+            }
+
+            const depth = (this.nextSpacing / spacingFactor) - 0.1;
+            //this.mainGrid.setAlpha(depth, true);
+            this.subGrid.setAlpha(depth);
+
+
+        }
+
+        this.oldSpacingFactor = spacingFactor;
+
+        const scaledSpacing = this.baseSpacing * camera.resolution * view.aspectRatio;
+        const nextSpacingScaled = this.nextSpacing * camera.resolution * view.aspectRatio;
+
+        
+        this.mainGrid.spacing = scaledSpacing;
+        this.mainGrid.setMaxLines(view.size);
+        this.subGrid.spacing = nextSpacingScaled;
+        this.subGrid.setMaxLines(view.size);
+        
+        const offsetX = view.camera.offsetX * view.aspectRatio + view.origin.x;
+        const offsetY = view.camera.offsetY * view.aspectRatio + view.origin.y;
+        this.mainGrid.setParallax(offsetX, offsetY);
+        this.subGrid.setParallax(offsetX, offsetY);
+        
+        // measure to skip 10th line for subgrids
+        let skipStartY = MathUtils.floor(this.mainGrid.parallax.y / scaledSpacing * 10);
+        let skipStartX = MathUtils.floor(this.mainGrid.parallax.x / scaledSpacing * 10);
+
+     
+
+        this.subGrid.setSkip(skipStartX, skipStartY);
     }
 
-    update(camera: EditorCamera) {
 
 
-        const spacing = this.spacing * camera.resolution;
-        const subDivisionSpacing = (this.spacing / 2) * camera.resolution;
-
-        this.subDivisionSpacing = subDivisionSpacing;
-        this.t = camera.zoomFactor * subDivisionSpacing / 2 // subDivisionSpacing / camera.invertedResolution;
-        //console.log(this.t)
-
-        this._maxHorizontalLines = this.computeLineScale(this._renderer.width, spacing);
-        this._subMax = this.computeLineScale(this._renderer.width, subDivisionSpacing);
-
-        this.subParallax = camera.offsetX % subDivisionSpacing - 1;
-
-   
-        this._parallax.x = (camera.offsetX % spacing - 1);
-        this._horizontalSpacing = spacing;
-
-        this._maxVerticalLines = this.computeLineScale(this._renderer.height, spacing); //MathUtils.round(this._renderer.height / spacing) + 1;
-        this._parallax.y = camera.offsetY % spacing - 1;
-        this._verticalSpacing = spacing;
-
-        //const halfWidth = w / 2;
-        //const midX = halfWidth * this._editorCamera.resolution;
-        //const maxHorizontalHalfGrids = MathUtils.round((halfWidth / horizontalSpacing));// * this._editorCamera.resolution;
-
-        ////-this._editorCamera.position.x * this._editorCamera.resolution;
-
-        //const halfGridWidth = ((maxHorizontalGrids*horizontalSpacing) / 2);
-        //const gridOffsetX = halfGridWidth % horizontalSpacing-1;
-
-    }
-
-    render(draw: CanvasDrawer) {
+    render(draw: CanvasDrawer, view: View) {
 
         draw.context.setTransform(
             1, 0,
@@ -76,56 +120,11 @@ export default class Guidelines {
             0.5
         );
 
-        draw.outlineColor = 'rgb(255, 255, 255, 0.1)';
+        //let color = 'rgb(255, 255, 255,' + MathUtils.clampedLerp(0.1, 0.0, depth) + ')'
+        this.mainGrid.render(draw, view);
 
-        let total = 0;
-
-        for (let x = 0; x <= this._maxHorizontalLines; x++) {
-            const space = x * this._horizontalSpacing;
-            const xx = MathUtils.round(this._parallax.x + space);
-
-            if (xx > this._renderer.width)
-                break;
-
-            if (x >= this._maxHorizontalLines / 2 && x <= this._maxHorizontalLines / 2) {
-                draw.outlineColor = 'rgb(255, 0, 0, 1)';
-            } else {
-                draw.outlineColor = 'rgb(255, 255, 255, 0.1)';
-
-            }
-
-            draw.line(xx, 0, xx, this._renderer.height);
-            total++;
-        }
-
-        draw.outlineColor = 'rgb(255, 255, 255, 0.15)';
-
-        //console.log(total);
-
-        for (let y = 0; y <= this._maxVerticalLines; y++) {
-            const space = y * this._verticalSpacing;
-            const yy = MathUtils.round(this._parallax.y + space);
-            draw.line(0, yy, this._renderer.width, yy);
-        }
-
-        let alpha = MathUtils.clampedLerp(0, 0.15, 0.5);
-
-        draw.outlineColor = 'rgb(255, 0, 0,' + alpha + ')';
-
-        for (let x = 1; x <= this._subMax; x++) {
-
-
-
-            const space = x * this.subDivisionSpacing;
-            const xx = MathUtils.round(this.subParallax + space);
-            draw.line(xx, 0, xx, this._renderer.height);
-        }
-
-
-
-
+        //color = 'rgb(255, 255, 255,' + this.subGrid.depthAlpha + ')';
+        this.subGrid.render(draw, view);
     }
-
-
 
 }

@@ -5,6 +5,7 @@ import MathUtils from "../../engine/math/MathUtils";
 
 export default class EditorCamera {
 
+
     private _matrix: Matrix3;
     private _position: Vector2;
     //private _lastZoomOffset: IVector2;
@@ -13,19 +14,8 @@ export default class EditorCamera {
 
     //private _viewBounds: Bounds2D;
     private _handlesMatrix: Matrix3;
-    private _maxZoom: number = 10;
-    private _minZoom: number = 0.05;
-    private _zoomDelta: number = 0.0125; // //0.00625;
-    private
-
     private _invertedResolution: number;
-    private _originFactor: number = 0.5;
-    private _origin: Vector2;
 
-
-    _renderer: IRenderer;
-    aspectRatio: number;
-    invAspect: number;
 
     public get resolution(): number {
         return this._resolution;
@@ -48,166 +38,55 @@ export default class EditorCamera {
     }
 
     public get offsetX(): number {
-        return -this._position.x * this._resolution + this.origin.x;
+        return (-this._position.x * this._resolution);
     }
 
     public get offsetY(): number {
-        return -this._position.y * this._resolution + this.origin.y;
+        return (-this._position.y * this._resolution);
     }
 
-    public get zoomFactor(): number {
-        return (this._resolution - this._minZoom) / (this._maxZoom - this._minZoom);
-    }
 
-    public get origin(): Vector2 {
-        return this._origin;
-    }
 
-    constructor(renderer: IRenderer) {
-        this._renderer = renderer;
+    constructor(resolution: number) {
+
         this._position = new Vector2(0, 0);
         this._oldPosition = new Vector2();
-        this._origin = new Vector2();
 
         this._matrix = Matrix3.identity();
         this._handlesMatrix = Matrix3.identity();
-        this._resolution = 1;
-        this._invertedResolution = 1 / this._resolution;
-
-        //this._viewBounds = new Bounds2D();
-        this.resize();
-        this.updateTransform();
+        this.setResolution(resolution);
     }
 
-    zoom(delta: number, zoomPoint: IVector2) {
-        let res = this._resolution;
-        const scaleDelta = delta * this._zoomDelta;
-        res = res + scaleDelta;
-
-        if (res > this._maxZoom) {
-            res = this._maxZoom;
-        } else if (res < this._minZoom) {
-            res = this._minZoom;
-        }
-
-
-        // determine the point on where the slide is zoomed in
-        let zoom_target = { x: 0, y: 0 };
-        zoom_target.x = (zoomPoint.x - this._position.x) / this._resolution;
-        zoom_target.y = (zoomPoint.y - this._position.y) / this._resolution;
-
-
-
-        // calculate x and y based on zoom
-        //this._position.x = -zoom_target.x * res + zoomPoint.x
-        //this._position.x = -zoom_target.y * res + zoomPoint.y
-        //this._position.x -= originX * this._invertedResolution;
-        //this._position.x -= originY * this._invertedResolution
-
-        //this._position.x -= zoomPoint.x/(this._resolution*res) - zoomPoint.x/this._resolution;
-        //this._position.y -= zoomPoint.y/(this._resolution*res) - zoomPoint.y/this._resolution;
-
-
-        // const offsetX = -(zoomPoint.x * scaleChange) / this._resolution;
-        // const offsetY = -(zoomPoint.y * scaleChange) / this._resolution;
-
-        // this._position.x += offsetX;
-        // this._position.y += offsetY;
-
-
-        zoomPoint.x -= this.origin.x;
-        zoomPoint.y -= this.origin.y;
-
-        this._position.x -= (zoomPoint.x / res) - (zoomPoint.x / this._resolution);
-        this._position.y -= (zoomPoint.y / res) - (zoomPoint.y / this._resolution);
-
-        // apply zoom
-        this._resolution = res;
-        this._invertedResolution = 1 / res;
-
-
-
+    setPosition(position: IVector2): void {
+        this._position.x = position.x;
+        this._position.y = position.y;
     }
 
-    prepareMove() {
-        this._oldPosition.copy(this._position);
+    setResolution(newResolution: number): void {
+        this._resolution = newResolution;
+        this._invertedResolution = 1 / newResolution;
     }
 
-    move(position: IVector2) {
-        this._position.x = this._oldPosition.x - (position.x * this._invertedResolution);
-        this._position.y = this._oldPosition.y - (position.y * this._invertedResolution);
-        //this._lastZoomOffset.x = position.x;
-        //this._lastZoomOffset.y = position.y;
-    }
-
-    setPosition(position: IVector2) {
-        this._position.x = position.x * this._resolution;
-        this._position.y = position.y * this._resolution;
-    }
-
-    resize() {
-        const originX = this._renderer.width * this._originFactor;
-        const originY = this._renderer.height * this._originFactor;
-        this._origin.x = originX;
-        this._origin.y = originY;
-    }
-
-    updateTransform() {
-
-        this.aspectRatio = this._renderer.width / this._renderer.height;
-
-
-        const a = 1 / this.aspectRatio;
-        this.invAspect = a;
-
+    updateTransform(origin: IVector2, aspectRatio: number, invAspectRatio: number): void {
 
         this._matrix.setIdentity()
-            //.translate(this._position.x, this._position.y) // translate
             // center the view port to origin
-            //
-
-
-
             .translate(
-                this.origin.x * this.invertedResolution * a,
-                this.origin.y * this.invertedResolution * a)
-            .translate(-this._position.x * a, -this._position.y * a)
+                origin.x * this.invertedResolution * invAspectRatio,
+                origin.y * this.invertedResolution * invAspectRatio)
+            .translate(-this._position.x, -this._position.y)
             .scale(this._resolution, this._resolution)
-            .scale(this.aspectRatio, this.aspectRatio)
+            .scale(aspectRatio, aspectRatio)
 
-
-
-        //.translate(-originX * this._invertedResolution, -originY * this._invertedResolution)
+        const correction = this.resolution * aspectRatio;
 
         this._handlesMatrix.setIdentity()
-
-        //.scale(this.aspectRatio, this.aspectRatio)
             .translate(
-                MathUtils.round(this.origin.x),
-                MathUtils.round(this.origin.y))
+                MathUtils.round(origin.x),
+                MathUtils.round(origin.y))
             .translate(
-                MathUtils.round(-this._position.x * this._resolution) + 0.5,
-                MathUtils.round(-this._position.y * this._resolution) + 0.5)
-          //      .scale(a, a)
-            
-            
-
-
-
-        // this._matrix.setIdentity()
-        // .translate(-this._position.x, -this._position.y)
-        //     .scale(this._resolution, this._resolution)
-        //     .translate(-this._position.x, -this._position.y)
-
-        // this._handlesMatrix.setIdentity()
-        //     .translate(
-        //         this._position.x * this._resolution,
-        //         this._position.y * this._resolution)
-        //     .translate(originX, originY)
-
-        //.translate(this._position.x, this._position.y)
-        //.translate(originX * this._invertedResolution, originY * this._invertedResolution)
-
+                MathUtils.round(-this._position.x * correction) + 0.5,
+                MathUtils.round(-this._position.y * correction) + 0.5)
 
     }
 

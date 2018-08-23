@@ -23920,7 +23920,7 @@ exports = module.exports = __webpack_require__(/*! ../../node_modules/css-loader
 
 
 // module
-exports.push([module.i, "body {\r\n  margin: 0;\r\n  padding: 0;\r\n  font-family: sans-serif;\r\n  overflow: hidden;\r\n  background: #000;\r\n}\r\n\r\n", ""]);
+exports.push([module.i, "body {\n  margin: 0;\n  padding: 0;\n  font-family: sans-serif;\n  overflow: hidden;\n  background: #000;\n}\n\n", ""]);
 
 // exports
 
@@ -23939,7 +23939,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, ".App {\r\n\r\n}\r\n\r\n.App-logo {\r\n  animation: App-logo-spin infinite 20s linear;\r\n  height: 80px;\r\n}\r\n\r\n.App-header {\r\n  background-color: #222;\r\n  height: 150px;\r\n  padding: 20px;\r\n  color: white;\r\n}\r\n\r\n.App-title {\r\n  font-size: 1.5em;\r\n}\r\n\r\n.App-intro {\r\n  font-size: large;\r\n}\r\n\r\n@keyframes App-logo-spin {\r\n  from { transform: rotate(0deg); }\r\n  to { transform: rotate(360deg); }\r\n}\r\n\r\n.build {\r\n  width: 200px;\r\n  height: 24px;\r\n}", ""]);
+exports.push([module.i, ".App {\n\n}\n\n.App-logo {\n  animation: App-logo-spin infinite 20s linear;\n  height: 80px;\n}\n\n.App-header {\n  background-color: #222;\n  height: 150px;\n  padding: 20px;\n  color: white;\n}\n\n.App-title {\n  font-size: 1.5em;\n}\n\n.App-intro {\n  font-size: large;\n}\n\n@keyframes App-logo-spin {\n  from { transform: rotate(0deg); }\n  to { transform: rotate(360deg); }\n}\n\n.build {\n  width: 200px;\n  height: 24px;\n}", ""]);
 
 // exports
 
@@ -47641,6 +47641,67 @@ exports.default = Checkbox;
 
 /***/ }),
 
+/***/ "./src/renderer/components/Foldout.tsx":
+/*!*********************************************!*\
+  !*** ./src/renderer/components/Foldout.tsx ***!
+  \*********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+var style = {
+    overflow: 'hidden'
+};
+var headerStyle = {
+    height: '20px',
+    padding: '3px 0',
+    color: '#aaa',
+    verticalAlign: 'middle',
+    marginBottom: '3px',
+    fontWeight: 'bold'
+};
+var Foldout = /** @class */ (function (_super) {
+    __extends(Foldout, _super);
+    function Foldout() {
+        var _this = _super !== null && _super.apply(this, arguments) || this;
+        _this.state = {
+            enable: true
+        };
+        _this.onHeaderClick = function () {
+            var trigger = !_this.state.enable;
+            _this.setState({ enable: trigger });
+        };
+        return _this;
+    }
+    Foldout.prototype.render = function () {
+        /*9658	25BA	 9654*/
+        var label = this.props.label;
+        return (React.createElement("div", { className: 'foldout' },
+            React.createElement("div", { className: 'foldout-header', onClick: this.onHeaderClick, style: headerStyle },
+                React.createElement("span", { style: { marginRight: '20px' } }, "\u25B6"),
+                React.createElement("label", null, label)),
+            React.createElement("div", { className: 'foldout-content' + ((this.state.enable) ? ' enable' : ''), style: style }, this.props.children)));
+    };
+    return Foldout;
+}(React.Component));
+exports.default = Foldout;
+
+
+/***/ }),
+
 /***/ "./src/renderer/components/StatusBar.tsx":
 /*!***********************************************!*\
   !*** ./src/renderer/components/StatusBar.tsx ***!
@@ -51385,7 +51446,7 @@ var CanvasDrawer = /** @class */ (function () {
         this._outlineWidth = 0;
         this._fillStyle = 'white';
         this._strokeStyle = 'white';
-        this._canvasRenderer = canvasRenderer;
+        this._alpha = 1;
         this._ctx = canvasRenderer.context;
     }
     Object.defineProperty(CanvasDrawer.prototype, "context", {
@@ -51413,6 +51474,16 @@ var CanvasDrawer = /** @class */ (function () {
         enumerable: true,
         configurable: true
     });
+    Object.defineProperty(CanvasDrawer.prototype, "alpha", {
+        set: function (value) {
+            if (this._ctx.globalAlpha !== value) {
+                this.context.globalAlpha = value;
+                this._alpha = this.context.globalAlpha;
+            }
+        },
+        enumerable: true,
+        configurable: true
+    });
     CanvasDrawer.prototype.text = function (text, x, y) {
         this._ctx.fillText(text, x, y);
     };
@@ -51421,6 +51492,16 @@ var CanvasDrawer = /** @class */ (function () {
         this._ctx.moveTo(fromX, fromY);
         this._ctx.lineTo(toX, toY);
         this._ctx.stroke();
+    };
+    CanvasDrawer.prototype.triangle = function (x, y, halfHeight, width) {
+        var ctx = this.context;
+        ctx.beginPath();
+        ctx.moveTo(x, y - halfHeight);
+        ctx.lineTo(x, y + halfHeight);
+        ctx.lineTo(x + width, y);
+        //ctx.strokeStyle = 'none';
+        //ctx.fillStyle = color;
+        ctx.fill();
     };
     CanvasDrawer.prototype.rect = function (x, y, width, height, color) {
         if (!color) {
@@ -51467,22 +51548,12 @@ var Matrix3_1 = __webpack_require__(/*! ../../engine/math/Matrix3 */ "./src/rend
 var Vector2_1 = __webpack_require__(/*! ../../engine/math/Vector2 */ "./src/renderer/engine/math/Vector2.ts");
 var MathUtils_1 = __webpack_require__(/*! ../../engine/math/MathUtils */ "./src/renderer/engine/math/MathUtils.ts");
 var EditorCamera = /** @class */ (function () {
-    function EditorCamera(renderer) {
-        this._maxZoom = 10;
-        this._minZoom = 0.05;
-        this._zoomDelta = 0.0125; // //0.00625;
-        this._originFactor = 0.5;
-        this._renderer = renderer;
+    function EditorCamera(resolution) {
         this._position = new Vector2_1.default(0, 0);
         this._oldPosition = new Vector2_1.default();
-        this._origin = new Vector2_1.default();
         this._matrix = Matrix3_1.default.identity();
         this._handlesMatrix = Matrix3_1.default.identity();
-        this._resolution = 1;
-        this._invertedResolution = 1 / this._resolution;
-        //this._viewBounds = new Bounds2D();
-        this.resize();
-        this.updateTransform();
+        this.setResolution(resolution);
     }
     Object.defineProperty(EditorCamera.prototype, "resolution", {
         get: function () {
@@ -51521,113 +51592,37 @@ var EditorCamera = /** @class */ (function () {
     });
     Object.defineProperty(EditorCamera.prototype, "offsetX", {
         get: function () {
-            return -this._position.x * this._resolution + this.origin.x;
+            return (-this._position.x * this._resolution);
         },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(EditorCamera.prototype, "offsetY", {
         get: function () {
-            return -this._position.y * this._resolution + this.origin.y;
+            return (-this._position.y * this._resolution);
         },
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(EditorCamera.prototype, "zoomFactor", {
-        get: function () {
-            return (this._resolution - this._minZoom) / (this._maxZoom - this._minZoom);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(EditorCamera.prototype, "origin", {
-        get: function () {
-            return this._origin;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    EditorCamera.prototype.zoom = function (delta, zoomPoint) {
-        var res = this._resolution;
-        var scaleDelta = delta * this._zoomDelta;
-        res = res + scaleDelta;
-        if (res > this._maxZoom) {
-            res = this._maxZoom;
-        }
-        else if (res < this._minZoom) {
-            res = this._minZoom;
-        }
-        // determine the point on where the slide is zoomed in
-        var zoom_target = { x: 0, y: 0 };
-        zoom_target.x = (zoomPoint.x - this._position.x) / this._resolution;
-        zoom_target.y = (zoomPoint.y - this._position.y) / this._resolution;
-        // calculate x and y based on zoom
-        //this._position.x = -zoom_target.x * res + zoomPoint.x
-        //this._position.x = -zoom_target.y * res + zoomPoint.y
-        //this._position.x -= originX * this._invertedResolution;
-        //this._position.x -= originY * this._invertedResolution
-        //this._position.x -= zoomPoint.x/(this._resolution*res) - zoomPoint.x/this._resolution;
-        //this._position.y -= zoomPoint.y/(this._resolution*res) - zoomPoint.y/this._resolution;
-        // const offsetX = -(zoomPoint.x * scaleChange) / this._resolution;
-        // const offsetY = -(zoomPoint.y * scaleChange) / this._resolution;
-        // this._position.x += offsetX;
-        // this._position.y += offsetY;
-        zoomPoint.x -= this.origin.x;
-        zoomPoint.y -= this.origin.y;
-        this._position.x -= (zoomPoint.x / res) - (zoomPoint.x / this._resolution);
-        this._position.y -= (zoomPoint.y / res) - (zoomPoint.y / this._resolution);
-        // apply zoom
-        this._resolution = res;
-        this._invertedResolution = 1 / res;
-    };
-    EditorCamera.prototype.prepareMove = function () {
-        this._oldPosition.copy(this._position);
-    };
-    EditorCamera.prototype.move = function (position) {
-        this._position.x = this._oldPosition.x - (position.x * this._invertedResolution);
-        this._position.y = this._oldPosition.y - (position.y * this._invertedResolution);
-        //this._lastZoomOffset.x = position.x;
-        //this._lastZoomOffset.y = position.y;
-    };
     EditorCamera.prototype.setPosition = function (position) {
-        this._position.x = position.x * this._resolution;
-        this._position.y = position.y * this._resolution;
+        this._position.x = position.x;
+        this._position.y = position.y;
     };
-    EditorCamera.prototype.resize = function () {
-        var originX = this._renderer.width * this._originFactor;
-        var originY = this._renderer.height * this._originFactor;
-        this._origin.x = originX;
-        this._origin.y = originY;
+    EditorCamera.prototype.setResolution = function (newResolution) {
+        this._resolution = newResolution;
+        this._invertedResolution = 1 / newResolution;
     };
-    EditorCamera.prototype.updateTransform = function () {
-        this.aspectRatio = this._renderer.width / this._renderer.height;
-        var a = 1 / this.aspectRatio;
-        this.invAspect = a;
+    EditorCamera.prototype.updateTransform = function (origin, aspectRatio, invAspectRatio) {
         this._matrix.setIdentity()
-            //.translate(this._position.x, this._position.y) // translate
             // center the view port to origin
-            //
-            .translate(this.origin.x * this.invertedResolution * a, this.origin.y * this.invertedResolution * a)
-            .translate(-this._position.x * a, -this._position.y * a)
+            .translate(origin.x * this.invertedResolution * invAspectRatio, origin.y * this.invertedResolution * invAspectRatio)
+            .translate(-this._position.x, -this._position.y)
             .scale(this._resolution, this._resolution)
-            .scale(this.aspectRatio, this.aspectRatio);
-        //.translate(-originX * this._invertedResolution, -originY * this._invertedResolution)
+            .scale(aspectRatio, aspectRatio);
+        var correction = this.resolution * aspectRatio;
         this._handlesMatrix.setIdentity()
-            //.scale(this.aspectRatio, this.aspectRatio)
-            .translate(MathUtils_1.default.round(this.origin.x), MathUtils_1.default.round(this.origin.y))
-            .translate(MathUtils_1.default.round(-this._position.x * this._resolution) + 0.5, MathUtils_1.default.round(-this._position.y * this._resolution) + 0.5);
-        //      .scale(a, a)
-        // this._matrix.setIdentity()
-        // .translate(-this._position.x, -this._position.y)
-        //     .scale(this._resolution, this._resolution)
-        //     .translate(-this._position.x, -this._position.y)
-        // this._handlesMatrix.setIdentity()
-        //     .translate(
-        //         this._position.x * this._resolution,
-        //         this._position.y * this._resolution)
-        //     .translate(originX, originY)
-        //.translate(this._position.x, this._position.y)
-        //.translate(originX * this._invertedResolution, originY * this._invertedResolution)
+            .translate(MathUtils_1.default.round(origin.x), MathUtils_1.default.round(origin.y))
+            .translate(MathUtils_1.default.round(-this._position.x * correction) + 0.5, MathUtils_1.default.round(-this._position.y * correction) + 0.5);
     };
     EditorCamera.prototype.screenPointToWorld = function (x, y) {
         var result = new Vector2_1.default(x, y);
@@ -51674,33 +51669,42 @@ var Vector2_1 = __webpack_require__(/*! ../../engine/math/Vector2 */ "./src/rend
 var MathUtils_1 = __webpack_require__(/*! ../../engine/math/MathUtils */ "./src/renderer/engine/math/MathUtils.ts");
 var POSITION_HANDLE_SIZE = 80;
 var HANDLE_DIR_WIDTH = 16;
-var HANDLE_DIR_HEIGHT = 8;
-function drawHandle(ctx, x, y, angle) {
+var HANDLE_DIR_HEIGHT = 6;
+function drawHandle(draw, x, y, angle, color) {
     var r = angle * MathUtils_1.default.degtorad;
-    ctx.save();
-    ctx.translate(MathUtils_1.default.round(x), MathUtils_1.default.round(y));
-    ctx.rotate(r);
-    ctx.beginPath();
-    ctx.moveTo(0, 0);
-    ctx.lineTo(POSITION_HANDLE_SIZE, 0);
-    ctx.lineCap = 'square';
-    ctx.lineWidth = 1;
-    ctx.strokeStyle = 'white';
-    ctx.stroke();
-    ctx.beginPath();
-    ctx.moveTo(POSITION_HANDLE_SIZE, -HANDLE_DIR_HEIGHT);
-    ctx.lineTo(POSITION_HANDLE_SIZE, HANDLE_DIR_HEIGHT);
-    ctx.lineTo(POSITION_HANDLE_SIZE + HANDLE_DIR_WIDTH, 0);
-    ctx.strokeStyle = 'none';
-    ctx.fillStyle = 'white';
-    ctx.fill();
-    ctx.restore();
+    draw.context.save();
+    draw.context.translate(x, y);
+    draw.context.rotate(r);
+    // line
+    draw.outlineColor = color;
+    draw.color = color;
+    draw.line(0, 0, POSITION_HANDLE_SIZE, 0);
+    // ctx.beginPath();
+    // ctx.moveTo(0, 0);
+    // ctx.lineTo(POSITION_HANDLE_SIZE, 0);
+    // ctx.lineCap = 'square';
+    // ctx.lineWidth = 1;
+    // ctx.strokeStyle = color;
+    // ctx.stroke();
+    // arrow
+    draw.triangle(POSITION_HANDLE_SIZE, 0, HANDLE_DIR_HEIGHT, HANDLE_DIR_WIDTH);
+    // ctx.beginPath();
+    // ctx.moveTo(POSITION_HANDLE_SIZE, -HANDLE_DIR_HEIGHT);
+    // ctx.lineTo(POSITION_HANDLE_SIZE, HANDLE_DIR_HEIGHT);
+    // ctx.lineTo(POSITION_HANDLE_SIZE + HANDLE_DIR_WIDTH, 0);
+    // ctx.strokeStyle = 'none';
+    // ctx.fillStyle = color;
+    // ctx.fill();
+    draw.context.restore();
 }
+var redColor = '#ca403a';
+var blueColor = '#3a77ca';
+var greenColor = '#3aca49';
 var EditorHandles = /** @class */ (function () {
-    function EditorHandles(editorCamera) {
+    function EditorHandles(view) {
         this._position = new Vector2_1.default();
         this._selectedEntity = null;
-        this._editorCamera = editorCamera;
+        this._view = view;
     }
     EditorHandles.prototype.setSelectEntity = function (entity) {
         this._selectedEntity = entity;
@@ -51710,17 +51714,25 @@ var EditorHandles = /** @class */ (function () {
     };
     EditorHandles.prototype.selectEntityInArea = function (rect) {
     };
-    EditorHandles.prototype.render = function (ctx) {
+    EditorHandles.prototype.render = function (draw) {
         if (this._selectedEntity !== null) {
             //const lw = 80; // 73
             //const th = 16; // 12
             //const tw = 24; // 17
             //const x = (this._position.x + 50) * this._editorCamera.resolution;// * this._editorCamera.aspectRatio;
             //const y = (this._position.y + 50) * this._editorCamera.resolution;//  * this._editorCamera.aspectRatio;
-            var x = (this._position.x + 50) * this._editorCamera.resolution * this._editorCamera.aspectRatio;
-            var y = (this._position.y + 50) * this._editorCamera.resolution;
-            drawHandle(ctx, x, y, 0);
-            drawHandle(ctx, x, y, 270);
+            var correction = this._view.camera.resolution * this._view.aspectRatio;
+            //const ox =  50 * correction;
+            //const oy =  50 * correction);
+            var x = Math.round(this._position.x * correction);
+            var y = Math.round(this._position.y * correction);
+            // free move rectangle
+            draw.outlineRect(x, y - 20, 20, 20, greenColor, 1);
+            draw.alpha = 0.1;
+            draw.rect(x, y - 20, 20, 20, greenColor);
+            draw.alpha = 1;
+            drawHandle(draw, x, y, 270, redColor);
+            drawHandle(draw, x, y, 0, blueColor);
         }
     };
     return EditorHandles;
@@ -51742,14 +51754,14 @@ exports.default = EditorHandles;
 Object.defineProperty(exports, "__esModule", { value: true });
 var MathUtils_1 = __webpack_require__(/*! ../../../engine/math/MathUtils */ "./src/renderer/engine/math/MathUtils.ts");
 var Rect_1 = __webpack_require__(/*! ../../../engine/math/Rect */ "./src/renderer/engine/math/Rect.ts");
-var SceneViewInputData = /** @class */ (function () {
-    function SceneViewInputData(canvas) {
+var CursorTransform = /** @class */ (function () {
+    function CursorTransform(canvas) {
         this.canvas = canvas;
         this.clientRect = new Rect_1.default();
         this.boundingClientRect = null;
         this.updateClientRect();
     }
-    SceneViewInputData.prototype.updateClientRect = function () {
+    CursorTransform.prototype.updateClientRect = function () {
         var rect = this.clientRect;
         var clientRect = this.canvas.getBoundingClientRect();
         this.boundingClientRect = clientRect;
@@ -51758,38 +51770,203 @@ var SceneViewInputData = /** @class */ (function () {
         rect.width = clientRect.width;
         rect.height = clientRect.height;
     };
-    SceneViewInputData.prototype.transform = function (position) {
+    CursorTransform.prototype.transform = function (position) {
         var rect = this.boundingClientRect;
         var pos = { x: 0, y: 0 };
         pos.x = MathUtils_1.default.floor((position.x - rect.left) / (rect.right - rect.left) * this.canvas.width);
         pos.y = MathUtils_1.default.floor((position.y - rect.top) / (rect.bottom - rect.top) * this.canvas.height);
         return pos;
     };
-    SceneViewInputData.prototype.transformX = function (x) {
+    CursorTransform.prototype.transformX = function (x) {
         var rect = this.boundingClientRect;
         return MathUtils_1.default.floor((x - rect.left) / (rect.right - rect.left) * this.canvas.width);
     };
-    SceneViewInputData.prototype.transformY = function (y) {
+    CursorTransform.prototype.transformY = function (y) {
         var rect = this.boundingClientRect;
         return MathUtils_1.default.floor((y - rect.top) / (rect.bottom - rect.top) * this.canvas.height);
     };
-    SceneViewInputData.prototype.normTransformX = function (x) {
+    CursorTransform.prototype.normTransformX = function (x) {
         var rect = this.boundingClientRect;
         return (x - rect.left) / (rect.right - rect.left);
     };
-    SceneViewInputData.prototype.normTransformY = function (y) {
+    CursorTransform.prototype.normTransformY = function (y) {
         var rect = this.boundingClientRect;
         return (y - rect.top) / (rect.bottom - rect.top);
     };
-    SceneViewInputData.prototype.clientRectTransformX = function (x) {
+    CursorTransform.prototype.clientRectTransformX = function (x) {
         return (x - this.clientRect.x) * this.scale.x;
     };
-    SceneViewInputData.prototype.clientRectTransformY = function (y) {
+    CursorTransform.prototype.clientRectTransformY = function (y) {
         return (y - this.clientRect.y) * this.scale.y;
     };
-    return SceneViewInputData;
+    return CursorTransform;
 }());
-exports.default = SceneViewInputData;
+exports.default = CursorTransform;
+
+
+/***/ }),
+
+/***/ "./src/renderer/internal/editor/sceneView/SceneView.ts":
+/*!*************************************************************!*\
+  !*** ./src/renderer/internal/editor/sceneView/SceneView.ts ***!
+  \*************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var SceneViewInput_1 = __webpack_require__(/*! ./SceneViewInput */ "./src/renderer/internal/editor/sceneView/SceneViewInput.ts");
+var EventEmitter_1 = __webpack_require__(/*! ../../../engine/events/emitter/EventEmitter */ "./src/renderer/engine/events/emitter/EventEmitter.ts");
+var SceneViewCursor_1 = __webpack_require__(/*! ./SceneViewCursor */ "./src/renderer/internal/editor/sceneView/SceneViewCursor.ts");
+var EntityTest_1 = __webpack_require__(/*! ../../../engine/entity/EntityTest */ "./src/renderer/engine/entity/EntityTest.ts");
+var compute_1 = __webpack_require__(/*! ../../../engine/math/transform/compute */ "./src/renderer/engine/math/transform/compute.ts");
+var Bounds2D_1 = __webpack_require__(/*! ../../../engine/math/bounds/Bounds2D */ "./src/renderer/engine/math/bounds/Bounds2D.ts");
+var EditorHandles_1 = __webpack_require__(/*! ../EditorHandles */ "./src/renderer/internal/editor/EditorHandles.ts");
+var CanvasDrawer_1 = __webpack_require__(/*! ../CanvasDrawer */ "./src/renderer/internal/editor/CanvasDrawer.ts");
+var Guidelines_1 = __webpack_require__(/*! ./guidelines/Guidelines */ "./src/renderer/internal/editor/sceneView/guidelines/Guidelines.ts");
+var View_1 = __webpack_require__(/*! ./View */ "./src/renderer/internal/editor/sceneView/View.ts");
+var list = [];
+function renderRect(context, entity, color) {
+    if (color === void 0) { color = 'blue'; }
+    var m = entity.transform.matrix;
+    context.setTransform(m.a[0], m.a[1], // 2
+    m.a[3], m.a[4], // 5
+    m.a[6], m.a[7]);
+    /* if (rectangle.outlineWidth > 0) {
+         context.lineWidth = rectangle.outlineWidth;
+         context.strokeStyle = rectangle.outlineColor;
+         context.strokeRect(0, 0, rectangle.width, rectangle.height);
+     }*/
+    context.fillStyle = color;
+    context.fillRect(0, 0, 100, 100);
+}
+function createEntities() {
+    var e = new EntityTest_1.default('My Object');
+    e.transform.position.x = -50;
+    e.transform.position.y = -50;
+    list.push(e);
+    e = new EntityTest_1.default('My Object');
+    e.transform.position.x = 1000 + -50;
+    e.transform.position.y = -50;
+    list.push(e);
+    e = new EntityTest_1.default('My Object');
+    e.transform.position.x = 100;
+    e.transform.position.y = -50;
+    list.push(e);
+    // for (let i = 0; i < 10; i++) {
+    //     const x = Random.irange(-500, 500);
+    //     const y = Random.irange(-500, 500);
+    //     let e = new EntityTest('My Object');
+    //     e.transform.position.x = x;
+    //     e.transform.position.y = y;
+    //     list.push(e);
+    // }
+}
+var SceneView = /** @class */ (function () {
+    function SceneView(renderer) {
+        this._renderer = renderer;
+        this._emitter = new EventEmitter_1.default();
+        this._view = new View_1.default();
+        this._editorInput = new SceneViewInput_1.default(this._renderer.canvas, this._emitter);
+        this._handles = new EditorHandles_1.default(this._view);
+        this.draw = new CanvasDrawer_1.CanvasDrawer(renderer);
+        this._guides = new Guidelines_1.default(this._view);
+        createEntities();
+    }
+    SceneView.prototype.init = function () {
+        var _this = this;
+        this._emitter.on('zoom', function (delta, zoomPoint) {
+            _this._view.zoom(delta, zoomPoint);
+            //this._editorCamera.setPosition(cursorPosition);
+            _this.update();
+            _this.render();
+        }, this);
+        this._emitter.on('move', function (cursorPosition) {
+            _this._view.move(cursorPosition);
+            //this._editorCamera.setPosition(cursorPosition);
+            _this.update();
+            _this.render();
+        }, this);
+        this._emitter.on('prepareViewMove', function () {
+            _this._view.prepareMove();
+        }, this);
+        this._emitter.on('selection', function (area) {
+            _this._selectionArea = area;
+            _this.render();
+        }, this);
+        this._emitter.on('select', function (cursorPosition) {
+            for (var i = 0; i < list.length; i++) {
+                var b = new Bounds2D_1.default();
+                compute_1.computeBounds2D(b, list[i].transform.matrix, 100, 100, { x: 0, y: 0 });
+                if (b.contains(cursorPosition.x, cursorPosition.y)) {
+                    _this._handles.setSelectEntity(list[i]);
+                    break;
+                }
+            }
+        }, this);
+        this._emitter.on('redraw', function () {
+            _this.render();
+        });
+        this._editorInput.init();
+        this.update();
+    };
+    Object.defineProperty(SceneView.prototype, "renderer", {
+        get: function () {
+            return this._renderer;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    SceneView.prototype.resize = function (width, height) {
+        this._renderer.resize(width, height);
+        this._editorInput.resize();
+        this._view.resize(width, height);
+        this.update();
+        this.render();
+    };
+    SceneView.prototype.update = function () {
+        this._view.updateTransform();
+        this._guides.update(this._view);
+        for (var i = 0; i < list.length; i++) {
+            compute_1.computeTransform2D(list[i].transform);
+            list[i].transform.matrix.concat(this._view.camera.matrix);
+        }
+    };
+    SceneView.prototype.render = function () {
+        var ctx = this._renderer.context;
+        // scene
+        this._renderer.beginDraw();
+        this._guides.render(this.draw, this._view);
+        for (var i = 0; i < list.length; i++) {
+            var color = 'blue';
+            renderRect(ctx, list[i], color);
+        }
+        var inv = this._view.camera.handlesMatrix.a;
+        ctx.setTransform(inv[0], inv[1], inv[3], inv[4], inv[6], inv[7]);
+        this._handles.render(this.draw);
+        ctx.setTransform(1, 0, 0, 1, 0.5, 0.5);
+        if (this._editorInput.cursor.mode === SceneViewCursor_1.CursorMode.Selection) {
+            if (this._selectionArea.xMax > this._renderer.width) {
+                this._selectionArea.xMax = this._renderer.width - 1;
+            }
+            else if (this._selectionArea.xMax < 0) {
+                this._selectionArea.xMax = 0;
+            }
+            if (this._selectionArea.yMax > this._renderer.height) {
+                this._selectionArea.yMax = this._renderer.height - 1;
+            }
+            else if (this._selectionArea.yMax < 0) {
+                this._selectionArea.yMax = 0;
+            }
+            this.draw.rect(this._selectionArea.x, this._selectionArea.y, this._selectionArea.width, this._selectionArea.height, 'rgba(33, 69, 128, 0.2)');
+            this.draw.outlineRect(this._selectionArea.x, this._selectionArea.y, this._selectionArea.width, this._selectionArea.height, 'rgb(33, 69, 128)', 1);
+        }
+        this._renderer.endDraw();
+    };
+    return SceneView;
+}());
+exports.default = SceneView;
 
 
 /***/ }),
@@ -51863,8 +52040,10 @@ var SceneViewCursor = /** @class */ (function () {
     SceneViewCursor.prototype.init = function () {
         var _this = this;
         var wheelEventName = getMouseWheelEvent();
+        console.log(wheelEventName);
         var config = {
-            passive: false
+            passive: false,
+            capture: false
         };
         this.target.addEventListener(wheelEventName, function (event) {
             event.preventDefault();
@@ -51939,263 +52118,6 @@ exports.default = SceneViewCursor;
 
 /***/ }),
 
-/***/ "./src/renderer/internal/editor/sceneView/SceneViewEditor.ts":
-/*!*******************************************************************!*\
-  !*** ./src/renderer/internal/editor/sceneView/SceneViewEditor.ts ***!
-  \*******************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var EditorCamera_1 = __webpack_require__(/*! ../EditorCamera */ "./src/renderer/internal/editor/EditorCamera.ts");
-var SceneViewInput_1 = __webpack_require__(/*! ./SceneViewInput */ "./src/renderer/internal/editor/sceneView/SceneViewInput.ts");
-var EventEmitter_1 = __webpack_require__(/*! ../../../engine/events/emitter/EventEmitter */ "./src/renderer/engine/events/emitter/EventEmitter.ts");
-var SceneViewCursor_1 = __webpack_require__(/*! ./SceneViewCursor */ "./src/renderer/internal/editor/sceneView/SceneViewCursor.ts");
-var EntityTest_1 = __webpack_require__(/*! ../../../engine/entity/EntityTest */ "./src/renderer/engine/entity/EntityTest.ts");
-var compute_1 = __webpack_require__(/*! ../../../engine/math/transform/compute */ "./src/renderer/engine/math/transform/compute.ts");
-var Bounds2D_1 = __webpack_require__(/*! ../../../engine/math/bounds/Bounds2D */ "./src/renderer/engine/math/bounds/Bounds2D.ts");
-var EditorHandles_1 = __webpack_require__(/*! ../EditorHandles */ "./src/renderer/internal/editor/EditorHandles.ts");
-var MathUtils_1 = __webpack_require__(/*! ../../../engine/math/MathUtils */ "./src/renderer/engine/math/MathUtils.ts");
-var CanvasDrawer_1 = __webpack_require__(/*! ../CanvasDrawer */ "./src/renderer/internal/editor/CanvasDrawer.ts");
-var Guidelines_1 = __webpack_require__(/*! ./guidelines/Guidelines */ "./src/renderer/internal/editor/sceneView/guidelines/Guidelines.ts");
-var LineDivision_1 = __webpack_require__(/*! ./guidelines/LineDivision */ "./src/renderer/internal/editor/sceneView/guidelines/LineDivision.ts");
-var list = [];
-function renderRect(context, entity, color) {
-    if (color === void 0) { color = 'blue'; }
-    var m = entity.transform.matrix;
-    context.setTransform(m.a[0], m.a[1], // 2
-    m.a[3], m.a[4], // 5
-    m.a[6], m.a[7]);
-    /* if (rectangle.outlineWidth > 0) {
-         context.lineWidth = rectangle.outlineWidth;
-         context.strokeStyle = rectangle.outlineColor;
-         context.strokeRect(0, 0, rectangle.width, rectangle.height);
-     }*/
-    context.fillStyle = color;
-    context.fillRect(0, 0, 100, 100);
-}
-function createEntities() {
-    var e = new EntityTest_1.default('My Object');
-    e.transform.position.x = -50;
-    e.transform.position.y = -50;
-    list.push(e);
-    e = new EntityTest_1.default('My Object');
-    e.transform.position.x = 1000 + -50;
-    e.transform.position.y = -50;
-    list.push(e);
-    e = new EntityTest_1.default('My Object');
-    e.transform.position.x = 100;
-    e.transform.position.y = -50;
-    list.push(e);
-    // for (let i = 0; i < 10; i++) {
-    //     const x = Random.irange(-500, 500);
-    //     const y = Random.irange(-500, 500);
-    //     let e = new EntityTest('My Object');
-    //     e.transform.position.x = x;
-    //     e.transform.position.y = y;
-    //     list.push(e);
-    // }
-}
-var SceneViewEditor = /** @class */ (function () {
-    function SceneViewEditor(renderer) {
-        this._renderer = renderer;
-        this._editorCamera = new EditorCamera_1.default(renderer);
-        this._emitter = new EventEmitter_1.default();
-        this._editorInput = new SceneViewInput_1.default(this._renderer.canvas, this._emitter);
-        this._handles = new EditorHandles_1.default(this._editorCamera);
-        this.draw = new CanvasDrawer_1.CanvasDrawer(renderer);
-        this._guides = new Guidelines_1.default(renderer);
-        createEntities();
-    }
-    SceneViewEditor.prototype.init = function () {
-        var _this = this;
-        this._emitter.on('zoom', function (delta, zoomPoint) {
-            _this._editorCamera.zoom(delta, zoomPoint);
-            //this._editorCamera.setPosition(cursorPosition);
-            _this.update();
-            _this.render();
-        }, this);
-        this._emitter.on('move', function (cursorPosition) {
-            _this._editorCamera.move(cursorPosition);
-            //this._editorCamera.setPosition(cursorPosition);
-            _this.update();
-            _this.render();
-        }, this);
-        this._emitter.on('prepareViewMove', function () {
-            _this._editorCamera.prepareMove();
-        }, this);
-        this._emitter.on('selection', function (area) {
-            _this._selectionArea = area;
-            _this.render();
-        }, this);
-        this._emitter.on('select', function (cursorPosition) {
-            for (var i = 0; i < list.length; i++) {
-                var b = new Bounds2D_1.default();
-                compute_1.computeBounds2D(b, list[i].transform.matrix, 100, 100, { x: 0, y: 0 });
-                if (b.contains(cursorPosition.x, cursorPosition.y)) {
-                    _this._handles.setSelectEntity(list[i]);
-                    break;
-                }
-            }
-        }, this);
-        this._emitter.on('redraw', function () {
-            _this.render();
-        });
-        this._editorInput.init();
-        this.update();
-    };
-    Object.defineProperty(SceneViewEditor.prototype, "renderer", {
-        get: function () {
-            return this._renderer;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    SceneViewEditor.prototype.resize = function (width, height) {
-        this._renderer.resize(width, height);
-        this._editorInput.resize();
-        this._editorCamera.resize();
-        this.update();
-        this.render();
-    };
-    SceneViewEditor.prototype.update = function () {
-        this._editorCamera.updateTransform();
-        this._guides.update(this._editorCamera);
-        for (var i = 0; i < list.length; i++) {
-            compute_1.computeTransform2D(list[i].transform);
-            list[i].transform.matrix.concat(this._editorCamera.matrix);
-        }
-    };
-    SceneViewEditor.prototype.getSubdivision = function (base, factor) {
-        var next = base / 2;
-        if (next <= factor) {
-            return base;
-        }
-        else {
-            return this.getSubdivision(next, factor);
-        }
-    };
-    SceneViewEditor.prototype.render = function () {
-        var ctx = this._renderer.context;
-        // scene
-        this._renderer.beginDraw();
-        var draw = this.draw;
-        //this._guides.render(this.draw);
-        //MathUtils.floor(t * levels) / levels)
-        //let sudivisions =  MathUtils.floor((1-this._editorCamera.zoomFactor) * 1000);// / 1000;
-        //let level = Math.abs((1-this._editorCamera.resolution);
-        var levels = 10; //10;
-        var tlevel = this._editorCamera.zoomFactor * levels;
-        var t = MathUtils_1.default.floor(tlevel) + 1;
-        var depth = tlevel % 1.0;
-        //console.log(t);
-        var zoom = MathUtils_1.default.round(this._editorCamera.resolution * 100);
-        //let subdivisions = this.getSubdivision(1000, level);
-        //console.log(subdivisions)
-        // 1000 * this._editorCamera.resolution;
-        var a = this._editorCamera.aspectRatio;
-        //let last = 1100 - (100 * (t - 1));
-        var currentSpacing = 1000 / t; //(1100 - (100 * t));//(1000 / t);
-        console.log(currentSpacing);
-        //console.log(currentSpacing)
-        var scaledSpacing = currentSpacing * this._editorCamera.resolution * a;
-        //let nextSpacing = ((1-this._editorCamera.zoomFactor) * 500);
-        var division = new LineDivision_1.default();
-        division.subDivisionSpacing = scaledSpacing;
-        division.maxHorizontalLines = MathUtils_1.default.floor(this.renderer.width / scaledSpacing) + 1;
-        division.maxVerticalLines = MathUtils_1.default.floor(this.renderer.height / scaledSpacing) + 1;
-        division.parallax.x = (this._editorCamera.offsetX) % scaledSpacing;
-        division.parallax.y = (this._editorCamera.offsetY) % scaledSpacing;
-        var nextSpacing = currentSpacing / 10;
-        var nextSpacingScaled = nextSpacing * this._editorCamera.resolution * a;
-        var divisionNext = new LineDivision_1.default();
-        divisionNext.subDivisionSpacing = nextSpacingScaled;
-        divisionNext.maxHorizontalLines = MathUtils_1.default.floor(this.renderer.width / nextSpacingScaled) + 1;
-        divisionNext.maxVerticalLines = MathUtils_1.default.floor(this.renderer.height / nextSpacingScaled) + 1;
-        divisionNext.parallax.x = this._editorCamera.offsetX % nextSpacingScaled;
-        divisionNext.parallax.y = this._editorCamera.offsetY % nextSpacingScaled;
-        // console.log(depth);
-        // if (depth < 0.1)
-        //     depth = 0;
-        //depth -= 0.2;
-        divisionNext.depthAlpha = MathUtils_1.default.clampedLerp(0.0, 0.1, depth); // nextSpacingScaled / currentSpacing;
-        draw.context.setTransform(1, 0, 0, 1, 0.5, 0.5);
-        draw.color = 'white';
-        draw.text("Zoom: " + zoom.toString(), 16, 16);
-        var color = 'rgb(255, 255, 255,' + 0.1 + ')';
-        division.render(draw, { x: this.renderer.width, y: this.renderer.height }, color);
-        color = 'rgb(255, 255, 255,' + divisionNext.depthAlpha + ')';
-        divisionNext.render(draw, { x: this.renderer.width, y: this.renderer.height }, color);
-        //this._renderer.draw();
-        for (var i = 0; i < list.length; i++) {
-            var color_1 = 'blue';
-            renderRect(ctx, list[i], color_1);
-        }
-        //
-        // const a = (w / h);
-        // const f = a * 100 * this._editorCamera.resolution;//((w / h) * 100 * this._editorCamera.resolution);
-        // //let xg = this._editorCamera.position.x * this._editorCamera.invertedResolution;
-        // //const ofx = (xg + w * 0.5) - xg;
-        // //xg = xg % ofx
-        // const ws = MathUtils.floor(w / f) + 1;
-        // const hs = this._renderer.height / f;
-        // const yg = this._editorCamera.position.y % f;
-        // ctx.lineWidth = 0.25;
-        // for (let i = 0; i < ws; i++) {
-        //     ctx.beginPath();
-        //     ctx.moveTo((i * f), 0);
-        //     ctx.lineTo((i * f), h);
-        //     ctx.stroke();
-        // }
-        // for (let i = 0; i < hs; i++) {
-        //    ctx.beginPath();
-        //     ctx.moveTo(0, i * f + yg);
-        //     ctx.lineTo(w, i * f + yg);
-        //     ctx.stroke();
-        //     ctx.stroke();
-        // }
-        // const h = this._renderer.height;
-        // const w = this._renderer.width;
-        // ctx.strokeStyle = 'white';
-        // ctx.beginPath();
-        // ctx.moveTo(w * 0.5, 0);
-        // ctx.lineTo(w * 0.5, h);
-        // ctx.stroke();
-        // ctx.beginPath();
-        // ctx.moveTo(0, h * 0.5);
-        // ctx.lineTo(w, h * 0.5);
-        // ctx.stroke();
-        var inv = this._editorCamera.handlesMatrix.a;
-        ctx.setTransform(inv[0], inv[1], inv[3], inv[4], inv[6], inv[7]);
-        this._handles.render(ctx);
-        ctx.setTransform(1, 0, 0, 1, 0.5, 0.5);
-        if (this._editorInput.cursor.mode === SceneViewCursor_1.CursorMode.Selection) {
-            if (this._selectionArea.xMax > this._renderer.width) {
-                this._selectionArea.xMax = this._renderer.width - 1;
-            }
-            else if (this._selectionArea.xMax < 0) {
-                this._selectionArea.xMax = 0;
-            }
-            if (this._selectionArea.yMax > this._renderer.height) {
-                this._selectionArea.yMax = this._renderer.height - 1;
-            }
-            else if (this._selectionArea.yMax < 0) {
-                this._selectionArea.yMax = 0;
-            }
-            this.draw.rect(this._selectionArea.x, this._selectionArea.y, this._selectionArea.width, this._selectionArea.height, 'rgba(33, 69, 128, 0.2)');
-            this.draw.outlineRect(this._selectionArea.x, this._selectionArea.y, this._selectionArea.width, this._selectionArea.height, 'rgb(33, 69, 128)', 1);
-        }
-        this._renderer.endDraw();
-    };
-    return SceneViewEditor;
-}());
-exports.default = SceneViewEditor;
-
-
-/***/ }),
-
 /***/ "./src/renderer/internal/editor/sceneView/SceneViewInput.ts":
 /*!******************************************************************!*\
   !*** ./src/renderer/internal/editor/sceneView/SceneViewInput.ts ***!
@@ -52233,6 +52155,218 @@ exports.default = SceneViewInput;
 
 /***/ }),
 
+/***/ "./src/renderer/internal/editor/sceneView/View.ts":
+/*!********************************************************!*\
+  !*** ./src/renderer/internal/editor/sceneView/View.ts ***!
+  \********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var EditorCamera_1 = __webpack_require__(/*! ../EditorCamera */ "./src/renderer/internal/editor/EditorCamera.ts");
+var Vector2_1 = __webpack_require__(/*! ../../../engine/math/Vector2 */ "./src/renderer/engine/math/Vector2.ts");
+var View = /** @class */ (function () {
+    function View() {
+        this._originFactor = 0.5;
+        this._maxZoom = 10;
+        this._minZoom = 0.01;
+        this._zoomDelta = 0.035;
+        this._oldPosition = new Vector2_1.default();
+        this._camera = new EditorCamera_1.default(1);
+        this._origin = new Vector2_1.default();
+        this._size = new Vector2_1.default();
+    }
+    Object.defineProperty(View.prototype, "camera", {
+        get: function () {
+            return this._camera;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(View.prototype, "origin", {
+        get: function () {
+            return this._origin;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(View.prototype, "aspectRatio", {
+        get: function () {
+            return this._aspectRatio;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(View.prototype, "zoomFactor", {
+        get: function () {
+            return (this._camera.resolution - this._minZoom) / (this._maxZoom - this._minZoom);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(View.prototype, "size", {
+        get: function () {
+            return this._size;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    View.prototype.zoom = function (delta, zoomPoint) {
+        var newRes = this._camera.resolution;
+        var oldRes = this._camera.resolution;
+        var scaleDelta;
+        if (newRes <= 0.1) {
+            scaleDelta = delta * newRes * this._zoomDelta; // (this._zoomDelta * res);
+        }
+        else {
+            scaleDelta = delta * newRes * this._zoomDelta;
+        }
+        newRes = newRes + scaleDelta;
+        if (newRes > this._maxZoom) {
+            newRes = this._maxZoom;
+        }
+        else if (newRes < this._minZoom) {
+            newRes = this._minZoom;
+        }
+        zoomPoint.x -= this.origin.x;
+        zoomPoint.y -= this.origin.y;
+        var newFactor = newRes * this.aspectRatio;
+        var oldFactor = oldRes * this.aspectRatio;
+        var position = this._camera.position;
+        // offset camera to zoom point
+        position.x -= (zoomPoint.x / newFactor) - (zoomPoint.x / oldFactor);
+        position.y -= (zoomPoint.y / newFactor) - (zoomPoint.y / oldFactor);
+        this._camera.setPosition(position);
+        // apply zoom
+        this._camera.setResolution(newRes);
+    };
+    View.prototype.prepareMove = function () {
+        this._oldPosition.copy(this.camera.position);
+    };
+    View.prototype.move = function (position) {
+        var newPosition = this._camera.position;
+        newPosition.x = this._oldPosition.x - (position.x * this.camera.invertedResolution * this._invAspectRatio);
+        newPosition.y = this._oldPosition.y - (position.y * this.camera.invertedResolution * this._invAspectRatio);
+    };
+    View.prototype.resize = function (width, height) {
+        var originX = width * this._originFactor;
+        var originY = height * this._originFactor;
+        this._origin.x = originX;
+        this._origin.y = originY;
+        this._aspectRatio = width / height;
+        this._invAspectRatio = 1 / this._aspectRatio;
+        this._size.x = width;
+        this._size.y = height;
+    };
+    View.prototype.updateTransform = function () {
+        this._camera.updateTransform(this.origin, this._aspectRatio, this._invAspectRatio);
+    };
+    return View;
+}());
+exports.default = View;
+
+
+/***/ }),
+
+/***/ "./src/renderer/internal/editor/sceneView/guidelines/Grid.ts":
+/*!*******************************************************************!*\
+  !*** ./src/renderer/internal/editor/sceneView/guidelines/Grid.ts ***!
+  \*******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var MathUtils_1 = __webpack_require__(/*! ../../../../engine/math/MathUtils */ "./src/renderer/engine/math/MathUtils.ts");
+var Grid = /** @class */ (function () {
+    function Grid() {
+        this._parallax = { x: 0, y: 0 };
+        this.skipNth = undefined;
+        this.alpha = 0.1;
+        this.color = 'rgb(255, 255, 255,' + 0.1 + ')';
+    }
+    Object.defineProperty(Grid.prototype, "parallax", {
+        //depthAlpha: number;
+        get: function () {
+            return this._parallax;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Grid.prototype.setSkip = function (skipX, skipY) {
+        if (skipX < 0) {
+            skipX -= this.skipNth;
+        }
+        if (skipY < 0) {
+            skipY -= (this.skipNth - 1);
+        }
+        this.skipStart = {
+            x: skipX,
+            y: skipY
+        };
+    };
+    Grid.prototype.setParallax = function (offsetX, offsetY) {
+        this._parallax.x = offsetX % this.spacing;
+        this._parallax.y = offsetY % this.spacing;
+    };
+    Grid.prototype.setMaxLines = function (viewSize) {
+        this.maxHorizontalLines = MathUtils_1.default.floor(viewSize.x / this.spacing) + 1;
+        this.maxVerticalLines = MathUtils_1.default.floor(viewSize.y / this.spacing) + 1;
+    };
+    Grid.prototype.setAlpha = function (factor, inversed) {
+        this.alpha = (inversed === true) ? MathUtils_1.default.clampedLerp(0.1, 0.0, factor) : MathUtils_1.default.clampedLerp(0.0, 0.1, factor);
+        this.color = 'rgb(255, 255, 255,' + this.alpha.toFixed(3) + ')';
+    };
+    Grid.prototype.render = function (draw, view) {
+        if (this.alpha <= 0)
+            return;
+        draw.outlineColor = this.color;
+        // draw vertical lines
+        for (var x = 0; x <= this.maxHorizontalLines; x++) {
+            if (this.skipNth !== undefined) {
+                if (x >= this.skipStart.x) {
+                    if ((x - this.skipStart.x) % this.skipNth === 0) {
+                        continue;
+                    }
+                }
+            }
+            //const space = x * this.spacing;
+            var xx = MathUtils_1.default.round(this.parallax.x + x * this.spacing);
+            if (xx > view.size.x)
+                break;
+            else if (xx < 0)
+                continue;
+            draw.line(xx, 0, xx, view.size.y);
+        }
+        // draw horizontal lines
+        for (var y = 0; y <= this.maxVerticalLines; y++) {
+            // line skipper
+            if (this.skipNth !== undefined) {
+                if (y >= this.skipStart.y) {
+                    if ((y - this.skipStart.y) % this.skipNth === 0) {
+                        continue;
+                    }
+                }
+            }
+            //const space = y * this.spacing;
+            var yy = MathUtils_1.default.round(this._parallax.y + y * this.spacing);
+            if (yy > view.size.y)
+                break;
+            else if (yy < 0)
+                continue;
+            draw.line(0, yy, view.size.x, yy);
+        }
+    };
+    return Grid;
+}());
+exports.default = Grid;
+
+
+/***/ }),
+
 /***/ "./src/renderer/internal/editor/sceneView/guidelines/Guidelines.ts":
 /*!*************************************************************************!*\
   !*** ./src/renderer/internal/editor/sceneView/guidelines/Guidelines.ts ***!
@@ -52243,132 +52377,88 @@ exports.default = SceneViewInput;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+var Grid_1 = __webpack_require__(/*! ./Grid */ "./src/renderer/internal/editor/sceneView/guidelines/Grid.ts");
 var MathUtils_1 = __webpack_require__(/*! ../../../../engine/math/MathUtils */ "./src/renderer/engine/math/MathUtils.ts");
-var Vector2_1 = __webpack_require__(/*! ../../../../engine/math/Vector2 */ "./src/renderer/engine/math/Vector2.ts");
-var Guidelines = /** @class */ (function () {
-    function Guidelines(renderer) {
-        this.spacing = 1000;
-        this._renderer = renderer;
-        this._parallax = new Vector2_1.default();
+var BASESPACING = 10000;
+function getSpacing(base, factor) {
+    var next = base / 10;
+    if (factor === base) {
+        return base;
     }
-    Guidelines.prototype.computeLineScale = function (size, spacing) {
-        return MathUtils_1.default.floor(size / spacing) + 1;
-    };
-    Guidelines.prototype.update = function (camera) {
-        var spacing = this.spacing * camera.resolution;
-        var subDivisionSpacing = (this.spacing / 2) * camera.resolution;
-        this.subDivisionSpacing = subDivisionSpacing;
-        this.t = camera.zoomFactor * subDivisionSpacing / 2; // subDivisionSpacing / camera.invertedResolution;
-        //console.log(this.t)
-        this._maxHorizontalLines = this.computeLineScale(this._renderer.width, spacing);
-        this._subMax = this.computeLineScale(this._renderer.width, subDivisionSpacing);
-        this.subParallax = camera.offsetX % subDivisionSpacing - 1;
-        this._parallax.x = (camera.offsetX % spacing - 1);
-        this._horizontalSpacing = spacing;
-        this._maxVerticalLines = this.computeLineScale(this._renderer.height, spacing); //MathUtils.round(this._renderer.height / spacing) + 1;
-        this._parallax.y = camera.offsetY % spacing - 1;
-        this._verticalSpacing = spacing;
-        //const halfWidth = w / 2;
-        //const midX = halfWidth * this._editorCamera.resolution;
-        //const maxHorizontalHalfGrids = MathUtils.round((halfWidth / horizontalSpacing));// * this._editorCamera.resolution;
-        ////-this._editorCamera.position.x * this._editorCamera.resolution;
-        //const halfGridWidth = ((maxHorizontalGrids*horizontalSpacing) / 2);
-        //const gridOffsetX = halfGridWidth % horizontalSpacing-1;
-    };
-    Guidelines.prototype.render = function (draw) {
-        draw.context.setTransform(1, 0, 0, 1, 0.5, 0.5);
-        draw.outlineColor = 'rgb(255, 255, 255, 0.1)';
-        var total = 0;
-        for (var x = 0; x <= this._maxHorizontalLines; x++) {
-            var space = x * this._horizontalSpacing;
-            var xx = MathUtils_1.default.round(this._parallax.x + space);
-            if (xx > this._renderer.width)
-                break;
-            if (x >= this._maxHorizontalLines / 2 && x <= this._maxHorizontalLines / 2) {
-                draw.outlineColor = 'rgb(255, 0, 0, 1)';
+    if (next <= factor) {
+        return base;
+    }
+    else {
+        return getSpacing(next, factor);
+    }
+}
+var Guidelines = /** @class */ (function () {
+    function Guidelines(view) {
+        this.mainGrid = new Grid_1.default();
+        this.subGrid = new Grid_1.default();
+        this.subGrid.skipNth = 10;
+        var camera = view.camera;
+        var spacingFactor = camera.invertedResolution * 100;
+        this.baseSpacing = getSpacing(BASESPACING, spacingFactor);
+        this.nextSpacing = this.baseSpacing / 10;
+        this.oldNextSpacing = this.baseSpacing;
+    }
+    Guidelines.prototype.update = function (view) {
+        var camera = view.camera;
+        //let zoom = MathUtils.round(camera.resolution * 100);
+        var spacingFactor = camera.invertedResolution * 100;
+        //console.log(spacingFactor + ' ' + this.oldNextSpacing)
+        // to avoid recursive function
+        if (this.oldSpacingFactor !== spacingFactor) {
+            if (spacingFactor >= BASESPACING) { // reset
+                this.baseSpacing = BASESPACING;
+                this.nextSpacing = BASESPACING / 10;
             }
             else {
-                draw.outlineColor = 'rgb(255, 255, 255, 0.1)';
+                //const next = this.baseSpacing / 10;
+                if (this.nextSpacing >= spacingFactor) {
+                    this.oldNextSpacing = this.nextSpacing;
+                    this.baseSpacing = this.nextSpacing;
+                    this.nextSpacing = this.baseSpacing / 10;
+                }
+                else if (this.oldNextSpacing < spacingFactor) {
+                    var base = getSpacing(BASESPACING, spacingFactor);
+                    this.baseSpacing = base;
+                    this.nextSpacing = base / 10;
+                    this.oldNextSpacing = base;
+                }
+                // }
             }
-            draw.line(xx, 0, xx, this._renderer.height);
-            total++;
+            var depth = (this.nextSpacing / spacingFactor) - 0.1;
+            //this.mainGrid.setAlpha(depth, true);
+            this.subGrid.setAlpha(depth);
         }
-        draw.outlineColor = 'rgb(255, 255, 255, 0.15)';
-        //console.log(total);
-        for (var y = 0; y <= this._maxVerticalLines; y++) {
-            var space = y * this._verticalSpacing;
-            var yy = MathUtils_1.default.round(this._parallax.y + space);
-            draw.line(0, yy, this._renderer.width, yy);
-        }
-        var alpha = MathUtils_1.default.clampedLerp(0, 0.15, 0.5);
-        draw.outlineColor = 'rgb(255, 0, 0,' + alpha + ')';
-        for (var x = 1; x <= this._subMax; x++) {
-            var space = x * this.subDivisionSpacing;
-            var xx = MathUtils_1.default.round(this.subParallax + space);
-            draw.line(xx, 0, xx, this._renderer.height);
-        }
+        this.oldSpacingFactor = spacingFactor;
+        var scaledSpacing = this.baseSpacing * camera.resolution * view.aspectRatio;
+        var nextSpacingScaled = this.nextSpacing * camera.resolution * view.aspectRatio;
+        this.mainGrid.spacing = scaledSpacing;
+        this.mainGrid.setMaxLines(view.size);
+        this.subGrid.spacing = nextSpacingScaled;
+        this.subGrid.setMaxLines(view.size);
+        var offsetX = view.camera.offsetX * view.aspectRatio + view.origin.x;
+        var offsetY = view.camera.offsetY * view.aspectRatio + view.origin.y;
+        this.mainGrid.setParallax(offsetX, offsetY);
+        this.subGrid.setParallax(offsetX, offsetY);
+        // measure to skip 10th line for subgrids
+        var skipStartY = MathUtils_1.default.floor(this.mainGrid.parallax.y / scaledSpacing * 10);
+        var skipStartX = MathUtils_1.default.floor(this.mainGrid.parallax.x / scaledSpacing * 10);
+        this.subGrid.setSkip(skipStartX, skipStartY);
+    };
+    Guidelines.prototype.render = function (draw, view) {
+        draw.context.setTransform(1, 0, 0, 1, 0.5, 0.5);
+        //let color = 'rgb(255, 255, 255,' + MathUtils.clampedLerp(0.1, 0.0, depth) + ')'
+        this.mainGrid.render(draw, view);
+        //color = 'rgb(255, 255, 255,' + this.subGrid.depthAlpha + ')';
+        this.subGrid.render(draw, view);
     };
     return Guidelines;
 }());
 exports.default = Guidelines;
-
-
-/***/ }),
-
-/***/ "./src/renderer/internal/editor/sceneView/guidelines/LineDivision.ts":
-/*!***************************************************************************!*\
-  !*** ./src/renderer/internal/editor/sceneView/guidelines/LineDivision.ts ***!
-  \***************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var MathUtils_1 = __webpack_require__(/*! ../../../../engine/math/MathUtils */ "./src/renderer/engine/math/MathUtils.ts");
-var LineDivision = /** @class */ (function () {
-    function LineDivision() {
-        this.depthAlpha = 0.1;
-        this.parallax = { x: 0, y: 0 };
-    }
-    // static subdivide(baseSpacing: number, factor: number, view: IVector2) {
-    //     const spacing = factor / baseSpacing;
-    //     let division = new LineDivision();
-    //     division.subDivisionSpacing = spacing;
-    //     division.maxHorizontalLines = MathUtils.floor(view.size.x / spacing) + 1;
-    //     division.minVerticalLines = MathUtils.floor(view.size.y / spacing) + 1;
-    //     division.parallax.x = view.offsetX % spacing - 1;
-    //     division.parallax.y = view.offsetY % spacing - 1;
-    //     division.depthAlpha = 1;
-    //     //parent.child = this;
-    //     if (factor > maxFactor) {
-    //         return division;
-    //     } else {
-    //         parent.child = LineDivision.subdivide();
-    //     }
-    // }
-    LineDivision.transformTree = function (parent, view) {
-    };
-    LineDivision.prototype.render = function (draw, rendererSize, color) {
-        draw.outlineColor = color;
-        // draw horizontal lines
-        for (var x = 0; x <= this.maxHorizontalLines; x++) {
-            var space = x * this.subDivisionSpacing;
-            var xx = MathUtils_1.default.round(this.parallax.x + space);
-            if (xx > rendererSize.x)
-                break;
-            draw.line(xx, 0, xx, rendererSize.y);
-        }
-        // draw vertical lines
-        for (var y = 0; y <= this.maxVerticalLines; y++) {
-            var space = y * this.subDivisionSpacing;
-            var yy = MathUtils_1.default.round(this.parallax.y + space);
-            draw.line(0, yy, rendererSize.x, yy);
-        }
-    };
-    return LineDivision;
-}());
-exports.default = LineDivision;
 
 
 /***/ }),
@@ -52650,7 +52740,7 @@ if(false) {}
 Object.defineProperty(exports, "__esModule", { value: true });
 var CanvasRenderer_1 = __webpack_require__(/*! ../engine/renderer/CanvasRenderer */ "./src/renderer/engine/renderer/CanvasRenderer.ts");
 var CanvasPool_1 = __webpack_require__(/*! ../engine/renderer/canvas/CanvasPool */ "./src/renderer/engine/renderer/canvas/CanvasPool.ts");
-var SceneViewEditor_1 = __webpack_require__(/*! ../internal/editor/sceneView/SceneViewEditor */ "./src/renderer/internal/editor/sceneView/SceneViewEditor.ts");
+var SceneView_1 = __webpack_require__(/*! ../internal/editor/sceneView/SceneView */ "./src/renderer/internal/editor/sceneView/SceneView.ts");
 var SystemFactory;
 (function (SystemFactory) {
     function createRenderer(contextID, doubleBuffer) {
@@ -52677,7 +52767,7 @@ var SystemFactory;
         //     }
         // },
         //     renderer);
-        var editor = new SceneViewEditor_1.default(renderer);
+        var editor = new SceneView_1.default(renderer);
         return editor;
     }
     SystemFactory.createSceneViewEditor = createSceneViewEditor;
@@ -52930,10 +53020,73 @@ exports.default = EntityList;
 
 /***/ }),
 
-/***/ "./src/renderer/widgets/game/GameView.ts":
-/*!***********************************************!*\
-  !*** ./src/renderer/widgets/game/GameView.ts ***!
-  \***********************************************/
+/***/ "./src/renderer/widgets/game/Inspector.tsx":
+/*!*************************************************!*\
+  !*** ./src/renderer/widgets/game/Inspector.tsx ***!
+  \*************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+var ReactComponentBase_1 = __webpack_require__(/*! ../base/ReactComponentBase */ "./src/renderer/widgets/base/ReactComponentBase.ts");
+__webpack_require__(/*! ./style.css */ "./src/renderer/widgets/game/style.css");
+var Checkbox_1 = __webpack_require__(/*! ../../components/Checkbox */ "./src/renderer/components/Checkbox.tsx");
+var Vector2Input_1 = __webpack_require__(/*! ../../components/Vector2Input */ "./src/renderer/components/Vector2Input.tsx");
+var Foldout_1 = __webpack_require__(/*! ../../components/Foldout */ "./src/renderer/components/Foldout.tsx");
+var Inspector = /** @class */ (function (_super) {
+    __extends(Inspector, _super);
+    function Inspector() {
+        var _this = _super !== null && _super.apply(this, arguments) || this;
+        _this.activeFlag = 'true';
+        return _this;
+    }
+    // state = {
+    //     activeFlag: 'true'
+    // }
+    Inspector.prototype.active = function (event) {
+        var activeFlag;
+        if (event.isChecked) {
+            activeFlag = 'true';
+        }
+        else {
+            activeFlag = 'false';
+        }
+        //this.setState({activeFlag});
+    };
+    Inspector.prototype.render = function () {
+        return (React.createElement("div", { id: 'inspector', className: this.activeFlag },
+            React.createElement("div", { className: 'flex-container' },
+                React.createElement("div", { className: 'horizotal-group' },
+                    React.createElement(Checkbox_1.default, { onChange: this.active }),
+                    React.createElement("input", { className: 'text-input', type: 'textfield' }))),
+            React.createElement(Foldout_1.default, { label: 'Transform' },
+                React.createElement(Vector2Input_1.default, { label: 'Position' }))));
+    };
+    return Inspector;
+}(ReactComponentBase_1.ReactComponentBase));
+exports.default = Inspector;
+//export default connect(,mapDispatchToProps)(Inspector);
+
+
+/***/ }),
+
+/***/ "./src/renderer/widgets/game/SceneViewWidget.ts":
+/*!******************************************************!*\
+  !*** ./src/renderer/widgets/game/SceneViewWidget.ts ***!
+  \******************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -52957,9 +53110,9 @@ var SystemFactory_1 = __webpack_require__(/*! ../../system/SystemFactory */ "./s
 //     backgroundColor: '#171717',
 //     border: '1px solid black'
 // }
-var GameView = /** @class */ (function (_super) {
-    __extends(GameView, _super);
-    function GameView() {
+var SceneViewWidget = /** @class */ (function (_super) {
+    __extends(SceneViewWidget, _super);
+    function SceneViewWidget() {
         var _this = _super.call(this, "Game View") || this;
         _this.title.caption = "Game View";
         _this.title.label = "Game View";
@@ -52981,10 +53134,10 @@ var GameView = /** @class */ (function (_super) {
         //     this.container.outerHeight(this.height);
         // }, this);
     }
-    GameView.prototype.onAfterAttach = function () {
+    SceneViewWidget.prototype.onAfterAttach = function () {
         this._editor.init();
     };
-    GameView.prototype.repaint = function () {
+    SceneViewWidget.prototype.repaint = function () {
         // const context = this._renderer.context;
         // const width = this._renderer.canvas.width;
         // const height = this._renderer.canvas.height;
@@ -53014,77 +53167,16 @@ var GameView = /** @class */ (function (_super) {
         // context.fill();
         // this._renderer.repaint();
     };
-    GameView.prototype.onResizeEvent = function (resizeEvent) {
+    SceneViewWidget.prototype.onResizeEvent = function (resizeEvent) {
         var w = resizeEvent.width;
         var h = resizeEvent.height;
         this._editor.resize(w, h);
         //this._renderer.resize(w, h);
         //this.repaint();
     };
-    return GameView;
+    return SceneViewWidget;
 }(WidgetBase_1.default));
-exports.default = GameView;
-
-
-/***/ }),
-
-/***/ "./src/renderer/widgets/game/Inspector.tsx":
-/*!*************************************************!*\
-  !*** ./src/renderer/widgets/game/Inspector.tsx ***!
-  \*************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-Object.defineProperty(exports, "__esModule", { value: true });
-var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-var ReactComponentBase_1 = __webpack_require__(/*! ../base/ReactComponentBase */ "./src/renderer/widgets/base/ReactComponentBase.ts");
-__webpack_require__(/*! ./style.css */ "./src/renderer/widgets/game/style.css");
-var Checkbox_1 = __webpack_require__(/*! ../../components/Checkbox */ "./src/renderer/components/Checkbox.tsx");
-var Vector2Input_1 = __webpack_require__(/*! ../../components/Vector2Input */ "./src/renderer/components/Vector2Input.tsx");
-var Inspector = /** @class */ (function (_super) {
-    __extends(Inspector, _super);
-    function Inspector() {
-        var _this = _super !== null && _super.apply(this, arguments) || this;
-        _this.activeFlag = 'true';
-        return _this;
-    }
-    // state = {
-    //     activeFlag: 'true'
-    // }
-    Inspector.prototype.active = function (event) {
-        var activeFlag;
-        if (event.isChecked) {
-            activeFlag = 'true';
-        }
-        else {
-            activeFlag = 'false';
-        }
-        //this.setState({activeFlag});
-    };
-    Inspector.prototype.render = function () {
-        return (React.createElement("div", { id: 'inspector', className: this.activeFlag },
-            React.createElement("div", { className: 'flex-container' },
-                React.createElement("div", { className: 'horizotal-group' },
-                    React.createElement(Checkbox_1.default, { onChange: this.active }),
-                    React.createElement("input", { className: 'text-input', type: 'textfield' }))),
-            React.createElement(Vector2Input_1.default, { label: 'Position' })));
-    };
-    return Inspector;
-}(ReactComponentBase_1.ReactComponentBase));
-exports.default = Inspector;
-//export default connect(,mapDispatchToProps)(Inspector);
+exports.default = SceneViewWidget;
 
 
 /***/ }),
@@ -53138,7 +53230,7 @@ var widgets_1 = __webpack_require__(/*! @phosphor/widgets */ "./node_modules/@ph
 var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 //import { createPortal } from "react-dom";
 __webpack_require__(/*! ./style/index.css */ "./src/renderer/widgets/workspace/style/index.css");
-var GameView_1 = __webpack_require__(/*! ../game/GameView */ "./src/renderer/widgets/game/GameView.ts");
+var SceneViewWidget_1 = __webpack_require__(/*! ../game/SceneViewWidget */ "./src/renderer/widgets/game/SceneViewWidget.ts");
 var ReactWidgetBase_1 = __webpack_require__(/*! ../base/ReactWidgetBase */ "./src/renderer/widgets/base/ReactWidgetBase.ts");
 var Inspector_1 = __webpack_require__(/*! ../game/Inspector */ "./src/renderer/widgets/game/Inspector.tsx");
 var EntityList_1 = __webpack_require__(/*! ../game/EntityList */ "./src/renderer/widgets/game/EntityList.tsx");
@@ -53150,7 +53242,7 @@ var WorkspacePanel = /** @class */ (function (_super) {
     WorkspacePanel.prototype.componentWillMount = function () {
         this.dock = new widgets_1.DockPanel();
         //let widgetInfos = [];
-        var widget = new GameView_1.default();
+        var widget = new SceneViewWidget_1.default();
         this.dock.addWidget(widget);
         var widget2 = new ReactWidgetBase_1.default('Entities', EntityList_1.default);
         this.dock.addWidget(widget2, { mode: 'split-right' });

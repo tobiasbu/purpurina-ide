@@ -71,8 +71,11 @@ export default class SceneViewCursor {
 
         const wheelEventName = getMouseWheelEvent();
 
-        const config = {
-            passive: false
+        console.log(wheelEventName)
+
+        const config: AddEventListenerOptions = {
+            passive: false,
+            capture: false
         };
 
 

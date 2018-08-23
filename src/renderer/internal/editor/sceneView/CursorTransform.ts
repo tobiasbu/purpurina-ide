@@ -1,7 +1,7 @@
 import MathUtils from "../../../engine/math/MathUtils";
 import Rect from "../../../engine/math/Rect";
 
-export default class SceneViewInputData {
+export default class CursorTransform {
 
     canvas: HTMLCanvasElement;
     private clientRect: Rect;

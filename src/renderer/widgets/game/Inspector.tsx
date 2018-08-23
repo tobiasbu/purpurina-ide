@@ -5,6 +5,7 @@ import './style.css';
 import Checkbox, { ICheckBoxEvent } from "../../components/Checkbox";
 import { connect } from "react-redux";
 import Vector2Input from "../../components/Vector2Input";
+import Foldout from "../../components/Foldout";
 
 
 interface InspectorState extends WidgetState {
@@ -38,7 +39,9 @@ export default class Inspector extends ReactComponentBase {
                         <input className='text-input' type='textfield'></input>
                     </div>
                 </div>
-                <Vector2Input label='Position'/>
+                <Foldout label='Transform'>
+                    <Vector2Input label='Position'/>
+                </Foldout>
             </div>)
     }
 

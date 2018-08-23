@@ -4,13 +4,10 @@ export class CanvasDrawer {
 
 
     private _ctx: CanvasRenderingContext2D;
-    
-
-    private _canvasRenderer: CanvasRenderer;
-
     private _outlineWidth = 0;
     private _fillStyle = 'white';
     private _strokeStyle: string = 'white';
+    private _alpha: number = 1;
 
     public get context(): CanvasRenderingContext2D {
         return this._ctx;
@@ -28,8 +25,14 @@ export class CanvasDrawer {
         }
     }
 
+    set alpha(value: number) {
+        if (this._ctx.globalAlpha !== value) {
+            this.context.globalAlpha = value;
+            this._alpha = this.context.globalAlpha;
+        }
+    }
+
     constructor(canvasRenderer: CanvasRenderer) {
-        this._canvasRenderer = canvasRenderer;
         this._ctx = canvasRenderer.context;
     }
 
@@ -42,6 +45,18 @@ export class CanvasDrawer {
         this._ctx.moveTo(fromX, fromY);
         this._ctx.lineTo(toX, toY);
         this._ctx.stroke();
+    }
+
+    triangle(x: number, y: number, halfHeight:number, width:number) {
+        const ctx = this.context;
+
+        ctx.beginPath();
+        ctx.moveTo(x, y-halfHeight);
+        ctx.lineTo(x, y+halfHeight);
+        ctx.lineTo(x + width, y);
+        //ctx.strokeStyle = 'none';
+        //ctx.fillStyle = color;
+        ctx.fill();
     }
 
     rect(x: number, y: number, width: number, height: number, color?: string) {
@@ -60,7 +75,8 @@ export class CanvasDrawer {
     outlineRect(x: number, y: number, width: number, height: number, outlineColor?: string, outlineWidth?: number) {
 
 
-        if (!outlineWidth) outlineWidth = this._outlineWidth;
+        if (!outlineWidth) 
+            outlineWidth = this._outlineWidth;
         if (!outlineColor) {
             this._ctx.strokeStyle = this._strokeStyle;
         } else {

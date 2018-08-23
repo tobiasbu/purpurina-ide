@@ -3,7 +3,7 @@ import * as React from "react";
 
 //import { createPortal } from "react-dom";
 import './style/index.css';
-import GameView from "../game/GameView";
+import SceneViewWidget from "../game/SceneViewWidget";
 import ReactWidgetBase from '../base/ReactWidgetBase';
 import Inspector from "../game/Inspector";
 import EntityList from '../game/EntityList';
@@ -46,7 +46,7 @@ export default class WorkspacePanel extends React.Component<any, IDockState> {
 
         this.dock = new DockPanel();
         //let widgetInfos = [];
-        let widget = new GameView(); 
+        let widget = new SceneViewWidget(); 
         this.dock.addWidget(widget);
         let widget2 = new ReactWidgetBase('Entities', EntityList); 
         this.dock.addWidget(widget2, {mode:'split-right'});
