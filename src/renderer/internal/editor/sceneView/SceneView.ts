@@ -3,7 +3,7 @@ import SceneViewInput from "./SceneViewInput";
 import EventEmitter from "../../../engine/events/emitter/EventEmitter";
 import { CursorMode } from "./SceneViewCursor";
 import Rect from "../../../engine/math/Rect";
-import EntityTest from "../../../engine/entity/EntityTest";
+
 import { computeTransform2D, computeBounds2D } from "../../../engine/math/transform/compute";
 import Transform2D from "../../../engine/math/transform/Transform2D";
 import Bounds2D from "../../../engine/math/bounds/Bounds2D";
@@ -12,12 +12,14 @@ import { CanvasDrawer } from "../CanvasDrawer";
 import CanvasRenderer from "../../../engine/renderer/CanvasRenderer";
 import Guidelines from "./guidelines/Guidelines";
 import View from "./View";
+import Entity from "../../../engine/entity/Entity";
+import Manager from "../../../manager";
 
-let list: EntityTest[] = []
+let list: Entity[] = []
 
 
 
-function renderRect(context: CanvasRenderingContext2D, entity: EntityTest, color: string = 'blue') {
+function renderRect(context: CanvasRenderingContext2D, entity: Entity, color: string = 'blue') {
     const m = entity.transform.matrix;
 
     context.setTransform(
@@ -36,17 +38,17 @@ function renderRect(context: CanvasRenderingContext2D, entity: EntityTest, color
 }
 
 function createEntities() {
-    let e = new EntityTest('My Object');
+    let e = new Entity('My Object');
     e.transform.position.x = -50;
     e.transform.position.y = -50;
     list.push(e);
 
-    e = new EntityTest('My Object');
+    e = new Entity('My Object');
     e.transform.position.x = 1000 + -50;
     e.transform.position.y = -50;
     list.push(e);
 
-    e = new EntityTest('My Object');
+    e = new Entity('My Object');
     e.transform.position.x = 100;
     e.transform.position.y = -50;
     list.push(e);
@@ -128,6 +130,7 @@ export default class SceneView {
                 computeBounds2D(b, list[i].transform.matrix, 100, 100, { x: 0, y: 0 });
                 if (b.contains(cursorPosition.x, cursorPosition.y)) {
                     this._handles.setSelectEntity(list[i]);
+                    Manager.selection.setActiveEntity(list[i]);
                     break;
                 }
             }
@@ -135,6 +138,14 @@ export default class SceneView {
 
 
         this._emitter.on('redraw', () => {
+            this.render();
+        })
+
+        Manager.on('updateActiveEntity', () => {
+            //this.update();
+            const transform = Manager.selection.activeEntity.transform as Transform2D;
+            computeTransform2D(transform);
+            transform.matrix.concat(this._view.camera.matrix);
             this.render();
         })
 
@@ -166,6 +177,8 @@ export default class SceneView {
 
 
     private render() {
+
+        console.log("render")
 
         const ctx = this._renderer.context as CanvasRenderingContext2D;
 

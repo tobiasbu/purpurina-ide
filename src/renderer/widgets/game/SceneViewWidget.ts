@@ -1,7 +1,6 @@
 //import * as React from "react";
 import WidgetBase from "../base/WidgetBase";
 import { WidgetResizeEvent } from "../../typings/WidgetInterfaces";
-import SystemFactory from '../../system/SystemFactory'
 import SceneView from "../../internal/editor/sceneView/SceneView";
 
 
@@ -15,12 +14,12 @@ export default class SceneViewWidget extends WidgetBase {
 
     private _editor: SceneView;
 
-    constructor() {
+    constructor(sceneView: SceneView) {
         super("Game View");
 
         this.title.caption = "Game View";
         this.title.label = "Game View";
-        this._editor = SystemFactory.createSceneViewEditor();
+        this._editor = sceneView; //
         //this._renderer = this._editor.renderer as CanvasRenderer;
         //this._renderer = SystemFactory.createRenderer('2d', true) as CanvasRenderer;
 

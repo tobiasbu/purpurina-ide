@@ -3,11 +3,8 @@ import * as React from "react";
 
 //import { createPortal } from "react-dom";
 import './style/index.css';
-import SceneViewWidget from "../game/SceneViewWidget";
-import ReactWidgetBase from '../base/ReactWidgetBase';
-import Inspector from "../game/Inspector";
-import EntityList from '../game/EntityList';
 
+import WidgetFactory from './../WidgetFactory';
 
 // /**
 //  * Create a placeholder content widget.
@@ -46,12 +43,20 @@ export default class WorkspacePanel extends React.Component<any, IDockState> {
 
         this.dock = new DockPanel();
         //let widgetInfos = [];
-        let widget = new SceneViewWidget(); 
-        this.dock.addWidget(widget);
-        let widget2 = new ReactWidgetBase('Entities', EntityList); 
-        this.dock.addWidget(widget2, {mode:'split-right'});
-        widget2 = new ReactWidgetBase('Inspector', Inspector); 
-        this.dock.addWidget(widget2, {mode:'split-right'});
+        //let widget = new SceneViewWidget(); 
+        //this.dock.addWidget(widget);
+        //let widget2 = new ReactWidgetBase('Entities', EntityList); 
+        //this.dock.addWidget(widget2, {mode:'split-right'});
+        //let inspector = new ReactWidgetBase('Inspector', Inspector);
+        const sceneView = WidgetFactory.createSceneView();
+        this.dock.addWidget(sceneView); 
+        const inspector = WidgetFactory.createInspector();
+        this.dock.addWidget(inspector, {mode:'split-right'});
+
+        
+
+        //inspector.reactComponent.
+
        
         this.dock.id = 'main';
 

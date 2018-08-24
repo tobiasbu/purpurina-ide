@@ -23901,7 +23901,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\r\n\r\n\r\n.toolbar {\r\n    height: 28px;\r\n    background:#222222;\r\n    width: 100%;\r\n    display: block;\r\n}\r\n\r\n.statusbar {\r\n    height: 22px;\r\n    background:#3e0636ff;\r\n    width: 100%;\r\n    display: block;\r\n}", ""]);
+exports.push([module.i, ".toolbar {\r\n    height: 28px;\r\n    background: #222222;\r\n    width: 100%;\r\n    display: block;\r\n}\r\n\r\n.statusbar {\r\n    height: 22px;\r\n    background: #3e0636ff;\r\n    width: 100%;\r\n    display: block;\r\n}\r\n\r\n", ""]);
 
 // exports
 
@@ -23920,26 +23920,7 @@ exports = module.exports = __webpack_require__(/*! ../../node_modules/css-loader
 
 
 // module
-exports.push([module.i, "body {\n  margin: 0;\n  padding: 0;\n  font-family: sans-serif;\n  overflow: hidden;\n  background: #000;\n}\n\n", ""]);
-
-// exports
-
-
-/***/ }),
-
-/***/ "./node_modules/css-loader/index.js!./src/renderer/style/App.css":
-/*!**************************************************************!*\
-  !*** ./node_modules/css-loader!./src/renderer/style/App.css ***!
-  \**************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
-// imports
-
-
-// module
-exports.push([module.i, ".App {\n\n}\n\n.App-logo {\n  animation: App-logo-spin infinite 20s linear;\n  height: 80px;\n}\n\n.App-header {\n  background-color: #222;\n  height: 150px;\n  padding: 20px;\n  color: white;\n}\n\n.App-title {\n  font-size: 1.5em;\n}\n\n.App-intro {\n  font-size: large;\n}\n\n@keyframes App-logo-spin {\n  from { transform: rotate(0deg); }\n  to { transform: rotate(360deg); }\n}\n\n.build {\n  width: 200px;\n  height: 24px;\n}", ""]);
+exports.push([module.i, "/* body {\n  margin: 0;\n  padding: 0;\n  font-family: sans-serif;\n  overflow: hidden;\n  background: #000;\n} */\n\n", ""]);
 
 // exports
 
@@ -23958,7 +23939,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "body {\r\n    font: 11px Segoe UI, Helvetica, Arial, sans-serif;\r\n    color: #F0F0F0;\r\n    -webkit-touch-callout: none;\r\n    /* iOS Safari */\r\n    -webkit-user-select: none;\r\n    /* Safari */\r\n    -khtml-user-select: none;\r\n    /* Konqueror HTML */\r\n    -moz-user-select: none;\r\n    /* Firefox */\r\n    -ms-user-select: none;\r\n    /* Internet Explorer/Edge */\r\n    user-select: none;\r\n    /* Non-prefixed version, currently supported by Chrome and Opera */\r\n}\r\n\r\n/*** Works on common browsers ***/\r\n::selection {\r\n    background-color: #004580;\r\n    color: #fff;\r\n}\r\n\r\n/*** Mozilla based browsers ***/\r\n::-moz-selection {\r\n    background-color: #004580;\r\n    color: #fff;\r\n}\r\n\r\n/***For Other Browsers ***/\r\n::-o-selection {\r\n    background-color: #004580;\r\n    color: #fff;\r\n}\r\n\r\n::-ms-selection {\r\n    background-color: #004580;\r\n    color: #fff;\r\n}\r\n\r\n/*** For Webkit ***/\r\n::-webkit-selection {\r\n    background-color: #004580;\r\n    color: #fff;\r\n}\r\n\r\n\r\n\r\nfieldset {\r\n    border: none;\r\n}\r\n\r\n#inspector> :nth-child(n) {\r\n    margin-bottom: 4px;\r\n}\r\n\r\n.flex-container {\r\n    display: flex;\r\n    flex-direction: row;\r\n    justify-content: space-between;\r\n    align-items: stretch;\r\n}\r\n\r\n.flex-container>.flex-horizontal {\r\n    display: inline-flex;\r\n    /* min-width: 50%; */\r\n    width: auto;\r\n}\r\n\r\n.flex-horizontal {\r\n    display: inline-flex;\r\n    /* min-width: 50%; */\r\n    width: auto;\r\n}\r\n\r\n.horizotal-group {\r\n    flex: auto;\r\n    display: inline-flex;\r\n    /* display: contents;*/\r\n    min-width: 0;\r\n}\r\n\r\n/*(an + b)*/\r\n\r\n.flex-container>.flex-horizontal:nth-child(1n+2) {\r\n    margin-left: 4px;\r\n    min-width: 0;\r\n    /* min-width: calc(50% - 4px); */\r\n}\r\n\r\ninput,\r\ninput[type=\"number\"],\r\ninput.checkbox+label {\r\n    width: auto;\r\n    height: 14px;\r\n    /* border: 1px solid #000; */\r\n    border: none;\r\n    background: #141414ff;\r\n    color: #F0F0F0;\r\n    font-size: 11px;\r\n}\r\n\r\ninput.focus {\r\n    outline: #004580 solid 1px;\r\n}\r\n\r\n\r\ninput:focus,\r\ninput[type=\"number\"]:focus {\r\n    outline: #004580 solid 1px;\r\n}\r\n\r\nlabel.focus {\r\n    color: #107bd7;\r\n}\r\n\r\n\r\n.text-input {\r\n    flex: auto;\r\n    padding: 3px;\r\n    min-width: 0;\r\n}\r\n\r\ninput[type=number]::-webkit-inner-spin-button,\r\ninput[type=number]::-webkit-outer-spin-button {\r\n    -webkit-appearance: none;\r\n    -moz-appearance: none;\r\n    appearance: none;\r\n    margin: 0;\r\n}\r\n\r\ninput[type=\"number\"] {\r\n    -moz-appearance: textfield;\r\n}\r\n\r\n.text-label {\r\n    margin: auto 0;\r\n    text-transform: capitalize;\r\n}\r\n\r\n.number {\r\n    min-width: 10px;\r\n    cursor: col-resize;\r\n}\r\n\r\ninput[type=\"checkbox\"] {\r\n    -webkit-appearance: none;\r\n    -moz-appearance: none;\r\n    appearance: none;\r\n    display: none;\r\n    visibility: hidden;\r\n    padding: 0;\r\n    border: 0\r\n}\r\n\r\n/* -webkit-appearance: none;\r\n    -moz-appearance: none;\r\n    appearance: none; */\r\n\r\n/* display: none; */\r\n\r\n/* \r\n    position: absolute;\r\n    overflow: hidden;\r\n    clip: rect(0 0 0 0);\r\n    height: 1px;\r\n    width: 1px;\r\n    margin: -1px;\r\n    padding: 0;\r\n    border: 0;*/\r\n\r\n.checkbox-container {\r\n    cursor: pointer;\r\n    min-width: 20px;\r\n    margin: auto;\r\n}\r\n\r\n.checkbox-container .checkbox-indicator {\r\n    display: inline-block;\r\n    vertical-align: middle;\r\n    pointer-events: none;\r\n}\r\n\r\ninput[type=\"checkbox\"]+label::after {\r\n    content: none;\r\n}\r\n\r\ninput.checkbox+.checkbox-indicator {\r\n    width: 12px;\r\n    height: 12px;\r\n    /* cursor: pointer; */\r\n    /* text-shadow: 1px 1px 1px rgba(0, 0, 0, .2); */\r\n    color: #f3f3f3;\r\n    text-align: center;\r\n    line-height: 8px;\r\n    /* display: inline-block; */\r\n}\r\n\r\ninput[type=\"checkbox\"]:checked+.checkbox-indicator::after {\r\n    content: \"\\2713\";\r\n    vertical-align: middle;\r\n}\r\n\r\n.false {\r\n    color: rgb(75, 75, 75);\r\n}\r\n\r\nul {\r\n    list-style: none;\r\n    margin: 0;\r\n    padding: 0;\r\n}\r\n\r\n/* \r\ninput[type=\"checkbox\"]:checked+label::after {\r\n    content: \"\\2713\";\r\n} */", ""]);
+exports.push([module.i, "body {\r\n    font: 11px Segoe UI, Helvetica, Arial, sans-serif;\r\n    color: #F0F0F0;\r\n    -webkit-touch-callout: none;\r\n    /* iOS Safari */\r\n    -webkit-user-select: none;\r\n    /* Safari */\r\n    -khtml-user-select: none;\r\n    /* Konqueror HTML */\r\n    -moz-user-select: none;\r\n    /* Firefox */\r\n    -ms-user-select: none;\r\n    /* Internet Explorer/Edge */\r\n    user-select: none;\r\n    /* Non-prefixed version, currently supported by Chrome and Opera */\r\n    margin: 0;\r\n    padding: 0;\r\n    background: #080808ff;\r\n    overflow: hidden;\r\n    filter: blur(0);\r\n    -webkit-filter: blur(0);\r\n    -webkit-backface-visibility: hidden;\r\n    backface-visibility: hidden;\r\n}\r\n\r\n/* image-rendering: optimizeSpeed;            \r\nimage-rendering: -moz-crisp-edges;           Firefox             \r\nimage-rendering: -o-crisp-edges;            /* Opera               \r\nimage-rendering: -webkit-optimize-contrast; /* Chrome (and Safari) \r\nimage-rendering: optimize-contrast;         /* CSS3 Proposed       \r\n-ms-interpolation-mode: nearest-neighbor;   IE8+                */\r\n\r\n/*** Works on common browsers ***/\r\n\r\n::selection {\r\n    background-color: #004580;\r\n    color: #fff;\r\n}\r\n\r\n/*** Mozilla based browsers ***/\r\n\r\n::-moz-selection {\r\n    background-color: #004580;\r\n    color: #fff;\r\n}\r\n\r\n/***For Other Browsers ***/\r\n\r\n::-o-selection {\r\n    background-color: #004580;\r\n    color: #fff;\r\n}\r\n\r\n::-ms-selection {\r\n    background-color: #004580;\r\n    color: #fff;\r\n}\r\n\r\n/*** For Webkit ***/\r\n\r\n::-webkit-selection {\r\n    background-color: #004580;\r\n    color: #fff;\r\n}\r\n\r\nfieldset {\r\n    border: none;\r\n}\r\n\r\n#inspector> :nth-child(n) {\r\n    margin-bottom: 4px;\r\n}\r\n\r\n.flex-container {\r\n    display: flex;\r\n    flex-direction: row;\r\n    justify-content: space-between;\r\n    align-items: stretch;\r\n}\r\n\r\n.flex-container>.flex-horizontal {\r\n    display: inline-flex;\r\n    /* min-width: 50%; */\r\n    width: auto;\r\n}\r\n\r\n.flex-horizontal {\r\n    display: inline-flex;\r\n    /* min-width: 50%; */\r\n    width: auto;\r\n}\r\n\r\n.horizotal-group {\r\n    flex: auto;\r\n    display: inline-flex;\r\n    /* display: contents;*/\r\n    min-width: 0;\r\n}\r\n\r\n/*(an + b)*/\r\n\r\n.flex-container>.flex-horizontal:nth-child(1n+2) {\r\n    margin-left: 4px;\r\n    min-width: 0;\r\n    /* min-width: calc(50% - 4px); */\r\n}\r\n\r\ninput,\r\ninput[type=\"number\"],\r\ninput.checkbox+label {\r\n    width: auto;\r\n    height: 14px;\r\n    /* border: 1px solid #000; */\r\n    border: none;\r\n    background: #141414ff;\r\n    color: #F0F0F0;\r\n    font-size: 11px;\r\n}\r\n\r\ninput.focus {\r\n    outline: #004580 solid 1px;\r\n}\r\n\r\ninput:focus,\r\ninput[type=\"number\"]:focus {\r\n    outline: #004580 solid 1px;\r\n}\r\n\r\nlabel.focus {\r\n    color: #107bd7;\r\n}\r\n\r\n.text-input {\r\n    flex: auto;\r\n    padding: 3px;\r\n    min-width: 0;\r\n}\r\n\r\ninput[type=number]::-webkit-inner-spin-button,\r\ninput[type=number]::-webkit-outer-spin-button {\r\n    -webkit-appearance: none;\r\n    -moz-appearance: none;\r\n    appearance: none;\r\n    margin: 0;\r\n}\r\n\r\ninput[type=\"number\"] {\r\n    -moz-appearance: textfield;\r\n}\r\n\r\n.text-label {\r\n    margin: auto 0;\r\n    text-transform: capitalize;\r\n}\r\n\r\n.number {\r\n    min-width: 10px;\r\n    cursor: col-resize;\r\n}\r\n\r\ninput[type=\"checkbox\"] {\r\n    -webkit-appearance: none;\r\n    -moz-appearance: none;\r\n    appearance: none;\r\n    display: none;\r\n    visibility: hidden;\r\n    padding: 0;\r\n    border: 0\r\n}\r\n\r\n/* -webkit-appearance: none;\r\n    -moz-appearance: none;\r\n    appearance: none; */\r\n\r\n/* display: none; */\r\n\r\n/* \r\n    position: absolute;\r\n    overflow: hidden;\r\n    clip: rect(0 0 0 0);\r\n    height: 1px;\r\n    width: 1px;\r\n    margin: -1px;\r\n    padding: 0;\r\n    border: 0;*/\r\n\r\n.checkbox-container {\r\n    cursor: pointer;\r\n    min-width: 20px;\r\n    margin: auto;\r\n}\r\n\r\n.checkbox-container .checkbox-indicator {\r\n    display: inline-block;\r\n    vertical-align: middle;\r\n    pointer-events: none;\r\n}\r\n\r\ninput[type=\"checkbox\"]+label::after {\r\n    content: none;\r\n}\r\n\r\ninput.checkbox+.checkbox-indicator {\r\n    width: 12px;\r\n    height: 12px;\r\n    /* cursor: pointer; */\r\n    /* text-shadow: 1px 1px 1px rgba(0, 0, 0, .2); */\r\n    color: #f3f3f3;\r\n    text-align: center;\r\n    line-height: 8px;\r\n    /* display: inline-block; */\r\n}\r\n\r\ninput[type=\"checkbox\"]:checked+.checkbox-indicator::after {\r\n    content: \"\\2713\";\r\n    vertical-align: middle;\r\n}\r\n\r\n\r\n.foldout {\r\n    border-bottom: #323232 1px solid;\r\n}\r\n\r\n.foldout-header {\r\n    height: 20px;\r\n    /* padding: 3px 0; */\r\n    color: #d4d2d2;\r\n    vertical-align: middle;\r\n    margin-bottom: 3px;\r\n    display: flex;\r\n}\r\n\r\n.foldout-label {\r\n    font-weight: bold;\r\n    display: inline-flex;\r\n    margin: auto 0;\r\n}\r\n\r\n.foldout-arrow-container {\r\n    width: 20px;\r\n    display: flex;\r\n    position: relative\r\n}\r\n\r\n.foldout-arrow {\r\n    transform: translateX(-50%) translateY(-50%);\r\n    /* -webkit-transform: rotate(90deg) translateZ(0) scale(1.0, 1.0); */\r\n    transition: 100ms linear;\r\n    margin: auto;\r\n    top: 50%;\r\n    left: 50%;\r\n    position: absolute;\r\n    line-height: 0;\r\n    padding-bottom: 2px;\r\n}\r\n\r\n.foldout.enable .foldout-arrow {\r\n    transform: translateX(-50%) translateY(-50%) rotate(90deg);\r\n    /* padding-left: 1px; */\r\n    \r\n}\r\n\r\n.foldout-arrow::after {\r\n    content: '\\25B6';\r\n    font-size: 10px;\r\n}\r\n\r\n\r\n\r\n.foldout-content {\r\n\r\n    padding-left: 20px;\r\n    /* position: relative; */\r\n    overflow: hidden;\r\n    transition: height 100ms linear;\r\n    padding-top: 1px;\r\n    padding-right: 1px;\r\n}\r\n\r\n.foldout::after {\r\n    border-bottom: 1px solid #080808ff;\r\n}\r\n\r\n.foldout:not(.enable) .foldout-content {\r\n    height: 0;\r\n}\r\n\r\n.false {\r\n    color: rgb(75, 75, 75);\r\n}\r\n\r\nul {\r\n    list-style: none;\r\n    margin: 0;\r\n    padding: 0;\r\n}\r\n\r\n/* \r\ninput[type=\"checkbox\"]:checked+label::after {\r\n    content: \"\\2713\";\r\n} */", ""]);
 
 // exports
 
@@ -23999,7 +23980,7 @@ exports.i(__webpack_require__(/*! -!../../../../../node_modules/css-loader!./tab
 exports.i(__webpack_require__(/*! -!../../../../../node_modules/css-loader!./splitpanel.css */ "./node_modules/css-loader/index.js!./src/renderer/widgets/workspace/style/splitpanel.css"), "");
 
 // module
-exports.push([module.i, "body {\r\n    margin: 0;\r\n    padding: 0;\r\n    background: #080808ff;\r\n    overflow: hidden;\r\n}\r\n\r\n#dock-panel {\r\n    position: relative;\r\n}\r\n\r\n#main {\r\n    position: absolute;\r\n    top: 1px;\r\n    left: 1px;\r\n    right: 1px;\r\n    bottom: 1px;\r\n}\r\n\r\nbody.p-mod-override-cursor * {\r\n    cursor: inherit !important;\r\n}\r\n\r\n\r\n/*\r\n* Content\r\n*/\r\n\r\n\r\n\r\n\r\n.content input {\r\n    margin: 8px;\r\n}\r\n\r\n.content red {\r\n    background: #E74C3C;\r\n}\r\n\r\n.yellow {\r\n    /* background: #F1C40F; */\r\n}\r\n\r\n.green>div {\r\n    background: #27AE60;\r\n}\r\n\r\n.blue>div {\r\n    background: #3498DB;\r\n}", ""]);
+exports.push([module.i, "#dock-panel {\r\n    position: relative;\r\n}\r\n\r\n#main {\r\n    position: absolute;\r\n    top: 1px;\r\n    left: 1px;\r\n    right: 1px;\r\n    bottom: 1px;\r\n}\r\n\r\nbody.p-mod-override-cursor * {\r\n    cursor: inherit !important;\r\n}\r\n\r\n", ""]);
 
 // exports
 
@@ -47523,13 +47504,14 @@ var __extends = (this && this.__extends) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 //import * as logo from './logo.svg';
-__webpack_require__(/*! ./style/App.css */ "./src/renderer/style/App.css");
 //import { ipcRenderer } from "electron";
 //import GoldenLayoutContainer from "./layout/GoldenLayoutContainer";
 //import mainLayoutConfig from './layout/mainLayoutConfig';
+__webpack_require__(/*! ./widgets/game/style.css */ "./src/renderer/widgets/game/style.css");
 var Toolbar_1 = __webpack_require__(/*! ./components/Toolbar */ "./src/renderer/components/Toolbar.tsx");
 var StatusBar_1 = __webpack_require__(/*! ./components/StatusBar */ "./src/renderer/components/StatusBar.tsx");
 var WorkspacePanel_1 = __webpack_require__(/*! ./widgets/workspace/WorkspacePanel */ "./src/renderer/widgets/workspace/WorkspacePanel.tsx");
+//console.log(process)
 var App = /** @class */ (function (_super) {
     __extends(App, _super);
     function App() {
@@ -47662,17 +47644,7 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-var style = {
-    overflow: 'hidden'
-};
-var headerStyle = {
-    height: '20px',
-    padding: '3px 0',
-    color: '#aaa',
-    verticalAlign: 'middle',
-    marginBottom: '3px',
-    fontWeight: 'bold'
-};
+__webpack_require__(/*! ./components.css */ "./src/renderer/components/components.css");
 var Foldout = /** @class */ (function (_super) {
     __extends(Foldout, _super);
     function Foldout() {
@@ -47682,18 +47654,37 @@ var Foldout = /** @class */ (function (_super) {
         };
         _this.onHeaderClick = function () {
             var trigger = !_this.state.enable;
+            if (trigger) {
+                _this._content.style.height = _this._contentHeight + 'px';
+            }
+            else {
+                _this._content.style.height = '0';
+            }
             _this.setState({ enable: trigger });
         };
         return _this;
     }
+    Foldout.prototype.componentDidMount = function () {
+        var h = 0;
+        h = this._content.offsetHeight;
+        if (this._content.clientHeight > 0) {
+            h = this._content.clientHeight;
+        }
+        this._contentHeight = h + 4;
+        if (this.state.enable) {
+            this._content.style.height = this._contentHeight + 'px';
+        }
+    };
     Foldout.prototype.render = function () {
-        /*9658	25BA	 9654*/
+        var _this = this;
+        /*9658	25BA	 9654 25B6*/
         var label = this.props.label;
-        return (React.createElement("div", { className: 'foldout' },
-            React.createElement("div", { className: 'foldout-header', onClick: this.onHeaderClick, style: headerStyle },
-                React.createElement("span", { style: { marginRight: '20px' } }, "\u25B6"),
-                React.createElement("label", null, label)),
-            React.createElement("div", { className: 'foldout-content' + ((this.state.enable) ? ' enable' : ''), style: style }, this.props.children)));
+        return (React.createElement("div", { className: 'foldout' + ((this.state.enable) ? ' enable' : '') },
+            React.createElement("div", { className: 'foldout-header', onClick: this.onHeaderClick },
+                React.createElement("div", { className: 'foldout-arrow-container' },
+                    React.createElement("span", { className: 'foldout-arrow' })),
+                React.createElement("label", { className: 'foldout-label' }, label)),
+            React.createElement("div", { className: 'foldout-content', ref: function (child) { _this._content = child; } }, this.props.children)));
     };
     return Foldout;
 }(React.Component));
@@ -47810,8 +47801,8 @@ var styleVec = {
 var FLOAT_REGEX = /[+-]?([0-9]+([.][0-9]*)?|[.][0-9]+)/;
 var Vector2Input = /** @class */ (function (_super) {
     __extends(Vector2Input, _super);
-    function Vector2Input() {
-        var _this = _super !== null && _super.apply(this, arguments) || this;
+    function Vector2Input(props) {
+        var _this = _super.call(this, props) || this;
         _this.state = {
             x: 0,
             y: 1,
@@ -47829,20 +47820,26 @@ var Vector2Input = /** @class */ (function (_super) {
             var value = event.target.value;
             //let value = event.target.valueAsNumber;
             var newValue;
-            console.log(value);
+            var validValue = false;
             if (value.length > 0) {
                 var nonDigits = /([^.\d]+)/g.test(value);
                 if (nonDigits) {
-                    console.log('yes');
                     var isNegative = value[0] === '-';
                     newValue = value.replace(/([^.\d]+)/g, '');
-                    if (isNegative) {
-                        newValue = '-' + newValue;
-                    }
-                    if (newValue.length === 0) {
-                        newValue = '0';
+                    var canParse = newValue.length !== 0;
+                    if (canParse == false) {
+                        if (!isNegative) {
+                            newValue = '0';
+                        }
+                        else {
+                            newValue = '-';
+                        }
                     }
                     else {
+                        if (isNegative) {
+                            newValue = '-' + newValue;
+                        }
+                        validValue = true;
                         newValue = (parseFloat(newValue)).toString();
                     }
                 }
@@ -47854,13 +47851,20 @@ var Vector2Input = /** @class */ (function (_super) {
                     else {
                         newValue = value;
                     }
+                    validValue = true;
                 }
             }
             else {
                 newValue = '';
+                validValue = false;
+            }
+            if (_this.props.onChange && validValue) {
+                _this.props.onChange({
+                    value: parseFloat(newValue)
+                });
             }
             if (newValue !== undefined) {
-                console.log('new value: ' + newValue);
+                //console.log('new value: ' + newValue)
                 if (name === 'x-axis') {
                     _this.setState({ x: newValue });
                 }
@@ -47898,30 +47902,38 @@ var Vector2Input = /** @class */ (function (_super) {
                 _this._xAxisLabel.classList.remove('focus');
             }
         };
+        _this.mouseUp = function () {
+            _this.labelDown = false;
+            _this._xAxisInput.current.classList.remove('focus');
+            _this._xAxisInput.current.setSelectionRange(0, _this._xAxisInput.current.value.length, "forward");
+            //this._xAxisLabel.classList.remove('focus')
+            _this._xAxisInput.current.focus();
+        };
         _this.mouseDown = function (event) {
             if (event.button === 0) {
                 if (manager_1.default.input.mode !== Editing_1.Editing.AxisLabel) {
                     _this.changeAxisTarget = event.currentTarget.title;
                     if (_this.changeAxisTarget === 'x-axis') {
                         _this.changeAxisInitialValue = parseFloat(_this.state.x.toString());
-                        _this._xAxisInput.classList.add('focus');
+                        _this._xAxisInput.current.classList.add('focus');
                         //this._xAxisLabel.classList.add('focus');
-                        _this._xAxisInput.focus();
+                        _this._xAxisInput.current.focus();
                     }
                     manager_1.default.input.setAxisEditing(_this.changeAxis, _this.mouseUp, _this);
                     _this.labelDown = true;
                 }
             }
         };
-        _this.mouseUp = function (event) {
-            _this.labelDown = false;
-            _this._xAxisInput.classList.remove('focus');
-            _this._xAxisInput.setSelectionRange(0, _this._xAxisInput.value.length, "forward");
-            //this._xAxisLabel.classList.remove('focus')
-            _this._xAxisInput.focus();
-        };
+        _this.state.x = 0;
+        _this.state.y = 0;
+        _this._xAxisInput = React.createRef();
         return _this;
     }
+    Vector2Input.prototype.setValues = function (axis) {
+        //this._xAxisInput.current.value = axis.x.toString();
+        this.setState({ x: axis.x.toString() });
+        //this._yAxisInput.valueAsNumber = axis.y;
+    };
     Vector2Input.prototype.changeAxis = function (delta) {
         if (this.labelDown) {
             var str = (this.changeAxisTarget === 'x-axis') ? this.state.x : this.state.y;
@@ -47929,6 +47941,11 @@ var Vector2Input = /** @class */ (function (_super) {
             value = this.changeAxisInitialValue + (Math.floor(-delta) * 0.1);
             //if (focus.target.name === 'x-axis') {
             this.setState({ x: value.toFixed(4) });
+            if (this.props.onChange) {
+                this.props.onChange({
+                    value: parseFloat(this._xAxisInput.current.value)
+                });
+            }
             //this._xAxisInput.value = value.toString();
         }
         //}
@@ -47943,7 +47960,7 @@ var Vector2Input = /** @class */ (function (_super) {
                 : null,
             React.createElement("div", { className: 'flex-horizontal', style: styleVec },
                 React.createElement("label", { className: 'text-label number', title: 'x-axis', ref: function (child) { _this._xAxisLabel = child; }, onMouseDown: this.mouseDown }, "X"),
-                React.createElement("input", { className: 'text-input', name: 'x-axis', ref: function (child) { _this._xAxisInput = child; }, onChange: this.handleChange, onBlur: this.onInputBlur, onFocus: this.onInputFocus, value: this.state.x }),
+                React.createElement("input", { className: 'text-input', name: 'x-axis', ref: this._xAxisInput, onChange: this.handleChange, onBlur: this.onInputBlur, onFocus: this.onInputFocus, value: this.state.x }),
                 React.createElement("label", { className: 'text-label number', style: { marginLeft: '4px' } }, "Y"),
                 React.createElement("input", { className: 'text-input', name: 'y-axis', type: 'number' }))));
     };
@@ -48098,41 +48115,6 @@ var EntityBase = /** @class */ (function () {
 }());
 exports.default = EntityBase;
 ;
-
-
-/***/ }),
-
-/***/ "./src/renderer/engine/entity/EntityTest.ts":
-/*!**************************************************!*\
-  !*** ./src/renderer/engine/entity/EntityTest.ts ***!
-  \**************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-Object.defineProperty(exports, "__esModule", { value: true });
-var Entity_1 = __webpack_require__(/*! ./Entity */ "./src/renderer/engine/entity/Entity.ts");
-var EntityTest = /** @class */ (function (_super) {
-    __extends(EntityTest, _super);
-    function EntityTest() {
-        return _super !== null && _super.apply(this, arguments) || this;
-    }
-    EntityTest.prototype.render = function () {
-    };
-    return EntityTest;
-}(Entity_1.default));
-exports.default = EntityTest;
 
 
 /***/ }),
@@ -51742,6 +51724,51 @@ exports.default = EditorHandles;
 
 /***/ }),
 
+/***/ "./src/renderer/internal/editor/EditorSelectionInternal.ts":
+/*!*****************************************************************!*\
+  !*** ./src/renderer/internal/editor/EditorSelectionInternal.ts ***!
+  \*****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var EditorSelectionInternal = /** @class */ (function () {
+    function EditorSelectionInternal(manager) {
+        this._manager = manager;
+        this._activeEntity = null;
+        this._entities = [];
+    }
+    Object.defineProperty(EditorSelectionInternal.prototype, "activeEntity", {
+        get: function () {
+            return this._activeEntity;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(EditorSelectionInternal.prototype, "entities", {
+        get: function () {
+            return this._entities;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    EditorSelectionInternal.prototype.setActiveEntity = function (entity) {
+        if (this._activeEntity !== entity) {
+            this._activeEntity = entity;
+            this._entities.length = 0;
+            this._entities.push(entity);
+            this._manager.emit('selectionchange');
+        }
+    };
+    return EditorSelectionInternal;
+}());
+exports.default = EditorSelectionInternal;
+
+
+/***/ }),
+
 /***/ "./src/renderer/internal/editor/sceneView/CursorTransform.ts":
 /*!*******************************************************************!*\
   !*** ./src/renderer/internal/editor/sceneView/CursorTransform.ts ***!
@@ -51819,13 +51846,14 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var SceneViewInput_1 = __webpack_require__(/*! ./SceneViewInput */ "./src/renderer/internal/editor/sceneView/SceneViewInput.ts");
 var EventEmitter_1 = __webpack_require__(/*! ../../../engine/events/emitter/EventEmitter */ "./src/renderer/engine/events/emitter/EventEmitter.ts");
 var SceneViewCursor_1 = __webpack_require__(/*! ./SceneViewCursor */ "./src/renderer/internal/editor/sceneView/SceneViewCursor.ts");
-var EntityTest_1 = __webpack_require__(/*! ../../../engine/entity/EntityTest */ "./src/renderer/engine/entity/EntityTest.ts");
 var compute_1 = __webpack_require__(/*! ../../../engine/math/transform/compute */ "./src/renderer/engine/math/transform/compute.ts");
 var Bounds2D_1 = __webpack_require__(/*! ../../../engine/math/bounds/Bounds2D */ "./src/renderer/engine/math/bounds/Bounds2D.ts");
 var EditorHandles_1 = __webpack_require__(/*! ../EditorHandles */ "./src/renderer/internal/editor/EditorHandles.ts");
 var CanvasDrawer_1 = __webpack_require__(/*! ../CanvasDrawer */ "./src/renderer/internal/editor/CanvasDrawer.ts");
 var Guidelines_1 = __webpack_require__(/*! ./guidelines/Guidelines */ "./src/renderer/internal/editor/sceneView/guidelines/Guidelines.ts");
 var View_1 = __webpack_require__(/*! ./View */ "./src/renderer/internal/editor/sceneView/View.ts");
+var Entity_1 = __webpack_require__(/*! ../../../engine/entity/Entity */ "./src/renderer/engine/entity/Entity.ts");
+var manager_1 = __webpack_require__(/*! ../../../manager */ "./src/renderer/manager/index.ts");
 var list = [];
 function renderRect(context, entity, color) {
     if (color === void 0) { color = 'blue'; }
@@ -51842,15 +51870,15 @@ function renderRect(context, entity, color) {
     context.fillRect(0, 0, 100, 100);
 }
 function createEntities() {
-    var e = new EntityTest_1.default('My Object');
+    var e = new Entity_1.default('My Object');
     e.transform.position.x = -50;
     e.transform.position.y = -50;
     list.push(e);
-    e = new EntityTest_1.default('My Object');
+    e = new Entity_1.default('My Object');
     e.transform.position.x = 1000 + -50;
     e.transform.position.y = -50;
     list.push(e);
-    e = new EntityTest_1.default('My Object');
+    e = new Entity_1.default('My Object');
     e.transform.position.x = 100;
     e.transform.position.y = -50;
     list.push(e);
@@ -51901,11 +51929,19 @@ var SceneView = /** @class */ (function () {
                 compute_1.computeBounds2D(b, list[i].transform.matrix, 100, 100, { x: 0, y: 0 });
                 if (b.contains(cursorPosition.x, cursorPosition.y)) {
                     _this._handles.setSelectEntity(list[i]);
+                    manager_1.default.selection.setActiveEntity(list[i]);
                     break;
                 }
             }
         }, this);
         this._emitter.on('redraw', function () {
+            _this.render();
+        });
+        manager_1.default.on('updateActiveEntity', function () {
+            //this.update();
+            var transform = manager_1.default.selection.activeEntity.transform;
+            compute_1.computeTransform2D(transform);
+            transform.matrix.concat(_this._view.camera.matrix);
             _this.render();
         });
         this._editorInput.init();
@@ -51934,6 +51970,7 @@ var SceneView = /** @class */ (function () {
         }
     };
     SceneView.prototype.render = function () {
+        console.log("render");
         var ctx = this._renderer.context;
         // scene
         this._renderer.beginDraw();
@@ -52105,10 +52142,12 @@ var SceneViewCursor = /** @class */ (function () {
             }
         });
         manager_1.default.on('mouseup', function () {
-            _this._mode = CursorMode.None;
             _this.holding = false;
             _this.target.style.cursor = 'default';
-            _this.emitter.emit('selection');
+            if (_this._mode === CursorMode.Selection) {
+                _this.emitter.emit('selection');
+            }
+            _this._mode = CursorMode.None;
         });
     };
     return SceneViewCursor;
@@ -52588,11 +52627,13 @@ var __extends = (this && this.__extends) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 var EventEmitter_1 = __webpack_require__(/*! ../engine/events/emitter/EventEmitter */ "./src/renderer/engine/events/emitter/EventEmitter.ts");
 var EditorInput_1 = __webpack_require__(/*! ./EditorInput */ "./src/renderer/manager/EditorInput.ts");
+var EditorSelectionInternal_1 = __webpack_require__(/*! ../internal/editor/EditorSelectionInternal */ "./src/renderer/internal/editor/EditorSelectionInternal.ts");
 var EditorManager = /** @class */ (function (_super) {
     __extends(EditorManager, _super);
     function EditorManager() {
         var _this = _super.call(this) || this;
         _this._editorInput = new EditorInput_1.default(_this);
+        _this.selection = new EditorSelectionInternal_1.default(_this);
         return _this;
     }
     Object.defineProperty(EditorManager.prototype, "input", {
@@ -52703,31 +52744,6 @@ window.ReduxStore = store;
 
 /***/ }),
 
-/***/ "./src/renderer/style/App.css":
-/*!************************************!*\
-  !*** ./src/renderer/style/App.css ***!
-  \************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(/*! !../../../node_modules/css-loader!./App.css */ "./node_modules/css-loader/index.js!./src/renderer/style/App.css");
-if(typeof content === 'string') content = [[module.i, content, '']];
-// Prepare cssTransformation
-var transform;
-
-var options = {"hmr":true}
-options.transform = transform
-// add the styles to the DOM
-var update = __webpack_require__(/*! ../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
-if(content.locals) module.exports = content.locals;
-// Hot Module Replacement
-if(false) {}
-
-/***/ }),
-
 /***/ "./src/renderer/system/SystemFactory.ts":
 /*!**********************************************!*\
   !*** ./src/renderer/system/SystemFactory.ts ***!
@@ -52778,50 +52794,43 @@ exports.default = SystemFactory;
 
 /***/ }),
 
-/***/ "./src/renderer/widgets/base/ReactComponentBase.ts":
-/*!*********************************************************!*\
-  !*** ./src/renderer/widgets/base/ReactComponentBase.ts ***!
-  \*********************************************************/
+/***/ "./src/renderer/widgets/WidgetFactory.ts":
+/*!***********************************************!*\
+  !*** ./src/renderer/widgets/WidgetFactory.ts ***!
+  \***********************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
 Object.defineProperty(exports, "__esModule", { value: true });
-var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-var Base = /** @class */ (function (_super) {
-    __extends(Base, _super);
-    function Base() {
-        return _super !== null && _super.apply(this, arguments) || this;
+var SceneViewWidget_1 = __webpack_require__(/*! ./game/SceneViewWidget */ "./src/renderer/widgets/game/SceneViewWidget.ts");
+var ReactWidgetBase_1 = __webpack_require__(/*! ./base/ReactWidgetBase */ "./src/renderer/widgets/base/ReactWidgetBase.ts");
+var Inspector_1 = __webpack_require__(/*! ./inspector/Inspector */ "./src/renderer/widgets/inspector/Inspector.tsx");
+//import EntityList from '../game/EntityList';
+var SystemFactory_1 = __webpack_require__(/*! ../system/SystemFactory */ "./src/renderer/system/SystemFactory.ts");
+var manager_1 = __webpack_require__(/*! ../manager */ "./src/renderer/manager/index.ts");
+function createReactWidget(widget, name) {
+    return new ReactWidgetBase_1.default(name, widget);
+}
+var WidgetFactory;
+(function (WidgetFactory) {
+    function createInspector() {
+        var inspector = createReactWidget(Inspector_1.default, 'Inspector');
+        manager_1.default.on('selectionchange', function () {
+            inspector.reactComponent.inspect(manager_1.default.selection.activeEntity);
+        });
+        return inspector;
     }
-    return Base;
-}(React.Component));
-var ReactComponentBase = /** @class */ (function (_super) {
-    __extends(ReactComponentBase, _super);
-    function ReactComponentBase(props) {
-        var _this = _super.call(this, props) || this;
-        _this.state = {
-            width: 0,
-            height: 0,
-        };
-        return _this;
-        //this.state = initialState;
+    WidgetFactory.createInspector = createInspector;
+    function createSceneView() {
+        var sceneView = SystemFactory_1.default.createSceneViewEditor();
+        var widget = new SceneViewWidget_1.default(sceneView);
+        return widget;
     }
-    ReactComponentBase.prototype.componentWillMount = function () {
-    };
-    return ReactComponentBase;
-}(Base));
-exports.ReactComponentBase = ReactComponentBase;
+    WidgetFactory.createSceneView = createSceneView;
+})(WidgetFactory || (WidgetFactory = {}));
+exports.default = WidgetFactory;
 
 
 /***/ }),
@@ -52863,6 +52872,34 @@ var ReactWidgetBase = /** @class */ (function (_super) {
         _this.node.appendChild(_this._wrapperElement);
         return _this;
     }
+    Object.defineProperty(ReactWidgetBase.prototype, "height", {
+        get: function () {
+            return this._height;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(ReactWidgetBase.prototype, "width", {
+        get: function () {
+            return this._width;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(ReactWidgetBase.prototype, "reactComponent", {
+        get: function () {
+            return this._reactComponent;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(ReactWidgetBase.prototype, "reactElement", {
+        get: function () {
+            return this._reactElement;
+        },
+        enumerable: true,
+        configurable: true
+    });
     // get component(): any {
     ReactWidgetBase.prototype.onUpdate = function (nextProps, nextState, nextContext) {
     };
@@ -52875,12 +52912,17 @@ var ReactWidgetBase = /** @class */ (function (_super) {
         //this.onUpdateRequest(Widget.Msg.UpdateRequest);
         this.update();
     };
-    ReactWidgetBase.prototype.onUpdateRequest = function (msg) {
+    // function createElement<P, T extends Component<P, ComponentState>, C extends ComponentClass<P>>(
+    //     type: ClassType<P, T, C>,
+    //     props?: ClassAttributes<T> & P | null,
+    //     ...children: ReactNode[]): CElement<P, T>;
+    ReactWidgetBase.prototype.onUpdateRequest = function (_msg) {
         var host = this.node.firstChild;
         var ReactElement = React.createElement(this._reactClass, { parent: this });
-        //this._reactElement = ReactElement;
-        this._reactComponent = ReactDOM.render(ReactElement, host);
-        this._reactComponent.setState({ width: this._width, height: this._height });
+        var ReactComponent = ReactDOM.render(ReactElement, host);
+        ReactComponent.setState({ width: this._width, height: this._height });
+        this._reactComponent = ReactComponent;
+        this._reactElement = ReactElement;
         //this._originalComponentWillUpdate = this._reactComponent.componentWillUpdate;
         //this._reactComponent.componentWillUpdate = this.onUpdate.bind(this);
     };
@@ -52980,109 +53022,6 @@ exports.default = WidgetBase;
 
 /***/ }),
 
-/***/ "./src/renderer/widgets/game/EntityList.tsx":
-/*!**************************************************!*\
-  !*** ./src/renderer/widgets/game/EntityList.tsx ***!
-  \**************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-Object.defineProperty(exports, "__esModule", { value: true });
-var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-var ReactComponentBase_1 = __webpack_require__(/*! ../base/ReactComponentBase */ "./src/renderer/widgets/base/ReactComponentBase.ts");
-var EntityList = /** @class */ (function (_super) {
-    __extends(EntityList, _super);
-    function EntityList() {
-        return _super !== null && _super.apply(this, arguments) || this;
-    }
-    EntityList.prototype.render = function () {
-        return (React.createElement("div", { id: 'entityList' },
-            React.createElement("input", { className: 'text-input', type: 'textfield', defaultValue: 'Search...' }),
-            React.createElement("ul", null,
-                React.createElement("li", null, "asdasd"))));
-    };
-    return EntityList;
-}(ReactComponentBase_1.ReactComponentBase));
-exports.default = EntityList;
-
-
-/***/ }),
-
-/***/ "./src/renderer/widgets/game/Inspector.tsx":
-/*!*************************************************!*\
-  !*** ./src/renderer/widgets/game/Inspector.tsx ***!
-  \*************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-Object.defineProperty(exports, "__esModule", { value: true });
-var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-var ReactComponentBase_1 = __webpack_require__(/*! ../base/ReactComponentBase */ "./src/renderer/widgets/base/ReactComponentBase.ts");
-__webpack_require__(/*! ./style.css */ "./src/renderer/widgets/game/style.css");
-var Checkbox_1 = __webpack_require__(/*! ../../components/Checkbox */ "./src/renderer/components/Checkbox.tsx");
-var Vector2Input_1 = __webpack_require__(/*! ../../components/Vector2Input */ "./src/renderer/components/Vector2Input.tsx");
-var Foldout_1 = __webpack_require__(/*! ../../components/Foldout */ "./src/renderer/components/Foldout.tsx");
-var Inspector = /** @class */ (function (_super) {
-    __extends(Inspector, _super);
-    function Inspector() {
-        var _this = _super !== null && _super.apply(this, arguments) || this;
-        _this.activeFlag = 'true';
-        return _this;
-    }
-    // state = {
-    //     activeFlag: 'true'
-    // }
-    Inspector.prototype.active = function (event) {
-        var activeFlag;
-        if (event.isChecked) {
-            activeFlag = 'true';
-        }
-        else {
-            activeFlag = 'false';
-        }
-        //this.setState({activeFlag});
-    };
-    Inspector.prototype.render = function () {
-        return (React.createElement("div", { id: 'inspector', className: this.activeFlag },
-            React.createElement("div", { className: 'flex-container' },
-                React.createElement("div", { className: 'horizotal-group' },
-                    React.createElement(Checkbox_1.default, { onChange: this.active }),
-                    React.createElement("input", { className: 'text-input', type: 'textfield' }))),
-            React.createElement(Foldout_1.default, { label: 'Transform' },
-                React.createElement(Vector2Input_1.default, { label: 'Position' }))));
-    };
-    return Inspector;
-}(ReactComponentBase_1.ReactComponentBase));
-exports.default = Inspector;
-//export default connect(,mapDispatchToProps)(Inspector);
-
-
-/***/ }),
-
 /***/ "./src/renderer/widgets/game/SceneViewWidget.ts":
 /*!******************************************************!*\
   !*** ./src/renderer/widgets/game/SceneViewWidget.ts ***!
@@ -53105,18 +53044,17 @@ var __extends = (this && this.__extends) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 //import * as React from "react";
 var WidgetBase_1 = __webpack_require__(/*! ../base/WidgetBase */ "./src/renderer/widgets/base/WidgetBase.ts");
-var SystemFactory_1 = __webpack_require__(/*! ../../system/SystemFactory */ "./src/renderer/system/SystemFactory.ts");
 // const style: React.CSSProperties = {
 //     backgroundColor: '#171717',
 //     border: '1px solid black'
 // }
 var SceneViewWidget = /** @class */ (function (_super) {
     __extends(SceneViewWidget, _super);
-    function SceneViewWidget() {
+    function SceneViewWidget(sceneView) {
         var _this = _super.call(this, "Game View") || this;
         _this.title.caption = "Game View";
         _this.title.label = "Game View";
-        _this._editor = SystemFactory_1.default.createSceneViewEditor();
+        _this._editor = sceneView; //
         //this._renderer = this._editor.renderer as CanvasRenderer;
         //this._renderer = SystemFactory.createRenderer('2d', true) as CanvasRenderer;
         // this._canvas.style.backgroundColor = style.backgroundColor;
@@ -53206,6 +53144,126 @@ if(false) {}
 
 /***/ }),
 
+/***/ "./src/renderer/widgets/inspector/Inspector.tsx":
+/*!******************************************************!*\
+  !*** ./src/renderer/widgets/inspector/Inspector.tsx ***!
+  \******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+var Checkbox_1 = __webpack_require__(/*! ../../components/Checkbox */ "./src/renderer/components/Checkbox.tsx");
+var Transform2D_1 = __webpack_require__(/*! ./Transform2D */ "./src/renderer/widgets/inspector/Transform2D.tsx");
+// interface InspectorProps extends WidgetProps {
+//     x: number;
+// }
+var Inspector = /** @class */ (function (_super) {
+    __extends(Inspector, _super);
+    function Inspector(props) {
+        var _this = _super.call(this, props) || this;
+        _this.activeFlag = 'true';
+        _this.state = {
+            width: 0,
+            height: 0,
+            activeFlag: 'true',
+        };
+        _this._refTransfom2D = React.createRef();
+        return _this;
+    }
+    Inspector.prototype.inspect = function (entity) {
+        this._refTransfom2D.current.inspect(entity);
+    };
+    Inspector.prototype.active = function (event) {
+        var activeFlag;
+        if (event.isChecked) {
+            activeFlag = 'true';
+        }
+        else {
+            activeFlag = 'false';
+        }
+        //this.setState({activeFlag});
+    };
+    Inspector.prototype.render = function () {
+        return (React.createElement("div", { id: 'inspector', className: this.activeFlag },
+            React.createElement("div", { className: 'flex-container' },
+                React.createElement("div", { className: 'horizotal-group' },
+                    React.createElement(Checkbox_1.default, { onChange: this.active }),
+                    React.createElement("input", { className: 'text-input', type: 'textfield' }))),
+            React.createElement(Transform2D_1.default, { ref: this._refTransfom2D })));
+    };
+    return Inspector;
+}(React.Component));
+exports.default = Inspector;
+//export default connect(,mapDispatchToProps)(Inspector);
+
+
+/***/ }),
+
+/***/ "./src/renderer/widgets/inspector/Transform2D.tsx":
+/*!********************************************************!*\
+  !*** ./src/renderer/widgets/inspector/Transform2D.tsx ***!
+  \********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+var Vector2Input_1 = __webpack_require__(/*! ../../components/Vector2Input */ "./src/renderer/components/Vector2Input.tsx");
+var Foldout_1 = __webpack_require__(/*! ../../components/Foldout */ "./src/renderer/components/Foldout.tsx");
+var manager_1 = __webpack_require__(/*! ../../manager */ "./src/renderer/manager/index.ts");
+var Transform2D = /** @class */ (function (_super) {
+    __extends(Transform2D, _super);
+    function Transform2D(props) {
+        var _this = _super.call(this, props) || this;
+        _this.onChange = function (event) {
+            if (manager_1.default.selection.activeEntity !== null) {
+                var pos = manager_1.default.selection.activeEntity.transform.position;
+                pos.x = event.value;
+                manager_1.default.emit('updateActiveEntity');
+            }
+        };
+        _this._refPosition = React.createRef();
+        return _this;
+    }
+    Transform2D.prototype.inspect = function (entity) {
+        this._refPosition.current.setValues(entity.transform.position);
+    };
+    Transform2D.prototype.render = function () {
+        return (React.createElement(Foldout_1.default, { label: 'Transform' },
+            React.createElement(Vector2Input_1.default, { label: 'Position', ref: this._refPosition, onChange: this.onChange })));
+    };
+    return Transform2D;
+}(React.Component));
+exports.default = Transform2D;
+
+
+/***/ }),
+
 /***/ "./src/renderer/widgets/workspace/WorkspacePanel.tsx":
 /*!***********************************************************!*\
   !*** ./src/renderer/widgets/workspace/WorkspacePanel.tsx ***!
@@ -53230,10 +53288,7 @@ var widgets_1 = __webpack_require__(/*! @phosphor/widgets */ "./node_modules/@ph
 var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 //import { createPortal } from "react-dom";
 __webpack_require__(/*! ./style/index.css */ "./src/renderer/widgets/workspace/style/index.css");
-var SceneViewWidget_1 = __webpack_require__(/*! ../game/SceneViewWidget */ "./src/renderer/widgets/game/SceneViewWidget.ts");
-var ReactWidgetBase_1 = __webpack_require__(/*! ../base/ReactWidgetBase */ "./src/renderer/widgets/base/ReactWidgetBase.ts");
-var Inspector_1 = __webpack_require__(/*! ../game/Inspector */ "./src/renderer/widgets/game/Inspector.tsx");
-var EntityList_1 = __webpack_require__(/*! ../game/EntityList */ "./src/renderer/widgets/game/EntityList.tsx");
+var WidgetFactory_1 = __webpack_require__(/*! ./../WidgetFactory */ "./src/renderer/widgets/WidgetFactory.ts");
 var WorkspacePanel = /** @class */ (function (_super) {
     __extends(WorkspacePanel, _super);
     function WorkspacePanel() {
@@ -53242,12 +53297,16 @@ var WorkspacePanel = /** @class */ (function (_super) {
     WorkspacePanel.prototype.componentWillMount = function () {
         this.dock = new widgets_1.DockPanel();
         //let widgetInfos = [];
-        var widget = new SceneViewWidget_1.default();
-        this.dock.addWidget(widget);
-        var widget2 = new ReactWidgetBase_1.default('Entities', EntityList_1.default);
-        this.dock.addWidget(widget2, { mode: 'split-right' });
-        widget2 = new ReactWidgetBase_1.default('Inspector', Inspector_1.default);
-        this.dock.addWidget(widget2, { mode: 'split-right' });
+        //let widget = new SceneViewWidget(); 
+        //this.dock.addWidget(widget);
+        //let widget2 = new ReactWidgetBase('Entities', EntityList); 
+        //this.dock.addWidget(widget2, {mode:'split-right'});
+        //let inspector = new ReactWidgetBase('Inspector', Inspector);
+        var sceneView = WidgetFactory_1.default.createSceneView();
+        this.dock.addWidget(sceneView);
+        var inspector = WidgetFactory_1.default.createInspector();
+        this.dock.addWidget(inspector, { mode: 'split-right' });
+        //inspector.reactComponent.
         this.dock.id = 'main';
         // for (let index = 0; index < 5; index++) {
         //     //const element = createContent('Yellow');

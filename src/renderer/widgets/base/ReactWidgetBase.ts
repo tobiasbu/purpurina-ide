@@ -2,21 +2,41 @@ import * as React from "react";
 import * as ReactDOM from "react-dom";
 import { Widget } from "@phosphor/widgets";
 import { Message } from "@phosphor/messaging";
+import { IReactWidgetBase } from "./IReactWidgetBase";
+import ReactComponentBase, { WidgetProps } from "./ReactComponentBase";
 
-import { ReactComponentBase } from "./ReactComponentBase";
 
 
-export default class ReactWidgetBase extends Widget {
+export default class ReactWidgetBase<U extends typeof ReactComponentBase> 
+extends Widget implements IReactWidgetBase {
 
     private _wrapperElement: HTMLElement;
-    private _reactClass: any;
-    //private _reactElement: React.ComponentElement<{}, React.Component<{}, React.ComponentState, any>>
-    private _reactComponent: React.Component;
+    private _reactClass: U;
+    private _reactComponent: InstanceType<U>;
+    private _reactElement: React.ReactElement<WidgetProps>;
     private _width: number;
     private _height: number;
+    
+
     private _originalComponentWillUpdate: <P, S>(nextProps: Readonly<P>, nextState: Readonly<S>, nextContext: any) => void;
 
-    constructor(name: string, reactClass: ReactComponentBase | any) {
+    public get height(): number {
+        return this._height;
+    }
+
+    public get width(): number {
+        return this._width;
+    }
+
+    public get reactComponent(): InstanceType<U> {
+        return this._reactComponent;
+    }
+
+    public get reactElement() : React.ReactElement<WidgetProps> {
+        return this._reactElement;
+    }
+
+    constructor(name: string, reactClass: U) {
         super();
         //this.setFlag(Widget.Flag.DisallowLayout);
         this.title.label = name;
@@ -52,13 +72,22 @@ export default class ReactWidgetBase extends Widget {
     }
 
 
-    protected onUpdateRequest(msg: Message): void {
+    // function createElement<P, T extends Component<P, ComponentState>, C extends ComponentClass<P>>(
+    //     type: ClassType<P, T, C>,
+    //     props?: ClassAttributes<T> & P | null,
+    //     ...children: ReactNode[]): CElement<P, T>;
+
+    protected onUpdateRequest(_msg: Message): void {
+
 
         const host = this.node.firstChild as Element;
-        const ReactElement = React.createElement(this._reactClass, { parent: this });
-        //this._reactElement = ReactElement;
-        this._reactComponent = ReactDOM.render(ReactElement, host);
-        this._reactComponent.setState({ width: this._width, height: this._height })
+        const ReactElement = React.createElement<WidgetProps>(this._reactClass, { parent: this });
+
+        const ReactComponent = ReactDOM.render(ReactElement, host) as InstanceType<U>;
+        ReactComponent.setState({ width: this._width, height: this._height })
+
+        this._reactComponent = ReactComponent;
+        this._reactElement = ReactElement;
 
         //this._originalComponentWillUpdate = this._reactComponent.componentWillUpdate;
         //this._reactComponent.componentWillUpdate = this.onUpdate.bind(this);

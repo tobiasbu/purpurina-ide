@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ReactComponentBase } from "../base/ReactComponentBase";
+import ReactComponentBase from "../base/ReactComponentBase";
 
 
 export default class EntityList extends ReactComponentBase {

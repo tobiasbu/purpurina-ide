@@ -3,12 +3,6 @@
 @import './tabbar.css';
 @import './splitpanel.css';
 
-body {
-    margin: 0;
-    padding: 0;
-    background: #080808ff;
-    overflow: hidden;
-}
 
 #dock-panel {
     position: relative;
@@ -26,30 +20,3 @@ body.p-mod-override-cursor * {
     cursor: inherit !important;
 }
 
-
-/*
-* Content
-*/
-
-
-
-
-.content input {
-    margin: 8px;
-}
-
-.content red {
-    background: #E74C3C;
-}
-
-.yellow {
-    /* background: #F1C40F; */
-}
-
-.green>div {
-    background: #27AE60;
-}
-
-.blue>div {
-    background: #3498DB;
-}

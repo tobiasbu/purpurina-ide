@@ -124,7 +124,7 @@ export default class SceneViewCursor {
         })
 
 
-        Manager.on('mousemove', (position:IVector2) => {
+        Manager.on('mousemove', (position: IVector2) => {
             if (this._mode !== CursorMode.None) {
 
                 position = this.inputData.transform(position);
@@ -152,14 +152,17 @@ export default class SceneViewCursor {
         });
 
         Manager.on('mouseup', () => {
-            this._mode = CursorMode.None;
+
             this.holding = false;
             this.target.style.cursor = 'default'
-            this.emitter.emit('selection');
+            if (this._mode === CursorMode.Selection) {
+                this.emitter.emit('selection');
+            }
+            this._mode = CursorMode.None;
 
         });
 
-   
+
 
     }
 

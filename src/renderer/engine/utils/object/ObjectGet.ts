@@ -30,7 +30,7 @@ class ObjectGetter {
     value(obj: any, key: string, defaultValue: any): any {
 
 
-
+        
         const type = typeof (obj);
 
         if (!obj || type === 'number' || type === 'string')

@@ -2,8 +2,8 @@ import Vector2 from "../engine/math/Vector2";
 import { Editing } from "./Editing";
 import EditorManager from "./EditorManager";
 
-type CursorEditingCallback = (delta: IVector2) => void
-type CursorEditingEndCallback = (delta: IVector2) => void
+type CursorEditingCallback = (delta: number) => void
+type CursorEditingEndCallback = (delta: number) => void
 
 export default class EditorInput {
 
