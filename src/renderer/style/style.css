@@ -15,7 +15,7 @@ body {
     /* Non-prefixed version, currently supported by Chrome and Opera */
     margin: 0;
     padding: 0;
-    background: #080808ff;
+    background: #080808;
     overflow: hidden;
     filter: blur(0);
     -webkit-filter: blur(0);
@@ -112,7 +112,7 @@ input.checkbox+label {
     height: 14px;
     /* border: 1px solid #000; */
     border: none;
-    background: #141414ff;
+    background: #141414;
     color: #F0F0F0;
     font-size: 11px;
 }
@@ -250,6 +250,7 @@ input[type="checkbox"]:checked+.checkbox-indicator::after {
 
 .foldout-arrow::after {
     content: '\25B6';
+    /* content: '\9654'; */
     font-size: 10px;
 }
 

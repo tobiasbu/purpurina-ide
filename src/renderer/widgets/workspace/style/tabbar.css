@@ -10,7 +10,7 @@
     user-select: none;
     min-height: 24px;
     max-height: 24px;
-    background-color: #141414ff;
+    background-color: #141414;
 }
 
 .p-TabBar[data-orientation='horizontal'] {
@@ -46,7 +46,7 @@
     box-sizing: border-box;
     overflow: hidden;
     padding: 0px 8px;
-    background: #1a191aff;
+    background: #1a191a;
     color: #F0F0F0;
     font: 11px Segoe UI, Helvetica, Arial, sans-serif;
     flex: 0 1 125px;
@@ -55,7 +55,7 @@
     min-width: 24px;
     margin-left: -1px;
     line-height: 24px;
-    border-right: 1px solid #141414ff;
+    border-right: 1px solid #141414;
 }
 
 .p-TabBar-tabIcon,
@@ -100,7 +100,7 @@
 }
 
 .p-TabBar-tab.p-mod-current {
-    background: #262626ff;
+    background: #262626;
 }
 
 .p-TabBar-tab:hover:not(.p-mod-current) {

@@ -158,9 +158,10 @@ export default class ViewPointer {
                     break;
                 }
                 case PointerMode.ViewSelectionArea: {
-                    const w = MathUtils.floor(delta.x - this.startPosition.x);
-                    const h = MathUtils.floor(delta.y - this.startPosition.y);
-                    this._selectionArea.set(this._startPosition.x, this.startPosition.y, w, h)
+                    const w = MathUtils.floor(delta.x);
+                    const h = MathUtils.floor(delta.y);
+                    const p = this._cursorTransform.transform(Pointer.startPosition);
+                    this._selectionArea.set(p.x, p.y, w, h)
                     
                         this.emitter.emit('selection', this._selectionArea);
                     

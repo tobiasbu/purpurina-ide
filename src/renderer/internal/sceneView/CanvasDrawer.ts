@@ -61,9 +61,7 @@ export default class CanvasDrawer {
 
     rect(x: number, y: number, width: number, height: number, color?: string) {
 
-        if (!color) {
-            this._ctx.fillStyle = this._fillStyle;
-        } else {
+        if (color !== undefined) {
             this.color = color;
         }
 

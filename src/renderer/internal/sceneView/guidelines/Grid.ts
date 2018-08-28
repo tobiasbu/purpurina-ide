@@ -25,7 +25,7 @@ export default class Grid {
         this._parallax = { x: 0, y: 0 };
         this.skipNth = undefined;
         this.alpha = 0.1;
-        this.color = 'rgb(255, 255, 255,' + 0.1 + ')';
+        this.color = 'rgba(255, 255, 255,' + 0.1 + ')';
     }
 
     setSkip(skipX: number, skipY: number): void {
@@ -58,7 +58,7 @@ export default class Grid {
 
     setAlpha(factor: number, inversed?: boolean): void {
         this.alpha = (inversed === true) ? MathUtils.clampedLerp(0.1, 0.0, factor) : MathUtils.clampedLerp(0.0, 0.1, factor);
-        this.color = 'rgb(255, 255, 255,' + this.alpha.toFixed(3) + ')';
+        this.color = 'rgb(255, 255, 255,' + this.alpha.toString() +  ')';
     }
 
     render(draw: CanvasDrawer, view: View) {
@@ -68,7 +68,7 @@ export default class Grid {
 
         draw.outlineColor = this.color;
    
-
+        
         // draw vertical lines
         for (let x = 0; x <= this.maxHorizontalLines; x++) {
 

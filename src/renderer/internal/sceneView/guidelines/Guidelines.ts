@@ -76,7 +76,10 @@ export default class Guidelines {
 
             }
 
-            const depth = (this.nextSpacing / spacingFactor) - 0.1;
+            let depth = (this.nextSpacing / spacingFactor);
+
+            
+
             //this.mainGrid.setAlpha(depth, true);
             this.subGrid.setAlpha(depth);
 
@@ -124,6 +127,9 @@ export default class Guidelines {
 
         //color = 'rgb(255, 255, 255,' + this.subGrid.depthAlpha + ')';
         this.subGrid.render(draw, view);
+
+        draw.alpha = 1;
     }
+
 
 }
