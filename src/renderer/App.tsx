@@ -5,7 +5,7 @@ import * as React from "react";
 
 //import GoldenLayoutContainer from "./layout/GoldenLayoutContainer";
 //import mainLayoutConfig from './layout/mainLayoutConfig';
-import './widgets/game/style.css'
+import './style/style.css'
 import Toolbar from "./components/Toolbar";
 import StatusBar from "./components/StatusBar";
 import WorkspacePanel from "./widgets/workspace/WorkspacePanel";

@@ -2,8 +2,8 @@ import Rect from "../../engine/math/Rect";
 import Entity from "../../engine/entity/Entity";
 import Vector2 from "../../engine/math/Vector2";
 import MathUtils from "../../engine/math/MathUtils";
-import View from "./sceneView/View";
-import { CanvasDrawer } from "./CanvasDrawer";
+import View from "./View";
+import CanvasDrawer from "./CanvasDrawer";
 
 const POSITION_HANDLE_SIZE = 80;
 const HANDLE_DIR_WIDTH = 16;

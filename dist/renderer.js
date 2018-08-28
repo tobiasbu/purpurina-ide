@@ -23908,38 +23908,19 @@ exports.push([module.i, ".toolbar {\r\n    height: 28px;\r\n    background: #222
 
 /***/ }),
 
-/***/ "./node_modules/css-loader/index.js!./src/renderer/index.css":
-/*!**********************************************************!*\
-  !*** ./node_modules/css-loader!./src/renderer/index.css ***!
-  \**********************************************************/
+/***/ "./node_modules/css-loader/index.js!./src/renderer/style/style.css":
+/*!****************************************************************!*\
+  !*** ./node_modules/css-loader!./src/renderer/style/style.css ***!
+  \****************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(/*! ../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
 // imports
 
 
 // module
-exports.push([module.i, "/* body {\n  margin: 0;\n  padding: 0;\n  font-family: sans-serif;\n  overflow: hidden;\n  background: #000;\n} */\n\n", ""]);
-
-// exports
-
-
-/***/ }),
-
-/***/ "./node_modules/css-loader/index.js!./src/renderer/widgets/game/style.css":
-/*!***********************************************************************!*\
-  !*** ./node_modules/css-loader!./src/renderer/widgets/game/style.css ***!
-  \***********************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
-// imports
-
-
-// module
-exports.push([module.i, "body {\r\n    font: 11px Segoe UI, Helvetica, Arial, sans-serif;\r\n    color: #F0F0F0;\r\n    -webkit-touch-callout: none;\r\n    /* iOS Safari */\r\n    -webkit-user-select: none;\r\n    /* Safari */\r\n    -khtml-user-select: none;\r\n    /* Konqueror HTML */\r\n    -moz-user-select: none;\r\n    /* Firefox */\r\n    -ms-user-select: none;\r\n    /* Internet Explorer/Edge */\r\n    user-select: none;\r\n    /* Non-prefixed version, currently supported by Chrome and Opera */\r\n    margin: 0;\r\n    padding: 0;\r\n    background: #080808ff;\r\n    overflow: hidden;\r\n    filter: blur(0);\r\n    -webkit-filter: blur(0);\r\n    -webkit-backface-visibility: hidden;\r\n    backface-visibility: hidden;\r\n}\r\n\r\n/* image-rendering: optimizeSpeed;            \r\nimage-rendering: -moz-crisp-edges;           Firefox             \r\nimage-rendering: -o-crisp-edges;            /* Opera               \r\nimage-rendering: -webkit-optimize-contrast; /* Chrome (and Safari) \r\nimage-rendering: optimize-contrast;         /* CSS3 Proposed       \r\n-ms-interpolation-mode: nearest-neighbor;   IE8+                */\r\n\r\n/*** Works on common browsers ***/\r\n\r\n::selection {\r\n    background-color: #004580;\r\n    color: #fff;\r\n}\r\n\r\n/*** Mozilla based browsers ***/\r\n\r\n::-moz-selection {\r\n    background-color: #004580;\r\n    color: #fff;\r\n}\r\n\r\n/***For Other Browsers ***/\r\n\r\n::-o-selection {\r\n    background-color: #004580;\r\n    color: #fff;\r\n}\r\n\r\n::-ms-selection {\r\n    background-color: #004580;\r\n    color: #fff;\r\n}\r\n\r\n/*** For Webkit ***/\r\n\r\n::-webkit-selection {\r\n    background-color: #004580;\r\n    color: #fff;\r\n}\r\n\r\nfieldset {\r\n    border: none;\r\n}\r\n\r\n#inspector> :nth-child(n) {\r\n    margin-bottom: 4px;\r\n}\r\n\r\n.flex-container {\r\n    display: flex;\r\n    flex-direction: row;\r\n    justify-content: space-between;\r\n    align-items: stretch;\r\n}\r\n\r\n.flex-container>.flex-horizontal {\r\n    display: inline-flex;\r\n    /* min-width: 50%; */\r\n    width: auto;\r\n}\r\n\r\n.flex-horizontal {\r\n    display: inline-flex;\r\n    /* min-width: 50%; */\r\n    width: auto;\r\n}\r\n\r\n.horizotal-group {\r\n    flex: auto;\r\n    display: inline-flex;\r\n    /* display: contents;*/\r\n    min-width: 0;\r\n}\r\n\r\n/*(an + b)*/\r\n\r\n.flex-container>.flex-horizontal:nth-child(1n+2) {\r\n    margin-left: 4px;\r\n    min-width: 0;\r\n    /* min-width: calc(50% - 4px); */\r\n}\r\n\r\ninput,\r\ninput[type=\"number\"],\r\ninput.checkbox+label {\r\n    width: auto;\r\n    height: 14px;\r\n    /* border: 1px solid #000; */\r\n    border: none;\r\n    background: #141414ff;\r\n    color: #F0F0F0;\r\n    font-size: 11px;\r\n}\r\n\r\ninput.focus {\r\n    outline: #004580 solid 1px;\r\n}\r\n\r\ninput:focus,\r\ninput[type=\"number\"]:focus {\r\n    outline: #004580 solid 1px;\r\n}\r\n\r\nlabel.focus {\r\n    color: #107bd7;\r\n}\r\n\r\n.text-input {\r\n    flex: auto;\r\n    padding: 3px;\r\n    min-width: 0;\r\n}\r\n\r\ninput[type=number]::-webkit-inner-spin-button,\r\ninput[type=number]::-webkit-outer-spin-button {\r\n    -webkit-appearance: none;\r\n    -moz-appearance: none;\r\n    appearance: none;\r\n    margin: 0;\r\n}\r\n\r\ninput[type=\"number\"] {\r\n    -moz-appearance: textfield;\r\n}\r\n\r\n.text-label {\r\n    margin: auto 0;\r\n    text-transform: capitalize;\r\n}\r\n\r\n.number {\r\n    min-width: 10px;\r\n    cursor: col-resize;\r\n}\r\n\r\ninput[type=\"checkbox\"] {\r\n    -webkit-appearance: none;\r\n    -moz-appearance: none;\r\n    appearance: none;\r\n    display: none;\r\n    visibility: hidden;\r\n    padding: 0;\r\n    border: 0\r\n}\r\n\r\n/* -webkit-appearance: none;\r\n    -moz-appearance: none;\r\n    appearance: none; */\r\n\r\n/* display: none; */\r\n\r\n/* \r\n    position: absolute;\r\n    overflow: hidden;\r\n    clip: rect(0 0 0 0);\r\n    height: 1px;\r\n    width: 1px;\r\n    margin: -1px;\r\n    padding: 0;\r\n    border: 0;*/\r\n\r\n.checkbox-container {\r\n    cursor: pointer;\r\n    min-width: 20px;\r\n    margin: auto;\r\n}\r\n\r\n.checkbox-container .checkbox-indicator {\r\n    display: inline-block;\r\n    vertical-align: middle;\r\n    pointer-events: none;\r\n}\r\n\r\ninput[type=\"checkbox\"]+label::after {\r\n    content: none;\r\n}\r\n\r\ninput.checkbox+.checkbox-indicator {\r\n    width: 12px;\r\n    height: 12px;\r\n    /* cursor: pointer; */\r\n    /* text-shadow: 1px 1px 1px rgba(0, 0, 0, .2); */\r\n    color: #f3f3f3;\r\n    text-align: center;\r\n    line-height: 8px;\r\n    /* display: inline-block; */\r\n}\r\n\r\ninput[type=\"checkbox\"]:checked+.checkbox-indicator::after {\r\n    content: \"\\2713\";\r\n    vertical-align: middle;\r\n}\r\n\r\n\r\n.foldout {\r\n    border-bottom: #323232 1px solid;\r\n}\r\n\r\n.foldout-header {\r\n    height: 20px;\r\n    /* padding: 3px 0; */\r\n    color: #d4d2d2;\r\n    vertical-align: middle;\r\n    margin-bottom: 3px;\r\n    display: flex;\r\n}\r\n\r\n.foldout-label {\r\n    font-weight: bold;\r\n    display: inline-flex;\r\n    margin: auto 0;\r\n}\r\n\r\n.foldout-arrow-container {\r\n    width: 20px;\r\n    display: flex;\r\n    position: relative\r\n}\r\n\r\n.foldout-arrow {\r\n    transform: translateX(-50%) translateY(-50%);\r\n    /* -webkit-transform: rotate(90deg) translateZ(0) scale(1.0, 1.0); */\r\n    transition: 100ms linear;\r\n    margin: auto;\r\n    top: 50%;\r\n    left: 50%;\r\n    position: absolute;\r\n    line-height: 0;\r\n    padding-bottom: 2px;\r\n}\r\n\r\n.foldout.enable .foldout-arrow {\r\n    transform: translateX(-50%) translateY(-50%) rotate(90deg);\r\n    /* padding-left: 1px; */\r\n    \r\n}\r\n\r\n.foldout-arrow::after {\r\n    content: '\\25B6';\r\n    font-size: 10px;\r\n}\r\n\r\n\r\n\r\n.foldout-content {\r\n\r\n    padding-left: 20px;\r\n    /* position: relative; */\r\n    overflow: hidden;\r\n    transition: height 100ms linear;\r\n    padding-top: 1px;\r\n    padding-right: 1px;\r\n}\r\n\r\n.foldout::after {\r\n    border-bottom: 1px solid #080808ff;\r\n}\r\n\r\n.foldout:not(.enable) .foldout-content {\r\n    height: 0;\r\n}\r\n\r\n.false {\r\n    color: rgb(75, 75, 75);\r\n}\r\n\r\nul {\r\n    list-style: none;\r\n    margin: 0;\r\n    padding: 0;\r\n}\r\n\r\n/* \r\ninput[type=\"checkbox\"]:checked+label::after {\r\n    content: \"\\2713\";\r\n} */", ""]);
+exports.push([module.i, "body {\r\n    font: 11px Segoe UI, Helvetica, Arial, sans-serif;\r\n    color: #F0F0F0;\r\n    -webkit-touch-callout: none;\r\n    /* iOS Safari */\r\n    -webkit-user-select: none;\r\n    /* Safari */\r\n    -khtml-user-select: none;\r\n    /* Konqueror HTML */\r\n    -moz-user-select: none;\r\n    /* Firefox */\r\n    -ms-user-select: none;\r\n    /* Internet Explorer/Edge */\r\n    user-select: none;\r\n    /* Non-prefixed version, currently supported by Chrome and Opera */\r\n    margin: 0;\r\n    padding: 0;\r\n    background: #080808ff;\r\n    overflow: hidden;\r\n    filter: blur(0);\r\n    -webkit-filter: blur(0);\r\n    -webkit-backface-visibility: hidden;\r\n    backface-visibility: hidden;\r\n}\r\n\r\n/* image-rendering: optimizeSpeed;            \r\nimage-rendering: -moz-crisp-edges;           Firefox             \r\nimage-rendering: -o-crisp-edges;            /* Opera               \r\nimage-rendering: -webkit-optimize-contrast; /* Chrome (and Safari) \r\nimage-rendering: optimize-contrast;         /* CSS3 Proposed       \r\n-ms-interpolation-mode: nearest-neighbor;   IE8+                */\r\n\r\n/*** Works on common browsers ***/\r\n\r\n::selection {\r\n    background-color: #004580;\r\n    color: #fff;\r\n}\r\n\r\n/*** Mozilla based browsers ***/\r\n\r\n::-moz-selection {\r\n    background-color: #004580;\r\n    color: #fff;\r\n}\r\n\r\n/***For Other Browsers ***/\r\n\r\n::-o-selection {\r\n    background-color: #004580;\r\n    color: #fff;\r\n}\r\n\r\n::-ms-selection {\r\n    background-color: #004580;\r\n    color: #fff;\r\n}\r\n\r\n/*** For Webkit ***/\r\n\r\n::-webkit-selection {\r\n    background-color: #004580;\r\n    color: #fff;\r\n}\r\n\r\nfieldset {\r\n    border: none;\r\n}\r\n\r\n#inspector> :nth-child(n) {\r\n    margin-bottom: 4px;\r\n}\r\n\r\n.flex-container {\r\n    display: flex;\r\n    flex-direction: row;\r\n    justify-content: space-between;\r\n    align-items: stretch;\r\n}\r\n\r\n.flex-container>.flex-horizontal {\r\n    display: inline-flex;\r\n    /* min-width: 50%; */\r\n    width: auto;\r\n}\r\n\r\n.flex-horizontal {\r\n    display: inline-flex;\r\n    /* min-width: 50%; */\r\n    width: auto;\r\n}\r\n\r\n.horizotal-group {\r\n    flex: auto;\r\n    display: inline-flex;\r\n    /* display: contents;*/\r\n    min-width: 0;\r\n}\r\n\r\n/*(an + b)*/\r\n\r\n.flex-container>.flex-horizontal:nth-child(1n+2) {\r\n    margin-left: 4px;\r\n    min-width: 0;\r\n    /* min-width: calc(50% - 4px); */\r\n}\r\n\r\ninput,\r\ninput[type=\"number\"],\r\ninput.checkbox+label {\r\n    width: auto;\r\n    height: 14px;\r\n    /* border: 1px solid #000; */\r\n    border: none;\r\n    background: #141414ff;\r\n    color: #F0F0F0;\r\n    font-size: 11px;\r\n}\r\n\r\nbody.pointerEditing input,\r\nbody.pointerEditing label {\r\n        cursor: inherit;\r\n    }\r\n\r\n\r\ninput.focus {\r\n    outline: #004580 solid 1px;\r\n}\r\n\r\ninput:focus,\r\ninput[type=\"number\"]:focus {\r\n    outline: #004580 solid 1px;\r\n}\r\n\r\nlabel.focus {\r\n    color: #107bd7;\r\n}\r\n\r\n.text-input {\r\n    flex: auto;\r\n    padding: 3px;\r\n    min-width: 0;\r\n}\r\n\r\ninput[type=number]::-webkit-inner-spin-button,\r\ninput[type=number]::-webkit-outer-spin-button {\r\n    -webkit-appearance: none;\r\n    -moz-appearance: none;\r\n    appearance: none;\r\n    margin: 0;\r\n}\r\n\r\ninput[type=\"number\"] {\r\n    -moz-appearance: textfield;\r\n}\r\n\r\n.text-label {\r\n    margin: auto 0;\r\n    text-transform: capitalize;\r\n}\r\n\r\n.number {\r\n    min-width: 10px;\r\n    cursor: col-resize;\r\n}\r\n\r\ninput[type=\"checkbox\"] {\r\n    -webkit-appearance: none;\r\n    -moz-appearance: none;\r\n    appearance: none;\r\n    display: none;\r\n    visibility: hidden;\r\n    padding: 0;\r\n    border: 0\r\n}\r\n\r\n.checkbox-container {\r\n    cursor: pointer;\r\n    min-width: 20px;\r\n    margin: auto;\r\n}\r\n\r\n.checkbox-container .checkbox-indicator {\r\n    display: inline-block;\r\n    vertical-align: middle;\r\n    pointer-events: none;\r\n}\r\n\r\ninput[type=\"checkbox\"]+label::after {\r\n    content: none;\r\n}\r\n\r\ninput.checkbox+.checkbox-indicator {\r\n    width: 12px;\r\n    height: 12px;\r\n    /* cursor: pointer; */\r\n    /* text-shadow: 1px 1px 1px rgba(0, 0, 0, .2); */\r\n    color: #f3f3f3;\r\n    text-align: center;\r\n    line-height: 8px;\r\n    /* display: inline-block; */\r\n}\r\n\r\ninput[type=\"checkbox\"]:checked+.checkbox-indicator::after {\r\n    content: \"\\2713\";\r\n    vertical-align: middle;\r\n}\r\n\r\n.foldout {\r\n    border-bottom: #323232 1px solid;\r\n}\r\n\r\n.foldout-header {\r\n    height: 20px;\r\n    /* padding: 3px 0; */\r\n    color: #d4d2d2;\r\n    vertical-align: middle;\r\n    margin-bottom: 3px;\r\n    display: flex;\r\n}\r\n\r\n.foldout-label {\r\n    font-weight: bold;\r\n    display: inline-flex;\r\n    margin: auto 0;\r\n}\r\n\r\n.foldout-arrow-container {\r\n    width: 20px;\r\n    display: flex;\r\n    position: relative\r\n}\r\n\r\n.foldout-arrow {\r\n    transform: translateX(-50%) translateY(-50%);\r\n    /* -webkit-transform: rotate(90deg) translateZ(0) scale(1.0, 1.0); */\r\n    transition: 100ms linear;\r\n    margin: auto;\r\n    top: 50%;\r\n    left: 50%;\r\n    position: absolute;\r\n    line-height: 0;\r\n    padding-bottom: 2px;\r\n}\r\n\r\n.foldout.enable .foldout-arrow {\r\n    transform: translateX(-50%) translateY(-50%) rotate(90deg);\r\n    /* padding-left: 1px; */\r\n}\r\n\r\n.foldout-arrow::after {\r\n    content: '\\25B6';\r\n    font-size: 10px;\r\n}\r\n\r\n.foldout-content {\r\n    padding-left: 20px;\r\n    /* position: relative; */\r\n    overflow: hidden;\r\n    transition: height 100ms linear;\r\n    padding-top: 1px;\r\n    padding-right: 1px;\r\n}\r\n\r\n.foldout::after {\r\n    border-bottom: 1px solid #080808ff;\r\n}\r\n\r\n.foldout:not(.enable) .foldout-content {\r\n    height: 0;\r\n}\r\n\r\n.false {\r\n    color: rgb(75, 75, 75);\r\n}\r\n\r\nul {\r\n    list-style: none;\r\n    margin: 0;\r\n    padding: 0;\r\n}\r\n\r\n/* \r\ninput[type=\"checkbox\"]:checked+label::after {\r\n    content: \"\\2713\";\r\n} */", ""]);
 
 // exports
 
@@ -23958,7 +23939,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "/*\r\n* DockPanel\r\n*/\r\n\r\n.p-DockPanel {\r\n    z-index: 0;\r\n}\r\n\r\n.p-DockPanel-widget {\r\n    z-index: 0;\r\n}\r\n\r\n.p-DockPanel-tabBar {\r\n    z-index: 1;\r\n}\r\n\r\n.p-DockPanel-handle {\r\n    z-index: 2;\r\n}\r\n\r\n.p-DockPanel-handle:after {\r\n    position: absolute;\r\n    top: 0;\r\n    left: 0;\r\n    width: 100%;\r\n    height: 100%;\r\n    content: '';\r\n}\r\n\r\n.p-DockPanel-handle[data-orientation='horizontal'] {\r\n    cursor: ew-resize;\r\n}\r\n\r\n.p-DockPanel-handle[data-orientation='vertical'] {\r\n    cursor: ns-resize;\r\n}\r\n\r\n.p-DockPanel-handle[data-orientation='horizontal']:after {\r\n    left: 50%;\r\n    min-width: 8px;\r\n    transform: translateX(-50%);\r\n}\r\n\r\n.p-DockPanel-handle[data-orientation='vertical']:after {\r\n    top: 50%;\r\n    min-height: 8px;\r\n    transform: translateY(-50%);\r\n}\r\n\r\n.p-DockPanel-overlay {\r\n    z-index: 3;\r\n    box-sizing: border-box;\r\n    pointer-events: none;\r\n}\r\n\r\n.p-DockPanel-overlay.p-mod-hidden {\r\n    display: none !important;\r\n}\r\n\r\n.p-DockPanel-overlay {\r\n    background: rgba(33, 69, 128, 0.2);\r\n    border: 1px solid rgb(33, 69, 128);\r\n    /* transition-property: top, left, right, bottom;\r\n    transition-duration: 150ms;\r\n    transition-timing-function: ease; */\r\n}", ""]);
+exports.push([module.i, "/*\r\n* DockPanel\r\n*/\r\n\r\n.p-DockPanel {\r\n    z-index: 0;\r\n}\r\n\r\n.p-DockPanel-widget {\r\n    z-index: 0;\r\n}\r\n\r\n.p-DockPanel-tabBar {\r\n    z-index: 1;\r\n}\r\n\r\n.p-DockPanel-handle {\r\n    z-index: 2;\r\n}\r\n\r\n.p-DockPanel-handle:after {\r\n    position: absolute;\r\n    top: 0;\r\n    left: 0;\r\n    width: 100%;\r\n    height: 100%;\r\n    content: '';\r\n}\r\n\r\nbody:not(.pointerEditing) .p-DockPanel-handle[data-orientation='horizontal'] {\r\n    cursor: ew-resize;\r\n}\r\n\r\n.p-DockPanel-handle[data-orientation='vertical'] {\r\n    cursor: ns-resize;\r\n}\r\n\r\n.p-DockPanel-handle[data-orientation='horizontal']:after {\r\n    left: 50%;\r\n    min-width: 8px;\r\n    transform: translateX(-50%);\r\n}\r\n\r\n.p-DockPanel-handle[data-orientation='vertical']:after {\r\n    top: 50%;\r\n    min-height: 8px;\r\n    transform: translateY(-50%);\r\n}\r\n\r\n.p-DockPanel-overlay {\r\n    z-index: 3;\r\n    box-sizing: border-box;\r\n    pointer-events: none;\r\n}\r\n\r\n.p-DockPanel-overlay.p-mod-hidden {\r\n    display: none !important;\r\n}\r\n\r\n.p-DockPanel-overlay {\r\n    background: rgba(33, 69, 128, 0.2);\r\n    border: 1px solid rgb(33, 69, 128);\r\n    /* transition-property: top, left, right, bottom;\r\n    transition-duration: 150ms;\r\n    transition-timing-function: ease; */\r\n}", ""]);
 
 // exports
 
@@ -24018,7 +23999,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "/*\r\n* Tab bar\r\n*/\r\n\r\n.p-TabBar {\r\n    display: flex;\r\n    -webkit-user-select: none;\r\n    -moz-user-select: none;\r\n    -ms-user-select: none;\r\n    user-select: none;\r\n    min-height: 24px;\r\n    max-height: 24px;\r\n    background-color: #141414ff;\r\n}\r\n\r\n.p-TabBar[data-orientation='horizontal'] {\r\n    flex-direction: row;\r\n}\r\n\r\n.p-TabBar[data-orientation='vertical'] {\r\n    flex-direction: column;\r\n}\r\n\r\n.p-TabBar-content {\r\n    min-width: 0;\r\n    min-height: 0;\r\n    align-items: flex-end;\r\n    margin: 0;\r\n    padding: 0;\r\n    display: flex;\r\n    flex: 1 1 auto;\r\n    list-style-type: none;\r\n}\r\n\r\n.p-TabBar[data-orientation='horizontal']>.p-TabBar-content {\r\n    flex-direction: row;\r\n}\r\n\r\n.p-TabBar[data-orientation='vertical']>.p-TabBar-content {\r\n    flex-direction: column;\r\n}\r\n\r\n.p-TabBar-tab {\r\n    display: flex;\r\n    flex-direction: row;\r\n    box-sizing: border-box;\r\n    overflow: hidden;\r\n    padding: 0px 10px;\r\n    background: #1a191aff;\r\n    color: #F0F0F0;\r\n    font: 12px Segoe UI, Helvetica, Arial, sans-serif;\r\n    flex: 0 1 125px;\r\n    min-height: 24px;\r\n    max-height: 24px;\r\n    min-width: 35px;\r\n    margin-left: -1px;\r\n    line-height: 22px;\r\n    border-right: 1px solid #141414ff;\r\n}\r\n\r\n.p-TabBar-tabIcon,\r\n.p-TabBar-tabCloseIcon {\r\n    flex: 0 0 auto;\r\n}\r\n\r\n.p-TabBar-tabLabel {\r\n    flex: 1 1 auto;\r\n    overflow: hidden;\r\n    white-space: nowrap;\r\n}\r\n\r\n.p-TabBar-tab.p-mod-hidden {\r\n    display: none !important;\r\n}\r\n\r\n.p-TabBar.p-mod-dragging .p-TabBar-tab {\r\n    position: relative;\r\n}\r\n\r\n.p-TabBar.p-mod-dragging[data-orientation='horizontal'] .p-TabBar-tab {\r\n    left: 0;\r\n    transition: left 150ms ease;\r\n}\r\n\r\n.p-TabBar.p-mod-dragging[data-orientation='vertical'] .p-TabBar-tab {\r\n    top: 0;\r\n    transition: top 150ms ease;\r\n}\r\n\r\n.p-TabBar.p-mod-dragging .p-TabBar-tab.p-mod-dragging {\r\n    transition: none;\r\n}\r\n\r\n.p-TabPanel-tabBar {\r\n    z-index: 1;\r\n}\r\n\r\n.p-TabPanel-stackedPanel {\r\n    z-index: 0;\r\n}\r\n\r\n.p-TabBar-tab.p-mod-current {\r\n    background: #262626ff;\r\n}\r\n\r\n.p-TabBar-tab:hover:not(.p-mod-current) {\r\n    background: #202020;\r\n}\r\n\r\n.p-TabBar-tab:first-child {\r\n    margin-left: 0;\r\n}\r\n\r\n.p-TabBar-tabIcon,\r\n.p-TabBar-tabLabel,\r\n.p-TabBar-tabCloseIcon {\r\n    display: inline-block;\r\n}\r\n\r\n.p-TabBar-tab.p-mod-closable>.p-TabBar-tabCloseIcon {\r\n    margin-left: 4px;\r\n}\r\n\r\n.p-TabBar-tab.p-mod-closable>.p-TabBar-tabCloseIcon:before {\r\n    content: 'X';\r\n    font-family: 12px Arial, Helvetica, sans-serif;\r\n}\r\n\r\n.p-TabBar-tab.p-mod-drag-image {\r\n    min-height: 23px;\r\n    max-height: 23px;\r\n    min-width: 125px;\r\n    border: none;\r\n    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);\r\n    transform: translateX(-40%) translateY(-58%);\r\n}", ""]);
+exports.push([module.i, "/*\r\n* Tab bar\r\n*/\r\n\r\n.p-TabBar {\r\n    display: flex;\r\n    -webkit-user-select: none;\r\n    -moz-user-select: none;\r\n    -ms-user-select: none;\r\n    user-select: none;\r\n    min-height: 24px;\r\n    max-height: 24px;\r\n    background-color: #141414ff;\r\n}\r\n\r\n.p-TabBar[data-orientation='horizontal'] {\r\n    flex-direction: row;\r\n}\r\n\r\n.p-TabBar[data-orientation='vertical'] {\r\n    flex-direction: column;\r\n}\r\n\r\n.p-TabBar-content {\r\n    min-width: 0;\r\n    min-height: 0;\r\n    align-items: flex-end;\r\n    margin: 0;\r\n    padding: 0;\r\n    display: flex;\r\n    flex: 1 1 auto;\r\n    list-style-type: none;\r\n}\r\n\r\n.p-TabBar[data-orientation='horizontal']>.p-TabBar-content {\r\n    flex-direction: row;\r\n}\r\n\r\n.p-TabBar[data-orientation='vertical']>.p-TabBar-content {\r\n    flex-direction: column;\r\n}\r\n\r\n.p-TabBar-tab {\r\n    display: flex;\r\n    flex-direction: row;\r\n    box-sizing: border-box;\r\n    overflow: hidden;\r\n    padding: 0px 8px;\r\n    background: #1a191aff;\r\n    color: #F0F0F0;\r\n    font: 11px Segoe UI, Helvetica, Arial, sans-serif;\r\n    flex: 0 1 125px;\r\n    min-height: 24px;\r\n    max-height: 24px;\r\n    min-width: 24px;\r\n    margin-left: -1px;\r\n    line-height: 24px;\r\n    border-right: 1px solid #141414ff;\r\n}\r\n\r\n.p-TabBar-tabIcon,\r\n.p-TabBar-tabCloseIcon {\r\n    flex: 0 0 auto;\r\n}\r\n\r\n.p-TabBar-tabLabel {\r\n    flex: 1 1 auto;\r\n    overflow: hidden;\r\n    white-space: nowrap;\r\n}\r\n\r\n.p-TabBar-tab.p-mod-hidden {\r\n    display: none !important;\r\n}\r\n\r\n.p-TabBar.p-mod-dragging .p-TabBar-tab {\r\n    position: relative;\r\n}\r\n\r\n.p-TabBar.p-mod-dragging[data-orientation='horizontal'] .p-TabBar-tab {\r\n    left: 0;\r\n    transition: left 150ms ease;\r\n}\r\n\r\n.p-TabBar.p-mod-dragging[data-orientation='vertical'] .p-TabBar-tab {\r\n    top: 0;\r\n    transition: top 150ms ease;\r\n}\r\n\r\n.p-TabBar.p-mod-dragging .p-TabBar-tab.p-mod-dragging {\r\n    transition: none;\r\n}\r\n\r\n.p-TabPanel-tabBar {\r\n    z-index: 1;\r\n}\r\n\r\n.p-TabPanel-stackedPanel {\r\n    z-index: 0;\r\n}\r\n\r\n.p-TabBar-tab.p-mod-current {\r\n    background: #262626ff;\r\n}\r\n\r\n.p-TabBar-tab:hover:not(.p-mod-current) {\r\n    background: #202020;\r\n}\r\n\r\n.p-TabBar-tab:first-child {\r\n    margin-left: 0;\r\n}\r\n\r\n.p-TabBar-tabIcon,\r\n.p-TabBar-tabLabel,\r\n.p-TabBar-tabCloseIcon {\r\n    display: inline-block;\r\n}\r\n\r\n.p-TabBar-tab.p-mod-closable>.p-TabBar-tabCloseIcon {\r\n    margin-left: 4px;\r\n}\r\n\r\n.p-TabBar-tab.p-mod-closable>.p-TabBar-tabCloseIcon:before {\r\n    content: 'X';\r\n    font-family: 12px Arial, Helvetica, sans-serif;\r\n}\r\n\r\n.p-TabBar-tab.p-mod-drag-image {\r\n    min-height: 24px;\r\n    max-height: 24px;\r\n    min-width: 125px;\r\n    border: none;\r\n    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);\r\n    transform: translateX(-40%) translateY(-58%);\r\n}", ""]);
 
 // exports
 
@@ -24037,7 +24018,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\r\n/*\r\n* Widget\r\n*/\r\n\r\n.p-Widget {\r\n    box-sizing: border-box;\r\n    position: relative;\r\n    overflow: hidden;\r\n    cursor: default;\r\n}\r\n\r\n\r\n\r\n.p-Widget.p-mod-hidden {\r\n    display: none !important;\r\n}\r\n\r\n.p-DockPanel-widget {\r\n    min-width: 100px;\r\n    min-height: 100px;\r\n    /* display: flex; */\r\n    /* flex-direction: column; */\r\n    /* border: 1px solid #C0C0C0; */\r\n    /* border-top: none; */\r\n    background: #262626;\r\n    /* box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2); */\r\n\r\n    /* flex: 1 1 auto; */\r\n    /* border: 1px solid #505050; */\r\n   \r\n    /* overflow: auto; */\r\n}\r\n\r\n.p-Widget-wrapper {\r\n    margin: 4px;\r\n}", ""]);
+exports.push([module.i, "\r\n/*\r\n* Widget\r\n*/\r\n\r\n.p-Widget {\r\n    box-sizing: border-box;\r\n    position: relative;\r\n    overflow: hidden;\r\n    /* cursor: default; */\r\n}\r\n\r\n\r\n\r\n.p-Widget.p-mod-hidden {\r\n    display: none !important;\r\n}\r\n\r\n.p-DockPanel-widget {\r\n    min-width: 120px;\r\n    min-height: 120px;\r\n    /* display: flex; */\r\n    /* flex-direction: column; */\r\n    /* border: 1px solid #C0C0C0; */\r\n    /* border-top: none; */\r\n    background: #262626;\r\n    /* box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2); */\r\n\r\n    /* flex: 1 1 auto; */\r\n    /* border: 1px solid #505050; */\r\n   \r\n    /* overflow: auto; */\r\n}\r\n\r\n.p-Widget-wrapper {\r\n    margin: 4px;\r\n}", ""]);
 
 // exports
 
@@ -47507,7 +47488,7 @@ var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 //import { ipcRenderer } from "electron";
 //import GoldenLayoutContainer from "./layout/GoldenLayoutContainer";
 //import mainLayoutConfig from './layout/mainLayoutConfig';
-__webpack_require__(/*! ./widgets/game/style.css */ "./src/renderer/widgets/game/style.css");
+__webpack_require__(/*! ./style/style.css */ "./src/renderer/style/style.css");
 var Toolbar_1 = __webpack_require__(/*! ./components/Toolbar */ "./src/renderer/components/Toolbar.tsx");
 var StatusBar_1 = __webpack_require__(/*! ./components/StatusBar */ "./src/renderer/components/StatusBar.tsx");
 var WorkspacePanel_1 = __webpack_require__(/*! ./widgets/workspace/WorkspacePanel */ "./src/renderer/widgets/workspace/WorkspacePanel.tsx");
@@ -47789,16 +47770,17 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-var manager_1 = __webpack_require__(/*! ../manager */ "./src/renderer/manager/index.ts");
-var Editing_1 = __webpack_require__(/*! ../manager/Editing */ "./src/renderer/manager/Editing.ts");
+var parser_1 = __webpack_require__(/*! ../internal/utils/parser */ "./src/renderer/internal/utils/parser.ts");
+var managers_1 = __webpack_require__(/*! ../internal/managers */ "./src/renderer/internal/managers/index.ts");
+var PointerManager_1 = __webpack_require__(/*! ../internal/managers/pointer/PointerManager */ "./src/renderer/internal/managers/pointer/PointerManager.ts");
 ;
 var styleVecLabel = {
-    minWidth: '20%'
+    minWidth: '30%',
+    overflow: 'hidden'
 };
 var styleVec = {
     flex: 'auto'
 };
-var FLOAT_REGEX = /[+-]?([0-9]+([.][0-9]*)?|[.][0-9]+)/;
 var Vector2Input = /** @class */ (function (_super) {
     __extends(Vector2Input, _super);
     function Vector2Input(props) {
@@ -47818,70 +47800,19 @@ var Vector2Input = /** @class */ (function (_super) {
             }
             var name = event.target.name;
             var value = event.target.value;
-            //let value = event.target.valueAsNumber;
-            var newValue;
-            var validValue = false;
-            if (value.length > 0) {
-                var nonDigits = /([^.\d]+)/g.test(value);
-                if (nonDigits) {
-                    var isNegative = value[0] === '-';
-                    newValue = value.replace(/([^.\d]+)/g, '');
-                    var canParse = newValue.length !== 0;
-                    if (canParse == false) {
-                        if (!isNegative) {
-                            newValue = '0';
-                        }
-                        else {
-                            newValue = '-';
-                        }
-                    }
-                    else {
-                        if (isNegative) {
-                            newValue = '-' + newValue;
-                        }
-                        validValue = true;
-                        newValue = (parseFloat(newValue)).toString();
-                    }
-                }
-                else {
-                    var float = FLOAT_REGEX.exec(value);
-                    if (float && float.length > 0) {
-                        newValue = float[0]; //parseFloat(float[0]).toString();
-                    }
-                    else {
-                        newValue = value;
-                    }
-                    validValue = true;
+            var parserResult = parser_1.floatableString(value);
+            if (parserResult.isValid) {
+                if (_this.props.onChange) {
+                    _this.props.onChange({
+                        value: parseFloat(parserResult.value)
+                    });
                 }
             }
-            else {
-                newValue = '';
-                validValue = false;
-            }
-            if (_this.props.onChange && validValue) {
-                _this.props.onChange({
-                    value: parseFloat(newValue)
-                });
-            }
-            if (newValue !== undefined) {
-                //console.log('new value: ' + newValue)
+            if (parserResult.value !== undefined) {
                 if (name === 'x-axis') {
-                    _this.setState({ x: newValue });
+                    _this.setState({ x: parserResult.value });
                 }
             }
-            // if (value.length > 0) {
-            //     const isFine = FLOAT_REGEX.exec(value);
-            //     if (isFine.length > 0) {
-            //         const number = parseFloat(isFine[0]);
-            //         if (name === 'x-axis') {
-            //             this.setState({ x: number.toString() });
-            //         }
-            //     }
-            // } else {
-            //     if (name === 'x-axis') {
-            //         this.setState({ x: '' });
-            //     }
-            // }
         };
         _this.onInputFocus = function (event) {
             _this._xAxisLabel.classList.add('focus');
@@ -47905,13 +47836,15 @@ var Vector2Input = /** @class */ (function (_super) {
         _this.mouseUp = function () {
             _this.labelDown = false;
             _this._xAxisInput.current.classList.remove('focus');
-            _this._xAxisInput.current.setSelectionRange(0, _this._xAxisInput.current.value.length, "forward");
+            if (_this.changeAxisInitialValue.toString() !== _this._xAxisInput.current.value) {
+                _this._xAxisInput.current.setSelectionRange(0, _this._xAxisInput.current.value.length, "forward");
+            }
             //this._xAxisLabel.classList.remove('focus')
             _this._xAxisInput.current.focus();
         };
         _this.mouseDown = function (event) {
             if (event.button === 0) {
-                if (manager_1.default.input.mode !== Editing_1.Editing.AxisLabel) {
+                if (managers_1.Pointer.mode !== PointerManager_1.PointerMode.VectorAxisEditing) {
                     _this.changeAxisTarget = event.currentTarget.title;
                     if (_this.changeAxisTarget === 'x-axis') {
                         _this.changeAxisInitialValue = parseFloat(_this.state.x.toString());
@@ -47919,7 +47852,7 @@ var Vector2Input = /** @class */ (function (_super) {
                         //this._xAxisLabel.classList.add('focus');
                         _this._xAxisInput.current.focus();
                     }
-                    manager_1.default.input.setAxisEditing(_this.changeAxis, _this.mouseUp, _this);
+                    managers_1.Pointer.setAxisEditing(_this.changeAxis, _this.mouseUp, _this);
                     _this.labelDown = true;
                 }
             }
@@ -48213,12 +48146,6 @@ var EventEmitter = /** @class */ (function () {
             delete this._eventsMap[evt];
         }
     };
-    /**
-     * Calls each of the listeners registered for a given event.
-     * @param event The event name.
-     * @param args Arguments
-     * @returns `true` if the event had listeners, else `false`.
-     */
     EventEmitter.prototype.emit = function (event) {
         var args = [];
         for (var _i = 1; _i < arguments.length; _i++) {
@@ -48251,36 +48178,14 @@ var EventEmitter = /** @class */ (function () {
         }
         return true;
     };
-    /**
-     * Add a listener for a given event.
-     * @param event The event name.
-     * @param callback The listener function.
-     * @param context Optional: The context to invoke the listener with.
-     * @returns {EventEmitter} `this`
-     */
     EventEmitter.prototype.on = function (event, callback, context) {
         this.addListener(event, callback, context, false);
         return this;
     };
-    /**
-     * Add a one-time listener for a given event.
-     * @param event The event name.
-     * @param callback The listener function.
-     * @param context Optional: The context to invoke the listener with.
-     * @returns {EventEmitter} `this`
-     */
     EventEmitter.prototype.once = function (event, callback, context) {
         this.addListener(event, callback, context, true);
         return this;
     };
-    /**
-     * Remove the listeners of a given event.
-     * @param event The event name.
-     * @param callback Only remove the listeners that match this function.
-     * @param context Only remove the listeners that have this context.
-     * @param once  Only remove one-time listeners.
-     * @returns {EventEmitter} `this`
-     */
     EventEmitter.prototype.unbind = function (event, callback, context, once) {
         var evt = prefix ? prefix + event : event;
         if (!this._eventsMap[evt]) {
@@ -48317,11 +48222,6 @@ var EventEmitter = /** @class */ (function () {
         }
         return this;
     };
-    /**
-     * Remove all listeners, or those of the specified event.
-     * @param event The event name.
-     * @returns {EventEmitter} `this`
-     */
     EventEmitter.prototype.clear = function (event) {
         if (event) {
             var evt = prefix ? prefix + event : event;
@@ -48335,11 +48235,6 @@ var EventEmitter = /** @class */ (function () {
         }
         return this;
     };
-    /**
-     * Return the number of listeners listening to a given event.
-     * @param event The event name.
-     * @returns {number} The number of listeners.
-     */
     EventEmitter.prototype.listenerCount = function (event) {
         var evt = prefix ? prefix + event : event;
         var listeners = this._eventsMap[evt];
@@ -48353,6 +48248,11 @@ var EventEmitter = /** @class */ (function () {
             listeners.length;
         }
         return 0;
+    };
+    EventEmitter.prototype.hasListeners = function (event) {
+        var evt = prefix ? prefix + event : event;
+        var listeners = this._eventsMap[evt];
+        return (listeners !== undefined);
     };
     return EventEmitter;
 }());
@@ -49005,6 +48905,9 @@ var Rect = /** @class */ (function () {
     };
     Rect.prototype.contains = function (x, y) {
         return Rect.contains(this, x, y);
+    };
+    Rect.prototype.area = function () {
+        return this.width * this.height;
     };
     Rect.intersects = function (rect1, rect2) {
         if (rect1.width <= 0 || rect1.height <= 0 || rect2.width <= 0 || rect2.height <= 0)
@@ -50853,7 +50756,7 @@ var InterpolationType;
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var List_1 = __webpack_require__(/*! ../../structures/List */ "./src/renderer/engine/structures/List.ts");
-var UUID_1 = __webpack_require__(/*! ../../../internal/UUID */ "./src/renderer/internal/UUID.ts");
+var UUID_1 = __webpack_require__(/*! ../../../internal/utils/UUID */ "./src/renderer/internal/utils/UUID.ts");
 // based in pixi
 var CanvasPoolManager = /** @class */ (function () {
     function CanvasPoolManager() {
@@ -51316,31 +51219,6 @@ exports.default = mergeSort;
 
 /***/ }),
 
-/***/ "./src/renderer/index.css":
-/*!********************************!*\
-  !*** ./src/renderer/index.css ***!
-  \********************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(/*! !../../node_modules/css-loader!./index.css */ "./node_modules/css-loader/index.js!./src/renderer/index.css");
-if(typeof content === 'string') content = [[module.i, content, '']];
-// Prepare cssTransformation
-var transform;
-
-var options = {"hmr":true}
-options.transform = transform
-// add the styles to the DOM
-var update = __webpack_require__(/*! ../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
-if(content.locals) module.exports = content.locals;
-// Hot Module Replacement
-if(false) {}
-
-/***/ }),
-
 /***/ "./src/renderer/index.tsx":
 /*!********************************!*\
   !*** ./src/renderer/index.tsx ***!
@@ -51354,7 +51232,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 var ReactDOM = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
 var react_redux_1 = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-__webpack_require__(/*! ./index.css */ "./src/renderer/index.css");
+// import './index.css';
 var store_1 = __webpack_require__(/*! ./state/store */ "./src/renderer/state/store.ts");
 var App_1 = __webpack_require__(/*! ./App */ "./src/renderer/App.tsx");
 //import registerServiceWorker from './registerServiceWorker';
@@ -51367,56 +51245,351 @@ ReactDOM.render(appNode, rootNode);
 
 /***/ }),
 
-/***/ "./src/renderer/internal/UUID.ts":
-/*!***************************************!*\
-  !*** ./src/renderer/internal/UUID.ts ***!
-  \***************************************/
+/***/ "./src/renderer/internal/managers/EditorSelectionManager.ts":
+/*!******************************************************************!*\
+  !*** ./src/renderer/internal/managers/EditorSelectionManager.ts ***!
+  \******************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-// 10000000 + -1000 + -4000 + -80000000 + -100000000000,
-var n = 1e7 + -1e3 + -4e3 + -8e3 + -1e11;
-var UUIDGenerator = /** @class */ (function () {
-    function UUIDGenerator() {
+var EditorSelectionManager = /** @class */ (function () {
+    function EditorSelectionManager(emitter) {
+        this._emitter = emitter;
+        this._activeEntity = null;
+        this._entities = [];
     }
-    /**
-     * Generates a UUID
-     * @param a Placeholder
-     */
-    UUIDGenerator.prototype.generate = function (a) {
-        if (a) {
-            // if the placeholder was passed, return
-            // unless b is 8, in which case  a random number from  8 to 11 in hexadecimal
-            return (a ^ Math.random() * 16 >> a / 4).toString(16);
-        }
-        else {
-            // or otherwise a concatenated string:
-            // replacing zeroes, ones, and eights with random hex digits
-            return n.toString().replace(/[018]/g, this.generate);
+    Object.defineProperty(EditorSelectionManager.prototype, "activeEntity", {
+        get: function () {
+            return this._activeEntity;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(EditorSelectionManager.prototype, "entities", {
+        get: function () {
+            return this._entities;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    EditorSelectionManager.prototype.setActiveEntity = function (entity) {
+        if (this._activeEntity !== entity) {
+            this._activeEntity = entity;
+            this._entities.length = 0;
+            this._entities.push(entity);
+            this._emitter.emit('selectionchange');
         }
     };
-    UUIDGenerator.prototype.simple = function (from, length) {
-        if (!from)
-            from = 2;
-        if (!length)
-            length = 10;
-        return Math.random().toString(36).substr(from, length);
-    };
-    return UUIDGenerator;
+    return EditorSelectionManager;
 }());
-var UUID = new UUIDGenerator();
-exports.default = UUID;
+exports.default = EditorSelectionManager;
 
 
 /***/ }),
 
-/***/ "./src/renderer/internal/editor/CanvasDrawer.ts":
-/*!******************************************************!*\
-  !*** ./src/renderer/internal/editor/CanvasDrawer.ts ***!
-  \******************************************************/
+/***/ "./src/renderer/internal/managers/index.ts":
+/*!*************************************************!*\
+  !*** ./src/renderer/internal/managers/index.ts ***!
+  \*************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var EventEmitter_1 = __webpack_require__(/*! ../../engine/events/emitter/EventEmitter */ "./src/renderer/engine/events/emitter/EventEmitter.ts");
+var PointerManager_1 = __webpack_require__(/*! ./pointer/PointerManager */ "./src/renderer/internal/managers/pointer/PointerManager.ts");
+var EditorSelectionManager_1 = __webpack_require__(/*! ./EditorSelectionManager */ "./src/renderer/internal/managers/EditorSelectionManager.ts");
+var Events = new EventEmitter_1.default();
+exports.Events = Events;
+var Pointer = new PointerManager_1.default(Events);
+exports.Pointer = Pointer;
+var Selection = new EditorSelectionManager_1.default(Events);
+exports.Selection = Selection;
+Pointer.startListeners();
+
+
+/***/ }),
+
+/***/ "./src/renderer/internal/managers/pointer/PointerManager.ts":
+/*!******************************************************************!*\
+  !*** ./src/renderer/internal/managers/pointer/PointerManager.ts ***!
+  \******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var Vector2_1 = __webpack_require__(/*! ../../../engine/math/Vector2 */ "./src/renderer/engine/math/Vector2.ts");
+var PointerMode;
+(function (PointerMode) {
+    PointerMode[PointerMode["None"] = 0] = "None";
+    PointerMode[PointerMode["ViewZoom"] = 1] = "ViewZoom";
+    PointerMode[PointerMode["ViewStartMove"] = 2] = "ViewStartMove";
+    PointerMode[PointerMode["ViewMoving"] = 3] = "ViewMoving";
+    PointerMode[PointerMode["ViewSelection"] = 4] = "ViewSelection";
+    PointerMode[PointerMode["ViewSelectionArea"] = 5] = "ViewSelectionArea";
+    PointerMode[PointerMode["VectorAxisEditing"] = 6] = "VectorAxisEditing";
+})(PointerMode = exports.PointerMode || (exports.PointerMode = {}));
+/**
+ * Controls the cursor editor DOM events and state
+ */
+var PointerManager = /** @class */ (function () {
+    function PointerManager(emitter) {
+        var _this = this;
+        this.processMouseMove = function (event) {
+            event.preventDefault();
+            event.stopPropagation();
+            if (_this._mode == PointerMode.ViewStartMove) {
+                _this.setPointerMode(PointerMode.ViewMoving);
+            }
+            else if (_this._mode == PointerMode.ViewSelection) {
+                _this.setPointerMode(PointerMode.ViewSelectionArea);
+            }
+            _this._position.x = event.clientX;
+            _this._position.y = event.clientY;
+            _this._delta.x = _this._position.x - _this._startPosition.x;
+            _this._delta.y = _this._position.y - _this._startPosition.y;
+            switch (_this._mode) {
+                case PointerMode.ViewMoving:
+                case PointerMode.ViewSelectionArea: {
+                    _this._emitter.emit('sceneView_mousemove', _this._position, _this._delta);
+                    break;
+                }
+                case PointerMode.VectorAxisEditing: {
+                    var deltaPos = {
+                        x: -_this._position.x + _this._startPosition.x,
+                        y: -_this._position.y + _this._startPosition.y
+                    };
+                    _this._callbackChanger.call(_this._callbackTarget, deltaPos.x);
+                    break;
+                }
+            }
+            // if (this._mode === PointerMode.ViewMoving) {
+            //     this._emitter.emit('sceneView_mousemove', this._position);
+            // } else {
+            //     //this._manager.body.style.cursor = 'col-resize';
+            //     if (this._position.x < window.screen.availWidth) {
+            //     }
+            // }
+        };
+        this.processMouseUp = function (event) {
+            event.preventDefault();
+            event.stopPropagation();
+            if (_this._mode == PointerMode.None) {
+                return;
+            }
+            _this._position.x = event.clientX;
+            _this._position.y = event.clientY;
+            if (_this._mode === PointerMode.VectorAxisEditing) {
+                _this._callbackEnd(_this._delta.x);
+            }
+            _this.setPointerMode(PointerMode.None);
+        };
+        this._body = document.getElementsByTagName("BODY")[0];
+        this._position = new Vector2_1.default();
+        this._startPosition = new Vector2_1.default();
+        this._delta = new Vector2_1.default();
+        this._emitter = emitter;
+        this.setPointerMode(PointerMode.None);
+    }
+    Object.defineProperty(PointerManager.prototype, "mode", {
+        get: function () {
+            return this._mode;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(PointerManager.prototype, "position", {
+        get: function () {
+            return this._position;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(PointerManager.prototype, "startPosition", {
+        get: function () {
+            return this._startPosition;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(PointerManager.prototype, "timestamp", {
+        get: function () {
+            return this._timestamp;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    PointerManager.prototype.startListeners = function () {
+        var config = {
+            passive: false
+        };
+        document.addEventListener('mousemove', this.processMouseMove, config);
+        document.addEventListener('mouseup', this.processMouseUp, config);
+    };
+    PointerManager.prototype.setPointerMode = function (mode) {
+        if (this._mode !== mode) {
+            if (mode != PointerMode.None && mode != PointerMode.ViewZoom) {
+                this._body.classList.add('pointerEditing');
+            }
+            else {
+                this._body.classList.remove('pointerEditing');
+            }
+            var cursorStyle = void 0;
+            switch (mode) {
+                default:
+                case PointerMode.ViewZoom:
+                case PointerMode.None: {
+                    cursorStyle = 'default';
+                    break;
+                }
+                case PointerMode.ViewSelection: {
+                    this._startPosition.copy(this._position);
+                    this._timestamp = Date.now();
+                    break;
+                }
+                case PointerMode.ViewStartMove: {
+                    this._startPosition.copy(this._position);
+                    cursorStyle = 'grab';
+                    break;
+                }
+                case PointerMode.ViewMoving: {
+                    cursorStyle = 'grabbing';
+                    break;
+                }
+                case PointerMode.VectorAxisEditing: {
+                    this._startPosition.copy(this._position);
+                    cursorStyle = 'col-resize';
+                    break;
+                }
+            }
+            if (cursorStyle !== undefined) {
+                this._body.style.cursor = cursorStyle;
+            }
+            this._mode = mode;
+        }
+    };
+    PointerManager.prototype.setAxisEditing = function (onChange, onEnd, context) {
+        this.setPointerMode(PointerMode.VectorAxisEditing);
+        this._callbackChanger = onChange;
+        this._callbackEnd = onEnd;
+        this._callbackTarget = context || this;
+    };
+    return PointerManager;
+}());
+exports.default = PointerManager;
+
+
+/***/ }),
+
+/***/ "./src/renderer/internal/managers/pointer/PointerTransform.ts":
+/*!********************************************************************!*\
+  !*** ./src/renderer/internal/managers/pointer/PointerTransform.ts ***!
+  \********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var MathUtils_1 = __webpack_require__(/*! ../../../engine/math/MathUtils */ "./src/renderer/engine/math/MathUtils.ts");
+var Rect_1 = __webpack_require__(/*! ../../../engine/math/Rect */ "./src/renderer/engine/math/Rect.ts");
+/**
+ * Helper class that transforms global position to local Element position
+ */
+var PointerTransform = /** @class */ (function () {
+    /**
+     * Constructor
+     * @param element Target element
+     */
+    function PointerTransform(element) {
+        this.element = element;
+        this.clientRect = new Rect_1.default();
+        this.boundingClientRect = null;
+        this.updateClientRect();
+    }
+    /**
+     * Update the client rect.
+     * This function should be called when the target element is resized.
+     */
+    PointerTransform.prototype.updateClientRect = function () {
+        var rect = this.clientRect;
+        var clientRect = this.element.getBoundingClientRect();
+        this.boundingClientRect = clientRect;
+        rect.x = clientRect.left + window.pageXOffset - document.documentElement.clientLeft;
+        rect.y = clientRect.top + window.pageYOffset - document.documentElement.clientTop;
+        rect.width = clientRect.width;
+        rect.height = clientRect.height;
+    };
+    /**
+     * Transform global position to local target position
+     * @param position
+     * @returns Local position of target
+     */
+    PointerTransform.prototype.transform = function (position) {
+        var rect = this.boundingClientRect;
+        var pos = { x: 0, y: 0 };
+        pos.x = MathUtils_1.default.floor((position.x - rect.left) / (rect.right - rect.left) * this.element.clientWidth);
+        pos.y = MathUtils_1.default.floor((position.y - rect.top) / (rect.bottom - rect.top) * this.element.clientHeight);
+        return pos;
+    };
+    /**
+     * Transform global x position to local target x
+     * @param x
+     * @returns Local 'x'
+     */
+    PointerTransform.prototype.transformX = function (x) {
+        var rect = this.boundingClientRect;
+        return MathUtils_1.default.floor((x - rect.left) / (rect.right - rect.left) * this.element.clientWidth);
+    };
+    /**
+     * Transform global y position to local target y
+     * @param y
+     * @returns Local 'y'
+     */
+    PointerTransform.prototype.transformY = function (y) {
+        var rect = this.boundingClientRect;
+        return MathUtils_1.default.floor((y - rect.top) / (rect.bottom - rect.top) * this.element.clientHeight);
+    };
+    /**
+     * Transform global x position to normalized target x
+     * @param x Normalized local 'x' position
+     */
+    PointerTransform.prototype.normTransformX = function (x) {
+        var rect = this.boundingClientRect;
+        return (x - rect.left) / (rect.right - rect.left);
+    };
+    /**
+     * Transform global y position to normalized target y
+     * @param y Y position
+     * @returns Normalized local 'y' position
+     */
+    PointerTransform.prototype.normTransformY = function (y) {
+        var rect = this.boundingClientRect;
+        return (y - rect.top) / (rect.bottom - rect.top);
+    };
+    PointerTransform.prototype.clientRectTransformX = function (x) {
+        return (x - this.clientRect.x) * this.scale.x;
+    };
+    PointerTransform.prototype.clientRectTransformY = function (y) {
+        return (y - this.clientRect.y) * this.scale.y;
+    };
+    return PointerTransform;
+}());
+exports.default = PointerTransform;
+
+
+/***/ }),
+
+/***/ "./src/renderer/internal/sceneView/CanvasDrawer.ts":
+/*!*********************************************************!*\
+  !*** ./src/renderer/internal/sceneView/CanvasDrawer.ts ***!
+  \*********************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -51459,8 +51632,8 @@ var CanvasDrawer = /** @class */ (function () {
     Object.defineProperty(CanvasDrawer.prototype, "alpha", {
         set: function (value) {
             if (this._ctx.globalAlpha !== value) {
-                this.context.globalAlpha = value;
-                this._alpha = this.context.globalAlpha;
+                this._ctx.globalAlpha = value;
+                this._alpha = this._ctx.globalAlpha;
             }
         },
         enumerable: true,
@@ -51511,15 +51684,15 @@ var CanvasDrawer = /** @class */ (function () {
     };
     return CanvasDrawer;
 }());
-exports.CanvasDrawer = CanvasDrawer;
+exports.default = CanvasDrawer;
 
 
 /***/ }),
 
-/***/ "./src/renderer/internal/editor/EditorCamera.ts":
-/*!******************************************************!*\
-  !*** ./src/renderer/internal/editor/EditorCamera.ts ***!
-  \******************************************************/
+/***/ "./src/renderer/internal/sceneView/EditorCamera.ts":
+/*!*********************************************************!*\
+  !*** ./src/renderer/internal/sceneView/EditorCamera.ts ***!
+  \*********************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -51637,10 +51810,10 @@ exports.default = EditorCamera;
 
 /***/ }),
 
-/***/ "./src/renderer/internal/editor/EditorHandles.ts":
-/*!*******************************************************!*\
-  !*** ./src/renderer/internal/editor/EditorHandles.ts ***!
-  \*******************************************************/
+/***/ "./src/renderer/internal/sceneView/EditorHandles.ts":
+/*!**********************************************************!*\
+  !*** ./src/renderer/internal/sceneView/EditorHandles.ts ***!
+  \**********************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -51724,136 +51897,27 @@ exports.default = EditorHandles;
 
 /***/ }),
 
-/***/ "./src/renderer/internal/editor/EditorSelectionInternal.ts":
-/*!*****************************************************************!*\
-  !*** ./src/renderer/internal/editor/EditorSelectionInternal.ts ***!
-  \*****************************************************************/
+/***/ "./src/renderer/internal/sceneView/SceneView.ts":
+/*!******************************************************!*\
+  !*** ./src/renderer/internal/sceneView/SceneView.ts ***!
+  \******************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var EditorSelectionInternal = /** @class */ (function () {
-    function EditorSelectionInternal(manager) {
-        this._manager = manager;
-        this._activeEntity = null;
-        this._entities = [];
-    }
-    Object.defineProperty(EditorSelectionInternal.prototype, "activeEntity", {
-        get: function () {
-            return this._activeEntity;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(EditorSelectionInternal.prototype, "entities", {
-        get: function () {
-            return this._entities;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    EditorSelectionInternal.prototype.setActiveEntity = function (entity) {
-        if (this._activeEntity !== entity) {
-            this._activeEntity = entity;
-            this._entities.length = 0;
-            this._entities.push(entity);
-            this._manager.emit('selectionchange');
-        }
-    };
-    return EditorSelectionInternal;
-}());
-exports.default = EditorSelectionInternal;
-
-
-/***/ }),
-
-/***/ "./src/renderer/internal/editor/sceneView/CursorTransform.ts":
-/*!*******************************************************************!*\
-  !*** ./src/renderer/internal/editor/sceneView/CursorTransform.ts ***!
-  \*******************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var MathUtils_1 = __webpack_require__(/*! ../../../engine/math/MathUtils */ "./src/renderer/engine/math/MathUtils.ts");
-var Rect_1 = __webpack_require__(/*! ../../../engine/math/Rect */ "./src/renderer/engine/math/Rect.ts");
-var CursorTransform = /** @class */ (function () {
-    function CursorTransform(canvas) {
-        this.canvas = canvas;
-        this.clientRect = new Rect_1.default();
-        this.boundingClientRect = null;
-        this.updateClientRect();
-    }
-    CursorTransform.prototype.updateClientRect = function () {
-        var rect = this.clientRect;
-        var clientRect = this.canvas.getBoundingClientRect();
-        this.boundingClientRect = clientRect;
-        rect.x = clientRect.left + window.pageXOffset - document.documentElement.clientLeft;
-        rect.y = clientRect.top + window.pageYOffset - document.documentElement.clientTop;
-        rect.width = clientRect.width;
-        rect.height = clientRect.height;
-    };
-    CursorTransform.prototype.transform = function (position) {
-        var rect = this.boundingClientRect;
-        var pos = { x: 0, y: 0 };
-        pos.x = MathUtils_1.default.floor((position.x - rect.left) / (rect.right - rect.left) * this.canvas.width);
-        pos.y = MathUtils_1.default.floor((position.y - rect.top) / (rect.bottom - rect.top) * this.canvas.height);
-        return pos;
-    };
-    CursorTransform.prototype.transformX = function (x) {
-        var rect = this.boundingClientRect;
-        return MathUtils_1.default.floor((x - rect.left) / (rect.right - rect.left) * this.canvas.width);
-    };
-    CursorTransform.prototype.transformY = function (y) {
-        var rect = this.boundingClientRect;
-        return MathUtils_1.default.floor((y - rect.top) / (rect.bottom - rect.top) * this.canvas.height);
-    };
-    CursorTransform.prototype.normTransformX = function (x) {
-        var rect = this.boundingClientRect;
-        return (x - rect.left) / (rect.right - rect.left);
-    };
-    CursorTransform.prototype.normTransformY = function (y) {
-        var rect = this.boundingClientRect;
-        return (y - rect.top) / (rect.bottom - rect.top);
-    };
-    CursorTransform.prototype.clientRectTransformX = function (x) {
-        return (x - this.clientRect.x) * this.scale.x;
-    };
-    CursorTransform.prototype.clientRectTransformY = function (y) {
-        return (y - this.clientRect.y) * this.scale.y;
-    };
-    return CursorTransform;
-}());
-exports.default = CursorTransform;
-
-
-/***/ }),
-
-/***/ "./src/renderer/internal/editor/sceneView/SceneView.ts":
-/*!*************************************************************!*\
-  !*** ./src/renderer/internal/editor/sceneView/SceneView.ts ***!
-  \*************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var SceneViewInput_1 = __webpack_require__(/*! ./SceneViewInput */ "./src/renderer/internal/editor/sceneView/SceneViewInput.ts");
-var EventEmitter_1 = __webpack_require__(/*! ../../../engine/events/emitter/EventEmitter */ "./src/renderer/engine/events/emitter/EventEmitter.ts");
-var SceneViewCursor_1 = __webpack_require__(/*! ./SceneViewCursor */ "./src/renderer/internal/editor/sceneView/SceneViewCursor.ts");
-var compute_1 = __webpack_require__(/*! ../../../engine/math/transform/compute */ "./src/renderer/engine/math/transform/compute.ts");
-var Bounds2D_1 = __webpack_require__(/*! ../../../engine/math/bounds/Bounds2D */ "./src/renderer/engine/math/bounds/Bounds2D.ts");
-var EditorHandles_1 = __webpack_require__(/*! ../EditorHandles */ "./src/renderer/internal/editor/EditorHandles.ts");
-var CanvasDrawer_1 = __webpack_require__(/*! ../CanvasDrawer */ "./src/renderer/internal/editor/CanvasDrawer.ts");
-var Guidelines_1 = __webpack_require__(/*! ./guidelines/Guidelines */ "./src/renderer/internal/editor/sceneView/guidelines/Guidelines.ts");
-var View_1 = __webpack_require__(/*! ./View */ "./src/renderer/internal/editor/sceneView/View.ts");
-var Entity_1 = __webpack_require__(/*! ../../../engine/entity/Entity */ "./src/renderer/engine/entity/Entity.ts");
-var manager_1 = __webpack_require__(/*! ../../../manager */ "./src/renderer/manager/index.ts");
+var EventEmitter_1 = __webpack_require__(/*! ../../engine/events/emitter/EventEmitter */ "./src/renderer/engine/events/emitter/EventEmitter.ts");
+var compute_1 = __webpack_require__(/*! ../../engine/math/transform/compute */ "./src/renderer/engine/math/transform/compute.ts");
+var Bounds2D_1 = __webpack_require__(/*! ../../engine/math/bounds/Bounds2D */ "./src/renderer/engine/math/bounds/Bounds2D.ts");
+var EditorHandles_1 = __webpack_require__(/*! ./EditorHandles */ "./src/renderer/internal/sceneView/EditorHandles.ts");
+var CanvasDrawer_1 = __webpack_require__(/*! ./CanvasDrawer */ "./src/renderer/internal/sceneView/CanvasDrawer.ts");
+var Guidelines_1 = __webpack_require__(/*! ./guidelines/Guidelines */ "./src/renderer/internal/sceneView/guidelines/Guidelines.ts");
+var View_1 = __webpack_require__(/*! ./View */ "./src/renderer/internal/sceneView/View.ts");
+var Entity_1 = __webpack_require__(/*! ../../engine/entity/Entity */ "./src/renderer/engine/entity/Entity.ts");
+var managers_1 = __webpack_require__(/*! ../managers */ "./src/renderer/internal/managers/index.ts");
+var ViewInput_1 = __webpack_require__(/*! ./ViewInput */ "./src/renderer/internal/sceneView/ViewInput.ts");
+var PointerManager_1 = __webpack_require__(/*! ../managers/pointer/PointerManager */ "./src/renderer/internal/managers/pointer/PointerManager.ts");
 var list = [];
 function renderRect(context, entity, color) {
     if (color === void 0) { color = 'blue'; }
@@ -51896,9 +51960,9 @@ var SceneView = /** @class */ (function () {
         this._renderer = renderer;
         this._emitter = new EventEmitter_1.default();
         this._view = new View_1.default();
-        this._editorInput = new SceneViewInput_1.default(this._renderer.canvas, this._emitter);
+        this._editorInput = new ViewInput_1.default(this._renderer.canvas, this._emitter);
         this._handles = new EditorHandles_1.default(this._view);
-        this.draw = new CanvasDrawer_1.CanvasDrawer(renderer);
+        this.draw = new CanvasDrawer_1.default(renderer);
         this._guides = new Guidelines_1.default(this._view);
         createEntities();
     }
@@ -51924,22 +51988,28 @@ var SceneView = /** @class */ (function () {
             _this.render();
         }, this);
         this._emitter.on('select', function (cursorPosition) {
+            var entity = null;
             for (var i = 0; i < list.length; i++) {
                 var b = new Bounds2D_1.default();
                 compute_1.computeBounds2D(b, list[i].transform.matrix, 100, 100, { x: 0, y: 0 });
                 if (b.contains(cursorPosition.x, cursorPosition.y)) {
-                    _this._handles.setSelectEntity(list[i]);
-                    manager_1.default.selection.setActiveEntity(list[i]);
+                    entity = list[i];
                     break;
+                    // Manager.selection.setActiveEntity(list[i]);
                 }
+            }
+            if (entity !== null) {
+                _this._handles.setSelectEntity(entity);
+                managers_1.Selection.setActiveEntity(entity);
+                _this.render();
             }
         }, this);
         this._emitter.on('redraw', function () {
             _this.render();
         });
-        manager_1.default.on('updateActiveEntity', function () {
+        managers_1.Events.on('updateActiveEntity', function () {
             //this.update();
-            var transform = manager_1.default.selection.activeEntity.transform;
+            var transform = managers_1.Selection.activeEntity.transform;
             compute_1.computeTransform2D(transform);
             transform.matrix.concat(_this._view.camera.matrix);
             _this.render();
@@ -51983,7 +52053,7 @@ var SceneView = /** @class */ (function () {
         ctx.setTransform(inv[0], inv[1], inv[3], inv[4], inv[6], inv[7]);
         this._handles.render(this.draw);
         ctx.setTransform(1, 0, 0, 1, 0.5, 0.5);
-        if (this._editorInput.cursor.mode === SceneViewCursor_1.CursorMode.Selection) {
+        if (managers_1.Pointer.mode === PointerManager_1.PointerMode.ViewSelectionArea) {
             if (this._selectionArea.xMax > this._renderer.width) {
                 this._selectionArea.xMax = this._renderer.width - 1;
             }
@@ -52008,204 +52078,18 @@ exports.default = SceneView;
 
 /***/ }),
 
-/***/ "./src/renderer/internal/editor/sceneView/SceneViewCursor.ts":
-/*!*******************************************************************!*\
-  !*** ./src/renderer/internal/editor/sceneView/SceneViewCursor.ts ***!
-  \*******************************************************************/
+/***/ "./src/renderer/internal/sceneView/View.ts":
+/*!*************************************************!*\
+  !*** ./src/renderer/internal/sceneView/View.ts ***!
+  \*************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var MathUtils_1 = __webpack_require__(/*! ../../../engine/math/MathUtils */ "./src/renderer/engine/math/MathUtils.ts");
-var Rect_1 = __webpack_require__(/*! ../../../engine/math/Rect */ "./src/renderer/engine/math/Rect.ts");
-var manager_1 = __webpack_require__(/*! ../../../manager */ "./src/renderer/manager/index.ts");
-function getMouseWheelEvent() {
-    var prefix = "";
-    if (window.addEventListener) {
-        //_addEventListener = "addEventListener";
-    }
-    else {
-        //_addEventListener = "attachEvent";
-        prefix = "on";
-    }
-    var support = "onwheel" in document.createElement("div") ? "wheel" : // Modern browsers support "wheel"
-        document.onmousewheel !== undefined ? "mousewheel" : // Webkit and IE support at least "mousewheel"
-            "DOMMouseScroll"; // let's assume that remaining browsers are older Firefox
-    return prefix + support;
-}
-var CursorMode;
-(function (CursorMode) {
-    CursorMode[CursorMode["None"] = 0] = "None";
-    CursorMode[CursorMode["ViewZoom"] = 1] = "ViewZoom";
-    CursorMode[CursorMode["ViewMove"] = 2] = "ViewMove";
-    CursorMode[CursorMode["Selection"] = 3] = "Selection";
-})(CursorMode = exports.CursorMode || (exports.CursorMode = {}));
-var SceneViewCursor = /** @class */ (function () {
-    function SceneViewCursor(target, emitter, inputData) {
-        this.holding = false;
-        this.target = target;
-        this.emitter = emitter;
-        this._startPosition = { x: 0, y: 0 };
-        this._position = { x: 0, y: 0 };
-        this._selectionArea = new Rect_1.default();
-        this.inputData = inputData;
-        this._body = manager_1.default.body;
-    }
-    Object.defineProperty(SceneViewCursor.prototype, "mode", {
-        get: function () {
-            return this._mode;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(SceneViewCursor.prototype, "startPosition", {
-        get: function () {
-            return this._startPosition;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(SceneViewCursor.prototype, "position", {
-        get: function () {
-            return this._position;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    SceneViewCursor.prototype.init = function () {
-        var _this = this;
-        var wheelEventName = getMouseWheelEvent();
-        console.log(wheelEventName);
-        var config = {
-            passive: false,
-            capture: false
-        };
-        this.target.addEventListener(wheelEventName, function (event) {
-            event.preventDefault();
-            //console.log(event)
-            _this._position.x = _this.inputData.transformX(event.clientX);
-            _this._position.y = _this.inputData.transformY(event.clientY);
-            var offset = {
-                x: _this.inputData.transformX(event.clientX),
-                y: _this.inputData.transformY(event.clientY)
-            };
-            var wheelDelta = MathUtils_1.default.sign(-event.deltaY); // || event.detail;
-            _this.emitter.emit('zoom', wheelDelta, offset);
-        }, config);
-        this.target.addEventListener('mousedown', function (event) {
-            event.preventDefault();
-            if (_this._mode === CursorMode.None) {
-                _this._startPosition.x = _this.inputData.transformX(event.clientX);
-                _this._startPosition.y = _this.inputData.transformY(event.clientY);
-                if ((event.buttons & (4 || 0)) > 0) {
-                    _this._mode = CursorMode.ViewMove;
-                    _this.emitter.emit('prepareViewMove');
-                    _this.holding = true;
-                    _this.target.style.cursor = 'grab';
-                    _this._body.style.cursor = 'grab';
-                }
-                else if ((event.buttons & (1 || 0)) > 0) {
-                    _this._mode = CursorMode.Selection;
-                    _this.emitter.emit('select', _this._startPosition);
-                }
-            }
-        }, config);
-        this.target.addEventListener('mousemove', function (event) {
-            event.preventDefault();
-            //event.stopPropagation();
-            //this._position.x = this.inputData.transformX(event.clientX);
-            //this._position.y = this.inputData.transformY(event.clientY);
-            //this.emitter.emit('redraw');
-        });
-        manager_1.default.on('mousemove', function (position) {
-            if (_this._mode !== CursorMode.None) {
-                position = _this.inputData.transform(position);
-                if (_this._mode === CursorMode.ViewMove) {
-                    _this.target.style.cursor = 'grabbing';
-                    _this._body.style.cursor = 'grabbing';
-                    if (_this._startPosition.x !== position.x || _this._startPosition.y !== position.y) {
-                        var deltaPos = {
-                            x: position.x - _this._startPosition.x,
-                            y: position.y - _this._startPosition.y
-                        };
-                        _this.emitter.emit('move', deltaPos);
-                    }
-                }
-                else if (_this._mode === CursorMode.Selection) {
-                    var w = MathUtils_1.default.floor(position.x - _this.startPosition.x);
-                    var h = MathUtils_1.default.floor(position.y - _this.startPosition.y);
-                    _this._selectionArea.set(_this._startPosition.x, _this.startPosition.y, w, h);
-                    _this.emitter.emit('selection', _this._selectionArea);
-                }
-            }
-        });
-        manager_1.default.on('mouseup', function () {
-            _this.holding = false;
-            _this.target.style.cursor = 'default';
-            if (_this._mode === CursorMode.Selection) {
-                _this.emitter.emit('selection');
-            }
-            _this._mode = CursorMode.None;
-        });
-    };
-    return SceneViewCursor;
-}());
-exports.default = SceneViewCursor;
-
-
-/***/ }),
-
-/***/ "./src/renderer/internal/editor/sceneView/SceneViewInput.ts":
-/*!******************************************************************!*\
-  !*** ./src/renderer/internal/editor/sceneView/SceneViewInput.ts ***!
-  \******************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var CursorTransform_1 = __webpack_require__(/*! ./CursorTransform */ "./src/renderer/internal/editor/sceneView/CursorTransform.ts");
-var SceneViewCursor_1 = __webpack_require__(/*! ./SceneViewCursor */ "./src/renderer/internal/editor/sceneView/SceneViewCursor.ts");
-var SceneViewInput = /** @class */ (function () {
-    function SceneViewInput(target, emitter) {
-        this.inputData = new CursorTransform_1.default(target);
-        this._cursor = new SceneViewCursor_1.default(target, emitter, this.inputData);
-    }
-    Object.defineProperty(SceneViewInput.prototype, "cursor", {
-        get: function () {
-            return this._cursor;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    SceneViewInput.prototype.resize = function () {
-        this.inputData.updateClientRect();
-    };
-    SceneViewInput.prototype.init = function () {
-        this._cursor.init();
-    };
-    return SceneViewInput;
-}());
-exports.default = SceneViewInput;
-
-
-/***/ }),
-
-/***/ "./src/renderer/internal/editor/sceneView/View.ts":
-/*!********************************************************!*\
-  !*** ./src/renderer/internal/editor/sceneView/View.ts ***!
-  \********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var EditorCamera_1 = __webpack_require__(/*! ../EditorCamera */ "./src/renderer/internal/editor/EditorCamera.ts");
-var Vector2_1 = __webpack_require__(/*! ../../../engine/math/Vector2 */ "./src/renderer/engine/math/Vector2.ts");
+var EditorCamera_1 = __webpack_require__(/*! ./EditorCamera */ "./src/renderer/internal/sceneView/EditorCamera.ts");
+var Vector2_1 = __webpack_require__(/*! ../../engine/math/Vector2 */ "./src/renderer/engine/math/Vector2.ts");
 var View = /** @class */ (function () {
     function View() {
         this._originFactor = 0.5;
@@ -52309,17 +52193,226 @@ exports.default = View;
 
 /***/ }),
 
-/***/ "./src/renderer/internal/editor/sceneView/guidelines/Grid.ts":
-/*!*******************************************************************!*\
-  !*** ./src/renderer/internal/editor/sceneView/guidelines/Grid.ts ***!
-  \*******************************************************************/
+/***/ "./src/renderer/internal/sceneView/ViewInput.ts":
+/*!******************************************************!*\
+  !*** ./src/renderer/internal/sceneView/ViewInput.ts ***!
+  \******************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var MathUtils_1 = __webpack_require__(/*! ../../../../engine/math/MathUtils */ "./src/renderer/engine/math/MathUtils.ts");
+var PointerTransform_1 = __webpack_require__(/*! ../managers/pointer/PointerTransform */ "./src/renderer/internal/managers/pointer/PointerTransform.ts");
+var ViewPointer_1 = __webpack_require__(/*! ./ViewPointer */ "./src/renderer/internal/sceneView/ViewPointer.ts");
+var ViewInput = /** @class */ (function () {
+    function ViewInput(target, emitter) {
+        this.inputData = new PointerTransform_1.default(target);
+        this._cursor = new ViewPointer_1.default(target, emitter, this.inputData);
+    }
+    Object.defineProperty(ViewInput.prototype, "cursor", {
+        get: function () {
+            return this._cursor;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    ViewInput.prototype.resize = function () {
+        this.inputData.updateClientRect();
+    };
+    ViewInput.prototype.init = function () {
+        this._cursor.startListeners();
+    };
+    return ViewInput;
+}());
+exports.default = ViewInput;
+
+
+/***/ }),
+
+/***/ "./src/renderer/internal/sceneView/ViewPointer.ts":
+/*!********************************************************!*\
+  !*** ./src/renderer/internal/sceneView/ViewPointer.ts ***!
+  \********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var MathUtils_1 = __webpack_require__(/*! ../../engine/math/MathUtils */ "./src/renderer/engine/math/MathUtils.ts");
+var Rect_1 = __webpack_require__(/*! ../../engine/math/Rect */ "./src/renderer/engine/math/Rect.ts");
+var dom_1 = __webpack_require__(/*! ../utils/dom */ "./src/renderer/internal/utils/dom.ts");
+var managers_1 = __webpack_require__(/*! ../managers */ "./src/renderer/internal/managers/index.ts");
+var PointerManager_1 = __webpack_require__(/*! ../managers/pointer/PointerManager */ "./src/renderer/internal/managers/pointer/PointerManager.ts");
+var ViewPointer = /** @class */ (function () {
+    function ViewPointer(target, emitter, inputData) {
+        this.holding = false;
+        this.target = target;
+        this.emitter = emitter;
+        this._startPosition = { x: 0, y: 0 };
+        this._position = { x: 0, y: 0 };
+        this._selectionArea = new Rect_1.default();
+        this._cursorTransform = inputData;
+    }
+    Object.defineProperty(ViewPointer.prototype, "startPosition", {
+        get: function () {
+            return this._startPosition;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(ViewPointer.prototype, "position", {
+        get: function () {
+            return this._position;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    ViewPointer.prototype.startListeners = function () {
+        var _this = this;
+        var wheelEventName = dom_1.getMouseWheelEventName();
+        var config = {
+            passive: false,
+            capture: false
+        };
+        this.target.addEventListener(wheelEventName, function (event) {
+            event.preventDefault();
+            event.stopPropagation();
+            if (managers_1.Pointer.mode != PointerManager_1.PointerMode.None && managers_1.Pointer.mode != PointerManager_1.PointerMode.ViewZoom) {
+                return;
+            }
+            //if (Pointer.mode != PointerMode.ViewZoom) {
+            managers_1.Pointer.setPointerMode(PointerManager_1.PointerMode.ViewZoom);
+            // }
+            if (managers_1.Pointer.mode == PointerManager_1.PointerMode.ViewZoom) {
+                //console.log(event)
+                _this._position.x = _this._cursorTransform.transformX(event.clientX);
+                _this._position.y = _this._cursorTransform.transformY(event.clientY);
+                // let offset = {
+                //     x: this._cursorTransform.transformX(event.clientX),
+                //     y: this._cursorTransform.transformY(event.clientY)
+                // }
+                var wheelDelta = MathUtils_1.default.sign(-event.deltaY); // || event.detail;
+                _this.emitter.emit('zoom', wheelDelta, _this._position);
+                managers_1.Pointer.setPointerMode(PointerManager_1.PointerMode.None);
+            }
+        }, config);
+        this.target.addEventListener('mousedown', function (event) {
+            event.preventDefault();
+            event.stopPropagation();
+            if (managers_1.Pointer.mode != PointerManager_1.PointerMode.None) {
+                return;
+            }
+            else {
+                if ((event.buttons & (4 || 0)) > 0) { // middle button
+                    managers_1.Pointer.setPointerMode(PointerManager_1.PointerMode.ViewStartMove);
+                    //this._view.prepareMove();
+                    _this.emitter.emit('prepareViewMove');
+                }
+                else if ((event.buttons & (1 || 0)) > 0) {
+                    managers_1.Pointer.setPointerMode(PointerManager_1.PointerMode.ViewSelection);
+                    _this.emitter.emit('select', _this._cursorTransform.transform(managers_1.Pointer.position));
+                }
+            }
+            //if (Pointer.mode == PointerMode.ViewStartMove) {
+            // if (this._mode === CursorMode.None) {
+            //     this._startPosition.x = this._cursorTransform.transformX(event.clientX);
+            //     this._startPosition.y = this._cursorTransform.transformY(event.clientY);
+            //     if ((event.buttons & (4 || 0)) > 0) {
+            //         this._mode = CursorMode.ViewMove;
+            //         this.emitter.emit('prepareViewMove');
+            //         this.holding = true;
+            //         this.target.style.cursor = 'grab'
+            //         //this._body.style.cursor = 'grab';
+            //     } else if ((event.buttons & (1 || 0)) > 0) {
+            //         this._mode = CursorMode.Selection;
+            //         this.emitter.emit('select', this._startPosition);
+            //     }
+            // }
+        }, config);
+        // this.target.addEventListener('mousemove', (event: MouseEvent) => {
+        //     event.preventDefault();
+        //     //event.stopPropagation();
+        //     //this._position.x = this._cursorTransform.transformX(event.clientX);
+        //     //this._position.y = this._cursorTransform.transformY(event.clientY);
+        //     //this.emitter.emit('redraw');
+        // })
+        managers_1.Events.on('sceneView_mousemove', function (position, delta) {
+            // console.log("asdad")
+            if (managers_1.Pointer.mode == PointerManager_1.PointerMode.ViewStartMove) {
+                managers_1.Pointer.setPointerMode(PointerManager_1.PointerMode.ViewMoving);
+            }
+            //     const timestamp = Date.now() - Pointer.timestamp;
+            //     console.log(timestamp)
+            //     if (timestamp > 0) {
+            //         Pointer.setPointerMode(PointerMode.ViewSelectionArea);
+            //     }
+            // }
+            if (managers_1.Pointer.mode != PointerManager_1.PointerMode.ViewMoving && managers_1.Pointer.mode != PointerManager_1.PointerMode.ViewSelectionArea) {
+                return;
+            }
+            //position = this._cursorTransform.transform(position);
+            switch (managers_1.Pointer.mode) {
+                case PointerManager_1.PointerMode.ViewMoving: {
+                    _this.emitter.emit('move', delta);
+                    break;
+                }
+                case PointerManager_1.PointerMode.ViewSelectionArea: {
+                    var w = MathUtils_1.default.floor(delta.x - _this.startPosition.x);
+                    var h = MathUtils_1.default.floor(delta.y - _this.startPosition.y);
+                    _this._selectionArea.set(_this._startPosition.x, _this.startPosition.y, w, h);
+                    _this.emitter.emit('selection', _this._selectionArea);
+                    break;
+                }
+            }
+            // if (this._mode !== CursorMode.None) {
+            //     position = this._cursorTransform.transform(position);
+            //     if (this._mode === CursorMode.ViewMove) {
+            //         this.target.style.cursor = 'grabbing'
+            //         //this._body.style.cursor = 'grabbing';
+            //         if (this._startPosition.x !== position.x || this._startPosition.y !== position.y) {
+            //             const deltaPos = {
+            //                 x: position.x - this._startPosition.x,
+            //                 y: position.y - this._startPosition.y
+            //             }
+            //             this.emitter.emit('move', deltaPos);
+            //         }
+            //     } else if (this._mode === CursorMode.Selection) {
+            //         const w = MathUtils.floor(position.x - this.startPosition.x);
+            //         const h = MathUtils.floor(position.y - this.startPosition.y);
+            //         this._selectionArea.set(this._startPosition.x, this.startPosition.y, w, h)
+            //         this.emitter.emit('selection', this._selectionArea);
+            //     }
+            // }
+        });
+        // Events.on('mouseup', () => {
+        //     this.holding = false;
+        //     this.target.style.cursor = 'default'
+        //     if (this._mode === CursorMode.Selection) {
+        //         this.emitter.emit('selection');
+        //     }
+        //     this._mode = CursorMode.None;
+        // });
+    };
+    return ViewPointer;
+}());
+exports.default = ViewPointer;
+
+
+/***/ }),
+
+/***/ "./src/renderer/internal/sceneView/guidelines/Grid.ts":
+/*!************************************************************!*\
+  !*** ./src/renderer/internal/sceneView/guidelines/Grid.ts ***!
+  \************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var MathUtils_1 = __webpack_require__(/*! ../../../engine/math/MathUtils */ "./src/renderer/engine/math/MathUtils.ts");
 var Grid = /** @class */ (function () {
     function Grid() {
         this._parallax = { x: 0, y: 0 };
@@ -52406,18 +52499,18 @@ exports.default = Grid;
 
 /***/ }),
 
-/***/ "./src/renderer/internal/editor/sceneView/guidelines/Guidelines.ts":
-/*!*************************************************************************!*\
-  !*** ./src/renderer/internal/editor/sceneView/guidelines/Guidelines.ts ***!
-  \*************************************************************************/
+/***/ "./src/renderer/internal/sceneView/guidelines/Guidelines.ts":
+/*!******************************************************************!*\
+  !*** ./src/renderer/internal/sceneView/guidelines/Guidelines.ts ***!
+  \******************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var Grid_1 = __webpack_require__(/*! ./Grid */ "./src/renderer/internal/editor/sceneView/guidelines/Grid.ts");
-var MathUtils_1 = __webpack_require__(/*! ../../../../engine/math/MathUtils */ "./src/renderer/engine/math/MathUtils.ts");
+var Grid_1 = __webpack_require__(/*! ./Grid */ "./src/renderer/internal/sceneView/guidelines/Grid.ts");
+var MathUtils_1 = __webpack_require__(/*! ../../../engine/math/MathUtils */ "./src/renderer/engine/math/MathUtils.ts");
 var BASESPACING = 10000;
 function getSpacing(base, factor) {
     var next = base / 10;
@@ -52502,28 +52595,9 @@ exports.default = Guidelines;
 
 /***/ }),
 
-/***/ "./src/renderer/manager/Editing.ts":
-/*!*****************************************!*\
-  !*** ./src/renderer/manager/Editing.ts ***!
-  \*****************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var Editing;
-(function (Editing) {
-    Editing[Editing["None"] = 0] = "None";
-    Editing[Editing["AxisLabel"] = 1] = "AxisLabel";
-})(Editing = exports.Editing || (exports.Editing = {}));
-
-
-/***/ }),
-
-/***/ "./src/renderer/manager/EditorInput.ts":
+/***/ "./src/renderer/internal/utils/UUID.ts":
 /*!*********************************************!*\
-  !*** ./src/renderer/manager/EditorInput.ts ***!
+  !*** ./src/renderer/internal/utils/UUID.ts ***!
   \*********************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
@@ -52531,151 +52605,128 @@ var Editing;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var Vector2_1 = __webpack_require__(/*! ../engine/math/Vector2 */ "./src/renderer/engine/math/Vector2.ts");
-var Editing_1 = __webpack_require__(/*! ./Editing */ "./src/renderer/manager/Editing.ts");
-var EditorInput = /** @class */ (function () {
-    function EditorInput(emitter) {
-        this._manager = emitter;
-        this._position = new Vector2_1.default();
-        this._startPosition = new Vector2_1.default();
-        this._mode = Editing_1.Editing.None;
+// 10000000 + -1000 + -4000 + -80000000 + -100000000000,
+var n = 1e7 + -1e3 + -4e3 + -8e3 + -1e11;
+var UUIDGenerator = /** @class */ (function () {
+    function UUIDGenerator() {
     }
-    Object.defineProperty(EditorInput.prototype, "mode", {
-        get: function () {
-            return this._mode;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(EditorInput.prototype, "position", {
-        get: function () {
-            return this._position;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    EditorInput.prototype.init = function () {
-        var _this = this;
-        var config = {
-            passive: false
-        };
-        document.addEventListener('mousemove', function (event) {
-            event.preventDefault();
-            event.stopPropagation();
-            _this._position.x = event.clientX;
-            _this._position.y = event.clientY;
-            if (_this._mode === Editing_1.Editing.None) {
-                _this._manager.emit('mousemove', _this._position);
-            }
-            else {
-                var deltaPos = {
-                    x: -_this._position.x + _this._startPosition.x,
-                    y: -_this._position.y + _this._startPosition.y
-                };
-                _this._manager.body.style.cursor = 'col-resize';
-                if (_this._position.x < window.screen.availWidth) {
-                }
-                _this._callbackChanger.call(_this._callbackTarget, deltaPos.x);
-            }
-        }, config);
-        document.addEventListener('mouseup', function (event) {
-            event.preventDefault();
-            event.stopPropagation();
-            _this._manager.body.style.cursor = 'default';
-            if (_this._mode === Editing_1.Editing.None) {
-                _this._manager.emit('mouseup');
-            }
-            else {
-                _this._mode = Editing_1.Editing.None;
-                _this._callbackEnd.call(_this._callbackTarget);
-            }
-        }, config);
+    /**
+     * Generates a UUID
+     * @param a Placeholder
+     */
+    UUIDGenerator.prototype.generate = function (a) {
+        if (a) {
+            // if the placeholder was passed, return
+            // unless b is 8, in which case  a random number from  8 to 11 in hexadecimal
+            return (a ^ Math.random() * 16 >> a / 4).toString(16);
+        }
+        else {
+            // or otherwise a concatenated string:
+            // replacing zeroes, ones, and eights with random hex digits
+            return n.toString().replace(/[018]/g, this.generate);
+        }
     };
-    EditorInput.prototype.setAxisEditing = function (onChange, onEnd, context) {
-        this._mode = Editing_1.Editing.AxisLabel;
-        this._startPosition.copy(this._position);
-        this._callbackChanger = onChange;
-        this._callbackEnd = onEnd;
-        this._callbackTarget = context || this;
+    UUIDGenerator.prototype.simple = function (from, length) {
+        if (!from)
+            from = 2;
+        if (!length)
+            length = 10;
+        return Math.random().toString(36).substr(from, length);
     };
-    return EditorInput;
+    return UUIDGenerator;
 }());
-exports.default = EditorInput;
+var UUID = new UUIDGenerator();
+exports.default = UUID;
 
 
 /***/ }),
 
-/***/ "./src/renderer/manager/EditorManager.ts":
+/***/ "./src/renderer/internal/utils/dom.ts":
+/*!********************************************!*\
+  !*** ./src/renderer/internal/utils/dom.ts ***!
+  \********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+function getMouseWheelEventName() {
+    var prefix = "";
+    if (window.addEventListener) {
+        //_addEventListener = "addEventListener";
+    }
+    else {
+        //_addEventListener = "attachEvent";
+        prefix = "on";
+    }
+    var support = "onwheel" in document.createElement("div") ? "wheel" : // Modern browsers support "wheel"
+        document.onmousewheel !== undefined ? "mousewheel" : // Webkit and IE support at least "mousewheel"
+            "DOMMouseScroll"; // let's assume that remaining browsers are older Firefox
+    return prefix + support;
+}
+exports.getMouseWheelEventName = getMouseWheelEventName;
+
+
+/***/ }),
+
+/***/ "./src/renderer/internal/utils/parser.ts":
 /*!***********************************************!*\
-  !*** ./src/renderer/manager/EditorManager.ts ***!
+  !*** ./src/renderer/internal/utils/parser.ts ***!
   \***********************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
 Object.defineProperty(exports, "__esModule", { value: true });
-var EventEmitter_1 = __webpack_require__(/*! ../engine/events/emitter/EventEmitter */ "./src/renderer/engine/events/emitter/EventEmitter.ts");
-var EditorInput_1 = __webpack_require__(/*! ./EditorInput */ "./src/renderer/manager/EditorInput.ts");
-var EditorSelectionInternal_1 = __webpack_require__(/*! ../internal/editor/EditorSelectionInternal */ "./src/renderer/internal/editor/EditorSelectionInternal.ts");
-var EditorManager = /** @class */ (function (_super) {
-    __extends(EditorManager, _super);
-    function EditorManager() {
-        var _this = _super.call(this) || this;
-        _this._editorInput = new EditorInput_1.default(_this);
-        _this.selection = new EditorSelectionInternal_1.default(_this);
-        return _this;
+var FLOAT_REGEX = /[+-]?([0-9]+([.][0-9]*)?|[.][0-9]+)/;
+function floatableString(value) {
+    var newValue;
+    var isValidValue = false;
+    if (value.length > 0) {
+        var nonDigits = /([^.\d]+)/g.test(value);
+        if (nonDigits) {
+            var isNegative = value[0] === '-';
+            newValue = value.replace(/([^.\d]+)/g, '');
+            var canParse = newValue.length !== 0;
+            if (canParse == false) {
+                if (!isNegative) {
+                    newValue = '0';
+                }
+                else {
+                    newValue = '-';
+                }
+            }
+            else {
+                if (isNegative) {
+                    newValue = '-' + newValue;
+                }
+                isValidValue = true;
+                newValue = (parseFloat(newValue)).toString();
+            }
+        }
+        else {
+            var float = FLOAT_REGEX.exec(value);
+            if (float && float.length > 0) {
+                newValue = float[0]; //parseFloat(float[0]).toString();
+            }
+            else {
+                newValue = value;
+            }
+            isValidValue = true;
+        }
     }
-    Object.defineProperty(EditorManager.prototype, "input", {
-        get: function () {
-            return this._editorInput;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(EditorManager.prototype, "body", {
-        get: function () {
-            return this._body;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    EditorManager.prototype.init = function () {
-        this._body = document.getElementsByTagName("BODY")[0];
-        this._editorInput.init();
+    else {
+        newValue = '';
+        isValidValue = false;
+    }
+    return {
+        value: newValue,
+        isValid: isValidValue
     };
-    return EditorManager;
-}(EventEmitter_1.default));
-exports.default = EditorManager;
-
-
-/***/ }),
-
-/***/ "./src/renderer/manager/index.ts":
-/*!***************************************!*\
-  !*** ./src/renderer/manager/index.ts ***!
-  \***************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var EditorManager_1 = __webpack_require__(/*! ./EditorManager */ "./src/renderer/manager/EditorManager.ts");
-//let Manager: EditorManager;
-var Manager = new EditorManager_1.default();
-Manager.init();
-exports.default = Manager;
+}
+exports.floatableString = floatableString;
 
 
 /***/ }),
@@ -52744,6 +52795,31 @@ window.ReduxStore = store;
 
 /***/ }),
 
+/***/ "./src/renderer/style/style.css":
+/*!**************************************!*\
+  !*** ./src/renderer/style/style.css ***!
+  \**************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(/*! !../../../node_modules/css-loader!./style.css */ "./node_modules/css-loader/index.js!./src/renderer/style/style.css");
+if(typeof content === 'string') content = [[module.i, content, '']];
+// Prepare cssTransformation
+var transform;
+
+var options = {"hmr":true}
+options.transform = transform
+// add the styles to the DOM
+var update = __webpack_require__(/*! ../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+if(content.locals) module.exports = content.locals;
+// Hot Module Replacement
+if(false) {}
+
+/***/ }),
+
 /***/ "./src/renderer/system/SystemFactory.ts":
 /*!**********************************************!*\
   !*** ./src/renderer/system/SystemFactory.ts ***!
@@ -52756,7 +52832,7 @@ window.ReduxStore = store;
 Object.defineProperty(exports, "__esModule", { value: true });
 var CanvasRenderer_1 = __webpack_require__(/*! ../engine/renderer/CanvasRenderer */ "./src/renderer/engine/renderer/CanvasRenderer.ts");
 var CanvasPool_1 = __webpack_require__(/*! ../engine/renderer/canvas/CanvasPool */ "./src/renderer/engine/renderer/canvas/CanvasPool.ts");
-var SceneView_1 = __webpack_require__(/*! ../internal/editor/sceneView/SceneView */ "./src/renderer/internal/editor/sceneView/SceneView.ts");
+var SceneView_1 = __webpack_require__(/*! ../internal/sceneView/SceneView */ "./src/renderer/internal/sceneView/SceneView.ts");
 var SystemFactory;
 (function (SystemFactory) {
     function createRenderer(contextID, doubleBuffer) {
@@ -52775,20 +52851,11 @@ var SystemFactory;
     function createSceneViewEditor() {
         var renderer = createRenderer('2d', true);
         renderer.setBackgroundColor('#141414ff');
-        // let input = new InputManager();
-        // input.init({
-        //     mouse: {
-        //         enable: true,
-        //         target: renderer.canvas,
-        //     }
-        // },
-        //     renderer);
         var editor = new SceneView_1.default(renderer);
         return editor;
     }
     SystemFactory.createSceneViewEditor = createSceneViewEditor;
 })(SystemFactory || (SystemFactory = {}));
-// const SystemFactory = new SystemCreator();
 exports.default = SystemFactory;
 
 
@@ -52809,7 +52876,7 @@ var ReactWidgetBase_1 = __webpack_require__(/*! ./base/ReactWidgetBase */ "./src
 var Inspector_1 = __webpack_require__(/*! ./inspector/Inspector */ "./src/renderer/widgets/inspector/Inspector.tsx");
 //import EntityList from '../game/EntityList';
 var SystemFactory_1 = __webpack_require__(/*! ../system/SystemFactory */ "./src/renderer/system/SystemFactory.ts");
-var manager_1 = __webpack_require__(/*! ../manager */ "./src/renderer/manager/index.ts");
+var managers_1 = __webpack_require__(/*! ../internal/managers */ "./src/renderer/internal/managers/index.ts");
 function createReactWidget(widget, name) {
     return new ReactWidgetBase_1.default(name, widget);
 }
@@ -52817,8 +52884,8 @@ var WidgetFactory;
 (function (WidgetFactory) {
     function createInspector() {
         var inspector = createReactWidget(Inspector_1.default, 'Inspector');
-        manager_1.default.on('selectionchange', function () {
-            inspector.reactComponent.inspect(manager_1.default.selection.activeEntity);
+        managers_1.Events.on('selectionchange', function () {
+            inspector.reactComponent.inspect(managers_1.Selection.activeEntity);
         });
         return inspector;
     }
@@ -53119,31 +53186,6 @@ exports.default = SceneViewWidget;
 
 /***/ }),
 
-/***/ "./src/renderer/widgets/game/style.css":
-/*!*********************************************!*\
-  !*** ./src/renderer/widgets/game/style.css ***!
-  \*********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(/*! !../../../../node_modules/css-loader!./style.css */ "./node_modules/css-loader/index.js!./src/renderer/widgets/game/style.css");
-if(typeof content === 'string') content = [[module.i, content, '']];
-// Prepare cssTransformation
-var transform;
-
-var options = {"hmr":true}
-options.transform = transform
-// add the styles to the DOM
-var update = __webpack_require__(/*! ../../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
-if(content.locals) module.exports = content.locals;
-// Hot Module Replacement
-if(false) {}
-
-/***/ }),
-
 /***/ "./src/renderer/widgets/inspector/Inspector.tsx":
 /*!******************************************************!*\
   !*** ./src/renderer/widgets/inspector/Inspector.tsx ***!
@@ -53235,16 +53277,16 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 var Vector2Input_1 = __webpack_require__(/*! ../../components/Vector2Input */ "./src/renderer/components/Vector2Input.tsx");
 var Foldout_1 = __webpack_require__(/*! ../../components/Foldout */ "./src/renderer/components/Foldout.tsx");
-var manager_1 = __webpack_require__(/*! ../../manager */ "./src/renderer/manager/index.ts");
+var managers_1 = __webpack_require__(/*! ../../internal/managers */ "./src/renderer/internal/managers/index.ts");
 var Transform2D = /** @class */ (function (_super) {
     __extends(Transform2D, _super);
     function Transform2D(props) {
         var _this = _super.call(this, props) || this;
         _this.onChange = function (event) {
-            if (manager_1.default.selection.activeEntity !== null) {
-                var pos = manager_1.default.selection.activeEntity.transform.position;
+            if (managers_1.Selection.activeEntity !== null) {
+                var pos = managers_1.Selection.activeEntity.transform.position;
                 pos.x = event.value;
-                manager_1.default.emit('updateActiveEntity');
+                managers_1.Events.emit('updateActiveEntity');
             }
         };
         _this._refPosition = React.createRef();

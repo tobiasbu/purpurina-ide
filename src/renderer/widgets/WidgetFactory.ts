@@ -4,7 +4,7 @@ import ReactComponentBase from './base/ReactComponentBase';
 import Inspector from './inspector/Inspector';
 //import EntityList from '../game/EntityList';
 import SystemFactory from "../system/SystemFactory";
-import Manager from "../manager";
+import { Events, Selection } from "../internal/managers";
 
 
 
@@ -17,9 +17,9 @@ module WidgetFactory {
     export function createInspector(): ReactWidgetBase<typeof Inspector> {
         const inspector = createReactWidget(Inspector, 'Inspector');
 
-        Manager.on('selectionchange', () => {
+        Events.on('selectionchange', () => {
 
-            inspector.reactComponent.inspect(Manager.selection.activeEntity)
+            inspector.reactComponent.inspect(Selection.activeEntity)
 
            
         })

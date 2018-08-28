@@ -2,7 +2,7 @@
 /**
  * Base class for engine systems
  */
-export default abstract class EngineSystem {
+abstract class EngineSystem {
 
     protected _enabled: boolean;
     protected _initialized: boolean;
@@ -42,3 +42,5 @@ export default abstract class EngineSystem {
 
 
 }
+
+export default EngineSystem;

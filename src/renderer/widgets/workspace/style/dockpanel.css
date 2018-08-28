@@ -27,7 +27,7 @@
     content: '';
 }
 
-.p-DockPanel-handle[data-orientation='horizontal'] {
+body:not(.pointerEditing) .p-DockPanel-handle[data-orientation='horizontal'] {
     cursor: ew-resize;
 }
 

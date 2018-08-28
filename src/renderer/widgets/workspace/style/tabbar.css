@@ -45,16 +45,16 @@
     flex-direction: row;
     box-sizing: border-box;
     overflow: hidden;
-    padding: 0px 10px;
+    padding: 0px 8px;
     background: #1a191aff;
     color: #F0F0F0;
-    font: 12px Segoe UI, Helvetica, Arial, sans-serif;
+    font: 11px Segoe UI, Helvetica, Arial, sans-serif;
     flex: 0 1 125px;
     min-height: 24px;
     max-height: 24px;
-    min-width: 35px;
+    min-width: 24px;
     margin-left: -1px;
-    line-height: 22px;
+    line-height: 24px;
     border-right: 1px solid #141414ff;
 }
 
@@ -127,8 +127,8 @@
 }
 
 .p-TabBar-tab.p-mod-drag-image {
-    min-height: 23px;
-    max-height: 23px;
+    min-height: 24px;
+    max-height: 24px;
     min-width: 125px;
     border: none;
     box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);

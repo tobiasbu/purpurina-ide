@@ -1,8 +1,7 @@
-import { CanvasDrawer } from "../../CanvasDrawer";
+import CanvasDrawer from "../CanvasDrawer";
 import Grid from "./Grid";
 import View from "../View";
-import EaseInOut from "../../../../engine/math/easing/EaseInOut";
-import MathUtils from "../../../../engine/math/MathUtils";
+import MathUtils from "../../../engine/math/MathUtils";
 
 const BASESPACING = 10000;
 

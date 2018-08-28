@@ -117,6 +117,12 @@ input.checkbox+label {
     font-size: 11px;
 }
 
+body.pointerEditing input,
+body.pointerEditing label {
+        cursor: inherit;
+    }
+
+
 input.focus {
     outline: #004580 solid 1px;
 }
@@ -168,22 +174,6 @@ input[type="checkbox"] {
     border: 0
 }
 
-/* -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none; */
-
-/* display: none; */
-
-/* 
-    position: absolute;
-    overflow: hidden;
-    clip: rect(0 0 0 0);
-    height: 1px;
-    width: 1px;
-    margin: -1px;
-    padding: 0;
-    border: 0;*/
-
 .checkbox-container {
     cursor: pointer;
     min-width: 20px;
@@ -215,7 +205,6 @@ input[type="checkbox"]:checked+.checkbox-indicator::after {
     content: "\2713";
     vertical-align: middle;
 }
-
 
 .foldout {
     border-bottom: #323232 1px solid;
@@ -257,7 +246,6 @@ input[type="checkbox"]:checked+.checkbox-indicator::after {
 .foldout.enable .foldout-arrow {
     transform: translateX(-50%) translateY(-50%) rotate(90deg);
     /* padding-left: 1px; */
-    
 }
 
 .foldout-arrow::after {
@@ -265,10 +253,7 @@ input[type="checkbox"]:checked+.checkbox-indicator::after {
     font-size: 10px;
 }
 
-
-
 .foldout-content {
-
     padding-left: 20px;
     /* position: relative; */
     overflow: hidden;

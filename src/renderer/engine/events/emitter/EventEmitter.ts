@@ -1,4 +1,4 @@
-import { EventCallback } from "../interfaces";
+import { EventCallback, IEventEmitter } from "./IEventEmitter";
 
 const prefix = '~';
 
@@ -29,7 +29,7 @@ function uniqueListener(listener: EventSubscription | EventSubscription[]): list
  * Typescript Version by: Tobias Ulrich
  * 
  */
-export default class EventEmitter {
+export default class EventEmitter implements IEventEmitter {
 
     private _eventsMap: EventsMap;
     private _eventsCount: number;
@@ -82,7 +82,7 @@ export default class EventEmitter {
      * @param emitter Reference to the `EventEmitter` instance.
      * @param evt The Event name.
      */
-    private clearEvent(evt: string) {
+    private clearEvent(evt: string): void {
         if (--this._eventsCount === 0) {
             this._eventsMap = new EventsMap();
         } else {
@@ -90,13 +90,6 @@ export default class EventEmitter {
         }
     }
 
-
-    /**
-     * Calls each of the listeners registered for a given event.
-     * @param event The event name.
-     * @param args Arguments
-     * @returns `true` if the event had listeners, else `false`.
-     */
     emit(event: string, ...args: any[]): boolean {
         const evt = prefix ? prefix + event : event;
 
@@ -133,39 +126,18 @@ export default class EventEmitter {
         return true;
     }
 
-    /**
-     * Add a listener for a given event.
-     * @param event The event name.
-     * @param callback The listener function.
-     * @param context Optional: The context to invoke the listener with.
-     * @returns {EventEmitter} `this`
-     */
+
     on(event: string, callback: EventCallback, context?: any): this {
         this.addListener(event, callback, context, false);
         return this;
     }
 
-    /**
-     * Add a one-time listener for a given event.
-     * @param event The event name.
-     * @param callback The listener function.
-     * @param context Optional: The context to invoke the listener with.
-     * @returns {EventEmitter} `this`
-     */
+
     once(event: string, callback: EventCallback, context?: any): this {
         this.addListener(event, callback, context, true);
         return this;
     }
 
-
-    /**
-     * Remove the listeners of a given event.
-     * @param event The event name.
-     * @param callback Only remove the listeners that match this function.
-     * @param context Only remove the listeners that have this context.
-     * @param once  Only remove one-time listeners.
-     * @returns {EventEmitter} `this`
-     */
     unbind(event: string, callback: EventCallback, context: any, once: boolean): this {
         const evt = prefix ? prefix + event : event;
 
@@ -207,11 +179,6 @@ export default class EventEmitter {
 
     }
 
-    /**
-     * Remove all listeners, or those of the specified event.
-     * @param event The event name.
-     * @returns {EventEmitter} `this`
-     */
     clear(event?: string): this {
         if (event) {
             const evt = prefix ? prefix + event : event;
@@ -226,11 +193,6 @@ export default class EventEmitter {
         return this;
     }
 
-    /**
-     * Return the number of listeners listening to a given event.
-     * @param event The event name.
-     * @returns {number} The number of listeners.
-     */
     listenerCount(event: string): number {
         const evt = prefix ? prefix + event : event;
         const listeners = this._eventsMap[evt];
@@ -249,6 +211,14 @@ export default class EventEmitter {
         return 0;
 
     }
+
+    hasListeners(event: string): boolean {
+        const evt = prefix ? prefix + event : event;
+        const listeners = this._eventsMap[evt];
+        return (listeners !== undefined);
+    }
+
+
 
 
 

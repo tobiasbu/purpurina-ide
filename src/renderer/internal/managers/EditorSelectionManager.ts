@@ -1,12 +1,13 @@
 import { EditorSelection } from "../../editor/EditorSelection";
 import Entity from "../../engine/entity/Entity";
-import EditorManager from "../../manager/EditorManager";
+import { IEventEmitter } from "../../engine/events/emitter/IEventEmitter";
 
-export default class EditorSelectionInternal implements EditorSelection {
+
+export default class EditorSelectionManager implements EditorSelection {
 
     private _entities: Entity[];
     private _activeEntity: Entity;
-    private _manager:EditorManager;
+    private _emitter :IEventEmitter;
 
 
     public get activeEntity(): Entity {
@@ -17,8 +18,8 @@ export default class EditorSelectionInternal implements EditorSelection {
         return this._entities;
     }
 
-    constructor(manager: EditorManager) {
-        this._manager = manager;
+    constructor(emitter: IEventEmitter) {
+        this._emitter = emitter;
         this._activeEntity = null;
         this._entities = [];
     }
@@ -28,7 +29,7 @@ export default class EditorSelectionInternal implements EditorSelection {
             this._activeEntity = entity;
             this._entities.length = 0;
             this._entities.push(entity);
-            this._manager.emit('selectionchange');
+            this._emitter.emit('selectionchange');
         }
     }
 

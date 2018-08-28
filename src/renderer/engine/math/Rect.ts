@@ -78,6 +78,10 @@ export default class Rect {
         return Rect.contains(this, x, y);
     }
 
+    area() {
+        return this.width * this.height;
+    }
+
     static intersects(rect1: Rect, rect2: Rect): boolean {
 
         if (rect1.width <= 0 || rect1.height <= 0 || rect2.width <= 0 || rect2.height <= 0)

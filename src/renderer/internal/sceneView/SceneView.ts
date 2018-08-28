@@ -1,19 +1,19 @@
-import Renderer from "../../../engine/renderer/Renderer";
-import SceneViewInput from "./SceneViewInput";
-import EventEmitter from "../../../engine/events/emitter/EventEmitter";
-import { CursorMode } from "./SceneViewCursor";
-import Rect from "../../../engine/math/Rect";
+import Renderer from "../../engine/renderer/Renderer";
+import EventEmitter from "../../engine/events/emitter/EventEmitter";
+import Rect from "../../engine/math/Rect";
 
-import { computeTransform2D, computeBounds2D } from "../../../engine/math/transform/compute";
-import Transform2D from "../../../engine/math/transform/Transform2D";
-import Bounds2D from "../../../engine/math/bounds/Bounds2D";
-import EditorHandles from "../EditorHandles";
-import { CanvasDrawer } from "../CanvasDrawer";
-import CanvasRenderer from "../../../engine/renderer/CanvasRenderer";
+import { computeTransform2D, computeBounds2D } from "../../engine/math/transform/compute";
+import Transform2D from "../../engine/math/transform/Transform2D";
+import Bounds2D from "../../engine/math/bounds/Bounds2D";
+import EditorHandles from "./EditorHandles";
+import CanvasDrawer from "./CanvasDrawer";
+import CanvasRenderer from "../../engine/renderer/CanvasRenderer";
 import Guidelines from "./guidelines/Guidelines";
 import View from "./View";
-import Entity from "../../../engine/entity/Entity";
-import Manager from "../../../manager";
+import Entity from "../../engine/entity/Entity";
+import { Selection, Events, Pointer } from "../managers";
+import ViewInput from "./ViewInput";
+import { PointerMode } from "../managers/pointer/PointerManager";
 
 let list: Entity[] = []
 
@@ -68,7 +68,7 @@ export default class SceneView {
 
     private _renderer: Renderer;
     private _handles: EditorHandles;
-    private _editorInput: SceneViewInput;
+    private _editorInput: ViewInput;
     private _guides: Guidelines;
     private _emitter: EventEmitter;
     private _selectionArea: Rect;
@@ -81,7 +81,7 @@ export default class SceneView {
 
         this._view = new View();
 
-        this._editorInput = new SceneViewInput(this._renderer.canvas, this._emitter);
+        this._editorInput = new ViewInput(this._renderer.canvas, this._emitter);
         this._handles = new EditorHandles(this._view);
         this.draw = new CanvasDrawer(renderer as CanvasRenderer);
         this._guides = new Guidelines(this._view);
@@ -125,14 +125,23 @@ export default class SceneView {
 
         this._emitter.on('select', (cursorPosition: IVector2) => {
 
+            let entity = null;
             for (let i = 0; i < list.length; i++) {
                 let b = new Bounds2D();
                 computeBounds2D(b, list[i].transform.matrix, 100, 100, { x: 0, y: 0 });
                 if (b.contains(cursorPosition.x, cursorPosition.y)) {
-                    this._handles.setSelectEntity(list[i]);
-                    Manager.selection.setActiveEntity(list[i]);
+                    entity = list[i];
                     break;
+                   
+                    // Manager.selection.setActiveEntity(list[i]);
+
                 }
+            }
+
+            if (entity !== null) {
+                this._handles.setSelectEntity(entity);
+                Selection.setActiveEntity(entity);
+                this.render();
             }
         }, this)
 
@@ -141,9 +150,9 @@ export default class SceneView {
             this.render();
         })
 
-        Manager.on('updateActiveEntity', () => {
+        Events.on('updateActiveEntity', () => {
             //this.update();
-            const transform = Manager.selection.activeEntity.transform as Transform2D;
+            const transform = Selection.activeEntity.transform as Transform2D;
             computeTransform2D(transform);
             transform.matrix.concat(this._view.camera.matrix);
             this.render();
@@ -184,7 +193,6 @@ export default class SceneView {
 
 
         // scene
-
         this._renderer.beginDraw();
 
         this._guides.render(this.draw, this._view);
@@ -218,7 +226,7 @@ export default class SceneView {
             0.5
         );
 
-        if (this._editorInput.cursor.mode === CursorMode.Selection) {
+        if (Pointer.mode === PointerMode.ViewSelectionArea) {
 
 
             if (this._selectionArea.xMax > this._renderer.width) {

@@ -1,6 +1,6 @@
 import CanvasRenderer from "../../engine/renderer/CanvasRenderer";
 
-export class CanvasDrawer {
+export default class CanvasDrawer {
 
 
     private _ctx: CanvasRenderingContext2D;
@@ -27,8 +27,8 @@ export class CanvasDrawer {
 
     set alpha(value: number) {
         if (this._ctx.globalAlpha !== value) {
-            this.context.globalAlpha = value;
-            this._alpha = this.context.globalAlpha;
+            this._ctx.globalAlpha = value;
+            this._alpha = this._ctx.globalAlpha;
         }
     }
 

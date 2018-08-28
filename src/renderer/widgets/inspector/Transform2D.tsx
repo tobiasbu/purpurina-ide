@@ -1,7 +1,8 @@
 import * as React from "react";
 import Vector2Input, {IVector2Event} from "../../components/Vector2Input";
 import Foldout from "../../components/Foldout";
-import Manager from "../../manager";
+import { Selection, Events } from "../../internal/managers";
+import Entity from "../../engine/entity/Entity";
 
 export default class Transform2D extends React.Component {
 
@@ -19,10 +20,10 @@ export default class Transform2D extends React.Component {
 
     private onChange = (event: IVector2Event) => {
 
-        if (Manager.selection.activeEntity !== null) {
-            const pos = Manager.selection.activeEntity.transform.position;
+        if (Selection.activeEntity !== null) {
+            const pos = Selection.activeEntity.transform.position;
             pos.x = event.value;
-            Manager.emit('updateActiveEntity');
+            Events.emit('updateActiveEntity');
 
             
         }

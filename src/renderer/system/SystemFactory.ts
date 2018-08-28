@@ -1,7 +1,7 @@
 import CanvasRenderer from "../engine/renderer/CanvasRenderer";
 import CanvasPool from "../engine/renderer/canvas/CanvasPool";
 import { ContextID } from "../engine/renderer/RendererProperties";
-import SceneView from "../internal/editor/sceneView/SceneView";
+import SceneView from "../internal/sceneView/SceneView";
 import Renderer from "../engine/renderer/Renderer";
 
 
@@ -28,21 +28,15 @@ module SystemFactory {
     export function createSceneViewEditor(): SceneView {
         let renderer = createRenderer('2d', true);
         renderer.setBackgroundColor('#141414ff');
-        // let input = new InputManager();
-        // input.init({
-        //     mouse: {
-        //         enable: true,
-        //         target: renderer.canvas,
-        //     }
-        // },
-        //     renderer);
         let editor = new SceneView(renderer);
 
         return editor;
     }
 
+    
+
 }
 
-// const SystemFactory = new SystemCreator();
+
 
 export default SystemFactory;

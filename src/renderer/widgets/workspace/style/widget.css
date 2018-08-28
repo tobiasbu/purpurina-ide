@@ -7,7 +7,7 @@
     box-sizing: border-box;
     position: relative;
     overflow: hidden;
-    cursor: default;
+    /* cursor: default; */
 }
 
 
@@ -17,8 +17,8 @@
 }
 
 .p-DockPanel-widget {
-    min-width: 100px;
-    min-height: 100px;
+    min-width: 120px;
+    min-height: 120px;
     /* display: flex; */
     /* flex-direction: column; */
     /* border: 1px solid #C0C0C0; */

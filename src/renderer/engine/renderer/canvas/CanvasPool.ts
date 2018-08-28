@@ -1,5 +1,5 @@
 import List from '../../structures/List';
-import UUID from '../../../internal/UUID';
+import UUID from '../../../internal/utils/UUID';
 import { ICanvasContainer } from '../../../typings/ICanvasContainer';
 
 

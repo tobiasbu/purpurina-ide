@@ -1,8 +1,7 @@
-
 import * as React from "react";
-import Manager from "../manager";
-import { Editing } from "../manager/Editing";
-import MathUtils from "../engine/math/MathUtils";
+import { floatableString } from "../internal/utils/parser";
+import { Pointer } from "../internal/managers";
+import { PointerMode } from "../internal/managers/pointer/PointerManager";
 
 export interface IVector2Event {
     target?: Vector2Input;
@@ -23,15 +22,15 @@ interface IVector2InputProps {
     onChange?: OnVector2InputChange;
 }
 
-const styleVecLabel = {
-    minWidth: '20%'
+const styleVecLabel: React.CSSProperties = {
+    minWidth: '30%',
+    overflow: 'hidden'
 }
 
 const styleVec: React.CSSProperties = {
     flex: 'auto'
 }
 
-const FLOAT_REGEX = /[+-]?([0-9]+([.][0-9]*)?|[.][0-9]+)/;
 
 export default class Vector2Input extends React.Component<IVector2InputProps, IVector2InputState> {
 
@@ -45,6 +44,7 @@ export default class Vector2Input extends React.Component<IVector2InputProps, IV
     private changeAxisTarget = null;
     private changeAxisInitialValue = null;
     private labelDown: boolean = false;
+    private oldValue: string;
     private _xAxisLabel: HTMLLabelElement;
     private _xAxisInput: React.RefObject<HTMLInputElement>;
     private _yAxisInput: HTMLInputElement;
@@ -77,78 +77,22 @@ export default class Vector2Input extends React.Component<IVector2InputProps, IV
         const name = event.target.name;
         let value = event.target.value;
 
-        //let value = event.target.valueAsNumber;
-        let newValue: string;
-        let validValue = false;
+        let parserResult = floatableString(value);
 
-        if (value.length > 0) {
-
-            const nonDigits = /([^.\d]+)/g.test(value);
-
-            if (nonDigits) {
-                const isNegative: boolean = value[0] === '-';
-                newValue = value.replace(/([^.\d]+)/g, '');
-                const canParse = newValue.length !== 0;
-                
-                if (canParse == false) {
-                    if (!isNegative) {
-                        newValue = '0';
-                    } else {
-                        newValue = '-';
-                    }
-                } else {
-                    if (isNegative) {
-                        newValue = '-' + newValue;
-                    }
-                    validValue = true;
-                    newValue = (parseFloat(newValue)).toString();
-                }
-            } else {
-                const float = FLOAT_REGEX.exec(value);
-                if (float && float.length > 0) {
-                    newValue = float[0];//parseFloat(float[0]).toString();
-
-                } else {
-                    newValue = value;
-                }
-                validValue = true;
+        if (parserResult.isValid) {
+            if (this.props.onChange) {
+                this.props.onChange({
+                    value: parseFloat(parserResult.value)
+                })
             }
-        } else {
-            newValue = ''
-            validValue = false;
         }
 
-        if (this.props.onChange && validValue) {
-            this.props.onChange({
-                value: parseFloat(newValue)
-            })
-        }
-
-        if (newValue !== undefined) {
-            //console.log('new value: ' + newValue)
+        if (parserResult.value !== undefined) {
             if (name === 'x-axis') {
-                this.setState({ x: newValue });
+                this.setState({ x: parserResult.value });
             }
         }
 
-
-        // if (value.length > 0) {
-
-        //     const isFine = FLOAT_REGEX.exec(value);
-
-
-        //     if (isFine.length > 0) {
-
-        //         const number = parseFloat(isFine[0]);
-        //         if (name === 'x-axis') {
-        //             this.setState({ x: number.toString() });
-        //         }
-        //     }
-        // } else {
-        //     if (name === 'x-axis') {
-        //         this.setState({ x: '' });
-        //     }
-        // }
 
     }
 
@@ -200,7 +144,9 @@ export default class Vector2Input extends React.Component<IVector2InputProps, IV
     private mouseUp = () => {
         this.labelDown = false;
         this._xAxisInput.current.classList.remove('focus');
+        if (this.changeAxisInitialValue.toString() !== this._xAxisInput.current.value) {
         this._xAxisInput.current.setSelectionRange(0, this._xAxisInput.current.value.length, "forward");
+        }
         //this._xAxisLabel.classList.remove('focus')
         this._xAxisInput.current.focus();
 
@@ -212,7 +158,8 @@ export default class Vector2Input extends React.Component<IVector2InputProps, IV
 
     private mouseDown = (event: React.MouseEvent<HTMLLabelElement>) => {
         if (event.button === 0) {
-            if (Manager.input.mode !== Editing.AxisLabel) {
+            if (Pointer.mode !== PointerMode.VectorAxisEditing) {
+                
                 this.changeAxisTarget = event.currentTarget.title;
 
                 if (this.changeAxisTarget === 'x-axis') {
@@ -223,7 +170,7 @@ export default class Vector2Input extends React.Component<IVector2InputProps, IV
 
                 }
 
-                Manager.input.setAxisEditing(this.changeAxis, this.mouseUp, this)
+                Pointer.setAxisEditing(this.changeAxis, this.mouseUp, this)
                 this.labelDown = true;
             }
         }
