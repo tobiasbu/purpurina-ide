@@ -2,9 +2,9 @@ import EventEmitter from "../../engine/events/emitter/EventEmitter";
 import CursorTransform from "../managers/pointer/PointerTransform";
 import MathUtils from "../../engine/math/MathUtils";
 import Rect from "../../engine/math/Rect";
-import { getMouseWheelEventName } from "../utils/dom";
 import { Events, Pointer } from "../managers";
 import { PointerMode } from "../managers/pointer/PointerManager";
+import { getMouseWheelEventName } from "../../dom/utils";
 
 
 
