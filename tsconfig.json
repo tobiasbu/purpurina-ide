@@ -17,7 +17,7 @@
     "experimentalDecorators": true,
     "removeComments": false,
     //"suppressImplicitAnyIndexErrors": true,
-    //"typeRoots": ["node_modules/@types"]
+    "typeRoots": ["node_modules/@types", "typings"]
   },
   "include": [
     "typings",

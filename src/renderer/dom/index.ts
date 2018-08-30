@@ -1,44 +1,39 @@
-
-
-export function applyAttributes() {
-
-}
+import { applyAttributes } from "./element-utils";
 
 /**
  * Global class for DOM manipulation
  */
 class DOMManipulator {
 
-    private _body: HTMLElement;
+    private _body: HTMLBodyElement;
 
-    public get body(): HTMLElement {
+    public get body(): HTMLBodyElement {
         return this._body;
     }
 
     constructor() {
-        this._body = document.getElementsByTagName("BODY")[0] as HTMLElement;
+        this._body = document.getElementsByTagName("BODY")[0] as HTMLBodyElement;
+
     }
 
-    create<K extends keyof HTMLElementTagNameMap>(tagName: K, attr?: HTMLAttributesTagMap[K]): HTMLElementTagNameMap[K] {
+    createElement<K extends HTML.Tags>(tagName: K, attr?: HTML.AttributesTagMap[K]): HTMLElementTagNameMap[K] {
         let node = document.createElement(tagName);
 
-        if (attr !== undefined) {
-            for (const iterator in attr) {
-                const value = attr[iterator];
-
-                if (typeof (value) !== 'string') {
-                    node.setAttribute(iterator, value.toString());
-                } else {
-                    node.setAttribute(iterator, value);
-                }
-
-
-            }
-        }
+      
+ 
+      
+        applyAttributes(node, attr);
 
         return node;
     }
+
+
 }
 
 const DOM = new DOMManipulator();
+
+export default DOM;
+//DOM.createElement('input', {type:'number', style:{webkitTransformStyle:}} )
+
+
 

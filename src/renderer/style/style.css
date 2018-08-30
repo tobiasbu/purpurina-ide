@@ -23,6 +23,21 @@ body {
     backface-visibility: hidden;
 }
 
+.toolbar {
+    height: 28px;
+    background: #222222;
+    width: 100%;
+    display: block;
+}
+
+.statusbar {
+    height: 22px;
+    background: #3e0636ff;
+    width: 100%;
+    display: block;
+}
+
+
 /* image-rendering: optimizeSpeed;            
 image-rendering: -moz-crisp-edges;           Firefox             
 image-rendering: -o-crisp-edges;            /* Opera               

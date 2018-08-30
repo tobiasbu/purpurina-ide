@@ -22,7 +22,7 @@ export default (env: any) => {
         target: 'electron-renderer',
 
         entry: {
-            'renderer': ENTRY_PATH + '/index.tsx'
+            'renderer': ENTRY_PATH + '/index.ts'
         },
 
         output: {

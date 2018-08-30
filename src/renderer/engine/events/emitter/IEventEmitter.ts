@@ -57,5 +57,5 @@ export interface IEventEmitter {
      */
     listenerCount(event: string): number;
 
-    hasListeners(event:string):boolean;
+    hasListeners(event: string): boolean;
 }
