@@ -1,14 +1,13 @@
-import { VirtualNodeType, IVirtualElement } from "./IVirtualNode";
 
 
-export default class VirtualElement<Tag extends HTML.Tags> implements IVirtualElement {
+export default class VirtualElement<Tag extends HTML.Tags> implements IVirtualElement<Tag> {
 
     readonly tag: Tag;
     readonly attrs: HTML.AttributesTagMap[Tag];
-    readonly children: ReadonlyArray<IVirtualElement>;
-    readonly type: VirtualNodeType = 'element';
+    readonly children: HyperChildren;
+    readonly type = NodeType.Element;
 
-    constructor(tag: Tag, attrs?: HTML.AttributesTagMap[Tag], children?: ReadonlyArray<IVirtualElement>) {
+    constructor(tag: Tag, attrs?: HTML.AttributesTagMap[Tag], children?: HyperChildren) {
         this.tag = tag;
         this.attrs = attrs;
         this.children = children;

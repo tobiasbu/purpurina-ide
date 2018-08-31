@@ -1,9 +1,12 @@
-import { VirtualNode } from "../virtual-dom/IVirtualNode";
-import { h } from "../hyperscript";
 
-export default abstract class Component {
+abstract class Component<A extends {}> implements IComponent<A> {
+    private _attrs: A;
 
-    abstract render(): VirtualNode;
+    get attrs(): A {
+        return this._attrs;
+    }
+
+    abstract render(): HyperNode;
     /**
      * 
      */
@@ -11,13 +14,15 @@ export default abstract class Component {
 
 }
 
-class test extends Component {
+export default Component;
 
-    render(): VirtualNode {
-        const parent = h('div');
-        return parent;
-        
-    }   
+// class test extends Component {
+
+//     render(): VirtualNode {
+//         const parent = h('div');
+//         return parent;
+
+//     }   
 
 
-}
+// }

@@ -1,17 +1,16 @@
-import { IVirtualNode, VirtualNodeType } from "./IVirtualNode";
-import Component from "../reactive/Component";
 
-export default class VirtualComponent implements IVirtualNode {
+export default class VirtualComponent<A extends {}, C extends IComponent<A>> implements IVirtualComponent<A, C> {
+    
+    private _component: C;
+    readonly children: HyperChildren;
+    readonly type = NodeType.Component;
+    readonly attrs: A;
 
-    private _component: Component;
+    get component(): C {
+        return this._component;
+    }
 
-    readonly tag: string;
-    readonly children: ReadonlyArray<IVirtualNode>;
-    readonly type: VirtualNodeType = 'component';
-    readonly attrs: HTML.Attributes;
-
-    constructor(component: Component, tag: string, attrs?: any, children?: ReadonlyArray<IVirtualNode>) {
-        this.tag = tag;
+    constructor(component: C, attrs?: A, children?: HyperChildren) {
         this.attrs = attrs;
         this.children = children;
         this._component = component;

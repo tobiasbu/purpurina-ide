@@ -1,16 +1,12 @@
-import { IVirtualNode, IVirtualElement, VirtualNode } from "../virtual-dom/IVirtualNode";
 import VirtualElement from "../virtual-dom/VirtualElement";
-import Component from "../reactive/Component";
+import { Tags } from "./htmlTags";
+import VirtualComponent from "../virtual-dom/VirtualComponent";
 
-export namespace h {
-    export type Child = (string | IVirtualNode | null) | Array<string | IVirtualNode | null>;
+function isHtmlTag(tagName: string | HTML.Tags): tagName is HTML.Tags {
+    return (tagName in Tags);
 }
 
-// function isHtmlTag(tagName: string | HTML.Tags): tagName is HTML.Tags {
-//     return (tagName in Tags);
-// }
-
-function scan(children: IVirtualNode[], values: h.Child[]) {
+function scan(children: IVirtualNode<any>[], values: HyperChild[]) {
     for (let child of values) {
         // if (typeof child === 'string') {
         //   array.push(new VirtualText(child));
@@ -24,15 +20,15 @@ function scan(children: IVirtualNode[], values: h.Child[]) {
 }
 
 
-export function h(tag: Component): VirtualNode;
-export function h<Tag extends HTML.Tags>(tag: Tag, ...children: h.Child[]): VirtualElement<Tag>;
-export function h<Tag extends HTML.Tags>(tag: Tag, attrs: HTML.AttributesTagMap[Tag], ...children: h.Child[]): VirtualElement<Tag>;
-export function h<Tag extends HTML.Tags>(tag: Tag): VirtualElement<Tag> {
+export function h(tag: IComponent): HyperNode;
+export function h<Tag extends HTML.Tags>(tag: Tag, ...children: HyperChild[]): HyperNode
+export function h<Tag extends HTML.Tags>(tag: Tag, attrs: HTML.AttributesTagMap[Tag], ...children: HyperChild[]): HyperNode;
+export function h<Tag extends HTML.Tags>(tag: Tag): HyperNode {
 
-  
-    
+
+
     let attrs: HTML.AttributesTagMap[Tag];
-    let children: IVirtualNode[] = [];
+    let children: HyperNode[] = [];
 
     const len = arguments.length;
 
@@ -56,12 +52,13 @@ export function h<Tag extends HTML.Tags>(tag: Tag): VirtualElement<Tag> {
         attrs = {};
     }
 
-
-
-    return new VirtualElement(tag as Tag, attrs, children as IVirtualElement[]);
+    if (typeof tag === 'object') {
+        return new VirtualComponent(tag as IComponent<any>, attrs, children);
+    } else {
+        return new VirtualElement(tag as Tag, attrs, children);
+    }
 }
 
-
-// export function s(element: HTMLElement): IStaticNode {
-
-// }
+export function s(element: HTMLElement | HyperNode | IComponent): StaticNode {
+    throw new Error();
+}
