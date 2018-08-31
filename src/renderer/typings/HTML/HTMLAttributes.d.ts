@@ -593,6 +593,10 @@ declare module HTML {
         width?: number | string;
     }
 
+    interface HtmlAttributes extends Attributes{
+        manifest?:string;
+    }
+
     interface KeygenAttributes extends Attributes {
         autofocus?: boolean;
         challenge?: string;
@@ -648,7 +652,7 @@ declare module HTML {
         controlslist?: string;
         crossorigin?: Types.CrossOrigin;
         loop?: boolean;
-        mediaGroup?: string;
+        mediagroup?: string;
         muted?: boolean;
         /**
          * Encourage the user agent to display video content within the element's playback area 
@@ -662,6 +666,10 @@ declare module HTML {
          * Address of the resource 
          */
         src?: string;
+    }
+
+    interface AudioAttributes extends MediaAttributes {
+        type?: Types.AudioMIMETypes;
     }
 
     interface MeterAttributes extends Attributes {
@@ -679,6 +687,137 @@ declare module HTML {
         content?: string;
         httpequiv?: string;
         name?: string;
+    }
+
+    /** <ins> */
+    interface ModAttributes extends Attributes {
+        cite?: string;
+        datetime?: string;
+    }
+
+    interface ObjectAttributes extends Attributes {
+        classid?: string;
+        data?: string;
+        form?: string;
+        height?: number | string;
+        name?: string;
+        type?: string;
+        usemap?: string;
+        width?: number | string; 
+        wmode?: string;
+    }
+
+    interface OlAttributes extends Attributes {
+        reversed?: boolean;
+        start?: number;
+        type?: '1' | 'a' | 'A' | 'i' | 'I';
+    }
+
+    interface OptgroupAttributes extends Attributes {
+        disabled?: boolean;
+        label?: string;
+    }
+
+    interface OptionAttributes extends Attributes {
+        disabled?: boolean;
+        label?: string;
+        selected?: boolean;
+        value?: string | string[] | number;
+    }
+
+    interface OutputAttributes extends Attributes {
+        form?: string;
+        htmlFor?: string;
+        name?: string;
+    }
+
+    interface ParamAttributes extends Attributes {
+        name?: string;
+        value?: string | string[] | number;
+    }
+
+    interface ProgressAttributes extends Attributes {
+        max?: number | string;
+        value?: string | string[] | number;
+    }
+
+    interface ScriptAttributes extends Attributes {
+        async?: boolean;
+        charset?: string;
+        crossorigin?: Types.CrossOrigin;
+        defer?: boolean;
+        integrity?: string;
+        nomodule?: boolean;
+        nonce?: string;
+        src?: string;
+        type?: string;
+    }
+
+    interface SelectAttributes extends Attributes {
+        autoComplete?: string;
+        autoFocus?: boolean;
+        disabled?: boolean;
+        form?: string;
+        multiple?: boolean;
+        name?: string;
+        required?: boolean;
+        size?: number;
+        value?: string | string[] | number;
+    }
+
+    interface SourceAttributes extends Attributes {
+        media?: string;
+        sizes?: string;
+        src?: string;
+        srcSet?: string;
+        type?: string;
+    }
+
+    interface StyleAttributes extends Attributes {
+        media?: string;
+        nonce?: string;
+        scoped?: boolean;
+        type?: string;
+    }
+
+    interface TableAttributes extends Attributes {
+        cellPadding?: number | string;
+        cellSpacing?: number | string;
+        summary?: string;
+    }
+
+    interface TextareaAttributes extends Attributes {
+        autocomplete?: string;
+        autofocus?: boolean;
+        cols?: number;
+        dirName?: string;
+        disabled?: boolean;
+        form?: string;
+        maxlength?: number;
+        minlength?: number;
+        name?: string;
+        placeholder?: string;
+        readonly?: boolean;
+        required?: boolean;
+        rows?: number;
+        value?: string | string[] | number;
+        wrap?: string;
+    }
+
+    /** <td> */
+    interface TableDataCellAttributes extends Attributes {
+        colspan?: number;
+        headers?: string;
+        rowspan?: number;
+        scope?: string;
+    }
+
+    /** <th> */
+    interface TableHeaderCellAttributes extends Attributes {
+        colspan?: number;
+        headers?: string;
+        rowspan?: number;
+        scope?: string;
     }
 
     interface TableColAttributes extends Attributes {
@@ -747,25 +886,25 @@ declare module HTML {
         'area': AreaAttributes;
         "article": Attributes;
         "aside": Attributes;
-        "audio": HTMLAudioElement;
+        "audio": AudioAttributes;
         "b": Attributes;
         "base": BaseAttributes;
-        "basefont": HTMLBaseFontElement;
+        "basefont": Attributes;
         "bdo": Attributes;
         "big": Attributes;
         "blockquote": BlockquoteAttributes;
-        "body": HTMLBodyElement;
-        "br": HTMLBRElement;
+        "body": Attributes;
+        "br": Attributes;
         "button": ButtonAttributes;
         'canvas': CanvasAttributes;
-        "caption": HTMLTableCaptionElement;
+        "caption": Attributes;
         "center": Attributes;
         "cite": Attributes;
         "code": Attributes;
         "col": TableColAttributes;
         "colgroup": TableColGroupAttributes;
-        "data": HTMLDataElement;
-        "datalist": HTMLDataListElement;
+        "data": Attributes;
+        "datalist": Attributes;
         "dd": Attributes;
         "del": DelAttributes;
         'dialog': DialogAttributes;
@@ -794,13 +933,13 @@ declare module HTML {
         "header": Attributes;
         "hgroup": Attributes;
         "hr": Attributes;
-        "html": HTMLHtmlElement;
+        "html": HtmlAttributes;
         "i": Attributes;
         "iframe": IFrameAttributes;
         "img": ImageAttributes;
         "input": InputAttributes;
-        "ins": HTMLModElement;
-        "isindex": HTMLUnknownElement;
+        "ins": ModAttributes;
+        "isindex": Attributes;
         "kbd": Attributes;
         "keygen": KeygenAttributes;
         "legend": Attributes;
@@ -815,57 +954,59 @@ declare module HTML {
         "meta": MetaAttributes;
         "meter": MeterAttributes;
         "nav": Attributes;
-        "nextid": HTMLUnknownElement;
+        "nextid": Attributes;
         "nobr": Attributes;
         "noframes": Attributes;
         "noscript": Attributes;
-        "object": HTMLObjectElement;
-        "ol": HTMLOListElement;
-        "optgroup": HTMLOptGroupElement;
-        "option": HTMLOptionElement;
-        "output": HTMLOutputElement;
+        "object": ObjectAttributes;
+        "ol": OlAttributes;
+        "optgroup": OptgroupAttributes;
+        "option": OptionAttributes;
+        "output": OutputAttributes;
         "p": Attributes;
-        "param": HTMLParamElement;
-        "picture": HTMLPictureElement;
+        "param": ParamAttributes;
+        "picture": Attributes;
         "plaintext": Attributes;
-        "pre": HTMLPreElement;
-        "progress": HTMLProgressElement;
+        "pre": Attributes;
+        "progress": ProgressAttributes;
         "q": BlockquoteAttributes;
         "rt": Attributes;
         "ruby": Attributes;
         "s": Attributes;
         "samp": Attributes;
-        "script": HTMLScriptElement;
+        "script": ScriptAttributes;
         "section": Attributes;
-        "select": HTMLSelectElement;
-        "slot": HTMLSlotElement;
+        "select": SelectAttributes;
+        "slot": Attributes;
         "small": Attributes;
-        "source": HTMLSourceElement;
+        "source": SourceAttributes;
         "span": Attributes;
         "strike": Attributes;
         "strong": Attributes;
-        "style": Attributes;
+        "style": StyleAttributes;
         "sub": Attributes;
         "sup": Attributes;
-        "table": HTMLTableElement;
-        "tbody": HTMLTableSectionElement;
-        "td": HTMLTableDataCellElement;
-        "template": HTMLTemplateElement;
-        "textarea": HTMLTextAreaElement;
-        "tfoot": HTMLTableSectionElement;
-        "th": HTMLTableHeaderCellElement;
-        "thead": HTMLTableSectionElement;
+        "table": TableAttributes;
+        "tbody": Attributes;
+        "td": TableDataCellAttributes;
+        "template": Attributes;
+        "textarea": TextareaAttributes;
+        "tfoot": Attributes;
+        "th": TableHeaderCellAttributes;
+        "thead": Attributes;
         "time": TimeAttributes;
-        "title": HTMLTitleElement;
-        "tr": HTMLTableRowElement;
+        "title": Attributes;
+        "tr": Attributes;
         "track": TrackAttributes;
         "tt": Attributes;
         "u": Attributes;
-        "ul": HTMLUListElement;
+        "ul": Attributes;
         "var": Attributes;
         "video": VideoAttributes;
         "wbr": Attributes;
         "xmp": Attributes;
+
+        
     }
 
 }

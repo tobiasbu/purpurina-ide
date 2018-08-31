@@ -24472,6 +24472,62 @@ module.exports = function (css) {
 
 /***/ }),
 
+/***/ "./src/renderer/dom/element-utils.ts":
+/*!*******************************************!*\
+  !*** ./src/renderer/dom/element-utils.ts ***!
+  \*******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var specialAttrs = {
+    'style': true
+};
+function applyInlineStyle(element, style) {
+    var elemStyle = element.style;
+    var name;
+    for (name in style) {
+        elemStyle[name] = style[name];
+    }
+}
+function applyAttributes(node, attr) {
+    if (attr === undefined || attr === null) {
+        return;
+    }
+    for (var iterator in attr) {
+        if (name in specialAttrs) {
+            continue;
+        }
+        var value = attr[iterator];
+        if (typeof (value) !== 'string') {
+            node.setAttribute(iterator, value.toString());
+        }
+        else {
+            node.setAttribute(iterator, value);
+        }
+    }
+    if (attr.style) {
+        applyInlineStyle(node, attr.style);
+    }
+}
+exports.applyAttributes = applyAttributes;
+
+
+/***/ }),
+
+/***/ "./src/renderer/dom/hyperscript/Hyperscript.ts":
+/*!*****************************************************!*\
+  !*** ./src/renderer/dom/hyperscript/Hyperscript.ts ***!
+  \*****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+throw new Error("Module build failed (from ./node_modules/awesome-typescript-loader/dist/entry.js):\nError: ENOENT: no such file or directory, open 'D:\\TOBI\\scintilla-ide\\src\\renderer\\dom\\hyperscript\\Hyperscript.ts'");
+
+/***/ }),
+
 /***/ "./src/renderer/dom/index.ts":
 /*!***********************************!*\
   !*** ./src/renderer/dom/index.ts ***!
@@ -24482,16 +24538,7 @@ module.exports = function (css) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-function applyAttributes() {
-}
-exports.applyAttributes = applyAttributes;
-function applyInlineStyle(element, style) {
-    var elemStyle = element.style;
-    var name;
-    for (name in style) {
-        elemStyle[name] = style[name];
-    }
-}
+var element_utils_1 = __webpack_require__(/*! ./element-utils */ "./src/renderer/dom/element-utils.ts");
 /**
  * Global class for DOM manipulation
  */
@@ -24508,25 +24555,7 @@ var DOMManipulator = /** @class */ (function () {
     });
     DOMManipulator.prototype.createElement = function (tagName, attr) {
         var node = document.createElement(tagName);
-        console.log(attr);
-        if (attr !== undefined || attr !== null) {
-            for (var iterator in attr) {
-                var value = attr[iterator];
-                if (typeof (value) !== 'string') {
-                    if (iterator === 'style') {
-                        if (value) {
-                            applyInlineStyle(node, value);
-                        }
-                    }
-                    else {
-                        node.setAttribute(iterator, value.toString());
-                    }
-                }
-                else {
-                    node.setAttribute(iterator, value);
-                }
-            }
-        }
+        element_utils_1.applyAttributes(node, attr);
         return node;
     };
     return DOMManipulator;
@@ -24551,6 +24580,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var dom_1 = __webpack_require__(/*! ./dom */ "./src/renderer/dom/index.ts");
 __webpack_require__(/*! ./style/style.css */ "./src/renderer/style/style.css");
 var widgets_1 = __webpack_require__(/*! @phosphor/widgets */ "./node_modules/@phosphor/widgets/lib/index.js");
+var Hyperscript_1 = __webpack_require__(/*! ./dom/hyperscript/Hyperscript */ "./src/renderer/dom/hyperscript/Hyperscript.ts");
 // import * as React from "react";
 // import * as ReactDOM from "react-dom";
 // import { Provider } from "react-redux";
@@ -24563,6 +24593,7 @@ var toolbar = dom_1.default.createElement('div', { class: 'toolbar' });
 var statusbar = dom_1.default.createElement('div', { class: 'statusbar' });
 var dockpanel = new widgets_1.DockPanel();
 dockpanel.id = 'main';
+Hyperscript_1.h('div#root');
 rootNode.appendChild(toolbar);
 widgets_1.DockPanel.attach(dockpanel, rootNode);
 rootNode.appendChild(statusbar);

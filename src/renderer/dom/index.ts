@@ -19,9 +19,6 @@ class DOMManipulator {
     createElement<K extends HTML.Tags>(tagName: K, attr?: HTML.AttributesTagMap[K]): HTMLElementTagNameMap[K] {
         let node = document.createElement(tagName);
 
-      
- 
-      
         applyAttributes(node, attr);
 
         return node;

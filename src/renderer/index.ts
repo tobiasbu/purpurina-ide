@@ -2,6 +2,7 @@
 import DOM from "./dom";
 import './style/style.css'
 import { DockPanel } from "@phosphor/widgets";
+import { h } from "./dom/hyperscript/Hyperscript";
 
 // import * as React from "react";
 // import * as ReactDOM from "react-dom";
@@ -19,7 +20,7 @@ const statusbar = DOM.createElement('div',{class:'statusbar'});
 const dockpanel = new DockPanel();
 dockpanel.id = 'main';
 
-
+h('div#root');
 
 rootNode.appendChild(toolbar);
 DockPanel.attach(dockpanel,rootNode);
