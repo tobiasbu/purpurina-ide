@@ -2,7 +2,8 @@
 import DOM from "./dom";
 import './style/style.css'
 import { DockPanel } from "@phosphor/widgets";
-import { h } from "./dom/hyperscript/Hyperscript";
+import { h } from "./dom/hyperscript";
+
 
 // import * as React from "react";
 // import * as ReactDOM from "react-dom";
@@ -20,7 +21,12 @@ const statusbar = DOM.createElement('div',{class:'statusbar'});
 const dockpanel = new DockPanel();
 dockpanel.id = 'main';
 
-h('div#root');
+const appNode: Hyper.Element = h("div")
+
+// h('div', {class:'toolbar'})
+
+
+DOM.render(appNode, rootNode);
 
 rootNode.appendChild(toolbar);
 DockPanel.attach(dockpanel,rootNode);
@@ -32,7 +38,7 @@ rootNode.appendChild(statusbar);
 //     </Provider>
 // );
 
-// ReactDOM.render(appNode, rootNode);
+//ReactDOM.render(appNode, rootNode);
 // //registerServiceWorker();
 
 

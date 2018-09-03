@@ -1,10 +1,10 @@
 
-const specialAttrs = {
-    'style': true
+enum SpecialAttrs {
+    'style'
 };
 
 function applyInlineStyle(element: HTMLElement, style: HTML.InlineStyle) {
-    let elemStyle = element.style;
+    const elemStyle = element.style;
     let name: keyof HTML.InlineStyle;
     for (name in style) {
         elemStyle[name] = style[name];
@@ -18,7 +18,7 @@ export function applyAttributes<K extends HTML.Tags>(node: HTMLElement, attr: HT
     }
 
     for (const iterator in attr) {
-        if (name in specialAttrs) {
+        if (name in SpecialAttrs) {
             continue;
         }
         const value = attr[iterator];
@@ -35,4 +35,5 @@ export function applyAttributes<K extends HTML.Tags>(node: HTMLElement, attr: HT
         
 
 }
+
 

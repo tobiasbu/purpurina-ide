@@ -7,13 +7,12 @@ declare enum NodeType {
 
 
 
-
 /**
  * Components
  */
 
 interface IComponent<A = {}> {
-    readonly attrs: A;
+    render(): HyperNode;
 }
 
 /**
@@ -29,32 +28,49 @@ interface IStaticNode {
 
 }
 
-type StaticNode = IStaticNode;
+
 
 
 /**
  * Virtual elements
  */
 
+
 interface IVirtualNode<A extends {}> {
     readonly children: HyperChildren;
     readonly type: NodeType;
     readonly attrs: A;
+    readonly tag: string | HTML.Tags | IComponent<A>;
 }
 
 interface IVirtualElement<T extends HTML.Tags> extends IVirtualNode<HTML.AttributesTagMap[T]> {
-    readonly tag: HTML.Tags | string;
+    readonly tag: HTML.Tags;
 }
 
 interface IVirtualComponent<A extends {}, C extends IComponent<A>> extends IVirtualNode<A> {
-    readonly attrs: A;
-    readonly component: C;
+    readonly tag: C;
+    ref?:C;
 }
 
 /**
  * Hyperscript nodes
  */
 
+//type HyperComponent<A extends {}, C extends IComponent<A>> = IVirtualComponent<A, C>;
+type HyperStaticNode = IStaticNode;
 type HyperChildren = ReadonlyArray<IVirtualNode<any>>
 type HyperNode = IVirtualElement<any> | IVirtualComponent<any, any>;
 type HyperChild = (string | HyperNode | null) | Array<string | HyperNode | null>;
+
+/**
+ * 
+ */
+
+declare namespace Hyper {
+    interface Element extends IVirtualNode<any> {
+
+    }
+    interface ElementFunc {
+        (): HyperNode;
+    }
+}

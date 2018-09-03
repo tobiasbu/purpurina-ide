@@ -1,19 +1,14 @@
+import VirtualNode from "./VirtualNode";
 
-export default class VirtualComponent<A extends {}, C extends IComponent<A>> implements IVirtualComponent<A, C> {
+export default class VirtualComponent<A extends {}, C extends IComponent<A>> extends VirtualNode<A> implements IVirtualComponent<A, C> {
     
-    private _component: C;
-    readonly children: HyperChildren;
-    readonly type = NodeType.Component;
-    readonly attrs: A;
+    ref?: C;
+    readonly tag: C;
 
-    get component(): C {
-        return this._component;
+    constructor(component: C, attrs?: A, children?: Array<HyperNode>) {
+        super(NodeType.Component, component, attrs, children);
     }
 
-    constructor(component: C, attrs?: A, children?: HyperChildren) {
-        this.attrs = attrs;
-        this.children = children;
-        this._component = component;
-    }
+ 
 
 }

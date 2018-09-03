@@ -59,6 +59,18 @@ export function h<Tag extends HTML.Tags>(tag: Tag): HyperNode {
     }
 }
 
-export function s(element: HTMLElement | HyperNode | IComponent): StaticNode {
+export namespace h {
+    export function b() {
+
+    }
+}
+
+export function s(element: HTMLElement | HyperNode | IComponent) {
+    
+    // if (element instanceof HTMLElement) {
+    //     return new StaticNode(element);
+    // }
+
     throw new Error();
+
 }
