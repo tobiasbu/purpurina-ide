@@ -21,11 +21,11 @@ type CursorEditingEndCallback = (delta: number) => void
 export default class PointerManager {
     private _position: Vector2;
     private _startPosition: Vector2;
-    
+
 
     private _delta: Vector2;
     private _timestamp: number;
-   
+
 
     private _callbackChanger: CursorEditingCallback;
     private _callbackEnd: CursorEditingEndCallback;
@@ -67,8 +67,13 @@ export default class PointerManager {
 
 
     private processMouseMove = (event: MouseEvent) => {
-        event.preventDefault();
-        event.stopPropagation();
+
+
+        if (event.srcElement.tagName !== 'INPUT') {
+            event.preventDefault();
+            event.stopPropagation();
+        }
+
 
 
         if (this._mode == PointerMode.ViewStartMove) {
@@ -86,7 +91,7 @@ export default class PointerManager {
 
         switch (this._mode) {
 
-            case PointerMode.ViewMoving: 
+            case PointerMode.ViewMoving:
             case PointerMode.ViewSelectionArea: {
                 this._emitter.emit('sceneView_mousemove', this._position, this._delta);
                 break;
@@ -116,8 +121,10 @@ export default class PointerManager {
     }
 
     private processMouseUp = (event: MouseEvent) => {
-        event.preventDefault();
-        event.stopPropagation();
+        if (event.srcElement.tagName !== 'INPUT') {
+            event.preventDefault();
+            event.stopPropagation();
+        }
 
         if (this._mode == PointerMode.None) {
             return;

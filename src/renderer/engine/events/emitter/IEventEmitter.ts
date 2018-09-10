@@ -1,5 +1,5 @@
 
-export type EventCallback = (...args: any[]) => void;
+
 
 /**
  * Event Emitter interface

@@ -1,17 +1,6 @@
 body {
     font: 11px Segoe UI, Helvetica, Arial, sans-serif;
     color: #F0F0F0;
-    -webkit-touch-callout: none;
-    /* iOS Safari */
-    -webkit-user-select: none;
-    /* Safari */
-    -khtml-user-select: none;
-    /* Konqueror HTML */
-    -moz-user-select: none;
-    /* Firefox */
-    -ms-user-select: none;
-    /* Internet Explorer/Edge */
-    user-select: none;
     /* Non-prefixed version, currently supported by Chrome and Opera */
     margin: 0;
     padding: 0;
@@ -21,6 +10,66 @@ body {
     -webkit-filter: blur(0);
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
+}
+
+/* -webkit-touch-callout: none;
+    /* iOS Safari 
+    -webkit-user-select: none;
+    /* Safari 
+    -khtml-user-select: none;
+    /* Konqueror HTML 
+    -moz-user-select: none;
+    /* Firefox 
+    -ms-user-select: none;
+    /* Internet Explorer/Edge 
+    user-select: none; */
+::-webkit-scrollbar {
+    display: none;
+}
+
+/* *::-webkit-scrollbar-thumb,
+*::-webkit-scrollbar  { 
+    background: #fff;
+    background-clip: padding-box;
+    width: 10px;
+    border: 10px solid transparent;
+ }
+
+ *::-webkit-scrollbar-thumb {        
+    box-shadow: inset 0 0 0 10px;
+  }
+
+
+::-webkit-scrollbar-button       { 
+    background: #C1C1D1;
+ }
+::-webkit-scrollbar-track        { 
+    
+ }
+::-webkit-scrollbar-track-piece  {  }
+      
+   
+
+::-webkit-scrollbar-corner       {  }
+::-webkit-resizer                {  } */
+.container {
+    transition: 300ms linear all;
+}
+
+.scroll-container {
+    width: 16px;
+    background: #114848;
+    height: 100%;
+    position: absolute;
+    right: 0;
+}
+
+.scroll-container .thumb {
+    width: 16px;
+    background: #d4d2d2;
+    height: 16px;
+    position: relative;
+    right: 0;
 }
 
 .toolbar {
@@ -37,30 +86,25 @@ body {
     display: block;
 }
 
-
 /* image-rendering: optimizeSpeed;            
 image-rendering: -moz-crisp-edges;           Firefox             
 image-rendering: -o-crisp-edges;            /* Opera               
 image-rendering: -webkit-optimize-contrast; /* Chrome (and Safari) 
 image-rendering: optimize-contrast;         /* CSS3 Proposed       
 -ms-interpolation-mode: nearest-neighbor;   IE8+                */
-
 /*** Works on common browsers ***/
-
 ::selection {
     background-color: #004580;
     color: #fff;
 }
 
 /*** Mozilla based browsers ***/
-
 ::-moz-selection {
     background-color: #004580;
     color: #fff;
 }
 
 /***For Other Browsers ***/
-
 ::-o-selection {
     background-color: #004580;
     color: #fff;
@@ -72,7 +116,6 @@ image-rendering: optimize-contrast;         /* CSS3 Proposed
 }
 
 /*** For Webkit ***/
-
 ::-webkit-selection {
     background-color: #004580;
     color: #fff;
@@ -113,7 +156,6 @@ fieldset {
 }
 
 /*(an + b)*/
-
 .flex-container>.flex-horizontal:nth-child(1n+2) {
     margin-left: 4px;
     min-width: 0;
@@ -134,9 +176,8 @@ input.checkbox+label {
 
 body.pointerEditing input,
 body.pointerEditing label {
-        cursor: inherit;
-    }
-
+    cursor: inherit;
+}
 
 input.focus {
     outline: #004580 solid 1px;
@@ -145,6 +186,7 @@ input.focus {
 input:focus,
 input[type="number"]:focus {
     outline: #004580 solid 1px;
+    outline-offset: 0;
 }
 
 label.focus {

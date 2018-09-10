@@ -1,7 +1,8 @@
 //import * as React from "react";
 import WidgetBase from "../base/WidgetBase";
 import { WidgetResizeEvent } from "../../typings/WidgetInterfaces";
-import SceneView from "../../internal/editor/sceneView/SceneView";
+import SceneView from "../../internal/sceneView/SceneView";
+
 
 
 // const style: React.CSSProperties = {

@@ -1,4 +1,4 @@
-import { EventCallback, IEventEmitter } from "./IEventEmitter";
+import { IEventEmitter } from "./IEventEmitter";
 
 const prefix = '~';
 

@@ -1,10 +1,9 @@
-/// <reference path='HTML.d.ts'/>
+import { InlineStyle } from "./InlineStyle";
+// import { EventAttrs } from "./HTMLEvents";
 
 
 
-declare module HTML {
-
-   
+export as namespace HTMLAttributes;
 
     /**
      * Common attributes to all HTML elements.
@@ -42,12 +41,11 @@ declare module HTML {
         'tabindex'
     )
 
-    
+
     /**
      * Global HTML attributes
      */
-    interface Attributes {
-        ['className']?: this['class'];
+    export interface Attributes extends HTML.EventAttrs {
         /**
          * Defines a keyboard shortcut to activate or add focus to the element.
          */
@@ -593,8 +591,8 @@ declare module HTML {
         width?: number | string;
     }
 
-    interface HtmlAttributes extends Attributes{
-        manifest?:string;
+    interface HtmlAttributes extends Attributes {
+        manifest?: string;
     }
 
     interface KeygenAttributes extends Attributes {
@@ -703,7 +701,7 @@ declare module HTML {
         name?: string;
         type?: string;
         usemap?: string;
-        width?: number | string; 
+        width?: number | string;
         wmode?: string;
     }
 
@@ -877,7 +875,7 @@ declare module HTML {
 
 
 
-    interface AttributesTagMap {
+    export interface AttributesTagMap {
         'a': AnchorAttributes;
         'abbr': Attributes;
         "acronym": Attributes;
@@ -1006,8 +1004,7 @@ declare module HTML {
         "wbr": Attributes;
         "xmp": Attributes;
 
-        
+
     }
 
-}
 

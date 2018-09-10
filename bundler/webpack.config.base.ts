@@ -8,6 +8,12 @@ import * as path from 'path';
 
 export const PROJECT_PATH = path.resolve(__dirname, '../');
 
+export interface Enviroment {
+    DEV?: any,
+    HOT?: any
+}
+
+
 const baseConfig: webpack.Configuration = {
 
     context: PROJECT_PATH,

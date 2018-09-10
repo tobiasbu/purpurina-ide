@@ -3,7 +3,7 @@ import * as webpack from 'webpack';
 import * as path from 'path';
 import * as merge from 'webpack-merge';
 import * as HtmlWebpackPlugin from 'html-webpack-plugin';
-import baseConfig, { PROJECT_PATH } from './webpack.config.base';
+import baseConfig, { PROJECT_PATH, Enviroment } from './webpack.config.base';
 
 const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
 
@@ -11,14 +11,16 @@ const HTML_TEMPLATE_PATH = './src/renderer/pages/index.html';
 const ENTRY_PATH = './src/renderer';
 
 
-export default (env: any) => {
+export default (env: Enviroment) => {
 
-    const mode = (env.dev) ? 'development' : 'production';
+    const DEV_MODE = env.DEV || env.HOT;
+    const mode = (DEV_MODE) ? 'development' : 'production';
+
 
     const config: webpack.Configuration = {
         mode: mode,
         devtool: 'cheap-module-source-map',
-        watch: env.dev || env.build_watch,
+        watch: env.HOT,// || env.build_watch,
         target: 'electron-renderer',
 
         entry: {
@@ -30,7 +32,7 @@ export default (env: any) => {
             //publicPath: '../build/',
             filename: '[name].js',
             sourceMapFilename: '[name].js.map',
-            ... env.dev ? {} : {
+            ...DEV_MODE ? {} : {
                 libraryTarget: 'umd',
                 umdNamedDefine: true
             }
@@ -38,7 +40,7 @@ export default (env: any) => {
 
         resolve: {
             alias: {
-                'ts': path.join(PROJECT_PATH,  ENTRY_PATH),
+                'ts': path.join(PROJECT_PATH, ENTRY_PATH),
             }
         },
 
@@ -77,8 +79,8 @@ export default (env: any) => {
 
             // NODE_ENV should be production so that modules do not perform certain development checks
             new webpack.DefinePlugin({
-                'process.env.NODE_ENV': JSON.stringify(mode),
-                env: JSON.stringify(process.env)
+                'process.env.NODE_ENV': mode,
+                //env: JSON.stringify(process.env)
             }),
 
             new webpack.ProvidePlugin({
@@ -91,9 +93,9 @@ export default (env: any) => {
             new HtmlWebpackPlugin({
                 filename: 'index.html',
                 template: HTML_TEMPLATE_PATH,
-                inject: false,            
+                inject: false,
             })
-        ].concat(env.dev ? [
+        ].concat(env.HOT ? [
 
             new BrowserSyncPlugin({
                 files: './dist/**/*.*',

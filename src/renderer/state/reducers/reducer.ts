@@ -1,65 +1,65 @@
-import { Action } from "../types";
+// import { Action } from "../types";
 
-interface ActionCreator<Payload> {
-    (payload: Payload): Action<Payload>;
-}
+// interface ActionCreator<Payload> {
+//     (payload: Payload): Action<Payload>;
+// }
 
-interface ActionReducers<State> {
-    [key: string]: ActionReducer<State, any>;
-}
+// interface ActionReducers<State> {
+//     [key: string]: ActionReducer<State, any>;
+// }
 
-interface ActionReducer<State, Payload> {
-    (state: State, action: Action<Payload>): State;
-}
+// interface ActionReducer<State, Payload> {
+//     (state: State, action: Action<Payload>): State;
+// }
 
-interface RegisterReducer<State> {
-    <Payload>(
-        actionCreator: ActionCreator<Payload>,
-        reducer: ActionReducer<State, Payload>
-    )
-}
+// interface RegisterReducer<State> {
+//     <Payload>(
+//         actionCreator: ActionCreator<Payload>,
+//         reducer: ActionReducer<State, Payload>
+//     )
+// }
 
-type ActionHandlerCallback<State> = (registerReducer: RegisterReducer<State>) => void;
+// type ActionHandlerCallback<State> = (registerReducer: RegisterReducer<State>) => void;
 
 
-function reducer<State>(
-    initialState: State,
-    cb: ActionHandlerCallback<State>,
-    defaultReducer?: ActionReducer<State, any>
-): ActionReducer<State, State> {
+// function reducer<State>(
+//     initialState: State,
+//     cb: ActionHandlerCallback<State>,
+//     defaultReducer?: ActionReducer<State, any>
+// ): ActionReducer<State, State> {
 
-    const actionReducers: ActionReducers<State> = {};
+//     const actionReducers: ActionReducers<State> = {};
 
-    cb(
-        <Payload>(
-          actionCreator: ActionCreator<Payload>,
-          reducer: ActionReducer<State, Payload>
-        ) => {
-          const sampleAction = actionCreator({} as any);
-          if (actionReducers[sampleAction.type]) {
-            throw new Error(
-              `reducing same action type twice: ${sampleAction.type}`
-            );
-          }
+//     cb(
+//         <Payload>(
+//           actionCreator: ActionCreator<Payload>,
+//           reducer: ActionReducer<State, Payload>
+//         ) => {
+//           const sampleAction = actionCreator({} as any);
+//           if (actionReducers[sampleAction.type]) {
+//             throw new Error(
+//               `reducing same action type twice: ${sampleAction.type}`
+//             );
+//           }
     
-          actionReducers[sampleAction.type] = reducer;
-        }
-    );
+//           actionReducers[sampleAction.type] = reducer;
+//         }
+//     );
 
-    return (rs: State, action: Action<any>) => {
-        if (typeof rs === "undefined") {
-            return initialState;
-        }
+//     return (rs: State, action: Action<any>) => {
+//         if (typeof rs === "undefined") {
+//             return initialState;
+//         }
 
-        const reducer = actionReducers[action.type];
-        if (reducer) {
-            return reducer(rs, action);
-        } else if (defaultReducer) {
-            return defaultReducer(rs, action);
-        }
-        return rs;
-    };
+//         const reducer = actionReducers[action.type];
+//         if (reducer) {
+//             return reducer(rs, action);
+//         } else if (defaultReducer) {
+//             return defaultReducer(rs, action);
+//         }
+//         return rs;
+//     };
 
-}
+// }
 
-export default reducer;
+// export default reducer;

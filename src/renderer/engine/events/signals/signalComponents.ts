@@ -1,6 +1,6 @@
 import Signal from "./Signal";
 import SignalBinding from "./SignalBinding";
-import { EventCallback } from "../interfaces";
+
 
 
 export function addBinding(signal: Signal, binding: SignalBinding): void {

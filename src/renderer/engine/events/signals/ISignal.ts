@@ -1,5 +1,3 @@
-import { EventCallback } from "../interfaces";
-
 export default interface ISignal {
 
     propagate: boolean;

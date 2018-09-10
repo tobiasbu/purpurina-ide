@@ -9,7 +9,7 @@ import SignalBinding from './SignalBinding';
 import List from '../../structures/List';
 import ISignal from './ISignal';
 import { validateListener, registerListener, indexOfListener } from './signalComponents';
-import { EventCallback } from '../interfaces';
+
 
 
 

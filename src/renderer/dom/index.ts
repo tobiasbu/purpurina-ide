@@ -1,52 +1,52 @@
-import { applyAttributes } from "./element-utils";
+// import { applyAttributes } from "./virtual-dom/element-utils";
 
 
-/**
- * Global class for DOM manipulation
- */
-class DOMManipulator {
+// /**
+//  * Global class for DOM manipulation
+//  */
+// class DOMManipulator {
 
-    private _body: HTMLBodyElement;
+//     private _body: HTMLBodyElement;
 
-    public get body(): HTMLBodyElement {
-        return this._body;
-    }
+//     public get body(): HTMLBodyElement {
+//         return this._body;
+//     }
 
-    constructor() {
-        this._body = document.getElementsByTagName("BODY")[0] as HTMLBodyElement;
+//     constructor() {
+//         this._body = document.getElementsByTagName("BODY")[0] as HTMLBodyElement;
 
-    }
+//     }
 
-    createElement<K extends HTML.Tags>(tagName: K, attr?: HTML.AttributesTagMap[K]): HTMLElementTagNameMap[K] {
-        let node = document.createElement(tagName);
+//     createElement<K extends HTML.Tags>(tagName: K, attr?: HTML.AttributesTagMap[K]): HTMLElementTagNameMap[K] {
+//         let node = document.createElement(tagName);
 
-        applyAttributes(node, attr);
+//         applyAttributes(node, attr);
 
-        return node;
-    }
+//         return node;
+//     }
 
 
-    //render<A,C extends IComponent<A>>(element: HyperComponent<A,C>, host: Element | null)
-    render(element: HyperNode, host: Element | null): void {
+//     //render<A,C extends IComponent<A>>(element: HyperComponent<A,C>, host: Element | null)
+//     render(element: HyperNode, host: Element | null): void {
 
-        if (!host) {
-            host = this._body;
-        }
+//         if (!host) {
+//             host = this._body;
+//         }
 
-        // if (element instanceof HTMLElement) {
-        //     host.appendChild(element);
-        //     console.warn("You are appending a non virtual node.")
-        //     return;
-        // }
+//         // if (element instanceof HTMLElement) {
+//         //     host.appendChild(element);
+//         //     console.warn("You are appending a non virtual node.")
+//         //     return;
+//         // }
 
-    }
+//     }
 
-}
+// }
 
-const DOM = new DOMManipulator();
+// const DOM = new DOMManipulator();
 
-export default DOM;
-//DOM.createElement('input', {type:'number', style:{webkitTransformStyle:}} )
+// export default DOM;
+// //DOM.createElement('input', {type:'number', style:{webkitTransformStyle:}} )
 
 
 

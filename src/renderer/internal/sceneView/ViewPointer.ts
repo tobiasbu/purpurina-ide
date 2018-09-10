@@ -4,7 +4,7 @@ import MathUtils from "../../engine/math/MathUtils";
 import Rect from "../../engine/math/Rect";
 import { Events, Pointer } from "../managers";
 import { PointerMode } from "../managers/pointer/PointerManager";
-import { getMouseWheelEventName } from "../../dom/utils";
+import {DOOM} from "../../doom/utils";
 
 
 
@@ -42,7 +42,7 @@ export default class ViewPointer {
 
     startListeners() {
 
-        const wheelEventName = getMouseWheelEventName();
+        const wheelEventName = DOOM.Utils.getMouseWheelEventName();
 
         const config: AddEventListenerOptions = {
             passive: false,

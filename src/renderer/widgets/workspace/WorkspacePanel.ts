@@ -1,10 +1,14 @@
 import { DockPanel, Widget } from "@phosphor/widgets";
-import * as React from "react";
+import {MessageLoop} from '@phosphor/messaging'
 
 //import { createPortal } from "react-dom";
 import './style/index.css';
 
-import WidgetFactory from './../WidgetFactory';
+import WidgetFactory from '../WidgetFactory';
+import { DOOM } from "../../doom";
+import { hyper } from "hyperhtml";
+import DOOMUpdater from "../../doom/lib/Updater";
+
 
 // /**
 //  * Create a placeholder content widget.
@@ -27,38 +31,79 @@ interface IWidgetInfo {
     node: HTMLElement;
 }
 
-interface IDockState {
-    widgetInfos: IWidgetInfo[];
-}
 
-export default class WorkspacePanel extends React.Component<any, IDockState> {
+
+export default class WorkspacePanel  {
 
     elem: HTMLElement;
     dock: DockPanel;
     width: number;
     height: number;
     widgetInfos: IWidgetInfo[];
+    private _node: HTMLElement;
+
+    public get node(): HTMLElement {
+        return this._node;
+    }
+
+
+    constructor() {
+ 
+        this.dock = new DockPanel();
+
+       // this._node = document.createElement('div');
+        //this._node.id = 'dock-panel';
+
+        this._node = hyper.wire()`<div id ='dock-panel'/>`
+
+        this.attach();
+
+        this.dock.id = 'main';
+        const sceneView = WidgetFactory.createSceneView();
+        this.dock.addWidget(sceneView);
+        const inspector = WidgetFactory.createInspector();
+        this.dock.addWidget(inspector, { mode: 'split-right' });
+
+
+
+        window.onresize = (event) => {
+            DOOMUpdater.mutate(() => {
+            this.resize();
+            this.dock.update();
+            });
+        };
+    }
+
+    private attach() {
+        MessageLoop.sendMessage(this.dock, Widget.Msg.BeforeAttach)
+        this._node.appendChild(this.dock.node);
+        MessageLoop.sendMessage(this.dock, Widget.Msg.AfterAttach);
+        this.resize();
+        this.dock.update();
+    }
+
+    connectedCallback() {
+        //DockPanel.attach(this.dock, this._node);
+        //console.log("hau")
+    }
 
     componentWillMount() {
 
-        this.dock = new DockPanel();
+
         //let widgetInfos = [];
         //let widget = new SceneViewWidget(); 
         //this.dock.addWidget(widget);
         //let widget2 = new ReactWidgetBase('Entities', EntityList); 
         //this.dock.addWidget(widget2, {mode:'split-right'});
         //let inspector = new ReactWidgetBase('Inspector', Inspector);
-        const sceneView = WidgetFactory.createSceneView();
-        this.dock.addWidget(sceneView); 
-        const inspector = WidgetFactory.createInspector();
-        this.dock.addWidget(inspector, {mode:'split-right'});
 
-        
+
+
 
         //inspector.reactComponent.
 
-       
-        this.dock.id = 'main';
+
+
 
         // for (let index = 0; index < 5; index++) {
         //     //const element = createContent('Yellow');
@@ -72,7 +117,7 @@ export default class WorkspacePanel extends React.Component<any, IDockState> {
         // }
 
         //this.setState({ ...this.state, widgetInfos });
-        
+
         //let parent = this.dock.handleEvent.bind(this.dock);
 
         // const wrapper = (event: any) => {
@@ -90,7 +135,7 @@ export default class WorkspacePanel extends React.Component<any, IDockState> {
 
     }
 
-    private resize() {
+    resize() {
         let w: number, h: number;
 
         if (document.documentElement && (document.documentElement.clientWidth || document.documentElement.clientHeight)) {
@@ -110,36 +155,33 @@ export default class WorkspacePanel extends React.Component<any, IDockState> {
             this.height = h;
             const strW = w.toString() + 'px';
             const strH = h.toString() + 'px';
-            this.elem.style.width = strW;
-            this.elem.style.height = strH;
-            this.elem.style.minWidth = strW;
-            this.elem.style.minHeight = strH;
+                this._node.style.width = strW;
+                this._node.style.height = strH;
+                this._node.style.minWidth = strW;
+                this._node.style.minHeight = strH;
+            
         }
     }
 
-    componentDidMount() {
-        this.elem = document.getElementById('dock-panel');
+    // componentDidMount() {
+    //     this.elem = document.getElementById('dock-panel');
 
 
 
-        DockPanel.attach(this.dock, this.elem);
+    //     DockPanel.attach(this.dock, this.elem);
 
-        this.resize();
-        this.dock.update();
-        
-        window.onresize = (event) => {
-            this.resize();
-            this.dock.update();
-            //this.dock.fit();
+    //     this.resize();
+    //     this.dock.update();
 
-        };
-    }
+    //     window.onresize = (event) => {
+    //         this.resize();
+    //         this.dock.update();
+    //         //this.dock.fit();
 
-    render() {
-        return (
-            <div id='dock-panel' />
-        );
-    }
+    //     };
+    // }
+
+   
 
 }
 

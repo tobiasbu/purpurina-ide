@@ -1,5 +1,4 @@
 import ISignal from "./ISignal";
-import { EventCallback } from "../interfaces";
 
 
 export default class SignalBinding {
