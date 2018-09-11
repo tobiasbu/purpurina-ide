@@ -1,7 +1,7 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-import DOOM, { h, b } from "./doom";
-import { HyperNode } from "./doom/types";
+import DOOM, { h, b } from "../src/renderer/doom";
+import { HyperNode } from "../src/renderer/doom/types";
 import hyperHTML from 'hyperhtml';
 
 const AsyncFunction = (async () => { }).constructor;
