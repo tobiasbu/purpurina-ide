@@ -4,14 +4,15 @@
   "description": "Scintilla HTML5 Game Engine IDE",
   "main": "src/index.ts",
   "scripts": {
-    "build-main": "webpack --config webpack.config.electron.js --profile --colors --display-error-details --display-cached",
+    "build-electron": "webpack --config ./bundler/webpack.config.electron.ts --env.DEV --profile --colors --display-error-details",
     "build-renderer": "npm run clean && webpack --config ./bundler/webpack.config.renderer.ts --progress --env.build --colors --display-error-details",
     "build-dll": "webpack --config ./bundler/webpack.config.renderer.dll.ts --progress --env.DEV --colors --progress",
-    "start-renderer": "npm run clean && webpack --config ./bundler/webpack.config.renderer.browser.ts --progress --env.HOT --colors --display-error-details",
-    "start": "npm run clean && ts-node ./node_modules/webpack-dev-server/bin/webpack-dev-server --config ./bundler/webpack.config.renderer.dev.ts --progress --env.DEV --colors --display-error-details",
+    "start-browser": "npm run clean && webpack --config ./bundler/webpack.config.renderer.browser.ts --progress --env.HOT --colors --display-error-details",
+    "start-electron": "cross-env HOT=1 NODE_ENV=development electron ./dist/app.js",
+    "start-renderer": "cross-env NODE_ENV=development ts-node ./node_modules/webpack-dev-server/bin/webpack-dev-server --config ./bundler/webpack.config.renderer.dev.ts --progress --colors --display-error-details",
+    "dev": "npm run clean && npm run build-electron && cross-env START_HOT=1 npm run start-renderer",
     "build": "npm run clean && npm run build-main && npm run build-renderer",
-    "start-electron": "cross-env NODE_ENV=production electron ./build/index.js",
-    "clean": "rm -fr build"
+    "clean": "rm -fr dist"
   },
   "bin": {
     "electron": "./node_modules/.bin/electron"
@@ -35,6 +36,7 @@
   },
   "homepage": "https://github.com/scintilla-engine/scintilla-ide#readme",
   "devDependencies": {
+    "@types/copy-webpack-plugin": "^4.4.2",
     "@types/html-webpack-plugin": "^3.2.0",
     "@types/react": "^16.4.6",
     "@types/react-dom": "^16.0.6",
@@ -45,6 +47,7 @@
     "awesome-typescript-loader": "^5.2.0",
     "browser-sync": "^2.24.6",
     "browser-sync-webpack-plugin": "^2.2.2",
+    "copy-webpack-plugin": "^4.5.2",
     "cross-env": "^5.2.0",
     "css-loader": "^1.0.0",
     "electron": "^2.0.5",

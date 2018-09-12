@@ -58,7 +58,7 @@ export default class Grid {
 
     setAlpha(factor: number, inversed?: boolean): void {
         this.alpha = (inversed === true) ? MathUtils.clampedLerp(0.1, 0.0, factor) : MathUtils.clampedLerp(0.0, 0.1, factor);
-        this.color = 'rgb(255, 255, 255,' + this.alpha.toString() +  ')';
+        this.color = 'rgba(255, 255, 255,' + this.alpha.toString() +  ')';
     }
 
     render(draw: CanvasDrawer, view: View) {

@@ -8,13 +8,16 @@ import * as fs from 'fs';
 import * as webpack from 'webpack';
 import * as merge from 'webpack-merge';
 import * as path from 'path';
+import * as HtmlWebpackPlugin from 'html-webpack-plugin';
 import baseConfig, { PROJECT_PATH } from './webpack.config.base';
-import { execSync } from 'child_process';
+import { execSync, spawn } from 'child_process';
+
+
 
 const PORT = process.env.PORT || 1212;
 const PUBLIC_PATH = `http://localhost:${PORT}/dist`;
 
-const DLL_PATH = path.resolve(PROJECT_PATH, './dist/dll');
+const DLL_PATH = path.resolve(PROJECT_PATH, './dll');
 const DLL_MANIFEST = path.resolve(DLL_PATH, 'renderer.json');
 const requiredByDLLConfig = module.parent.filename.includes(
   'webpack.config.renderer.dll'
@@ -26,14 +29,15 @@ if (!requiredByDLLConfig && !(fs.existsSync(DLL_PATH) && fs.existsSync(DLL_MANIF
     'The DLL files are missing. Sit back while we build them for you with "yarn build-dll"'
     //)
   );
-  execSync('yarn build-dll');
+  execSync('npm run build-dll');
 }
 
 const ENTRY_PATH = './src/renderer';
 
+
 interface WebpackConfigWithDevServer extends webpack.Configuration {
   devServer?: {
-    port?: number | string,
+    port?: number,
     publicPath?: string,
     compress?: boolean,
     noInfo?: boolean,
@@ -41,7 +45,7 @@ interface WebpackConfigWithDevServer extends webpack.Configuration {
     inline?: boolean,
     lazy?: boolean,
     hot?: boolean,
-    headers?: { 'Access-Control-Allow-Origin': '*' },
+    headers?: string | any,
     contentBase?: string,
     watchOptions?: {
       aggregateTimeout?: number;
@@ -57,6 +61,9 @@ interface WebpackConfigWithDevServer extends webpack.Configuration {
 }
 
 const config: WebpackConfigWithDevServer = {
+
+  devtool: 'inline-source-map',
+
   mode: 'development',
 
   target: 'electron-renderer',
@@ -120,16 +127,18 @@ const config: WebpackConfigWithDevServer = {
 
     // NODE_ENV should be production so that modules do not perform certain development checks
     new webpack.DefinePlugin({
-      'process.env.NODE_ENV': 'development',
+      'process.env.NODE_ENV': JSON.stringify('development'),
       env: JSON.stringify('development')
     }),
 
-    new webpack.ProvidePlugin({
-      React: 'react',
-      ReactDOM: 'react-dom',
-      // $: 'jquery',
-      // jQuery: 'jquery'
-    }),
+    // new webpack.ProvidePlugin({
+    //   React: 'react',
+    //   ReactDOM: 'react-dom',
+    //   // $: 'jquery',
+    //   // jQuery: 'jquery'
+    // }),
+
+    
 
 
 
@@ -148,7 +157,8 @@ const config: WebpackConfigWithDevServer = {
      * 'staging', for example, by changing the ENV variables in the npm scripts
      */
     new webpack.EnvironmentPlugin({
-      NODE_ENV: 'development'
+      NODE_ENV: 'development',
+
     }),
 
     new webpack.LoaderOptionsPlugin({
@@ -162,7 +172,7 @@ const config: WebpackConfigWithDevServer = {
   },
 
   devServer: {
-    port: PORT,
+    port: (typeof PORT === 'string') ? parseInt(PORT) : PORT,
     publicPath: PUBLIC_PATH,
     compress: true,
     noInfo: true,
@@ -182,17 +192,17 @@ const config: WebpackConfigWithDevServer = {
       disableDotRule: false
     },
     before() {
-      //if (process.env.START_HOT) {
-      console.log('\n\n- Starting Main Process...\n\n');
-      //   spawn('npm', ['run', 'start-main-dev'], {
-      //     shell: true,
-      //     env: process.env,
-      //     stdio: 'inherit'
-      //   })
-      //     .on('close', code => process.exit(code))
-      //     .on('error', spawnError => console.error(spawnError));
-      // }
-      //}
+      if (process.env.START_HOT) {
+        console.log('\n\n- Starting Main Process...\n\n');
+        spawn('npm', ['run', 'start-electron'], {
+          shell: true,
+          env: process.env,
+          stdio: 'inherit'
+        })
+          .on('close', code => process.exit(code))
+          .on('error', spawnError => console.error(spawnError));
+      }
+
     }
   }
 

@@ -8,14 +8,14 @@ import baseConfig, { Enviroment, PROJECT_PATH } from './webpack.config.base';
 const packageJson = require('./../package.json');
 
 
-const DIST_PATH = path.join(PROJECT_PATH, './dist/dll')
+const DIST_PATH = path.join(PROJECT_PATH, './dll')
 // const ENTRY_PATH = './src/renderer';
 
 import Renderer from './webpack.config.renderer.dev';
 
 export default (env: Enviroment) => {
 
-    console.log("*** " + DIST_PATH)
+    // console.log("*** " + DIST_PATH)
 
     const config: webpack.Configuration = {
         context: PROJECT_PATH,

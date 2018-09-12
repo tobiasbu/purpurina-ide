@@ -14,6 +14,7 @@ import Entity from "../../engine/entity/Entity";
 import { Selection, Events, Pointer } from "../managers";
 import ViewInput from "./ViewInput";
 import { PointerMode } from "../managers/pointer/PointerManager";
+import { DOOM } from "../../doom";
 
 let list: Entity[] = []
 
@@ -72,9 +73,10 @@ export default class SceneView {
     private _guides: Guidelines;
     private _emitter: EventEmitter;
     private _selectionArea: Rect;
-    private _view:View;
+    private _view: View;
     private draw: CanvasDrawer;
- 
+    private _painting = false;
+
     constructor(renderer: Renderer) {
         this._renderer = renderer;
         this._emitter = new EventEmitter();
@@ -87,12 +89,12 @@ export default class SceneView {
         this._guides = new Guidelines(this._view);
 
         createEntities();
-        
+
     }
 
     init() {
 
-        
+
 
         this._emitter.on('zoom', (delta: number, zoomPoint: IVector2) => {
 
@@ -132,7 +134,7 @@ export default class SceneView {
                 if (b.contains(cursorPosition.x, cursorPosition.y)) {
                     entity = list[i];
                     break;
-                   
+
                     // Manager.selection.setActiveEntity(list[i]);
 
                 }
@@ -167,10 +169,13 @@ export default class SceneView {
     }
 
     resize(width: number, height: number) {
+        DOOM.updater.mutate(() => {
         this._renderer.resize(width, height);
         this._editorInput.resize();
         this._view.resize(width, height);
         this.update();
+        });
+       
         this.render();
 
     }
@@ -187,67 +192,75 @@ export default class SceneView {
 
     private render() {
 
-        console.log("render")
+        if (this._painting === true) 
+            return;
 
-        const ctx = this._renderer.context as CanvasRenderingContext2D;
+        this._painting = true;
 
+        DOOM.updater.mutate(() => {
+            console.log("render")
 
-        // scene
-        this._renderer.beginDraw();
-
-        this._guides.render(this.draw, this._view);
-
-        for (let i = 0; i < list.length; i++) {
+            const ctx = this._renderer.context as CanvasRenderingContext2D;
 
 
+            // scene
+            this._renderer.beginDraw();
 
-            let color = 'blue';
+            this._guides.render(this.draw, this._view);
 
-
-            renderRect(ctx, list[i], color);
-        }
-
-        const inv = this._view.camera.handlesMatrix.a;
+            for (let i = 0; i < list.length; i++) {
 
 
-        ctx.setTransform(
-            inv[0], inv[1],
-            inv[3], inv[4],
-            inv[6],
-            inv[7]
-        );
 
-        this._handles.render(this.draw);
-
-        ctx.setTransform(
-            1, 0,
-            0, 1,
-            0.5,
-            0.5
-        );
-
-        if (Pointer.mode === PointerMode.ViewSelectionArea) {
+                let color = 'blue';
 
 
-            if (this._selectionArea.xMax > this._renderer.width) {
-                this._selectionArea.xMax = this._renderer.width - 1;
-            } else if (this._selectionArea.xMax < 0) {
-                this._selectionArea.xMax = 0;
+                renderRect(ctx, list[i], color);
             }
 
-            if (this._selectionArea.yMax > this._renderer.height) {
-                this._selectionArea.yMax = this._renderer.height - 1;
-            } else if (this._selectionArea.yMax < 0) {
-                this._selectionArea.yMax = 0;
+            const inv = this._view.camera.handlesMatrix.a;
+
+
+            ctx.setTransform(
+                inv[0], inv[1],
+                inv[3], inv[4],
+                inv[6],
+                inv[7]
+            );
+
+            this._handles.render(this.draw);
+
+            ctx.setTransform(
+                1, 0,
+                0, 1,
+                0.5,
+                0.5
+            );
+
+            if (Pointer.mode === PointerMode.ViewSelectionArea) {
+
+
+                if (this._selectionArea.xMax > this._renderer.width) {
+                    this._selectionArea.xMax = this._renderer.width - 1;
+                } else if (this._selectionArea.xMax < 0) {
+                    this._selectionArea.xMax = 0;
+                }
+
+                if (this._selectionArea.yMax > this._renderer.height) {
+                    this._selectionArea.yMax = this._renderer.height - 1;
+                } else if (this._selectionArea.yMax < 0) {
+                    this._selectionArea.yMax = 0;
+                }
+
+                this.draw.rect(this._selectionArea.x, this._selectionArea.y, this._selectionArea.width, this._selectionArea.height, 'rgba(33, 69, 128, 0.2)');
+                this.draw.outlineRect(this._selectionArea.x, this._selectionArea.y, this._selectionArea.width, this._selectionArea.height, 'rgb(33, 69, 128)', 1)
+
+
             }
 
-            this.draw.rect(this._selectionArea.x, this._selectionArea.y, this._selectionArea.width, this._selectionArea.height, 'rgba(33, 69, 128, 0.2)');
-            this.draw.outlineRect(this._selectionArea.x, this._selectionArea.y, this._selectionArea.width, this._selectionArea.height, 'rgb(33, 69, 128)', 1)
-
-
-        }
-
-        this._renderer.endDraw();
+            this._renderer.endDraw();
+            this._painting = false;
+        });
     }
 
 }

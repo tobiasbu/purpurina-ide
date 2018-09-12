@@ -1,6 +1,7 @@
 import Vector2 from "../../../engine/math/Vector2";
 import { IEventEmitter } from "../../../engine/events/emitter/IEventEmitter";
 import View from "../../sceneView/View";
+import { DOOM } from "../../../doom";
 
 export enum PointerMode {
     None,
@@ -157,11 +158,7 @@ export default class PointerManager {
     public setPointerMode(mode: PointerMode) {
         if (this._mode !== mode) {
 
-            if (mode != PointerMode.None && mode != PointerMode.ViewZoom) {
-                this._body.classList.add('pointerEditing');
-            } else {
-                this._body.classList.remove('pointerEditing');
-            }
+
 
             let cursorStyle: string;
 
@@ -181,11 +178,11 @@ export default class PointerManager {
 
                 case PointerMode.ViewStartMove: {
                     this._startPosition.copy(this._position);
-                    cursorStyle = 'grab';
+                    cursorStyle = '-webkit-grab';
                     break;
                 }
                 case PointerMode.ViewMoving: {
-                    cursorStyle = 'grabbing';
+                    cursorStyle = '-webkit-grabbing';
                     break;
                 }
                 case PointerMode.VectorAxisEditing: {
@@ -195,9 +192,17 @@ export default class PointerManager {
                 }
             }
 
-            if (cursorStyle !== undefined) {
-                this._body.style.cursor = cursorStyle;
-            }
+            DOOM.updater.mutate(() => {
+                if (mode != PointerMode.None && mode != PointerMode.ViewZoom) {
+                    this._body.classList.add('pointerEditing');
+                } else {
+                    this._body.classList.remove('pointerEditing');
+                }
+
+                if (cursorStyle !== undefined) {
+                    this._body.style.cursor = cursorStyle;
+                }
+            });
             this._mode = mode;
         }
     }

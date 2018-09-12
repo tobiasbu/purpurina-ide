@@ -38,13 +38,14 @@ export function createMainWindow(appPath: string, showDelay: number = 100) {
         height: windowState.height,
         x: windowState.x,
         y: windowState.y,*/
+        maximizable: true,
         show: false,
         useContentSize: true,
         //titleBarStyle: "hidden-inset",
         autoHideMenuBar: true,
         // backgroundColor: '#fff',
         vibrancy: "light",
-        transparent: true,
+        transparent: false,
         title: app.getName(),
         webPreferences: {
             backgroundThrottling: false,

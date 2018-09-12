@@ -4,14 +4,15 @@ import { createMainWindow } from '../window/createMainWindow';
 import registerEvents from '../events';
 
 
-const path = require('path');
+import * as path from 'path';
 
 
 export default class Application {
 
     private mainWindow: Electron.BrowserWindow;
 
-    get window() : Electron.BrowserWindow {
+
+    get window(): Electron.BrowserWindow {
         return this.mainWindow;
     }
 
@@ -34,15 +35,15 @@ export default class Application {
         //this.app.on('window-all-closed', this.onWindowAllClosed);
 
         app.on("ready", () => {
-            const appPath = path.join('file://', __dirname, './dist/index.html')
+            const appPath = path.join('file://', __dirname, './index.dev.html')
             self.mainWindow = createMainWindow(appPath);
             registerEvents();
 
         });
 
-        
+
         app.on("window-all-closed", app.quit);
-        
+
     }
 
     // private onClose() {

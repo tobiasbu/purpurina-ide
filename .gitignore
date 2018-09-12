@@ -63,3 +63,5 @@ jspm_packages/
 ./app
 build
 _bkp
+dist
+dll
