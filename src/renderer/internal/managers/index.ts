@@ -1,4 +1,4 @@
-import EventEmitter from "../../engine/events/emitter/EventEmitter";
+import EventEmitter from "../../../engine/events/emitter/EventEmitter";
 import PointerManager from "./pointer/PointerManager";
 import EditorSelectionManager from "./EditorSelectionManager";
 

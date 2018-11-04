@@ -4,7 +4,7 @@ import { WidgetState, WidgetProps } from "../base/ReactComponentBase";
 
 import Checkbox, { ICheckBoxEvent } from "../../components/Checkbox";
 
-import Entity from "../../engine/entity/Entity";
+import Entity from "../../../engine/entity/Entity";
 import Transform2D from './Transform2D';
 
 

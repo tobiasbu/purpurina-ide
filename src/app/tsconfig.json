@@ -1,0 +1,27 @@
+{
+    "compileOnSave": false,
+    "compilerOptions": {
+        "target": "es5",
+        "moduleResolution": "node",
+        "lib":[
+            "es2015"
+        ],
+        "sourceMap": true,
+        // "pretty": true,
+        "newLine": "LF",
+        "allowSyntheticDefaultImports": true,
+        // "strict": true,
+        // "noUnusedLocals": true,
+        // "noUnusedParameters": true,
+        "strictNullChecks": false,
+    },
+    "exclude": [
+        "node_modules",
+        "../renderer"
+    ],
+    "include": [
+        "../shared/typings/*.ts",
+        // "typings/**/*.ts",
+        "node_modules/@types/**/*.d.ts"
+    ]
+}

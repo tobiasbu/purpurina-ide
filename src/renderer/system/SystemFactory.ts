@@ -1,8 +1,8 @@
-import CanvasRenderer from "../engine/renderer/CanvasRenderer";
-import CanvasPool from "../engine/renderer/canvas/CanvasPool";
-import { ContextID } from "../engine/renderer/RendererProperties";
+import CanvasRenderer from "../../engine/renderer/CanvasRenderer";
+import CanvasPool from "../../engine/renderer/canvas/CanvasPool";
+import { ContextID } from "../../engine/renderer/RendererProperties";
 import SceneView from "../internal/sceneView/SceneView";
-import Renderer from "../engine/renderer/Renderer";
+import Renderer from "../../engine/renderer/Renderer";
 
 
 module SystemFactory {

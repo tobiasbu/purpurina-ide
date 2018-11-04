@@ -1,0 +1,28 @@
+{
+    "compileOnSave": true,
+    "compilerOptions": {
+        "target": "es5",
+        "module": "commonjs",
+        "moduleResolution": "node",
+        "lib": [
+            "es6",
+            "dom"
+        ],
+        "pretty": true,
+        "newLine": "LF",
+        "allowSyntheticDefaultImports": true,
+        // "strict": true,
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        "sourceMap": true,
+        // "skipLibCheck": true,
+        "allowJs": true,
+        "jsx": "react",
+        "outDir": "dist",
+        "typeRoots": ["node_modules/@types", "typings"]
+    },
+    "exclude": [
+        "node_modules",
+        "../app"
+    ],
+}

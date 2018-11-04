@@ -1,5 +1,5 @@
 import * as DOOM from './types';
-import ArrayUtils from "../engine/utils/ArrayUtils";
+import ArrayUtils from "../../engine/utils/ArrayUtils";
 import VirtualNode from "./nodes/VirtualNode";
 import { applyAttributes, updateAttrs } from "./element-utils";
 import { Tags } from "./hyperscript/htmlTags";

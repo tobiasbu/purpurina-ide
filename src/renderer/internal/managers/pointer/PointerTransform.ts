@@ -1,5 +1,5 @@
-import MathUtils from "../../../engine/math/MathUtils";
-import Rect from "../../../engine/math/Rect";
+import MathUtils from "../../../../engine/math/MathUtils";
+import Rect from "../../../../engine/math/Rect";
 
 /**
  * Helper class that transforms global position to local Element position

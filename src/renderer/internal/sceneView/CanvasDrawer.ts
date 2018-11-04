@@ -1,4 +1,4 @@
-import CanvasRenderer from "../../engine/renderer/CanvasRenderer";
+import CanvasRenderer from "../../../engine/renderer/CanvasRenderer";
 
 export default class CanvasDrawer {
 

@@ -23,7 +23,7 @@ export function loadURL(window: Electron.BrowserWindow, appPath: string) {
  * @param showDelay How long in ms before showing the window after the renderer is ready.
  * @return The main BrowserWindow.
  */
-export function createMainWindow(appPath: string, showDelay: number = 100) {
+export function createMainWindow(appPath: string) {
     // persistent window state manager
     // const windowState = new WindowStateManager("main", {
     //   defaultWidth: DIMENSIONS.width,
@@ -34,12 +34,12 @@ export function createMainWindow(appPath: string, showDelay: number = 100) {
     let window = new BrowserWindow({
         minWidth: DIMENSIONS.minWidth,
         minHeight: DIMENSIONS.minHeight,
+        show: false,
         /*width: windowState.width,
         height: windowState.height,
         x: windowState.x,
         y: windowState.y,*/
         maximizable: true,
-        show: false,
         useContentSize: true,
         //titleBarStyle: "hidden-inset",
         autoHideMenuBar: true,
@@ -48,9 +48,12 @@ export function createMainWindow(appPath: string, showDelay: number = 100) {
         transparent: false,
         title: app.getName(),
         webPreferences: {
+            // nodeIntegration: false,
             backgroundThrottling: false,
             textAreasAreResizable: false,
+            //allowRunningInsecureContent: true,
         },
+        darkTheme: true,
     });
 
     window.maximize();
@@ -58,6 +61,8 @@ export function createMainWindow(appPath: string, showDelay: number = 100) {
     /*if (windowState.maximized) {
      
     }*/
+
+
 
     // trap movement events
     window.on('closed', () => {window = null;});
@@ -69,12 +74,7 @@ export function createMainWindow(appPath: string, showDelay: number = 100) {
     window.loadURL(appPath);
 
     // only appear once we've loaded
-    window.webContents.on("did-finish-load", () => {
-        setTimeout(() => {
-            window.show()
-            window.focus()
-        }, showDelay)
-    })
+    
 
     return window
 }

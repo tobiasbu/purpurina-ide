@@ -1,5 +1,5 @@
 import CanvasDrawer from "../CanvasDrawer";
-import MathUtils from "../../../engine/math/MathUtils";
+import MathUtils from "../../../../engine/math/MathUtils";
 import View from "../View";
 
 export default class Grid {

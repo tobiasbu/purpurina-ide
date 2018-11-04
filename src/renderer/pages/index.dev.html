@@ -3,6 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta charset="ISO-8859-1"> 
+    <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'none'"> -->
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="theme-color" content="#000000">
     <!--
@@ -24,29 +25,36 @@
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
     <title>Electron Dev-App</title>
+
+    <script>
+    var exports = {};
+    </script>
+
+    
   </head>
   <body>
+
     <noscript>
       You need to enable JavaScript to run this app.
     </noscript>
+    <p>BLBALBLA</p>
     <div id="root"></div>
-    <!-- <script type="text/javascript" src="./renderer.js"></script> -->
-
-    <script>
+    <script src='dll/rendererDLL.dev.dll.js'></script>
+     <script src='http://localhost:8080/dist/renderer.dev.js'></script>
+    <!-- <script>
       {
-
         const scripts = [];
         // Dynamically insert the DLL script in development env in the
         // renderer process
         if (process.env.NODE_ENV === 'development') {
-          scripts.push('../dll/renderer.dev.dll.js');
+          scripts.push('dll/rendererDLL.dev.dll.js');
         }
 
         // Dynamically insert the bundled app script in the renderer process
-        const port = process.env.PORT || 1212;
+        const port = process.env.PORT || 8080;
         scripts.push(
           (process.env.HOT)
-            ? 'http://localhost:' + port + '/dist/renderer.dev.js'
+            ? 'http://localhost:' + port + '/renderer.dev.js'
             : './dist/renderer.prod.js'
         );
 
@@ -55,9 +63,8 @@
             .map(script => `<script defer src="${script}"><\/script>`)
             .join('')
         );
-
       }
-    </script>
+    </script> -->
 
   </body>
 </html>

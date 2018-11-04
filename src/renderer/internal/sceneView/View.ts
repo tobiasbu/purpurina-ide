@@ -1,5 +1,5 @@
 import EditorCamera from "./EditorCamera";
-import Vector2 from "../../engine/math/Vector2";
+import Vector2 from "../../../engine/math/Vector2";
 
 export default class View {
 

@@ -1,4 +1,4 @@
-import Entity from "../engine/entity/Entity";
+import Entity from "../../engine/entity/Entity";
 
 export interface EditorSelection {
 

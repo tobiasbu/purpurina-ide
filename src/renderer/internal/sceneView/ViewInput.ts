@@ -1,4 +1,4 @@
-import EventEmitter from "../../engine/events/emitter/EventEmitter";
+import EventEmitter from "../../../engine/events/emitter/EventEmitter";
 import CursorTransform from "../managers/pointer/PointerTransform";
 import ViewPointer from "./ViewPointer";
 

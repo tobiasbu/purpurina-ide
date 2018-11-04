@@ -1,5 +1,4 @@
 import * as React from "react";
-import './components.css';
 
 interface IFoldoutProps {
     label?: string

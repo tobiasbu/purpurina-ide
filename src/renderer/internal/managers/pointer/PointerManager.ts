@@ -1,5 +1,5 @@
-import Vector2 from "../../../engine/math/Vector2";
-import { IEventEmitter } from "../../../engine/events/emitter/IEventEmitter";
+import Vector2 from "../../../../engine/math/Vector2";
+import { IEventEmitter } from "../../../../engine/events/emitter/IEventEmitter";
 import View from "../../sceneView/View";
 import { DOOM } from "../../../doom";
 

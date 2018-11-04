@@ -1,0 +1,360 @@
+html {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+:root {
+  --bg: #080808;
+  --text: #f0f0f0;
+  --outFocus: #004580;
+  --labelFocus: #107bd7;
+  --dark: #141414;
+  --mid: #262626;
+  --midLight: #202020;
+  font: 15px Segoe UI, Helvetica, Arial, sans-serif;
+  background: var(--dark);
+  color: var(--text);
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  /* filter: blur(0); */
+  /* -webkit-filter: blur(0); */
+  /* -webkit-backface-visibility: hidden; */
+  /* backface-visibility: hidden; */
+}
+
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  background-color: var(--mid);
+  width: 100%;
+  height: 64px;
+  margin: auto;
+  display: flex;
+}
+
+img {
+  border-style: none;
+  max-width: 100%;
+}
+
+#brand {
+  padding: 8px 16px;
+  display: inline-block;
+}
+
+h1 {
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+  margin: auto 8px;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.wrapper {
+  padding: 16px 16px;
+  display: flex;
+}
+
+/**
+* MENU
+*/
+
+
+#menu {
+  font-size: 15px;
+  font-weight: 600;
+  width: 240px;
+  min-width: 240px;
+  display: block;
+  float: left;
+}
+
+#menu.disable {
+  display: none;
+}
+
+nav a:nth-last-child(3) {
+  margin-bottom: 48px;
+}
+
+a.option {
+  padding: 6px 10px;
+  display: block;
+  margin-bottom: 4px;
+  transition: 200ms ease background;
+  cursor: pointer;
+}
+
+a.option:not(.selected):hover {
+  background: #1a1a1a;
+}
+
+/* a.option:not(.selected):active  {
+    background: var(--labelFocus);
+} */
+
+.option.selected, .project-option.selected  {
+  background: #004580;
+}
+
+.project-option.selected {
+  border-color: #004580;
+}
+
+a.project-option, button {
+  cursor: pointer;
+  padding: 8px 16px;
+  display: block;
+  margin-bottom: 10px;
+  border: var(--text) solid 1px;
+  text-align: center;
+  color: var(--text);
+  background: transparent;
+  transition: 200ms ease all;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+a.project-option:not(.selected):hover, button:hover {
+  background: var(--text);
+  color: var(--bg);
+}
+
+#version {
+  position: absolute;
+  bottom: 0;
+  font-weight: normal;
+  font-size: 11px;
+  color: grey;
+}
+
+/**
+* CONTENTS
+*/
+
+#content {
+  margin: 0 80px;
+  width: 100%;
+}
+
+.project-container {
+  cursor: pointer;
+  display: flex;
+  border-bottom: 1px solid #1a1a1a;
+}
+
+.project-container:nth-child(1) {
+  padding-bottom: 8px;
+}
+
+.project-container:not(:first-child) {
+  padding: 7px 0 6px;
+}
+
+.project-container .info {
+  padding-left: 16px;
+  justify-content: space-between;
+  display: flex;
+  flex-direction: column;
+}
+
+.project-container .thumbnail {
+  width: 64px;
+  height: 64px;
+  margin: auto 0;
+  border: 1px solid var(--outFocus);
+}
+
+.project-container p {
+  margin: 0;
+  font-size: 12px;
+}
+
+.project-container p.title {
+  margin-bottom: 8px;
+  font-size: 14px;
+}
+
+[data-scrollcontainer] {
+  position: relative;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-content: flex-start;
+  align-items: flex-start;
+  width: inherit;
+  height: inherit;
+  max-width: inherit;
+  max-height: inherit;
+}
+
+.scrollcontainer-wrapper {
+  margin: 0;
+  overflow: hidden;
+  width: inherit;
+  height: inherit;
+  max-width: inherit;
+  max-height: inherit;
+}
+
+.scrollcontainer-mask {
+  direction: inherit;
+  position: absolute;
+  overflow: hidden;
+  padding: 0;
+  margin: 0;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  width: auto !important;
+  height: auto !important;
+  z-index: 0;
+}
+
+.scrollcontainer-content {
+  direction: inherit;
+  box-sizing: border-box !important;
+  position: relative;
+  display: block;
+  height: 100%; /* Required for horizontal native scrollbar to not appear if parent is taller than natural height */
+  width: auto;
+  visibility: visible;
+  overflow: scroll; /* Scroll on this element otherwise element can't have a padding applied properly */
+  max-width: 100%; /* Not required for horizontal scroll to trigger */
+  max-height: 100%; /* Needed for vertical scroll to trigger */
+}
+
+.scrollcontainer-offset {
+  direction: inherit !important;
+  box-sizing: inherit !important;
+  resize: none !important;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  padding: 0;
+  margin: 0;
+  -webkit-overflow-scrolling: touch;
+}
+
+.scroll-container {
+  width: 16px;
+  background: #114848;
+  height: 100%;
+  position: absolute;
+  right: 0;
+}
+
+
+
+.scroll-container .thumb {
+  width: 16px;
+  background: #d4d2d2;
+  height: 16px;
+  position: relative;
+  right: 0;
+}
+
+label {
+  display: block;
+  font-size: 13px;
+  margin-bottom: 8px;
+  color: #adadad;
+}
+
+.textbox {
+  height: 28px;
+  background: var(--midLight);
+  padding: 4px 8px;
+  /* margin-bottom: 20px; */
+  display: block;
+  position: relative;
+}
+
+.textbox>input {
+  width: 100%;
+  border: none;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: 0;
+  box-sizing: border-box;
+  position: absolute;
+  background: transparent;
+  color: var(--text);
+  width: 100%;
+  font-size: 15px;
+  padding: 4px 8px;
+  outline-offset: 0px;
+}
+
+p.inputInfo {
+  margin-top: 6px;
+  display: block;
+  margin-bottom: 8px;
+  font-size: 11px;
+  height: 16px;
+}
+
+.browse-icon-container {
+  position: absolute;
+  right: 0;
+  padding-right: 8px;
+  width: 32px;
+  height: 36px;
+  top: 0;
+  text-align: center;
+  display: inline-block;
+  line-height: 0;
+
+}
+
+.browse-icon-container:before {
+content: "\200B";
+height: 100%;
+}
+
+.browse-icon {
+  cursor: pointer;
+  background-image: url(browse_icon.png);
+  /* background-color: white; */
+  background-repeat: no-repeat;
+  background-position: center;
+  display: inline-block;
+  width: 100%;
+  height: 100%;
+  transition: 150ms ease background-image;
+}
+
+.browse-icon:hover {
+  background-image: url(browse_icon_hover.png);
+}
+
+.browse-icon:active {
+  background-image: url(browse_icon_active.png);
+}
+
+.browse-icon-container:before, .search-icon-container>.browse-icon {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+input:focus {
+  outline: var(--outFocus) solid 2px;
+}
+
+input:invalid {
+  outline: #d00a1c solid 2px;
+}

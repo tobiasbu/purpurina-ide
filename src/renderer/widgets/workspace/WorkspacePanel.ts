@@ -2,7 +2,7 @@ import { DockPanel, Widget } from "@phosphor/widgets";
 import {MessageLoop} from '@phosphor/messaging'
 
 //import { createPortal } from "react-dom";
-import './style/index.css';
+// import './style/index.css';
 
 import WidgetFactory from '../WidgetFactory';
 import { DOOM } from "../../doom";

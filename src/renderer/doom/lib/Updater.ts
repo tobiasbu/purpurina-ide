@@ -1,8 +1,8 @@
 
 import { DOOM } from '../utils';
-import ArrayUtils from '../../engine/utils/ArrayUtils';
+import ArrayUtils from '../../../engine/utils/ArrayUtils';
 
-
+type Task = () => void;
 
 enum TaskType {
     Measure,
@@ -21,7 +21,7 @@ interface ScheduledTaskList {
 
 type RequestAnimationFrame = (callback: FrameRequestCallback) => number;
 type UpdaterFunction = () => void;
-type Task = () => void;
+
 //type UpdaterTypeFunction = (fn: UpdaterFunction, ctx?: any) => ScheduledTask;
 
 

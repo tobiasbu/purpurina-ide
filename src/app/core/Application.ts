@@ -1,59 +1,59 @@
 
 import { app } from 'electron';
+import { createStartupWindow } from '../window';
 import { createMainWindow } from '../window/createMainWindow';
 import registerEvents from '../events';
 
 
-import * as path from 'path';
-
-
 export default class Application {
 
-    private mainWindow: Electron.BrowserWindow;
+    private _mainWindow: Electron.BrowserWindow;
 
-
-    get window(): Electron.BrowserWindow {
-        return this.mainWindow;
+    get mainWindow(): Electron.BrowserWindow {
+        return this._mainWindow;
     }
 
     constructor() {
-
-        // app.on('ready', () => {
-        //     this.window = new BrowserWindow({ center: true, darkTheme: true });
-        //     this.window.loadURL('file://' + __dirname + '/index.html');
-
-        //     this.window.on('closed', () => {
-        //         this.window = null;
-        //     });
-        // });
-
-        // app.on('window-all-closed', () => {
-        //     app.quit();
-        // });
-
-        let self = this;
+   
+        this._mainWindow = null;
         //this.app.on('window-all-closed', this.onWindowAllClosed);
 
-        app.on("ready", () => {
-            const appPath = path.join('file://', __dirname, './index.dev.html')
-            self.mainWindow = createMainWindow(appPath);
+        
+    }
+
+    initialize() {
+
+        app.on("ready", async () => {
+            // console.log(__dirname)
+            // const appPath = path.join('file://', __dirname, './index.html')
+            // // const mainWindow = createMainWindow(appPath);
+            const mainWindow = createStartupWindow();
+            
+
+            mainWindow.webContents.on("did-finish-load", () => {
+
+                if (!mainWindow) {
+                    throw new Error('"mainWindow" is not defined');
+                }
+        
+                 setTimeout(() => {
+                    mainWindow.show()
+                    mainWindow.focus()
+                 }, 100);
+            })
+
+
+            mainWindow.webContents.openDevTools();
+
+            this._mainWindow = mainWindow;
+            //createStartupWindow();
             registerEvents();
 
         });
-
 
         app.on("window-all-closed", app.quit);
 
     }
 
-    // private onClose() {
-    //     this.window = null;
-    // }
-
-    // private onWindowAllClosed() {
-    //     if (process.platform !== 'win32') {
-    //         this.app.quit();
-    //     }
-    // }
 
 }

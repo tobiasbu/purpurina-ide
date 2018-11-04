@@ -1,0 +1,85 @@
+input,
+input[type="number"],
+input.checkbox + label {
+  width: auto;
+  height: 14px;
+  /* border: 1px solid #000; */
+  border: none;
+  background: var(--dark);
+  color: var(--text);
+  font-size: 11px;
+}
+
+input.focus {
+  outline: var(--outFocus) solid 1px;
+}
+
+input:focus,
+input[type="number"]:focus {
+  outline: var(--outFocus) solid 1px;
+  outline-offset: 0;
+}
+
+label.focus {
+  color: var(--outFocus);
+}
+
+.text-input {
+  flex: auto;
+  padding: 3px;
+  min-width: 0;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+input[type="checkbox"] {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  display: none;
+  visibility: hidden;
+  padding: 0;
+  border: 0;
+}
+
+.checkbox-container {
+  cursor: pointer;
+  min-width: 20px;
+  margin: auto;
+}
+
+.checkbox-container .checkbox-indicator {
+  display: inline-block;
+  vertical-align: middle;
+  pointer-events: none;
+}
+
+input[type="checkbox"]+label::after {
+  content: none;
+}
+
+input.checkbox + .checkbox-indicator {
+  width: 12px;
+  height: 12px;
+  /* cursor: pointer; */
+  /* text-shadow: 1px 1px 1px rgba(0, 0, 0, .2); */
+  color: #f3f3f3;
+  text-align: center;
+  line-height: 8px;
+  /* display: inline-block; */
+}
+
+input[type="checkbox"]:checked+.checkbox-indicator::after {
+  content: "\2713";
+  vertical-align: middle;
+}

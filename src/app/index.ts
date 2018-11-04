@@ -1,4 +1,20 @@
 import Application from "./core/Application";
+import * as path from 'path';
+import * as os from 'os';
+
+
+const osUserInfo = os.userInfo();
+
+const userInfo:UserInfo = {
+    homeDir: osUserInfo.homedir,
+    userName: osUserInfo.username
+};
+
+
+
+(global as any).userInfo = userInfo;
+
+
 
 
 if (process.env.NODE_ENV === 'production') {
@@ -8,10 +24,11 @@ if (process.env.NODE_ENV === 'production') {
 
 if (process.env.NODE_ENV === 'development' ||
     process.env.DEBUG_PROD === 'true') {
-    require('electron-debug')();
-    const path = require('path');
-    const p = path.join(__dirname, '..', 'app', 'node_modules');
-    require('module').globalPaths.push(p);
+        
+    // require('electron-debug')();
+    // const path = require('path');
+    // const p = path.join(__dirname, '..', 'app', 'node_modules');
+    // require('module').globalPaths.push(p);
 }
 
 // const installExtensions = async () => {
@@ -25,5 +42,7 @@ if (process.env.NODE_ENV === 'development' ||
 
 
 const AppControl = new Application();
+
+AppControl.initialize();
 
 export default AppControl;

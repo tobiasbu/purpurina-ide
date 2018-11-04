@@ -1,16 +1,16 @@
-import Renderer from "../../engine/renderer/Renderer";
-import EventEmitter from "../../engine/events/emitter/EventEmitter";
-import Rect from "../../engine/math/Rect";
+import Renderer from "../../../engine/renderer/Renderer";
+import EventEmitter from "../../../engine/events/emitter/EventEmitter";
+import Rect from "../../../engine/math/Rect";
 
-import { computeTransform2D, computeBounds2D } from "../../engine/math/transform/compute";
-import Transform2D from "../../engine/math/transform/Transform2D";
-import Bounds2D from "../../engine/math/bounds/Bounds2D";
+import { computeTransform2D, computeBounds2D } from "../../../engine/math/transform/compute";
+import Transform2D from "../../../engine/math/transform/Transform2D";
+import Bounds2D from "../../../engine/math/bounds/Bounds2D";
 import EditorHandles from "./EditorHandles";
 import CanvasDrawer from "./CanvasDrawer";
-import CanvasRenderer from "../../engine/renderer/CanvasRenderer";
+import CanvasRenderer from "../../../engine/renderer/CanvasRenderer";
 import Guidelines from "./guidelines/Guidelines";
 import View from "./View";
-import Entity from "../../engine/entity/Entity";
+import Entity from "../../../engine/entity/Entity";
 import { Selection, Events, Pointer } from "../managers";
 import ViewInput from "./ViewInput";
 import { PointerMode } from "../managers/pointer/PointerManager";

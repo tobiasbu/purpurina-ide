@@ -1,6 +1,6 @@
 import { EditorSelection } from "../../editor/EditorSelection";
-import Entity from "../../engine/entity/Entity";
-import { IEventEmitter } from "../../engine/events/emitter/IEventEmitter";
+import Entity from "../../../engine/entity/Entity";
+import { IEventEmitter } from "../../../engine/events/emitter/IEventEmitter";
 
 
 export default class EditorSelectionManager implements EditorSelection {

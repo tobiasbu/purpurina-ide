@@ -1,7 +1,7 @@
-import Rect from "../../engine/math/Rect";
-import Entity from "../../engine/entity/Entity";
-import Vector2 from "../../engine/math/Vector2";
-import MathUtils from "../../engine/math/MathUtils";
+import Rect from "../../../engine/math/Rect";
+import Entity from "../../../engine/entity/Entity";
+import Vector2 from "../../../engine/math/Vector2";
+import MathUtils from "../../../engine/math/MathUtils";
 import View from "./View";
 import CanvasDrawer from "./CanvasDrawer";
 

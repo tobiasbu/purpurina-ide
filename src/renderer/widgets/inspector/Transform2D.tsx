@@ -2,7 +2,7 @@ import * as React from "react";
 import Vector2Input, {IVector2Event} from "../../components/Vector2Input";
 import Foldout from "../../components/Foldout";
 import { Selection, Events } from "../../internal/managers";
-import Entity from "../../engine/entity/Entity";
+import Entity from "../../../engine/entity/Entity";
 
 export default class Transform2D extends React.Component {
 

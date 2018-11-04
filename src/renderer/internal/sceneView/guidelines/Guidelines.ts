@@ -1,7 +1,7 @@
 import CanvasDrawer from "../CanvasDrawer";
 import Grid from "./Grid";
 import View from "../View";
-import MathUtils from "../../../engine/math/MathUtils";
+import MathUtils from "../../../../engine/math/MathUtils";
 
 const BASESPACING = 10000;
 

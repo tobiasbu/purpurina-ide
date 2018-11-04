@@ -1,16 +1,4 @@
-body {
-    font: 11px Segoe UI, Helvetica, Arial, sans-serif;
-    color: #F0F0F0;
-    /* Non-prefixed version, currently supported by Chrome and Opera */
-    margin: 0;
-    padding: 0;
-    background: #080808;
-    overflow: hidden;
-    filter: blur(0);
-    -webkit-filter: blur(0);
-    -webkit-backface-visibility: hidden;
-    backface-visibility: hidden;
-}
+
 
 /* -webkit-touch-callout: none;
     /* iOS Safari 
@@ -23,9 +11,6 @@ body {
     -ms-user-select: none;
     /* Internet Explorer/Edge 
     user-select: none; */
-::-webkit-scrollbar {
-    display: none;
-}
 
 /* *::-webkit-scrollbar-thumb,
 *::-webkit-scrollbar  { 
@@ -72,19 +57,6 @@ body {
     right: 0;
 }
 
-.toolbar {
-    height: 28px;
-    background: #222222;
-    width: 100%;
-    display: block;
-}
-
-.statusbar {
-    height: 22px;
-    background: #3e0636;
-    width: 100%;
-    display: block;
-}
 
 /* image-rendering: optimizeSpeed;            
 image-rendering: -moz-crisp-edges;           Firefox             
@@ -93,33 +65,7 @@ image-rendering: -webkit-optimize-contrast; /* Chrome (and Safari)
 image-rendering: optimize-contrast;         /* CSS3 Proposed       
 -ms-interpolation-mode: nearest-neighbor;   IE8+                */
 /*** Works on common browsers ***/
-::selection {
-    background-color: #004580;
-    color: #fff;
-}
 
-/*** Mozilla based browsers ***/
-::-moz-selection {
-    background-color: #004580;
-    color: #fff;
-}
-
-/***For Other Browsers ***/
-::-o-selection {
-    background-color: #004580;
-    color: #fff;
-}
-
-::-ms-selection {
-    background-color: #004580;
-    color: #fff;
-}
-
-/*** For Webkit ***/
-::-webkit-selection {
-    background-color: #004580;
-    color: #fff;
-}
 
 fieldset {
     border: none;
@@ -162,54 +108,7 @@ fieldset {
     /* min-width: calc(50% - 4px); */
 }
 
-input,
-input[type="number"],
-input.checkbox+label {
-    width: auto;
-    height: 14px;
-    /* border: 1px solid #000; */
-    border: none;
-    background: #141414;
-    color: #F0F0F0;
-    font-size: 11px;
-}
 
-body.pointerEditing input,
-body.pointerEditing label {
-    cursor: inherit;
-}
-
-input.focus {
-    outline: #004580 solid 1px;
-}
-
-input:focus,
-input[type="number"]:focus {
-    outline: #004580 solid 1px;
-    outline-offset: 0;
-}
-
-label.focus {
-    color: #107bd7;
-}
-
-.text-input {
-    flex: auto;
-    padding: 3px;
-    min-width: 0;
-}
-
-input[type=number]::-webkit-inner-spin-button,
-input[type=number]::-webkit-outer-spin-button {
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    margin: 0;
-}
-
-input[type="number"] {
-    -moz-appearance: textfield;
-}
 
 .text-label {
     margin: auto 0;
@@ -221,47 +120,7 @@ input[type="number"] {
     cursor: col-resize;
 }
 
-input[type="checkbox"] {
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    display: none;
-    visibility: hidden;
-    padding: 0;
-    border: 0
-}
 
-.checkbox-container {
-    cursor: pointer;
-    min-width: 20px;
-    margin: auto;
-}
-
-.checkbox-container .checkbox-indicator {
-    display: inline-block;
-    vertical-align: middle;
-    pointer-events: none;
-}
-
-input[type="checkbox"]+label::after {
-    content: none;
-}
-
-input.checkbox+.checkbox-indicator {
-    width: 12px;
-    height: 12px;
-    /* cursor: pointer; */
-    /* text-shadow: 1px 1px 1px rgba(0, 0, 0, .2); */
-    color: #f3f3f3;
-    text-align: center;
-    line-height: 8px;
-    /* display: inline-block; */
-}
-
-input[type="checkbox"]:checked+.checkbox-indicator::after {
-    content: "\2713";
-    vertical-align: middle;
-}
 
 .foldout {
     border-bottom: #323232 1px solid;
@@ -321,7 +180,7 @@ input[type="checkbox"]:checked+.checkbox-indicator::after {
 }
 
 .foldout::after {
-    border-bottom: 1px solid #080808ff;
+    border-bottom: 1px solid #080808;
 }
 
 .foldout:not(.enable) .foldout-content {

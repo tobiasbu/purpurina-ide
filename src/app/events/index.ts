@@ -1,4 +1,4 @@
-import { ipcMain, dialog } from "electron";
+import { ipcMain, dialog, BrowserWindow } from "electron";
 import AppControl from "..";
 
 export default function registerEvents () {
@@ -12,9 +12,19 @@ export default function registerEvents () {
 
         }
         
-       dialog.showMessageBox(AppControl.window, options);
+       dialog.showMessageBox(AppControl.mainWindow, options);
     
     
+    });
+
+    ipcMain.on("selectDirectory", (caller: BrowserWindow) => {
+
+        
+
+        dialog.showOpenDialog(caller, {
+            properties: ['openDirectory', 'createDirectory']
+        });
+
     });
 
 }

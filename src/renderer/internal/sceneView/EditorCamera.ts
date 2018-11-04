@@ -1,6 +1,6 @@
-import Matrix3 from "../../engine/math/Matrix3";
-import Vector2 from "../../engine/math/Vector2";
-import MathUtils from "../../engine/math/MathUtils";
+import Matrix3 from "../../../engine/math/Matrix3";
+import Vector2 from "../../../engine/math/Vector2";
+import MathUtils from "../../../engine/math/MathUtils";
 
 export default class EditorCamera {
 

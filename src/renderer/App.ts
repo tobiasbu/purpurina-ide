@@ -5,7 +5,7 @@
 
 //import GoldenLayoutContainer from "./layout/GoldenLayoutContainer";
 //import mainLayoutConfig from './layout/mainLayoutConfig';
-import './style/style.css'
+
 import hyper from 'hyperhtml'
 // import Toolbar from "./components/Toolbar";
 // import StatusBar from "./components/StatusBar";
