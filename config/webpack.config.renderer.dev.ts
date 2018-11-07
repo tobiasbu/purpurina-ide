@@ -16,7 +16,8 @@ const config: webpack.Configuration = {
 
     entry: {
         // 'renderer': [path.join(ENTRY_PATH, '/renderer/index.ts'), HOT_MW],
-        'laucher': [path.join(ENTRY_PATH, '/laucher/index.ts'), HOT_MW]
+        'laucher': [path.join(ENTRY_PATH, '/laucher/index.ts'), HOT_MW],
+        // 'preload-laucher': path.join(ENTRY_PATH, '/laucher/preload.ts'),
     },
 
     output: {
@@ -36,9 +37,9 @@ const config: webpack.Configuration = {
         rules: [{
             test: /\.tsx?$/,
             loader: "awesome-typescript-loader",
-            // options: {
-            //     configFileName: path.join(ENTRY_PATH, '/tsconfig.json'),
-            // },
+            options: {
+                configFileName: path.join(ENTRY_PATH, '/shared/tsconfig.json'),
+            },
             exclude: /node_modules/,
         }]
     },

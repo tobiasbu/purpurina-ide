@@ -1,7 +1,10 @@
 import { ipcMain, dialog, BrowserWindow } from "electron";
-import AppControl from "..";
+import ProjectManagement from "../project/ProjectManagment";
+import Application from "../core/Application";
+import { ICreateProject, IProjectInfo } from "../../shared/typings";
 
-export default function registerEvents () {
+
+export default function registerEvents(appControl: Application) {
 
     ipcMain.on("build", () => {
 
@@ -11,21 +14,32 @@ export default function registerEvents () {
             message: "Hello World!",
 
         }
-        
-       dialog.showMessageBox(AppControl.mainWindow, options);
-    
-    
+
+        dialog.showMessageBox(appControl.mainWindow, options);
     });
 
-    ipcMain.on("selectDirectory", (caller: BrowserWindow) => {
+    ipcMain.on("createProject", (event: Electron.Event, createProjectInfo: ICreateProject) => {
 
-        
+        let project: IProjectInfo;
 
-        dialog.showOpenDialog(caller, {
-            properties: ['openDirectory', 'createDirectory']
-        });
-
+        try {
+            project = ProjectManagement.createNewProject(createProjectInfo);
+        } catch (e) {
+            dialog.showMessageBox(appControl.mainWindow, {
+                type: 'error',
+                title: 'Could not create project',
+                message: e.message,
+                buttons: ['OK']
+            });
+        } finally {
+            if (project) {
+                //ProjectManagement.openProject(project.path, true);
+                appControl.settings.addRecentProject(project.path);
+                appControl.settings.save();
+            }
+        }
     });
+
 
 }
 

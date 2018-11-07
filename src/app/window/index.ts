@@ -2,6 +2,7 @@ import { app, BrowserWindow } from "electron";
 import version from "../version";
 
 import * as path from 'path';
+import * as fs from 'fs';
 
 /**
  * Creates the main window.
@@ -14,7 +15,8 @@ export function createStartupWindow() {
 
     const width = 1024;
     const height = 576;
-    const appPath =  path.join('file://', __dirname, '../src/laucher/index.html');
+    const basePath = path.join('file://', __dirname)
+    const appPath =  path.join(basePath, '../src/laucher/index.html');
 
     // create our main window
     const window = new BrowserWindow({
@@ -26,19 +28,26 @@ export function createStartupWindow() {
         show: false,
         useContentSize: true,
         center: true,
-        //titleBarStyle: "hidden-inset",
-        // backgroundColor: '#fff',
-        vibrancy: "light",
+        backgroundColor: '#000',
+        vibrancy: "dark",
         transparent: false,
-        title: 'Scintilla v' + version.VERSION,
+        title: 'Scintilla Editor v' + version.toString(),
         webPreferences: {
-            // nodeIntegration: false,
+            //nodeIntegration: false,
             backgroundThrottling: false,
             textAreasAreResizable: false,
+            preload: path.join(__dirname, 'preload.js'),
+            // contextIsolation: true,
         },
         resizable: false,
         frame: false,
+        enableLargerThanScreen: false,
     });
+
+    window.webContents.on('will-navigate', ev => {
+        ev.preventDefault()
+    })
+
 
     // window.on('closed', () => {window = null;});
     

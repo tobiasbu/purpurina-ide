@@ -2,7 +2,7 @@
 import * as express from 'express';
 import * as webpack from 'webpack';
 import * as path from 'path';
-import * as http from 'http';
+// import * as https from 'https';
 
 import * as WebpackDevMiddleware from 'webpack-dev-middleware';
 import * as WebpackHotMiddleware from 'webpack-hot-middleware';
@@ -26,7 +26,8 @@ const devOptions: MidOptions = {
     publicPath: config.output.publicPath,
     quiet: false,
     reload: true,
-    overlay: true
+    overlay: true,
+    writeToDisk: true
 }
 
 const devMiddleware = WebpackDevMiddleware(compiler, devOptions);
@@ -41,6 +42,8 @@ expressApp.use(hotMiddleware);
 expressApp.use(express.static(PATH));
 
 // const server = http.createServer(expressApp);
+
+
 
 const server = expressApp.listen(PORT, 'localhost', (error) => {
 

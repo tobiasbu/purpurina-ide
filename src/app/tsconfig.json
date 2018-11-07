@@ -21,7 +21,9 @@
     ],
     "include": [
         "../shared/typings/*.ts",
+        "./global.d.ts",
         // "typings/**/*.ts",
         "node_modules/@types/**/*.d.ts"
-    ]
+    ],
+
 }

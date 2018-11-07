@@ -1,18 +1,19 @@
 import hyper, { Component } from "hyperhtml";
-import ProjectListPage from "./ProjectListPage";
-import { IProjectInfo } from "./IProjectInfo";
-import ScrollContainer from "./ScrollContainer";
-import LearnPage from "./LearnPage";
-import CreateProjectPage from "./CreateProjectPage";
+import HomePage from "./pages/HomePage";
+import ScrollContainer from "./components/ScrollContainer";
+import LearnPage from "./pages/LearnPage";
+import CreateProjectPage from "./pages/CreateProjectPage";
+import { IProjectInfo } from "../shared/typings";
 
 export default class MenuControl {
 
     private menuMap: Map<string, Component>
-    private projectList = new ScrollContainer(new ProjectListPage());
+    private _homePage: ScrollContainer<HomePage>;// = new ScrollContainer(new ProjectListPage());
+    private _splashScreen: HTMLElement;
     private _isLoaded: boolean = false;
 
     private contentElement: HTMLElement;
-    private menuElement: HTMLElement;
+    // private menuElement: HTMLElement;
     private currentMenu: HTMLElement;
     private currentMenuType: string;
 
@@ -23,11 +24,12 @@ export default class MenuControl {
 
     private menuRegister() {
 
-        this.menuElement = document.getElementById('menu');
+        // this.menuElement = document.getElementById('menu');
+        this._splashScreen = document.getElementById('splash');
 
         this.contentElement = document.getElementById('content');
 
-        const projects = document.getElementById('projects-button');
+        const projects = document.getElementById('home-button');
         const learn = document.getElementById('learn-button');
         const create = document.getElementById('new-project-button');
 
@@ -35,7 +37,9 @@ export default class MenuControl {
         learn.onclick = () => this.setActiveOption(learn);
         create.onclick = () => this.setActiveOption(create);
         
-        this.menuMap.set(projects.id, this.projectList);
+        this._homePage = new ScrollContainer(new HomePage());
+
+        this.menuMap.set(projects.id, this._homePage);
         this.menuMap.set(learn.id, new LearnPage());
         this.menuMap.set(create.id, new CreateProjectPage());
         this.setActiveOption(projects);
@@ -43,10 +47,14 @@ export default class MenuControl {
     }
 
     init(projects: IProjectInfo[]) {
-        this.projectList.component.setup(projects);
-        this.menuElement.className = '';
-        hyper(this.contentElement)`${this.projectList}`
+        this._homePage.component.setup(projects);
+        hyper(this.contentElement)`${this._homePage}`
+        this._splashScreen.classList.add('disable'); 
+        setTimeout(() => {
+            this._splashScreen.style.display = 'none';
+        }, 300);        
         this._isLoaded = true;
+
     }
 
     private setActiveOption(option: HTMLElement) {
@@ -66,6 +74,9 @@ export default class MenuControl {
             
             const page = this.menuMap.get(option.id);
             if (page) {
+                if ((page as any).reset) {
+                    (page as any).reset();
+                }
                 hyper(this.contentElement)`${page}`
             }
         }

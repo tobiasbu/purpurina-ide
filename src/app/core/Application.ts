@@ -1,58 +1,66 @@
 
-import { app } from 'electron';
+import { app, BrowserWindow } from 'electron';
 import { createStartupWindow } from '../window';
 import { createMainWindow } from '../window/createMainWindow';
 import registerEvents from '../events';
+import EditorSettings from './EditorSettings';
 
+enum AppState {
+    Uninitialized,
+    Initialize,
+    Laucher
+}
 
 export default class Application {
 
     private _mainWindow: Electron.BrowserWindow;
+    state: AppState;
+    settings: EditorSettings;
 
     get mainWindow(): Electron.BrowserWindow {
         return this._mainWindow;
     }
 
-    constructor() {
-   
+    constructor(editorSettings: EditorSettings) {
         this._mainWindow = null;
-        //this.app.on('window-all-closed', this.onWindowAllClosed);
-
-        
+        this.settings = editorSettings;
     }
 
-    initialize() {
+    async initialize() {
+        let promise = new Promise<BrowserWindow>((resolve, reject) => {
 
-        app.on("ready", async () => {
-            // console.log(__dirname)
-            // const appPath = path.join('file://', __dirname, './index.html')
-            // // const mainWindow = createMainWindow(appPath);
-            const mainWindow = createStartupWindow();
-            
+            const readyToShow = (mainWindow: BrowserWindow) => {
 
-            mainWindow.webContents.on("did-finish-load", () => {
+                mainWindow.show();
+                mainWindow.focus();
+                mainWindow.webContents.openDevTools();
+                this.state = AppState.Laucher;
+                resolve(mainWindow);
+            }
+
+            const startupFn = () => {
+                const mainWindow = createStartupWindow();
 
                 if (!mainWindow) {
-                    throw new Error('"mainWindow" is not defined');
+                    reject(new Error('"mainWindow" is not defined'));
                 }
-        
-                 setTimeout(() => {
-                    mainWindow.show()
-                    mainWindow.focus()
-                 }, 100);
-            })
 
+                this._mainWindow = mainWindow;
 
-            mainWindow.webContents.openDevTools();
+                // did-finisdh-load
+                mainWindow.once("ready-to-show", readyToShow.bind(this, mainWindow));
 
-            this._mainWindow = mainWindow;
-            //createStartupWindow();
-            registerEvents();
+                registerEvents(this);
+            }
 
+            this.state = AppState.Initialize;
+
+            app.once("ready", startupFn);
+
+            app.on("window-all-closed", app.quit);
         });
 
-        app.on("window-all-closed", app.quit);
-
+        return promise;
     }
 
 

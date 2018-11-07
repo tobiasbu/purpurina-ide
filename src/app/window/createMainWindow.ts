@@ -48,10 +48,9 @@ export function createMainWindow(appPath: string) {
         transparent: false,
         title: app.getName(),
         webPreferences: {
-            // nodeIntegration: false,
+            nodeIntegration: false,
             backgroundThrottling: false,
             textAreasAreResizable: false,
-            //allowRunningInsecureContent: true,
         },
         darkTheme: true,
     });
