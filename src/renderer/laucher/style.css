@@ -257,7 +257,7 @@ button:active {
   border-bottom: 1px solid #1a1a1a;
 }
 
-.project-container:active {
+.project-container:active, .project-container.selected  {
   background-color: #1a1a1a;
 }
 

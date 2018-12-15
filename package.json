@@ -1,7 +1,7 @@
 {
-  "name": "scintilla-ide",
+  "name": "glitter-ide",
   "version": "0.0.1",
-  "description": "Scintilla HTML5 Game Engine IDE",
+  "description": "Glitter HTML5 Game Engine IDE",
   "main": "src/renderer/index.ts",
   "scripts": {
     "build-electron": "webpack --config ./config/webpack.config.electron.ts --env.DEV --profile --colors --display-error-details",

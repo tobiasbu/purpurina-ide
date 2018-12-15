@@ -6,24 +6,7 @@ import { IProjectInfo } from "../../../shared/typings";
 export default class HomePage extends hyper.Component {
 
     private projectsElements: ProjectContainer[];
-
-    setup(projects: IProjectInfo[]) {
-
-        console.log(projects)
-
-        if (!projects) {
-            this.projectsElements = null;
-        } else {
-
-            this.projectsElements = [];
-            projects.forEach(element => {
-                this.projectsElements.push(new ProjectContainer(element));
-            });
-
-        }
-
-        this.render();
-    }
+    private selectedProject: ProjectContainer = null;
 
     private welcomePage() {
         return hyper.wire()`
@@ -34,7 +17,41 @@ export default class HomePage extends hyper.Component {
             `;
     }
 
-    render() {
+    public selectProject(project : ProjectContainer) {
+
+        const oldSelection = this.selectedProject;
+
+        if (oldSelection == project) {
+            return;
+        }
+
+        if (oldSelection != null) {
+            oldSelection.setSelection(false);
+        }
+
+        this.selectedProject = project;
+        project.setSelection(true);
+
+
+    }
+
+    public setup(projects: IProjectInfo[]) {
+
+        if (!projects) {
+            this.projectsElements = null;
+        } else {
+
+            this.projectsElements = [];
+            projects.forEach(element => {
+                this.projectsElements.push(new ProjectContainer(element, this));
+            });
+
+        }
+
+        this.render();
+    }
+
+    private render() {
 
         return hyper.wire(this)`
       <div class='home-page'>

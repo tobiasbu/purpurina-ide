@@ -38,8 +38,8 @@ export function generatePackageJSON(dir: string, createProject: ICreateProject):
         author: createProject.author,
         version: "1.0.0",
         license: 'ISC',
-        description: (createProject.author) ? `New Scintilla project by ${createProject.author}` : 'New Scintilla project',
-        keywords: ['scintilla', 'project', 'game'],
+        description: (createProject.author) ? `New Glitter project by ${createProject.author}` : 'New Glitter project',
+        keywords: ['glitter', 'project', 'game'],
     }
 
 
@@ -56,7 +56,7 @@ export function generateProjectPackage(dir: string, createProject: ICreateProjec
         thumbnail: '#fff'
     }
 
-    fs.writeFileSync(path.join(dir, 'scintilla.json'), JSON.stringify(json, null, '\t'));
+    fs.writeFileSync(path.join(dir, 'glitter.json'), JSON.stringify(json, null, '\t'));
     return json;
 
 }
