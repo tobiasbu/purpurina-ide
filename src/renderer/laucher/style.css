@@ -437,7 +437,7 @@ p.inputInfo {
 
 .browse-icon {
   cursor: pointer;
-  background-image: url(browse_icon.png);
+  background-image: url(img/browse_icon.png);
   /* background-color: white; */
   background-repeat: no-repeat;
   background-position: center;
@@ -448,11 +448,11 @@ p.inputInfo {
 }
 
 .browse-icon:hover {
-  background-image: url(browse_icon_hover.png);
+  background-image: url(img/browse_icon_hover.png);
 }
 
 .browse-icon:active {
-  background-image: url(browse_icon_active.png);
+  background-image: url(img/browse_icon_active.png);
 }
 
 .browse-icon-container:before,

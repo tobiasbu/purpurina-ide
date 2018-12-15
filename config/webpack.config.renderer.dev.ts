@@ -5,7 +5,7 @@ import { PROJECT_PATH } from './webpack.config.base';
 const PORT = process.env.PORT || 8080;
 // const HOT_MW = 'webpack-hot-middleware/client?reload=true';
 const HOT_MW = `webpack-hot-middleware/client?path=http://localhost:${PORT}/__webpack_hmr&reload=true`;
-const ENTRY_PATH = path.join(PROJECT_PATH, './src/');
+const ENTRY_PATH = path.join(PROJECT_PATH, './src/renderer/');
 
 
 const config: webpack.Configuration = {
@@ -15,15 +15,16 @@ const config: webpack.Configuration = {
     target: 'electron-renderer',
 
     entry: {
-        // 'renderer': [path.join(ENTRY_PATH, '/renderer/index.ts'), HOT_MW],
+        
         'laucher': [path.join(ENTRY_PATH, '/laucher/index.ts'), HOT_MW],
+        'editor': [path.join(ENTRY_PATH, '/editor/index.ts'), HOT_MW],
         // 'preload-laucher': path.join(ENTRY_PATH, '/laucher/preload.ts'),
     },
 
     output: {
         publicPath: `http://localhost:${PORT}/dist/`,
         path: path.join(PROJECT_PATH, 'dist'),
-        filename: '[name].dev.js',
+        filename: '[name]/index.dev.js',
         // https://github.com/webpack/webpack/issues/1114
         libraryTarget: 'commonjs2',
     },
@@ -38,7 +39,7 @@ const config: webpack.Configuration = {
             test: /\.tsx?$/,
             loader: "awesome-typescript-loader",
             options: {
-                configFileName: path.join(ENTRY_PATH, '/shared/tsconfig.json'),
+                configFileName: path.join(PROJECT_PATH, 'src/shared/tsconfig.json'),
             },
             exclude: /node_modules/,
         }]

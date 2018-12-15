@@ -6,13 +6,13 @@
 }
 
 // import './style/main.css';
-import App from "./App";
-import { hyper } from 'hyperhtml';
+// import App from "./App";
+// import { hyper } from 'hyperhtml';
 
 
 
 
-const rootNode = document.getElementById('root');
+// const rootNode = document.getElementById('root');
 
 
-hyper(rootNode)`${new App()}`;
+// hyper(rootNode)`${new App()}`;

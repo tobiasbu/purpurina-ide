@@ -25,7 +25,7 @@ const ProjectManagement = {
 
             if (fse.existsSync(projectPath)) {
 
-                const scintillaProjectPath = path.join(projectPath, path.sep, 'scintilla.json');
+                const scintillaProjectPath = path.join(projectPath, path.sep, 'glitter.json');
 
                 const p = fse.readFile(scintillaProjectPath)
                     .then((buffer) => {
@@ -53,7 +53,7 @@ const ProjectManagement = {
     validateProject(projectPath: string) {
         if (fse.existsSync(projectPath)) {
 
-            const scintillaProjectPath = path.join(projectPath, path.sep, 'scintilla.json');
+            const scintillaProjectPath = path.join(projectPath, path.sep, 'glitter.json');
 
             fse.promises.readFile(scintillaProjectPath)
                 .then((buffer) => {
@@ -102,13 +102,16 @@ const ProjectManagement = {
 
         const fullPath = path.join(createProjectInfo.location, '.' + path.sep + createProjectInfo.projectName);
 
-        try {
-            fse.accessSync(createProjectInfo.location)
-        } catch (err) {
-            throw new Error(`No access permision for the location '${createProjectInfo.location}'. Try another path.`);
-        }
+        
 
         if (fse.existsSync(fullPath)) {
+
+            try {
+                fse.accessSync(createProjectInfo.location)
+            } catch (err) {
+                throw new Error(`No access permision for the location '${createProjectInfo.location}'. Try another path.`);
+            }
+
             if (!FileSystem.isEmptyDiretory(fullPath)) {
                 throw new Error(`The location '${fullPath}' is already in use and not empty.`);
             }

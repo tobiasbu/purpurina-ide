@@ -1,5 +1,5 @@
 import hyper from "hyperhtml";
-import { IProjectInfo } from "../../shared/typings";
+import { IProjectInfo } from "../../../shared/typings";
 
 
 // function parseThumbail(thumbail: string) {
@@ -23,7 +23,14 @@ export default class ProjectContainer extends hyper.Component {
 
     render() {
         const { projectPackage, path } = this.project;
-        const { name, author, version } = projectPackage;
+        let name, version, author;
+        if (!this.project.error) {
+            name = projectPackage.name;
+            version = projectPackage.version || '?';
+            author = projectPackage.author || '';
+        } else {
+            name = 'Unnamed project'
+        }
         // const style = `background-color:${this.project.thumbnail}`;
         return hyper.wire(this)`
         <div class="project-container">
@@ -31,7 +38,7 @@ export default class ProjectContainer extends hyper.Component {
                     <div class="info">
                         <p class="title">${name}</p>
                         <p>${path}</p>
-                        <p>${author} | v${version}</p>
+                        <p>${author} ${version}</p>
                     </div>
         </div>
       `;

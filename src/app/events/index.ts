@@ -18,7 +18,8 @@ export default function registerEvents(appControl: Application) {
         dialog.showMessageBox(appControl.mainWindow, options);
     });
 
-    ipcMain.on("createProject", (event: Electron.Event, createProjectInfo: ICreateProject) => {
+
+  ipcMain.on("createProject", (event: Electron.Event, createProjectInfo: ICreateProject) => {
 
         let project: IProjectInfo;
 
@@ -36,6 +37,8 @@ export default function registerEvents(appControl: Application) {
                 //ProjectManagement.openProject(project.path, true);
                 appControl.settings.addRecentProject(project.path);
                 appControl.settings.save();
+                appControl.startEditor();
+                ipcMain.removeAllListeners('createProject');
             }
         }
     });

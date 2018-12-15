@@ -4,7 +4,7 @@ import * as path from 'path';
 import * as os from 'os';
 
 const homeDir = os.homedir();
-const EDITOR_CONFIG_PATH = path.join(homeDir, path.sep, '.Scintilla');
+const EDITOR_CONFIG_PATH = path.join(homeDir, path.sep, '.glitter');
 const SETTINGS_PATH = path.join(EDITOR_CONFIG_PATH, 'settings.json');
 
 function checkSettingsPath(): boolean {
@@ -45,8 +45,16 @@ export default class EditorSettings implements IEditorSettings {
      * Constructor
      */
     constructor(json?: IEditorSettings) {
-        this._recentProjects = json.recentProjects || [];
-        this._langugage = json.langugage || 'en';
+
+        if (!json) {
+            this._recentProjects = [];
+            this._langugage = 'en';
+        } else {
+            this._recentProjects = json.recentProjects || [];
+            this._langugage = json.langugage || 'en';
+        }
+
+        
     }
 
     static createAsync(): Promise<EditorSettings> {
@@ -76,7 +84,7 @@ export default class EditorSettings implements IEditorSettings {
                 const data = fse.readFileSync(SETTINGS_PATH, { encoding: 'utf-8', flag: 'r' });
                 config = new EditorSettings(JSON.parse(data));
             } catch {
-                config = this.create();
+                config = EditorSettings.create();
             }
         }
 
@@ -106,6 +114,10 @@ export default class EditorSettings implements IEditorSettings {
             this._recentProjects.push(projectPath);
         } else {
             this._recentProjects.unshift(projectPath);
+
+            if (this._recentProjects.length > 10) {
+                this._recentProjects.pop();
+            }
         }
     }
 

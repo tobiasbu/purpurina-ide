@@ -8,7 +8,7 @@ import * as CopyWebpackPlugin from 'copy-webpack-plugin';
 
 export default (env: Enviroment) => {
 
-    const HTML_TEMPLATE_PATH = 'src/renderer/pages/index.dev.html';
+    const HTML_TEMPLATE_PATH = 'src/renderer/editor/index.html';
     const ENTRY_PATH = path.join(PROJECT_PATH, './src/app');
     const DEV_MODE = env.DEV || env.HOT;
     const DIST_PATH =  path.join(PROJECT_PATH, '/dist/');
@@ -58,7 +58,7 @@ export default (env: Enviroment) => {
             }),
             (DEV_MODE) ? new CopyWebpackPlugin(
                 [
-                    {from:HTML_TEMPLATE_PATH, to: DIST_PATH + 'index.html', toType:'file'},
+                    {from:HTML_TEMPLATE_PATH, to: DIST_PATH + 'editor/index.html', toType:'file'},
                     {from: './resources', to: path.join(DIST_PATH,'resources'), toType:'dir'}, 
                     // {from: path.join(PROJECT_PATH, '/src/laucher/preload.js'), to: DIST_PATH }, 
             ]

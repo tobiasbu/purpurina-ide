@@ -3,7 +3,7 @@ import HomePage from "./pages/HomePage";
 import ScrollContainer from "./components/ScrollContainer";
 import LearnPage from "./pages/LearnPage";
 import CreateProjectPage from "./pages/CreateProjectPage";
-import { IProjectInfo } from "../shared/typings";
+import { IProjectInfo } from "../../shared/typings";
 
 export default class MenuControl {
 
