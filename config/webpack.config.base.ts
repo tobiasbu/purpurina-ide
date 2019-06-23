@@ -8,7 +8,7 @@ import * as path from 'path';
 
 export const PROJECT_PATH = path.resolve(__dirname, '../');
 
-export interface Enviroment {
+export interface Environment {
     DEV?: any,
     HOT?: any
 }
@@ -26,7 +26,7 @@ const baseConfig: webpack.Configuration = {
     },
 
     resolve: {
-        extensions: ['.js', '.ts', '.tsx', '.json'],
+        extensions: ['.js', '.ts', '.json'],
     },
 
 

@@ -1,4 +1,4 @@
-# scintilla-ide
+# glitter-ide
 
 WIP...
 

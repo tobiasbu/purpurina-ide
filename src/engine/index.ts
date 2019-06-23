@@ -1,7 +1,7 @@
 
 
-namespace Scintilla {
+namespace purpur {
     
 }
 
-export default Scintilla;
+export default purpur;

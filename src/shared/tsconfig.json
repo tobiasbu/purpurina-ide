@@ -1,12 +1,18 @@
 {
+  "compileOnSave": false,
   "compilerOptions": {
+    "composite": true,
+    "baseUrl": ".",
     "target": "es5",
-    // "module": "commonjs",
     "moduleResolution": "node",
     "lib": ["es6", "dom", "scripthost", "dom.iterable"],
-    "jsx": "react",
     "outDir": "dist",
     "sourceMap": true,
+    "paths": {
+      "*": [
+        "./types",
+      ]
+    },
     //"noImplicitAny": true,
     // "noImplicitReturns": true,
     // "noImplicitThis": true,
@@ -17,13 +23,11 @@
     // "experimentalDecorators": true,
     // "removeComments": false,
     //"suppressImplicitAnyIndexErrors": true,
-    "typeRoots": ["node_modules/@types", "typings"]
+    "typeRoots": ["node_modules/@types"],
   },
   "include": [
-    "typings",
-    "typings/**/*.ts",
-    "src/**/*.ts",
-    "node_modules/@types/**/*.d.ts"
+    "node_modules/@types/**/*.d.ts",
+    "./**/*.ts"
   ],
   "exclude": [
     "dist"

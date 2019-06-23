@@ -1,38 +1,34 @@
-//import * as React from "react";
-//import * as logo from './logo.svg';
+// import * as React from "react";
+// import * as logo from './logo.svg';
 
-//import { ipcRenderer } from "electron";
+// import { ipcRenderer } from "electron";
 
-//import GoldenLayoutContainer from "./layout/GoldenLayoutContainer";
-//import mainLayoutConfig from './layout/mainLayoutConfig';
+// import GoldenLayoutContainer from "./layout/GoldenLayoutContainer";
+// import mainLayoutConfig from './layout/mainLayoutConfig';
 
-import hyper from 'hyperhtml'
+import hyper from 'hyperhtml';
 // import Toolbar from "./components/Toolbar";
 // import StatusBar from "./components/StatusBar";
-import WorkspacePanel from "./widgets/workspace/WorkspacePanel";
+import WorkspacePanel from './ui/workspace/WorkspacePanel';
 
-//console.log(process)
-
-
-
+// console.log(process)
 
 export default class App extends hyper.Component {
 
-  private workspace:WorkspacePanel;
+  private workspace: WorkspacePanel;
 
   constructor() {
     super();
     this.workspace = new WorkspacePanel();
-    
+
   }
 
   render() {
     return hyper.wire(this)`
     <div class='toolbar'/>
-    ${this.workspace.node}
+    ${this.workspace.element}
     <div class='statusbar'/>`;
 
-    
   }
 }
 
@@ -46,7 +42,6 @@ export default class App extends hyper.Component {
 
 //   render() {
 
-
 //     return (
 
 //       // <div id="App" >
@@ -58,5 +53,3 @@ export default class App extends hyper.Component {
 //   }
 
 // }
-
-

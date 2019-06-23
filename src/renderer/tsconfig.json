@@ -1,0 +1,25 @@
+{
+  "extends": "../tsconfig.base.json",
+  "compileOnSave": true,
+  "compilerOptions": {
+    "lib": [
+      "es5",
+      "dom"
+    ],
+    "pretty": true,
+    "allowSyntheticDefaultImports": true,
+    "sourceMap": true,
+    "outDir": "dist",
+    "typeRoots": [
+      "node_modules/@types",
+    ],
+  },
+  "include": [
+    "../shared/types/**/*.d.ts",
+    // "./**/*.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "../app"
+  ],
+}

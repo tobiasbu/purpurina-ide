@@ -1,29 +1,42 @@
 {
-    "compileOnSave": false,
-    "compilerOptions": {
-        "target": "es5",
-        "moduleResolution": "node",
-        "lib":[
-            "es2015"
-        ],
-        "sourceMap": true,
-        // "pretty": true,
-        "newLine": "LF",
-        "allowSyntheticDefaultImports": true,
-        // "strict": true,
-        // "noUnusedLocals": true,
-        // "noUnusedParameters": true,
-        "strictNullChecks": false,
+  "compileOnSave": true,
+  "compilerOptions": {
+    "baseUrl": ".",
+    "target": "es5",
+    "moduleResolution": "node",
+    "lib": [
+      "es2015"
+    ],
+    "paths": {
+      "*": [
+        "./types"
+      ]
     },
-    "exclude": [
-        "node_modules",
-        "../renderer"
+    "sourceMap": true,
+    // "pretty": true,
+    "newLine": "LF",
+    "allowSyntheticDefaultImports": true,
+    // "strict": true,
+    // "noUnusedLocals": true,
+    // "noUnusedParameters": true,
+    "strictNullChecks": false,
+    "typeRoots": [
+      "node_modules/@types",
     ],
-    "include": [
-        "../shared/typings/*.ts",
-        "./global.d.ts",
-        // "typings/**/*.ts",
-        "node_modules/@types/**/*.d.ts"
-    ],
-
+  },
+  "exclude": [
+    "node_modules",
+    "../renderer"
+  ],
+  "include": [
+    "node_modules/@types/**/*.d.ts",
+    "../shared/types/**/*.d.ts",
+    "./types/**/*.d.ts",
+    "./**/*.ts",
+  ],
+  // "references": [
+  //   {
+  //     "path": "../shared"
+  //   }
+  // ]
 }

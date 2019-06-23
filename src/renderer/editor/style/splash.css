@@ -1,0 +1,98 @@
+#splash {
+    position: fixed;
+    background: var(--dark);
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1;
+    padding: 64px 120px;
+    opacity: 1;
+    transition: 0.3s ease opacity;
+  }
+
+  .vertical-flex-center {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+
+  .progress-bar-container {
+      width: 241px;
+      margin: 0 auto;
+  }
+
+  .progress-bar-container p {
+      text-align: center;
+  }
+
+  .progress-bar {
+    height: 8px;  /* Can be anything */
+	position: relative;
+	background: #555;
+	/* box-shadow: inset 0 -1px 1px rgba(255,255,255,0.3); */
+  }
+
+  @keyframes progressbarbg {
+    0% {
+        background-position:0% 0%
+    }
+    100% {
+        background-position:200% 0%
+    }
+  }
+
+  .progress-bar > span {
+    display: block;
+    height: 100%;
+    background-color: #f0a3a3;
+    background-image: linear-gradient(to left, #ff7f4c, #fd5587, #ea28c4, #29a0ed, #6bc0e0, #ff7f4c);
+    position: relative;
+    overflow: hidden;
+    animation: progressbarbg 2s linear infinite;
+    background-size: 200% 200%;
+  }
+
+  @keyframes move {
+    0% {
+      background-position: 0 0;
+    }
+    100% {
+      background-position: 50px 50px;
+    }
+  }
+
+  .progress-bar > span:after {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; bottom: 0; right: 0;
+    background-image: linear-gradient(
+      -45deg, 
+      rgba(255, 255, 255, .2) 25%, 
+      transparent 25%, 
+      transparent 50%, 
+      rgba(255, 255, 255, .2) 50%, 
+      rgba(255, 255, 255, .2) 75%, 
+      transparent 75%, 
+      transparent
+    );
+    z-index: 1;
+    background-size: 50px 50px;
+    animation: move 3s linear infinite;
+    overflow: hidden;
+  }
+
+  @keyframes expandWidth {
+    0% { width: 0; }
+    100% { width: auto; }
+ }
+
+
+
+  .animate > span:after {
+    display: none;
+  }
+
+  .meter > span:after, .animate > span > span {
+    animation: move 2s linear infinite;
+  }

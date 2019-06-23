@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "module": "commonjs",
+    "moduleResolution": "node",
+
+    "allowJs": true,
+    "noImplicitAny": true,
+    "noUnusedLocals": true,
+    // "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+
+    "newLine": "LF",
+  }
+}

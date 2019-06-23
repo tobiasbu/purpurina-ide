@@ -1,10 +1,9 @@
-import { BrowserWindow } from "electron";
-import version from "../version";
+import { BrowserWindow } from 'electron';
+import version from '../version';
 import * as path from 'path';
 
 const MIN_HEIGHT = 576;
 const MIN_WIDTH = 450;
-
 
 /**
  * Creates the main window.
@@ -15,78 +14,79 @@ const MIN_WIDTH = 450;
  */
 export function createStartupWindow(): BrowserWindow {
 
-    const width = 1024;
-    const height = 576;
-    const basePath = path.join('file://', __dirname)
-    const laucherPath = path.join(basePath, '../src/renderer/laucher/index.html');
+  const width = 1024;
+  const height = 576;
+  const basePath = path.join('file://', __dirname);
+  const launcherPath = path.join(basePath, '../src/renderer/launcher/index.html');
+  const preloadPath = path.join(__dirname, '../src/app/preload.js');
 
-    // create our main window
-    let window = new BrowserWindow({
-        minWidth: width,
-        minHeight: height,
-        width: width,
-        height: height,
-        maximizable: false,
-        show: false,
-        useContentSize: true,
-        center: true,
-        backgroundColor: '#080808',
-        vibrancy: "dark",
-        transparent: false,
-        title: 'Scintilla Editor v' + version.toString(),
-        darkTheme: true,
-        webPreferences: {
-            //nodeIntegration: false,
-            backgroundThrottling: false,
-            textAreasAreResizable: false,
-            // preload: path.join(__dirname, 'preload.js'),
-            // contextIsolation: true,
-        },
-        resizable: false,
-        frame: false,
-        enableLargerThanScreen: false,
-        fullscreenable: false,
-    });
+  // create our main window
+  let window = new BrowserWindow({
+    minWidth: width,
+    minHeight: height,
+    width,
+    height,
+    maximizable: false,
+    show: false,
+    useContentSize: true,
+    center: true,
+    backgroundColor: '#080808',
+    vibrancy: 'dark',
+    transparent: false,
+    title: 'Purpurina Editor v' + version.toString(),
+    darkTheme: true,
+    webPreferences: {
+      // nodeIntegration: false,
+      backgroundThrottling: false,
+      textAreasAreResizable: false,
+      // preload: path.join(__dirname, 'preload.js'),
+      // contextIsolation: true,
+      // nodeIntegration: false,
+      // preload: preloadPath,
+    },
+    resizable: false,
+    frame: false,
+    enableLargerThanScreen: false,
+    fullscreenable: false,
+  });
 
-    window.webContents.on('will-navigate', ev => {
-        ev.preventDefault()
-    });
+  window.webContents.on('will-navigate', ev => {
+    ev.preventDefault();
+  });
 
-    window.on('close', () => window = null);
+  window.on('close', () => window = null);
 
-    // load entry html page in the renderer.
-    window.loadURL(laucherPath);
+  // load entry html page in the renderer.
+  window.loadURL(launcherPath);
 
-    return window;
+  return window;
 }
 
 export function createEditorWindow(): BrowserWindow {
 
-    const basePath = path.join('file://', __dirname)
-    const editorPath = path.join(basePath, 'editor/index.html');
+  const basePath = path.join('file://', __dirname);
+  const editorPath = path.join(basePath, 'editor/index.html');
 
-    let window = new BrowserWindow({
-        minWidth: MIN_WIDTH,
-        minHeight: MIN_HEIGHT,
-        
-        maximizable: true,
-        backgroundColor: '#080808',
-        show: false, 
-        center: true,
-        darkTheme: true,
-        title: 'Scintilla Editor',
-        enableLargerThanScreen: true,
-        webPreferences: {
-            textAreasAreResizable: false,
-            
-        }
-    });
-    
+  let window = new BrowserWindow({
+    minWidth: MIN_WIDTH,
+    minHeight: MIN_HEIGHT,
 
-    window.on('close', () => window = null);
+    maximizable: true,
+    backgroundColor: '#080808',
+    show: false,
+    center: true,
+    darkTheme: true,
+    title: 'Scintilla Editor',
+    enableLargerThanScreen: true,
+    webPreferences: {
+      textAreasAreResizable: false,
+    },
+  });
 
-    window.loadURL(editorPath);
+  window.on('close', () => window = null);
 
-    return window;
+  window.loadURL(editorPath);
+
+  return window;
 
 }

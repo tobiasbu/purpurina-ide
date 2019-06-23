@@ -1,6 +1,6 @@
-import EventEmitter from "../../../engine/events/emitter/EventEmitter";
-import PointerManager from "./pointer/PointerManager";
-import EditorSelectionManager from "./EditorSelectionManager";
+import EventEmitter from '../../../engine/events/emitter/EventEmitter';
+import PointerManager from './pointer/PointerManager';
+import EditorSelectionManager from './EditorSelectionManager';
 
 const Events = new EventEmitter();
 const Pointer = new PointerManager(Events);
@@ -11,5 +11,5 @@ Pointer.startListeners();
 export {
     Events,
     Pointer,
-    Selection
-}
+    Selection,
+};

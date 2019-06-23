@@ -1,19 +1,17 @@
 import * as os from 'os';
 // import * as path from 'path';
-import { UserInfo } from '../../shared/typings';
-
+// import { UserInfo } from '../../shared/types';
 
 export function initializeGlobal() {
 
-    const osUserInfo = os.userInfo();
+  const osUserInfo = os.userInfo();
 
-    const userInfo: UserInfo = {
-        homeDir: osUserInfo.homedir,
-        userName: osUserInfo.username
-    };
+  const userInfo: UserInfo = {
+    homeDir: osUserInfo.homedir,
+    userName: osUserInfo.username,
+  };
 
-    global.userInfo = Object.freeze(userInfo);
-
+  global.userInfo = Object.freeze(userInfo);
 }
 
 // function createEditorSettings(dirname: string): EditorSettings {
