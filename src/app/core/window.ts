@@ -18,14 +18,14 @@ export function createStartupWindow(): BrowserWindow {
   const height = 576;
   const basePath = path.join('file://', __dirname);
   const launcherPath = path.join(basePath, '../src/renderer/launcher/index.html');
-  const preloadPath = path.join(__dirname, '../src/app/preload.js');
+  // const preloadPath = path.join(__dirname, '../src/app/preload.js');
 
   // create our main window
   let window = new BrowserWindow({
-    minWidth: width,
-    minHeight: height,
     width,
     height,
+    minWidth: width,
+    minHeight: height,
     maximizable: false,
     show: false,
     useContentSize: true,
@@ -33,7 +33,7 @@ export function createStartupWindow(): BrowserWindow {
     backgroundColor: '#080808',
     vibrancy: 'dark',
     transparent: false,
-    title: 'Purpurina Editor v' + version.toString(),
+    title: `Purpurina Editor v${version.toString()}`,
     darkTheme: true,
     webPreferences: {
       // nodeIntegration: false,
@@ -66,11 +66,9 @@ export function createEditorWindow(): BrowserWindow {
 
   const basePath = path.join('file://', __dirname);
   const editorPath = path.join(basePath, 'editor/index.html');
-
   let window = new BrowserWindow({
     minWidth: MIN_WIDTH,
     minHeight: MIN_HEIGHT,
-
     maximizable: true,
     backgroundColor: '#080808',
     show: false,

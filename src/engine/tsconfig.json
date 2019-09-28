@@ -16,10 +16,10 @@
         // "experimentalDecorators": true,
         // "removeComments": false,
         //"suppressImplicitAnyIndexErrors": true,
-        "typeRoots": ["typings"]
+        "typeRoots": ["types"]
       },
       "include": [
-        "typings/**/*.ts",
+        "types/**/*.ts",
         "src/**/*.ts",
       ],
       "exclude": [

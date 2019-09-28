@@ -5,7 +5,7 @@ export default class FileWatcher {
 
   private watcher: chokidar.FSWatcher;
   private isWatching: boolean;
-  private isReady: boolean;
+  isReady: boolean;
 
   /**
    * Constructor
@@ -22,7 +22,7 @@ export default class FileWatcher {
    */
   start(location: string): Promise<{}> {
     if (this.isWatching) {
-      return;
+      return null;
     }
 
     const options: chokidar.WatchOptions = {

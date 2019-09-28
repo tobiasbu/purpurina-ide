@@ -1,12 +1,14 @@
 import { Widget } from '@phosphor/widgets';
 import { Message } from '@phosphor/messaging';
 import { WidgetResizeEvent } from '../../types/WidgetInterfaces';
-import hyper, { Component } from 'hyperhtml';
+import hyper from 'hyperhtml';
+import WidgetComponent from './WidgetComponent';
 
-export default class WidgetBase<T extends typeof Component> extends Widget {
+export default class WidgetBase<T extends WidgetComponent, U extends typeof WidgetComponent>
+  extends Widget {
 
-  private componentClass: T;
-  // private wrapperElement: HTMLElement;
+  private componentClass: U;
+  private componentElement: T;
   private contentWidth: number;
   private contentHeight: number;
 
@@ -16,14 +18,17 @@ export default class WidgetBase<T extends typeof Component> extends Widget {
   public get width(): number {
     return this.contentWidth;
   }
+  public get ref(): T {
+    return this.componentElement;
+  }
 
-  constructor(label: string, component: T) {
+  constructor(label: string, component: U) {
     super();
+
     // this.setFlag(Widget.Flag.DisallowLayout);
     this.title.label = label;
     this.title.closable = true;
     this.title.caption = label;
-    // this.title.iconLabel = 'test';
     this.componentClass = component;
 
     // this.wrapperElement = document.createElement('div');
@@ -31,10 +36,6 @@ export default class WidgetBase<T extends typeof Component> extends Widget {
     // this.node.appendChild(this.wrapperElement);
 
   }
-
-  // private appendChild(child: HTMLElement) {
-  //   this.wrapperElement.appendChild(child);
-  // }
 
   protected onAfterAttach(msg: Message): void {
     this.update();
@@ -49,19 +50,32 @@ export default class WidgetBase<T extends typeof Component> extends Widget {
     }
   }
 
-  protected onUpdateRequest(msg: Message): void {
-
-    // const host = this.node.firstChild as Element;
+  private createComponent(): void {
     const host = this.node;
-    let component: Component;
+    let component: WidgetComponent;
     if (this.componentClass) {
-      component = new this.componentClass();
+      component = new this.componentClass({
+        height: this.contentHeight,
+        width: this.contentWidth,
+        widget: this,
+      });
     }
+    this.componentElement = component as T;
     hyper(host)`
       <div class="p-Widget-wrapper">
         ${(component) ? component : null}
       </div>
     `;
+
+    if (this.onComponentMounted) {
+      this.onComponentMounted();
+    }
+  }
+
+  protected onComponentMounted?(): void;
+
+  protected onUpdateRequest(msg: Message): void {
+    this.createComponent();
 
     console.log('update');
 
@@ -99,6 +113,17 @@ export default class WidgetBase<T extends typeof Component> extends Widget {
 
   }
 
-  protected onResizeEvent?: (resizeEvent: WidgetResizeEvent) => void;
+  protected onResizeEvent(resizeEvent: WidgetResizeEvent): void {
+    if (this.componentElement) {
+      this.componentElement.setState({
+        width: resizeEvent.width,
+        height: resizeEvent.height,
+      });
+    }
+  }
+
+  public send() {
+
+  }
 
 }

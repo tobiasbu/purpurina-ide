@@ -2,6 +2,7 @@ import { hyper } from 'hyperhtml';
 import { DockPanel, Widget } from '@phosphor/widgets';
 import { MessageLoop } from '@phosphor/messaging';
 import WidgetBase from '../widgets/WidgetBase';
+import WidgetFactory from '../widgets/WidgetFactory';
 
 // import { createPortal } from "react-dom";
 // import './style/index.css';
@@ -57,6 +58,10 @@ export default class WorkspacePanel {
     this.attach();
 
     this.dock.id = 'main';
+    const consoleWidget = WidgetFactory.createConsole();
+    this.dock.addWidget(consoleWidget, {
+      mode: 'split-bottom',
+    });
     // const sceneView = WidgetFactory.createSceneView();
     // this.dock.addWidget(sceneView);
     // const inspector = WidgetFactory.createInspector();
@@ -157,30 +162,4 @@ export default class WorkspacePanel {
 
     }
   }
-
-  // componentDidMount() {
-  //     this.elem = document.getElementById('dock-panel');
-
-  //     DockPanel.attach(this.dock, this.elem);
-
-  //     this.resize();
-  //     this.dock.update();
-
-  //     window.onresize = (event) => {
-  //         this.resize();
-  //         this.dock.update();
-  //         //this.dock.fit();
-
-  //     };
-  // }
-
 }
-
-/*
-
-        <div id='dock-panel'>
-            { this.state.widgetInfos.map(widgetInfo => {
-                    return createPortal(widgetInfo.component, widgetInfo.node);
-                })}
-        </div>
-*/

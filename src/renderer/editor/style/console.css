@@ -1,0 +1,70 @@
+ul.console {
+  /* white-space: pre-wrap; */
+  font-size: 12px;
+  letter-spacing: normal;
+  word-spacing: normal;
+  text-transform: none;
+  text-indent: 0px;
+  text-shadow: none;
+  /* display: inline-block; */
+  /* text-align: center; */
+  align-items: flex-start;
+}
+
+.console li {
+  /* margin: 2px 0; */
+  /* padding: 5px; */
+  min-height: 20px;
+}
+
+/* .console .str {
+  margin-left: 20px;
+  line-height: 20px;
+} */
+
+.console-icon {
+  display: inline-block;
+}
+
+.icon {
+  font-size: 20px;
+  margin-right: 2px;
+  margin-left: 2px;
+  line-height: inherit;
+  color: gray;
+  position: relative;
+  display: inline-block;
+  vertical-align: sub;
+  word-wrap: normal;
+  user-select: none;
+  cursor: default;
+}
+
+.console-message {
+  display: inline-block;
+}
+
+.console li .str {
+  position: relative;
+  white-space: pre;
+  display: inline;
+  /* white-space: pre-wrap; */
+}
+
+.console > li {
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.console > li:nth-child(2n) {
+  background: rgba(255, 255, 255, 0.015);
+}
+
+.console > li {
+  /* margin-left: 2px*/
+  line-height: 1.5;
+  height: 30px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  /* border-bottom: 1px #262626 solid; */
+}
+

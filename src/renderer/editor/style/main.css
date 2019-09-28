@@ -4,4 +4,7 @@
 @import "input.css";
 @import 'components.css';
 
+@import 'box.css';
+@import 'console.css';
+
 @import "dockpanel/index.css";

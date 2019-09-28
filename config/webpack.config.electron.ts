@@ -8,7 +8,8 @@ import * as CopyWebpackPlugin from 'copy-webpack-plugin';
 
 export default (env: Environment) => {
 
-  const HTML_TEMPLATE_PATH = 'src/renderer/editor/index.html';
+  console.log("PROJECT_PATH: " + PROJECT_PATH)
+  const HTML_TEMPLATE_PATH = 'src/renderer/editor/static/index.html';
   const ENTRY_PATH = path.join(PROJECT_PATH, './src/app');
   const DEV_MODE = env.DEV || env.HOT;
   const DIST_PATH = path.join(PROJECT_PATH, '/dist/');
@@ -18,16 +19,17 @@ export default (env: Environment) => {
     mode: mode,
     devtool: 'source-map',
     target: 'electron-main',
-
     entry: {
       app: path.join(ENTRY_PATH + '/index.ts')
     },
-
     output: {
       path: DIST_PATH,
-      filename: '[name].js'
+      filename: '[name].js',
+      libraryTarget: 'commonjs',
     },
-
+    resolve: {
+      extensions: ['.js', '.ts', '.json'],
+    },
     module: {
       rules: [
         {
@@ -52,10 +54,13 @@ export default (env: Environment) => {
       __dirname: false,
       __filename: false
     },
-
-
-
-    plugins: []
+    plugins: [],
+    optimization: {
+      minimize: false,
+    },
+    performance: {
+      hints: 'warning'
+    }
   }
 
   config.plugins.push(
@@ -71,7 +76,7 @@ export default (env: Environment) => {
 
     config.plugins.push(
       new webpack.NoEmitOnErrorsPlugin(),
-      new webpack.HotModuleReplacementPlugin(),
+      // new webpack.HotModuleReplacementPlugin(),
       (DEV_MODE) ? new CopyWebpackPlugin(
         [
           { from: HTML_TEMPLATE_PATH, to: DIST_PATH + 'editor/index.html', toType: 'file' },
@@ -82,8 +87,8 @@ export default (env: Environment) => {
     );
   }
 
- 
 
-  return merge(baseConfig, config);
+
+  return config;
 
 }

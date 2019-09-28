@@ -160,11 +160,11 @@ export default class CreateProjectPage extends hyper.Component {
             <input id='project-author'
             accept-charset="UTF-8"
             type="text" value=${this.author} maxlength="255"  oninput=${this.onInput}/>
-    < /div>
-    < button
-style = "float:right;margin-top:52px;"
-onclick = ${ this.createProject}
-        > Create Project < /button>
+        </div>
+      <button
+        style = "float:right;margin-top:52px;"
+        onclick = ${ this.createProject}
+        > Create Project </button>
   `;
   }
 

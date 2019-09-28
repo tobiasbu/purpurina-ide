@@ -30,7 +30,6 @@ window.onload = () => {
   ipcRenderer.once('projects-loaded', (event: Electron.Event, projectsList: any) => {
     menu.init(projectsList);
   });
-
     // new Promise<IProjectInfo[]>((resolve) => {
 
     //     const projects: IProjectInfo[] = [];

@@ -5,7 +5,8 @@
     "moduleResolution": "node",
 
     "allowJs": true,
-    "noImplicitAny": true,
+    // "noImplicitAny": true,
+    "noEmitOnError": false,
     "noUnusedLocals": true,
     // "noUnusedParameters": true,
     "noImplicitReturns": true,

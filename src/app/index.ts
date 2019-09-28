@@ -1,8 +1,19 @@
-import Application from './core/Application';
 import { ipcMain, app } from 'electron';
+
+import Application from './core/Application';
 import EditorSettings from './core/EditorSettings';
 import { initializeGlobal } from './core/config';
 import { loadRecentProjects } from './project/projectValidation';
+
+if (process.env.NODE_ENV === 'development') {
+  console.log(__dirname);
+  const sourceMapSupport = require('source-map-support'); // eslint-disable-line
+  sourceMapSupport.install({
+    environment: 'node',
+  });
+}
+
+console.log('hi');
 
 initializeGlobal();
 
@@ -14,13 +25,20 @@ app.once('ready', () => {
 
   AppControl.initialize();
 
+  // function a() {
+  //   const e = new Error();
+  //   const trace = stackTrace.parse(e);
+  //   console.log(e);
+  // }
+
+  // a();
+
   const initPromise = AppControl.startLauncher();
   const loaderPromise = loadRecentProjects(settings.recentProjects);
 
   Promise.all([initPromise, loaderPromise]).then((result) => {
 
     const projects = result[1];
-    console.log(projects);
     ipcMain.on('launcher_loaded', (event: Electron.Event) => {
       event.sender.send('projects-loaded', projects);
     });
@@ -37,11 +55,6 @@ Promise.all([initPromise, loaderPromise]).then((result) => {
         event.sender.send('projects-loaded', projects);
     });
 });*/
-
-if (process.env.NODE_ENV === 'production') {
-  const sourceMapSupport = require('source-map-support'); // eslint-disable-line
-  sourceMapSupport.install();
-}
 
 if (process.env.NODE_ENV === 'development' ||
   process.env.DEBUG_PROD === 'true') {

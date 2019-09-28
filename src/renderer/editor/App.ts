@@ -26,7 +26,7 @@ export default class App extends hyper.Component {
   render() {
     return hyper.wire(this)`
     <div class='toolbar'/>
-    ${this.workspace.element}
+      ${this.workspace.element}
     <div class='statusbar'/>`;
 
   }

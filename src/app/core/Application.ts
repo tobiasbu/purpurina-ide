@@ -1,7 +1,6 @@
 
 import { app, BrowserWindow } from 'electron';
 import { createStartupWindow, createEditorWindow } from './window';
-import { createMainWindow } from '../window/createMainWindow';
 import events from '../events';
 import EditorSettings from './EditorSettings';
 
@@ -46,6 +45,8 @@ export default class Application {
   }
 
   initialize() {
+    console.log('Initializing Purpurina');
+
     app.on('window-all-closed', () => {
       const isLaunching = this.appState === AppState.Launcher ||
         this.appState === AppState.InitializeLauncher ||

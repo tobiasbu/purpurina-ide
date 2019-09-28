@@ -1,5 +1,5 @@
 import FileWatcher from './FileWatcher';
-import * as path from 'path';
+// import * as path from 'path';
 // import { lock, LockOptions} from 'proper-lockfile';
 // import { lock, Options } from 'lockfile';
 
@@ -24,7 +24,7 @@ import * as path from 'path';
 
 export default class ProjectManager {
 
-  private watcher: FileWatcher;
+  // private watcher: FileWatcher;
 
   public constructor() {
 
@@ -32,7 +32,7 @@ export default class ProjectManager {
 
   static openProject(projectPath: string, newProject: boolean = false) {
 
-    const pathToGlitter = path.join(projectPath, path.sep, 'glitter.json');
+    // const pathToGlitter = path.join(projectPath, path.sep, 'glitter.json');
 
     // const lockFileOptions: AdvancedLockOptions = {
     //     lockfilePath: path.join(projectPath, path.sep, "dir.lock"),

@@ -6,9 +6,6 @@
   --dark: #141414;
   --mid: #262626;
   --midLight: #202020;
-  font: 11px Segoe UI, Helvetica, Arial, sans-serif;
-  background: var(--bg);
-  color: var(--text);
 }
 
 body {
@@ -16,6 +13,10 @@ body {
   padding: 0;
   overflow: hidden;
   filter: blur(0);
+  font: 11px Segoe UI, Helvetica, Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 0;
   -webkit-filter: blur(0);
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
@@ -62,4 +63,17 @@ ul {
   list-style: none;
   margin: 0;
   padding: 0;
+  -webkit-margin-before: 0;
+  -webkit-margin-after: 0;
+  -webkit-padding-start: 0;
+  -webkit-margin-start: 0;
+  -webkit-margin-end: 0;
+}
+
+li {
+  height: auto;
+}
+
+i {
+  font-style: inherit;
 }
