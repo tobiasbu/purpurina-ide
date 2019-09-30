@@ -1,40 +1,66 @@
 import hyper from 'hyperhtml';
-import WidgetComponent, { ComponentProps } from '../../widgets/WidgetComponent';
-import { ConsoleMessagePayload } from '../../../log/types';
-import LoggerMiddleware from '../../../log/LoggerMiddleware';
+import WidgetComponent, { ComponentState } from '../../widgets/WidgetComponent';
+import { ConsoleMessagePayload, MessageLogType } from '../../../log/types';
+// import LoggerMiddleware from '../../../log/LoggerMiddleware';
 import { parseMessage } from './parseMessage';
 
-export default class ConsoleComponent extends WidgetComponent {
+interface ConsoleState extends ComponentState {
+  selected: number;
+  selectedMsg: ConsoleMessagePayload;
+}
 
+export default class ConsoleComponent extends WidgetComponent<ConsoleState> {
+
+  private logElements: HTMLElement[];
   private logList: ConsoleMessagePayload[];
 
-  constructor(props: ComponentProps) {
+  constructor(props: any) {
     super(props);
     this.logList = [];
+    this.logElements = [];
   }
 
   public onLog(payload: ConsoleMessagePayload) {
     this.logList.push(payload);
-    this.render();
+    if (!payload.parent && payload.type !== MessageLogType.GroupEnd) {
+      const el = hyper.wire()`
+        <div class="console-icon">
+            <i class="icon">&#x24D8;</i>
+        </div>
+        <div class="console-message">
+          <span class="str">${parseMessage(payload)}</span>
+        </div>
+      `;
+
+      this.logElements.push(el);
+      this.render();
+    }
   }
 
-  private onClear = () => {
-    this.logList.length = 0;
-    console.clear();
-    this.render();
+  // private onClear = () => {
+  //   this.logList.length = 0;
+  //   this.logElements.length = 0;
+  //   console.clear();
+  //   // this.render();
+  //   this.setState({
+  //     selected: -1,
+  //   });
+  // }
+
+  private onSelectLog = (index:number, e: MouseEvent) => {
+    if (this.state.selected === index) {
+      return;
+    }
+    e.stopPropagation();
+    this.setState({
+      selected: index,
+    });
   }
 
-  private onSelectLog = (e: MouseEvent) => {
-    LoggerMiddleware.original.log(e);
-    // (e.target as HTMLElement).style.background = '#fff';
-  }
-
-  private renderLogItem(msgPayload: ConsoleMessagePayload, index: number) {
+  private renderLogItem(msgPayload: any, index: number) {
 
     // const logType = (msgPayload.type === MessageLogType.Info) ?
     //   'LOG' : (msgPayload.type === MessageLogType.Warn) ? 'WARN' : 'ERROR';
-
-    LoggerMiddleware.original.log(msgPayload);
 
     // const output = msgPayload.message;
     // const type = typeof (output);
@@ -42,39 +68,41 @@ export default class ConsoleComponent extends WidgetComponent {
     //   // output = (output as string).replace(/(?:\r\n|\r|\n)/g, '<br>');
     // }
 
-    return hyper.wire(this, `:console-item-${index}`)`
-            <li onclick=${this.onSelectLog}>
-              <!-- <div> -->
-                <div class="console-icon">
-                  <i class="icon">&#x24D8;</i>
-                </div>
-              <div class="console-message">
-                <span class="str">${parseMessage(msgPayload)} | ${msgPayload.st}</span>
-              </div>
-              <!-- </div> -->
+    const id = `:csl-${index}`;
+    const isSelected =  index === this.state.selected;
+    return hyper.wire(this, id)`
+            <li onmousedown=${(e: MouseEvent) => this.onSelectLog(index, e)} data-cls=${index} class="${(isSelected ? 'selected' : '')}">
+              ${msgPayload}
             </li>
         `;
   }
 
   public render() {
-    const { height } = this.state;
-    const o = {
-      height: `${height - 28 - 28 - 4}px`,
-      marginBottom: '4px',
-    };
+    // const { height } = this.state;
+    // const o = {
+    //   height: `${height - 28 - 28 - 4}px`,
+    //   marginBottom: '4px',
+    // };
+  //   <!-- <div style="height: 28px">
+  //   <button onclick=${this.onClear}>Clear</button>
+  // </div> -->
 
-    return hyper.wire(this, ':console')`
-      <div style="height: 28px">
-        <button onclick=${this.onClear}>Clear</button>
-      </div>
-      <div class="box" style=${o}>
-        <ul class="console">
-        ${this.logList.map((message, index) => this.renderLogItem(message, index))}
-        </ul>
-      </div>
-      <div class="box" style="height: 28px; line-height: 1;">
-        Output
-      </div>
+    return this.html`
+
+        <div class="console-wrapper">
+          <div class="box" style=${{ height: '75%', width: '100%' }}>
+            <!-- <div class="box-padding"> -->
+              <ul class="console">
+              ${this.logElements.map((message, index) => this.renderLogItem(message, index)) }
+              </ul>
+            <!-- </div> -->
+          </div>
+          <div class="box-handle" style=${{ height: '2px' }} />
+          <div class="box" style="height: 25%; padding: 4px">
+            Output
+          </div>
+        </div>
+
     `;
   }
 

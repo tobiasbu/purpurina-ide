@@ -1,0 +1,98 @@
+:root {
+  /* COLORS */
+  --p-bg: #080808;
+  --p-text: #f0f0f0;
+  --p-text-selection: #004580;
+  --p-selection: #0e3a60;
+  --p-outFocus: #004580;
+  --labelFocus: #107bd7;
+  --dark: #141414;
+  --mid: #262626;
+  --midLight: #202020;
+  /* SPACING */
+  --p-spacing-xs: 2px;
+  --p-spacing-s: 4px;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  filter: blur(0);
+  font: 12px Segoe UI, Helvetica, Arial, sans-serif;
+  background: var(--p-bg);
+  color: var(--p-text);
+  line-height: 1;
+  -webkit-filter: blur(0);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+::selection, ::-webkit-selection  {
+  background: var(--p-text-selection);
+  color: var(--p-text);
+  opacity: 1;
+  filter: none;
+}
+
+.selected ::selection, .selected::-webkit-selection  {
+  background: var(--p-text);
+  color: var(--p-selection);
+  opacity: 1;
+}
+
+
+/*** Mozilla based browsers ***/
+::-moz-selection {
+  background: var(--p-text-selection);
+  color: var(--p-text);
+}
+
+/***For Other Browsers ***/
+::-o-selection {
+  background: var(--p-text-selection);
+  color: var(--p-text);
+}
+
+::-ms-selection {
+  background: var(--p-text-selection);
+  color: var(--p-text);
+}
+
+
+
+body.pointerEditing input,
+body.pointerEditing label {
+  cursor: inherit;
+}
+
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  -webkit-margin-before: 0;
+  -webkit-margin-after: 0;
+  -webkit-padding-start: 0;
+  -webkit-margin-start: 0;
+  -webkit-margin-end: 0;
+}
+
+li {
+  height: auto;
+}
+
+i {
+  font-style: inherit;
+}
+
+.box {
+  background: var(--dark);
+  border: var(--dark) 1px solid;
+  width: 100%;
+  position: relative;
+  overflow-y: auto;
+}

@@ -3,6 +3,8 @@ export enum MessageLogType {
   Info = 1,
   Warn,
   Error,
+  Group,
+  GroupEnd,
 }
 
 export type ConsoleMessagePayload = {
@@ -10,11 +12,12 @@ export type ConsoleMessagePayload = {
   message: any;
   args?: any[];
   st?: any;
+  parent?: ConsoleMessagePayload;
 };
 
 export interface IConsoleWidget {
   onLog(payload: ConsoleMessagePayload): void;
 }
 
-export type ConsoleMethodNames = 'log' | 'warn' | 'error' | 'info' | 'debug';
+export type ConsoleMethodNames = 'log' | 'warn' | 'error' | 'info' | 'debug' | 'group' | 'groupEnd';
 export type ConsoleFunction =  (message?: any, ...args: any[]) => void;

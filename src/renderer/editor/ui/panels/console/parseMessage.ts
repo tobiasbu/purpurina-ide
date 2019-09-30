@@ -1,6 +1,6 @@
 import { ConsoleMessagePayload } from '../../../log/types';
 import hyper from 'hyperhtml';
-import LoggerMiddleware from '../../../log/LoggerMiddleware';
+// import LoggerMiddleware from '../../../log/LoggerMiddleware';
 
 function spanMessage(message: string, index: number, args: any[]) {
 
@@ -21,7 +21,7 @@ export function parseMessage(payload: ConsoleMessagePayload) {
 
       if (split.length > 0) {
 
-        LoggerMiddleware.original.log(split);
+        // LoggerMiddleware.original.log(split);
 
         return hyper()`${split.map((value, index) => spanMessage(value, index, payload.args))}`;
 

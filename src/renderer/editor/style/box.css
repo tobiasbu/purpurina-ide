@@ -1,8 +1,1 @@
 
-.box {
-  background: var(--dark);
-  border: black 1px solid;
-  width: calc(100% - 2px);
-  position: relative;
-  overflow-y: auto;
-}

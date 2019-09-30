@@ -12,22 +12,47 @@ export interface ComponentProps {
   height?: number;
 }
 
-export default class WidgetComponent extends hyper.Component<ComponentState> {
+export interface ComponentConstructor<T> {
+  new(...args:any[]): T;
+}
 
-  protected props: ComponentProps;
-
-  state = {
-    width: 0,
-    height: 0,
-  };
-
-  constructor(props: ComponentProps) {
+export class ComponentBase<P extends ComponentProps, S extends ComponentState>
+ extends hyper.Component<S> {
+  protected readonly props: Readonly<P>;
+  // state = {
+  //   width: 0,
+  // };
+  constructor(props: P) {
     super();
     this.props = props;
-    this.state = {
-      width: (props) ? (props.width || 1) : 1,
-      height: (props) ? (props.height || 1) : 1,
+    this.state = <S>{
+      width: (props) ? (props.width || 0) : 0,
+      height: (props) ? (props.height || 0) : 0,
     };
   }
+}
+
+// type ClassType<P extends ComponentProps,
+//  T extends ComponentBase<P, ComponentState>, C extends ComponentBase<P>> =
+//         C &
+//         (new (props: P, context?: any) => T);
+
+// export class WidgetComponent<S extends ComponentState>
+// extends ComponentBase<ComponentProps, S> {
+//   constructor(props: P) {
+//     super();
+//     this.props = props;
+//   }
+// }
+
+// export default class WidgetComponent <S = ComponentState>
+// extends ComponentBase<ComponentProps, S> {
+
+// }
+
+// export interface WidgetComponent<P extends ComponentProps, S extends ComponentState>
+//  extends ComponentBase<P, S> { }
+export default class WidgetComponent<S extends ComponentState = ComponentState>
+extends ComponentBase<ComponentProps, S>  {
 
 }

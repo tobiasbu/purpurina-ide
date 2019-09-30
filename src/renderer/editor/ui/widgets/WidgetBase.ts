@@ -2,12 +2,13 @@ import { Widget } from '@phosphor/widgets';
 import { Message } from '@phosphor/messaging';
 import { WidgetResizeEvent } from '../../types/WidgetInterfaces';
 import hyper from 'hyperhtml';
-import WidgetComponent from './WidgetComponent';
+import WidgetComponent, { ComponentConstructor } from './WidgetComponent';
 
-export default class WidgetBase<T extends WidgetComponent, U extends typeof WidgetComponent>
+// U extends typeof WidgetComponent
+export default class WidgetBase<T extends WidgetComponent>
   extends Widget {
 
-  private componentClass: U;
+  private componentClass: ComponentConstructor<WidgetComponent>;
   private componentElement: T;
   private contentWidth: number;
   private contentHeight: number;
@@ -22,7 +23,7 @@ export default class WidgetBase<T extends WidgetComponent, U extends typeof Widg
     return this.componentElement;
   }
 
-  constructor(label: string, component: U) {
+  constructor(label: string, component: ComponentConstructor<WidgetComponent>) {
     super();
 
     // this.setFlag(Widget.Flag.DisallowLayout);

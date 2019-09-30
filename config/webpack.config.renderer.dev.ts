@@ -51,7 +51,7 @@ const config: webpack.Configuration = {
         test: /\.ts?$/,
         loader: "ts-loader",
         options: {
-          configFileName: path.join(ENTRY_PATH, 'tsconfig.json'),
+          configFile: path.join(ENTRY_PATH, 'tsconfig.json'),
         },
         exclude: /node_modules/,
       },

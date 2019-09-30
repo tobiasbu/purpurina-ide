@@ -4,7 +4,7 @@ import { IConsoleWidget, ConsoleMessagePayload } from '../../../log/types';
 import LoggerMiddleware from '../../../log/LoggerMiddleware';
 
 export default class ConsoleWidget
-  extends WidgetBase<ConsoleComponent, typeof ConsoleComponent> implements IConsoleWidget {
+  extends WidgetBase<ConsoleComponent> implements IConsoleWidget {
 
   constructor() {
     super('Console', ConsoleComponent);

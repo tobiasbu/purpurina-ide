@@ -1,5 +1,7 @@
 
-@import "commons.css";
+@import "suitcss-base";
+
+@import "root.css";
 @import "splash.css";
 @import "input.css";
 @import 'components.css';

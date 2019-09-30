@@ -1,6 +1,8 @@
-import { ConsoleMethodNames, MessageLogType } from './types';
+import { ConsoleMethodNames, MessageLogType, ConsoleMessagePayload } from './types';
 import HijackLoggerMiddleware from './HijackLoggerMiddleware';
 import { backtrace } from './stacktrace/backtrace';
+
+let lastGroup = null;
 
 export default function takeOverConsole(middleware: HijackLoggerMiddleware) {
   const console = window.console;
@@ -14,13 +16,23 @@ export default function takeOverConsole(middleware: HijackLoggerMiddleware) {
       const st = backtrace();
       // original(st);
 
-      // middleware[method](message, args);
-      middleware.onLog({
+      const msg: ConsoleMessagePayload = {
         type,
         message,
         args,
         st,
-      });
+      };
+
+      if (method === 'group') {
+        lastGroup = msg;
+      } else if (method === 'groupEnd') {
+        lastGroup = null;
+      } else if (lastGroup !== null) {
+        msg.parent = lastGroup;
+      }
+
+      // middleware[method](message, args);
+      middleware.onLog(msg);
       // do sneaky stuff
       if (original.apply) {
         // Do this for normal browsers
@@ -36,7 +48,7 @@ export default function takeOverConsole(middleware: HijackLoggerMiddleware) {
     console[method] = composeConsoleFunc.bind(window, messageType);
 
   }
-  const methods: ConsoleMethodNames[] = ['log', 'debug', 'info', 'warn', 'error'];
+  const methods: ConsoleMethodNames[] = ['log', 'debug', 'info', 'warn', 'error', 'group', 'groupEnd'];
   let type: MessageLogType;
   for (let i = 0; i < methods.length; i += 1) {
     const method = methods[i];
@@ -46,6 +58,10 @@ export default function takeOverConsole(middleware: HijackLoggerMiddleware) {
       type = MessageLogType.Warn;
     } else if (method === 'error') {
       type = MessageLogType.Error;
+    } else if (method === 'group') {
+      type = MessageLogType.Group;
+    } else if (method === 'groupEnd') {
+      type = MessageLogType.GroupEnd;
     }
 
     // console.log; console.info; console.debug
@@ -55,4 +71,3 @@ export default function takeOverConsole(middleware: HijackLoggerMiddleware) {
     intercept(methods[i], type);
   }
 }
-

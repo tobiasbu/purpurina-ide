@@ -2,8 +2,8 @@ import { BrowserWindow } from 'electron';
 import version from '../version';
 import * as path from 'path';
 
-const MIN_HEIGHT = 576;
-const MIN_WIDTH = 450;
+const MIN_WIDTH = 640;
+const MIN_HEIGHT = 480;
 
 /**
  * Creates the main window.
@@ -36,7 +36,7 @@ export function createStartupWindow(): BrowserWindow {
     title: `Purpurina Editor v${version.toString()}`,
     darkTheme: true,
     webPreferences: {
-      // nodeIntegration: false,
+      nodeIntegration: (process.env.NODE_ENV === 'development'),
       backgroundThrottling: false,
       textAreasAreResizable: false,
       // preload: path.join(__dirname, 'preload.js'),
@@ -66,9 +66,12 @@ export function createEditorWindow(): BrowserWindow {
 
   const basePath = path.join('file://', __dirname);
   const editorPath = path.join(basePath, 'editor/index.html');
+
   let window = new BrowserWindow({
     minWidth: MIN_WIDTH,
     minHeight: MIN_HEIGHT,
+    width: MIN_WIDTH,
+    height: MIN_HEIGHT,
     maximizable: true,
     backgroundColor: '#080808',
     show: false,
@@ -76,14 +79,19 @@ export function createEditorWindow(): BrowserWindow {
     darkTheme: true,
     title: 'Scintilla Editor',
     enableLargerThanScreen: true,
+    resizable: true,
     webPreferences: {
-      textAreasAreResizable: false,
+      // textAreasAreResizable: false,
+
+      nodeIntegration: (process.env.NODE_ENV === 'development'),
     },
   });
 
   window.on('close', () => window = null);
+  window.setMenu(null);
 
   window.loadURL(editorPath);
+  // window.maximize();
 
   return window;
 

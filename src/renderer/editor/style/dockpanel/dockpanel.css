@@ -47,6 +47,10 @@ body:not(.pointerEditing) .p-DockPanel-handle[data-orientation='horizontal'] {
     transform: translateY(-50%);
 }
 
+.p-DockPanel-handle.p-mod-hidden  {
+  cursor: inherit;
+}
+
 .p-DockPanel-overlay {
     z-index: 3;
     box-sizing: border-box;

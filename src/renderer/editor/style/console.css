@@ -1,3 +1,10 @@
+.console-wrapper {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
 ul.console {
   /* white-space: pre-wrap; */
   font-size: 12px;
@@ -12,59 +19,58 @@ ul.console {
 }
 
 .console li {
-  /* margin: 2px 0; */
-  /* padding: 5px; */
-  min-height: 20px;
+  padding: var(--p-spacing-xs);
+  /* height: 20px; */
+  overflow: hidden;
+  position: relative;
+  line-height: 1;
 }
 
-/* .console .str {
-  margin-left: 20px;
-  line-height: 20px;
-} */
-
 .console-icon {
-  display: inline-block;
+  float: left;
+  margin-right: 4px;
+  position: relative;
+  width: 20px;
+  height: 100%;
+  user-select: none;
+  text-align: center;
 }
 
 .icon {
   font-size: 20px;
-  margin-right: 2px;
-  margin-left: 2px;
   line-height: inherit;
   color: gray;
   position: relative;
   display: inline-block;
   vertical-align: sub;
-  word-wrap: normal;
   user-select: none;
   cursor: default;
+  vertical-align: middle;
 }
 
 .console-message {
-  display: inline-block;
+  display: block;
+  overflow: hidden;
+  line-height: 20px;
+  position: relative;
 }
 
 .console li .str {
   position: relative;
-  white-space: pre;
-  display: inline;
-  /* white-space: pre-wrap; */
-}
-
-.console > li {
-  background: rgba(255, 255, 255, 0.04);
-}
-
-.console > li:nth-child(2n) {
-  background: rgba(255, 255, 255, 0.015);
-}
-
-.console > li {
-  /* margin-left: 2px*/
-  line-height: 1.5;
-  height: 30px;
-  overflow: hidden;
+  white-space: nowrap;
+  display: block;
   text-overflow: ellipsis;
-  /* border-bottom: 1px #262626 solid; */
+  overflow: hidden;
 }
 
+.console>li {
+  background-color: rgba(255, 255, 255, 0.04);
+}
+
+.console>li:nth-child(2n) {
+  background-color: rgba(255, 255, 255, 0.015);
+}
+
+.console li.selected {
+  background-color: var(--p-selection);
+}

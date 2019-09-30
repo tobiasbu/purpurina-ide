@@ -25,7 +25,17 @@ The current goal:
   - Using _Express_ to make a local server;
 - Build!;
 
+## Installing Dependencies
+
+Just run in your favorite command prompt the following line:
+
+```bash
+npm install
+```
+
 ## Development
+
+More details in future...
 
 - `npm run dev` to run Electron and dev server
 - `npm run start-browser` to run in Browser

@@ -13,8 +13,6 @@ if (process.env.NODE_ENV === 'development') {
   });
 }
 
-console.log('hi');
-
 initializeGlobal();
 
 const settings = EditorSettings.load();
@@ -39,7 +37,7 @@ app.once('ready', () => {
   Promise.all([initPromise, loaderPromise]).then((result) => {
 
     const projects = result[1];
-    ipcMain.on('launcher_loaded', (event: Electron.Event) => {
+    ipcMain.on('launcher_loaded', (event: Electron.IpcMainEvent) => {
       event.sender.send('projects-loaded', projects);
     });
   });

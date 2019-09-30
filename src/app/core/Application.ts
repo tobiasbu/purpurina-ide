@@ -13,6 +13,7 @@ enum AppState {
 }
 
 const DEV_MODE = process.env.NODE_ENV === 'development';
+const APP_NAME = 'Purpurina';
 
 export default class Application {
 
@@ -45,7 +46,7 @@ export default class Application {
   }
 
   initialize() {
-    console.log('Initializing Purpurina');
+    console.log(`Initializing ${APP_NAME}`);
 
     app.on('window-all-closed', () => {
       const isLaunching = this.appState === AppState.Launcher ||
@@ -72,7 +73,7 @@ export default class Application {
 
       events(this);
 
-      console.log('Starting Glitter Launcher');
+      console.log(`Starting ${APP_NAME} Launcher`);
       this.appState = AppState.InitializeLauncher;
 
     });
