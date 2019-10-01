@@ -90,6 +90,11 @@ export default class ConsoleComponent extends WidgetComponent<ConsoleState> {
     return this.html`
 
         <div class="console-wrapper">
+
+          <div class="console-bar">
+            <button>Clear</button>
+          </div>
+          <div class="box-handle" style=${{ height: '2px' }} />
           <div class="box" style=${{ height: '75%', width: '100%' }}>
             <!-- <div class="box-padding"> -->
               <ul class="console">

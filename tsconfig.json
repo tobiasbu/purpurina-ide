@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "moduleResolution": "node",
+    // "allowJs": true,
+    "noImplicitAny": false,
+    "removeComments": true,
+    "strictNullChecks": false,
+    "allowSyntheticDefaultImports": true
+  },
+  "typeRoots": [
+    "node_modules/@types"
+  ],
+  "include": [
+    "src"
+  ],
+  "exclude": [
+    ".vscode",
+    "node_modules"
+  ]
+}

@@ -1,5 +1,7 @@
 import hyper from 'hyperhtml';
+
 import { getUserInfo } from '../../../shared';
+
 import Dialogs from '../../../shared/Dialogs';
 import pathValidation from '../../../shared/utils/pathValidation';
 import { ipcRenderer } from 'electron';

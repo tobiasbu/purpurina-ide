@@ -3,6 +3,7 @@ import HijackLoggerMiddleware from './HijackLoggerMiddleware';
 import { backtrace } from './stacktrace/backtrace';
 
 let lastGroup = null;
+let counter = -1;
 
 export default function takeOverConsole(middleware: HijackLoggerMiddleware) {
   const console = window.console;
@@ -21,6 +22,7 @@ export default function takeOverConsole(middleware: HijackLoggerMiddleware) {
         message,
         args,
         st,
+        index: counter += 1,
       };
 
       if (method === 'group') {

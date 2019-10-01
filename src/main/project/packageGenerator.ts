@@ -1,6 +1,6 @@
 import * as fs from 'fs';
 import * as path from 'path';
-import version from '../version';
+import version from '../core/version';
 
 const PACKAGE_NAME_VALIDATION = /^(?:@[a-z0-9-~][a-z0-9-._~]*\/)?[a-z0-9-~][a-z0-9-._~]*$/;
 
@@ -14,13 +14,14 @@ interface PackageJSON {
 }
 
 /**
- * Generate the package json of a project
+ * Generate the `package.json` of a project.
+ *
  * @param dir The location
  * @param createProject The project information
+ * @see https://docs.npmjs.com/files/package.json
  */
 export function generatePackageJSON(dir: string, createProject: ICreateProject): void {
 
-  // See: https://docs.npmjs.com/files/package.json
   let name = createProject.projectName;
 
   name = name.toLowerCase();
@@ -43,7 +44,7 @@ export function generatePackageJSON(dir: string, createProject: ICreateProject):
     version: '1.0.0',
     license: 'ISC',
     description: (createProject.author) ?
-     `New Glitter project by ${createProject.author}`
+     `New Purpurina project by ${createProject.author}`
      :
      'New Glitter project',
     keywords: ['glitter', 'project', 'game'],
@@ -52,7 +53,8 @@ export function generatePackageJSON(dir: string, createProject: ICreateProject):
 }
 
 /**
- * Generates the Glitter project package
+ * Generates the Purpurina project package `purpurina.json`.
+ *
  * @param dir Location
  * @param createProject Project information
  */
@@ -66,6 +68,6 @@ export function generateProjectPackage(dir: string,
     thumbnail: '#fff',
   };
 
-  fs.writeFileSync(path.join(dir, 'glitter.json'), JSON.stringify(json, null, '\t'));
+  fs.writeFileSync(path.join(dir, 'purpurina.json'), JSON.stringify(json, null, '\t'));
   return json;
 }

@@ -1,5 +1,5 @@
 import { BrowserWindow } from 'electron';
-import version from '../version';
+import version from './version';
 import * as path from 'path';
 
 const MIN_WIDTH = 640;

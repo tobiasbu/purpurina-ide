@@ -2,6 +2,22 @@ import { ConsoleMessagePayload } from '../../../log/types';
 import hyper from 'hyperhtml';
 import { parseMessage } from './parseMessage';
 
+// function ConsoleMessage(message: ConsoleMessagePayload) {
+//   const payload = message;
+//   const el = hyper.wire(this, ':csl-#{message.id}')`
+//         <div class="console-icon">
+//             <i class="icon">&#x24D8;</i>
+//         </div>
+//         <div class="console-message">
+//           <span class="str">${parseMessage(payload)}</span>
+//         </div>
+//       `;
+
+//   this.render = function () {
+//     return el;
+//   };
+// }
+
 export default class ConsoleMessageComponent extends hyper.Component {
 
   private payload: ConsoleMessagePayload;

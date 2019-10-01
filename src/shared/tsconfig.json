@@ -5,29 +5,27 @@
     "baseUrl": ".",
     "target": "es5",
     "moduleResolution": "node",
-    "lib": ["es6", "dom", "scripthost", "dom.iterable"],
+    "lib": [
+      "es6",
+      "dom",
+      "scripthost",
+      "dom.iterable"
+    ],
     "outDir": "dist",
     "sourceMap": true,
     "paths": {
       "*": [
-        "./types",
+        "./types"
       ]
     },
-    //"noImplicitAny": true,
-    // "noImplicitReturns": true,
-    // "noImplicitThis": true,
-    // "noUnusedLocals": true,
-    // "strictNullChecks": false,
-    
-    // "emitDecoratorMetadata": true,
-    // "experimentalDecorators": true,
-    // "removeComments": false,
-    //"suppressImplicitAnyIndexErrors": true,
-    "typeRoots": ["node_modules/@types"],
+    "typeRoots": [
+      "node_modules/@types"
+    ]
   },
   "include": [
     "node_modules/@types/**/*.d.ts",
-    "./**/*.ts"
+    "./**/*.d.ts",
+    "types/index.d.ts"
   ],
   "exclude": [
     "dist"

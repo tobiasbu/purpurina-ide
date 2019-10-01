@@ -2,40 +2,63 @@
 
 import * as webpack from 'webpack';
 import * as path from 'path';
-// const {
-//     dependencies: externals
-// } = require('./package.json');
+import { BuildEnvironment } from './types';
 
 export const PROJECT_PATH = path.resolve(__dirname, '../');
 
-export interface Environment {
-    DEV?: any,
-    HOT?: any
-}
+export default (type: string, entryPath: string, env: BuildEnvironment) => {
 
+  const PROJECT_PATH = path.resolve(__dirname, '../');
+  env.isProduction = env.MODE === "production";
+  const mode = env.isProduction ? "production" : "development";
 
-const baseConfig: webpack.Configuration = {
-
+  const baseConfig: webpack.Configuration = {
+    mode,
+    devtool: env.isProduction ? 'source-map' : 'eval',
     context: PROJECT_PATH,
     output: {
-        path: path.join(__dirname, '/build/'),
-        //publicPath: 'build/',
-        // filename: '[name].js',
-        // sourceMapFilename: '[name].js.map',
-        libraryTarget: 'commonjs',
+      path: path.join(PROJECT_PATH, `./dist/${type}`),
+      libraryTarget: 'commonjs2',
+      filename: "[name].bundle.js",
+      chunkFilename: "[name].chunk.js",
     },
-
     resolve: {
-        extensions: ['.js', '.ts', '.json'],
+      extensions: ['.ts', '.js', '.json'],
     },
-
-
+    module: {
+      rules: [
+        {
+          test: /\.ts$/,
+          enforce: "pre",
+          loader: 'tslint-loader',
+          exclude: /node_modules/,
+          options: {
+            configFile: path.join(PROJECT_PATH, './tslint.json'),
+            tsConfigFile: path.join(entryPath, './tsconfig.json'),
+            fix: true,
+          }
+        },
+        {
+          test: /\.ts$/,
+          loader: 'ts-loader',
+          exclude: /node_modules/
+        }]
+    },
+    optimization: {
+      minimize: false,
+      minimizer: [],
+    },
     plugins: [],
+    externals: {},
+    node: {
+      __dirname: true,
+      __filename: true,
+    }
+  };
 
-    externals: {}
-};
+  return baseConfig;
 
-export default baseConfig;
+}
 
 // const common_config = {
 //   node: {

@@ -3,8 +3,16 @@ import * as fse from 'fs-extra';
 import pathValidation from '../../shared/utils/pathValidation';
 import FileSystem from '../utils/FileSystem';
 import { generatePackageJSON, generateProjectPackage } from './packageGenerator';
-// import { ICreateProject, IProjectInfo, IProjectPackage } from '../../shared/types';
 
+/**
+ * Validate project creation data.
+ * This function checks if the following attributes are correct:
+ * - project folder name;
+ * - project path;
+ *
+ * @param newProject Project creation data.
+ * @throws When there is a error in validation.
+ */
 function validateNewProject(newProject: ICreateProject): void {
 
   let error = pathValidation.folderName(newProject.projectName);
@@ -23,6 +31,11 @@ function validateNewProject(newProject: ICreateProject): void {
 
 }
 
+/**
+ * Creates and validates new Purpurina project directory.
+ *
+ * @param createProjectInfo Project creation data.
+ */
 export default function createNewProject(createProjectInfo: ICreateProject): IProjectInfo {
 
   validateNewProject(createProjectInfo);

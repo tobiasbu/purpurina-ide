@@ -44,7 +44,9 @@ export default class ProjectContainer extends hyper.Component {
       version = projectPackage.version || '?';
       author = projectPackage.author || '';
     } else {
-      name = 'Unnamed project';
+      name = 'Invalid project';
+      console.log(this.project.error);
+      author = this.project.error;
     }
     // const style = `background-color:${this.project.thumbnail}`;
     let className = 'project-container';

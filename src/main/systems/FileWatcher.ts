@@ -1,11 +1,15 @@
 
 import * as chokidar from 'chokidar';
+import Logger from '../logger';
 
+/**
+ * File Watcher system.
+ */
 export default class FileWatcher {
 
   private watcher: chokidar.FSWatcher;
   private isWatching: boolean;
-  isReady: boolean;
+  public isReady: boolean;
 
   /**
    * Constructor
@@ -29,33 +33,33 @@ export default class FileWatcher {
       persistent: true,
       awaitWriteFinish: true,
       cwd: location,
-      ignoreInitial: true,
+      ignoreInitial: false,
     };
 
     this.watcher = chokidar.watch('.', options);
 
-    const log = console.log.bind(console);
+    // const log = console.log.bind(console);
 
     const promise = new Promise((resolve) => {
       this.watcher.once('ready', () => {
-        log('Initial scan complete. Ready for changes');
+        Logger.log('Initial scan complete. Ready for changes');
         this.isReady = true;
         resolve();
       });
     });
 
     this.watcher
-      .on('add', path => log(`File ${path} has been added`))
-      .on('change', path => log(`File ${path} has been changed`))
-      .on('unlink', path => log(`File ${path} has been removed`));
+      .on('add', path => Logger.log(`File ${path} has been added`))
+      .on('change', path => Logger.log(`File ${path} has been changed`))
+      .on('unlink', path => Logger.log(`File ${path} has been removed`));
 
     // More possible events.
     this.watcher
-      .on('addDir', path => log(`Directory ${path} has been added`))
-      .on('unlinkDir', path => log(`Directory ${path} has been removed`))
-      .on('error', error => log(`Watcher error: ${error}`))
+      .on('addDir', path => Logger.log(`Directory ${path} has been added`))
+      .on('unlinkDir', path => Logger.log(`Directory ${path} has been removed`))
+      .on('error', error => Logger.error(`Watcher error: ${error}`))
       .on('raw', (event, path, details) => {
-        log('Raw event info:', event, path, details);
+        Logger.log('Raw event info:', event, path, details);
       });
 
     this.isWatching = true;

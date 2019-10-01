@@ -1,7 +1,15 @@
 {
-  "extends": "../tsconfig.base.json",
-  "compileOnSave": true,
+  "extends": "../../tsconfig.json",
   "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "*": [
+        "../shared/types/*"
+      ]
+    },
+    "target": "es5",
+    "module": "commonjs",
+    "moduleResolution": "node",
     "lib": [
       "es5",
       "dom"
@@ -12,14 +20,24 @@
     "outDir": "dist",
     "typeRoots": [
       "node_modules/@types",
-    ],
+      "../shared/types"
+    ]
   },
-  "include": [
-    "../shared/types/**/*.d.ts",
-    // "./**/*.ts"
-  ],
   "exclude": [
-    "node_modules",
-    "../app"
+    "../src/main",
+    "../src/engine",
+    "**/*.tsx"
+  ],
+  "references": [
+    {
+      "path": "../shared/types/*.d.ts"
+    }
+  ],
+  "include": [
+    "node_modules/@types/**/*.d.ts",
+    "../shared/types/**/*.d.ts",
+    "./types/**/*.d.ts",
+    "../shared/types/nodesTypes.ts", 
+    "../shared/types/types.ts"
   ]
 }

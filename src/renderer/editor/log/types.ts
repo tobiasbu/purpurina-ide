@@ -10,6 +10,7 @@ export enum MessageLogType {
 export type ConsoleMessagePayload = {
   type: MessageLogType;
   message: any;
+  index: number;
   args?: any[];
   st?: any;
   parent?: ConsoleMessagePayload;

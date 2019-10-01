@@ -1,3 +1,6 @@
+/* 
+  Base ts config
+*/
 {
   "compilerOptions": {
     "target": "es5",
@@ -12,6 +15,13 @@
     "noImplicitReturns": true,
     "noImplicitThis": true,
 
-    "newLine": "LF",
-  }
+    "newLine": "LF"
+  },
+  "include": [
+      "./shared/types/**/*.ts"
+  ],
+  "exclude": [
+    ".vscode",
+    "node_modules"
+  ]
 }

@@ -4,15 +4,15 @@
   "description": "Purpurina HTML5 Game Engine IDE",
   "main": "src/renderer/index.ts",
   "scripts": {
-    "build-electron": "ts-node ./node_modules/webpack/bin/webpack.js --config ./config/webpack.config.electron.ts --env.DEV --profile --colors --display-error-details",
+    "build-electron": "ts-node --skip-project --skip-ignore ./node_modules/webpack/bin/webpack.js --config ./config/webpack.config.electron.ts --env.DEV --profile --colors --display-error-details",
     "build-renderer": "npm run clean && webpack --config ./bundler/webpack.config.renderer.ts --progress --env.build --colors --display-error-details",
     "build-dll": "webpack --config ./config/webpack.config.renderer.dll.ts --progress --env.DEV --colors --progress",
     "start-browser": "npm run clean && webpack --config ./bundler/webpack.config.renderer.browser.ts --progress --env.HOT --colors --display-error-details",
     "watch-electron": "webpack --config ./config/webpack.config.electron.ts --watch --env.DEV",
-    "start-electron": "cross-env HOT=1 NODE_ENV=development electron ./dist/app.js",
+    "start-electron": "cross-env HOT=1 NODE_ENV=development electron ./dist/main.js",
     "electron-dev": "npm-run-all --parallel watch-electron start-electron",
-    "start-renderer": "cross-env NODE_ENV=development node ./node_modules/webpack-dev-server/bin/webpack-dev-server --config ./config/webpack.config.renderer.dev.ts --colors --display-error-details --profile",
-    "dev": "npm run clean && npm run build-electron && ts-node ./config/dev_server.ts",
+    "start-renderer": "cross-env NODE_ENV=development node ./node_modules/webpack-dev-server/bin/webpack-dev-server --config ./config/webpack.config.renderer.dev.ts",
+    "dev": "npm run clean && ts-node ./config/dev.ts",
     "build": "npm run clean && npm run build-main && npm run build-renderer",
     "clean": "rm -fr dist"
   },
@@ -54,6 +54,8 @@
     "awesome-typescript-loader": "^5.2.0",
     "browser-sync": "^2.26.7",
     "browser-sync-webpack-plugin": "^2.2.2",
+    "chalk": "^2.4.2",
+    "clean-webpack-plugin": "^3.0.0",
     "copy-webpack-plugin": "^5.0.4",
     "cross-env": "^6.0.0",
     "css-loader": "^3.2.0",
@@ -80,7 +82,7 @@
     "webpack-cli": "^3.3.9",
     "webpack-dev-middleware": "^3.7.2",
     "webpack-hot-middleware": "^2.25.0",
-    "webpack-merge": "^4.2.1"
+    "webpack-merge": "^4.2.2"
   },
   "dependencies": {
     "chokidar": "^3.1.1",
