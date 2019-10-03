@@ -7,9 +7,8 @@ import * as WebpackDevMiddleware from 'webpack-dev-middleware';
 import * as WebpackHotMiddleware from 'webpack-hot-middleware';
 
 import webpackConfigFn from './webpack.config';
-import { WebpackDevMiddlewareMoreOptions } from './types';
-
-  // import { spawn } from 'child_process';
+import { WebpackDevMiddlewareMoreOptions, RendererServer } from './types';
+import { spawn } from 'child_process';
 
 
 // https://github.com/webpack/webpack/pull/9436
@@ -17,7 +16,7 @@ import { WebpackDevMiddlewareMoreOptions } from './types';
 
 // const logger = logging.getLogger('purpurina');
 // logging.configureDefaultLogger(
-//   { 
+//   {
 //     level: 'log',
 //     colors: true
 // });
@@ -26,16 +25,18 @@ import { WebpackDevMiddlewareMoreOptions } from './types';
 // const getLogger = require('webpack-log');
 import getLogger from './getLogger';
 const logger = getLogger(
-  { 
-    name: 'purpurina', 
+  {
+    name: 'purpur-dev-server',
     timestamp: true,
-    symbol: ' \u2605',
-    errorSymbol: ' \u26A0'
+    symbol: ' \u2615',
+    errorSymbol: ' \u2620'
   });
 
 logger.log('Preparing development environment');
 
 async function main() {
+
+  const DIST_PATH = path.join(__dirname, '../dist');
 
   process.on("unhandledRejection", (e: Error) => {
     logger.error(`Unhandled rejection `, e.stack || e);
@@ -49,13 +50,13 @@ async function main() {
 
   // Create webpack config for electron processes
   const config = webpackConfigFn({
-    MODE: "development",
+    mode: "development",
     isProduction: false,
   });
 
   // Main webpack compilation
   const mainPromise = new Promise<webpack.Stats>((resolve, reject) => {
-    logger.info('Compiling main...', );
+    logger.info('Compiling main...');
     webpack(config.main, (err, stats) => {
       if (err) {
         reject(err);
@@ -66,10 +67,8 @@ async function main() {
   });
 
 
-  const PORT = 3000;
-  const PATH = path.join(__dirname, '../dist');
-
   logger.info('Compiling renderer...');
+  logger.log(`Middleware public path: ${config.renderer.output.publicPath}`)
   const rendererCompiler = webpack(config.renderer);
 
   const devOptions: WebpackDevMiddlewareMoreOptions = {
@@ -78,25 +77,37 @@ async function main() {
     reload: true,
     overlay: true,
     writeToDisk: true,
-
+    logger: logger as any,
+    stats: {
+      colors: true,
+      assets: false,
+    }
   };
   const devMiddleware = WebpackDevMiddleware(rendererCompiler, devOptions);
   const hotMiddleware = WebpackHotMiddleware(rendererCompiler);
+
+  // rendererCompiler.hooks.compilation.tap('html-webpack-plugin-after-emit', () => {
+  //   hotMiddleware.publish({
+  //     action: 'reload'
+  //   });
+  // });
+
 
   // Renderer Server configuring
   const expressApp = express();
   expressApp.use(devMiddleware);
   expressApp.use(hotMiddleware);
-  expressApp.use(express.static(PATH));
+  expressApp.use(express.static(DIST_PATH));
 
   // Renderer promise
-  new Promise((resolve, reject) => {
-    expressApp.listen(PORT, 'localhost', (error) => {
+  const rendererServerPromise = new Promise<RendererServer>((resolve, reject) => {
+    const port = 3000;
+    const server = expressApp.listen(port, 'localhost', (error) => {
       if (error) {
         reject(error);
       }
-      logger.log('Renderer dev server listening on port ' + PORT + '\n');
-      resolve(PORT);
+      logger.log('Renderer dev server listening on port ' + port + '\n');
+      resolve({ server, port });
     })
   });
 
@@ -111,8 +122,67 @@ async function main() {
     if (stats.hasWarnings()) {
       logger.warn("Main warnings:\n:", info.warnings.join("\n\n"));
     }
-    logger.info(`Main has been built successfully!`);
+    logger.log(`Main has been built successfully!`);
   }
+
+
+  const electron = require("electron");
+  logger.info(`Starting the app with ${electron}...`);
+  const rendererServerResult = await rendererServerPromise;
+
+  return new Promise((resolve, reject) => {
+    const env: NodeJS.ProcessEnv = {
+      ...process.env,
+      ELECTRON_WEBPACK_WDS_PORT: rendererServerResult.port.toString(10),
+      DEVELOPMENT: JSON.stringify(true),
+    }
+
+    const electronProcess = spawn(`${electron}`,
+      [
+        ".", `--inspect=5858`, "--color"
+      ],
+      {
+        env,
+        // stdio: ['ignore', 'inherit', 'inherit'],
+        stdio: ['ignore', 'inherit', 'inherit'],
+      });
+
+    logger.log(`App started at ${env.ELECTRON_WEBPACK_WDS_PORT}`);
+
+    electronProcess.on("close", (code) => {
+      logger.info(`App closed with code: ${code}`);
+      devMiddleware.close();
+      rendererServerResult.server.close((err) => {
+        if (err) {
+          logger.error('Server exited with error', err);
+        } else {
+          logger.log('Server exited successfully');
+        }
+      })
+      resolve();
+    })
+
+    electronProcess.on("error", (err) => {
+      logger.error(`Error occurred `, err);
+      reject(err)
+    })
+
+    process.on('SIGTERM', () => {
+      logger.log('Stopping dev server');
+      devMiddleware.close();
+      rendererServerResult.server.close((err) => {
+        logger.error(`Server exited with error`, err);
+        resolve();
+      })
+    });
+
+    // electronPromise.then((electron) => {
+    //   return electron.default;
+    // }).then((electron) => {
+
+
+    // });
+  })
 
 }
 

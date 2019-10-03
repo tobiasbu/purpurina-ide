@@ -25,7 +25,7 @@ export default class ProjectManager {
     return new Promise<ProjectManager>((resolve, reject) => {
       const manager = new ProjectManager(projectInfo);
       // Starting systems
-      const watcher = new FileWatcher();
+      const watcher = new FileWatcher(projectInfo.path);
       watcher.start(manager.metadata.path)
       .then(() => {
         manager.watcher = watcher;

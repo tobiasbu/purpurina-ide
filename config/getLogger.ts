@@ -5,20 +5,31 @@ type LogFunction = (message: string, ...optionalParams: any[]) => void;
 
 /**
  * Logger level
- * 
- * - false - disable
+ *
+ * - false or 'silent' - disable
  * - 'error' - errors only
  * - 'warn' - warnings and errors
  * - 'info' - errors, warnings and info messages
- * - 'log' - errors, warnings, info messages, log messages
- * - 'verbose' - everything
+ * - 'log' and 'debug' - errors, warnings, info messages, log messages
+ * - 'verbose' and 'trace' - everything
  */
-type LogLevel = 
+type LogLevel =
+'silent' |
 'error' |
 'warn' |
 'info' |
 'log' |
-'verbose';
+'verbose' |
+'trace';
+
+enum EnumeratedLogLevel {
+  silent = 0,
+  error,
+  warn,
+  info,
+  log,
+  verbose,
+}
 
 interface LoggerOptions {
   symbol?: string;
@@ -52,7 +63,7 @@ interface LoggerOptions {
 const colors = {
   error: 'red',
   warn: 'yellow',
-  info: 'cyanBright',
+  info: 'green',
   log: 'blue',
   verbose: 'magenta',
 };
@@ -63,6 +74,10 @@ type Logger = {
   [indexer in LogLevel]: LogFunction;
 } & {
   options: LoggerOptions;
+  /**
+   * Available log levels.
+   */
+  readonly levels: LogLevel;
 }
 
 function capitalize(s: string) {
@@ -82,24 +97,16 @@ export default function getLogger(options: LoggerOptions): Logger {
     bgPrefix: options.bgPrefix || true,
   }
 
-  enum EnumeratedLogLevel {
-    false = 0,
-    error,
-    warn,
-    info,
-    log,
-    verbose,
-  }
 
   // validate user level
-  let userLevel: number;
+  let userLevel: number | boolean;
   if (typeof opts.level === 'string' && EnumeratedLogLevel[opts.level] !== undefined) {
     userLevel = EnumeratedLogLevel[opts.level];
   }
   if (typeof userLevel !== 'number') {
     userLevel = EnumeratedLogLevel.log;
   } else if (userLevel <= 0) {
-    userLevel = EnumeratedLogLevel.false;
+    userLevel = EnumeratedLogLevel.silent;
   } else if (userLevel > EnumeratedLogLevel.verbose) {
     userLevel = EnumeratedLogLevel.verbose;
   }
@@ -112,11 +119,12 @@ export default function getLogger(options: LoggerOptions): Logger {
     'verbose'
   ];
 
-  const logger = {
+  let logger = {
     options: opts,
     template: `${opts.displayLevel === true ? ' {{ level }}' : ''}${opts.timestamp === true ? ' [{{ time }}]' : ''}`,
     prefix: `${opts.symbol} ${opts.name}`,
     prefixError: `${opts.errorSymbol} ${opts.name}`,
+    levels: userLevel,
   };
 
   function interpolate(level) {
@@ -135,7 +143,7 @@ export default function getLogger(options: LoggerOptions): Logger {
       let prefixColorFn = chalk[color];
       if (logger.options.bgPrefix) {
         prefixColorFn = chalk[`bg${capitalize(color)}`].black;
-      } 
+      }
       const prefixMsg = prefixColorFn(`${prefix}${interpolate(logger.template)}:`)
 
       const msg = (logger.options.colorize) ? chalk[color](message) : message;
@@ -151,7 +159,6 @@ export default function getLogger(options: LoggerOptions): Logger {
 
   methods.forEach(methodName => {
     const methodLevel = EnumeratedLogLevel[methodName];
-
     let method;
     if (methodLevel > userLevel) {
       method = noop;
@@ -171,6 +178,9 @@ export default function getLogger(options: LoggerOptions): Logger {
     }
     logger[methodName] = method;
   });
-  
+
+  logger['trace'] = logger['verbose'];
+  logger['debug'] = logger['log'];
+
   return logger as any;
 }

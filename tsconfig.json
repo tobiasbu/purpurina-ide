@@ -1,21 +1,41 @@
 {
   "compilerOptions": {
-    "module": "commonjs",
+    "target": "es5",
     "moduleResolution": "node",
-    // "allowJs": true,
-    "noImplicitAny": false,
-    "removeComments": true,
+    "module": "commonjs",
+    "baseUrl": ".",
+    "sourceMap": true,
+    "outDir": "dist",
     "strictNullChecks": false,
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true,
+    "noImplicitReturns": true,
+    "paths": {
+      "*": [
+        "./types/*"
+      ],
+      "shared": [
+        "src/shared"
+      ],
+      "renderer": [
+        "src/renderer"
+      ],
+      "main": [
+        "src/main"
+      ]
+    },
+    "typeRoots": [
+      "node_modules/@types",
+      "./types"
+    ]
   },
-  "typeRoots": [
-    "node_modules/@types"
-  ],
   "include": [
-    "src"
+    "node_modules/@types/**/*.d.ts",
+    "src/main/main.d.ts",
+    "./types/*.d.ts"
   ],
   "exclude": [
-    ".vscode",
-    "node_modules"
+    "dist",
+    "src/engine",
+    "engine"
   ]
 }

@@ -2,6 +2,8 @@
 
 import * as webpack from 'webpack';
 import * as path from 'path';
+import TsconfigPathsPlugin from 'tsconfig-paths-webpack-plugin';
+
 import { BuildEnvironment } from './types';
 
 export const PROJECT_PATH = path.resolve(__dirname, '../');
@@ -9,12 +11,14 @@ export const PROJECT_PATH = path.resolve(__dirname, '../');
 export default (type: string, entryPath: string, env: BuildEnvironment) => {
 
   const PROJECT_PATH = path.resolve(__dirname, '../');
-  env.isProduction = env.MODE === "production";
+  if (env.isProduction === undefined) {
+    env.isProduction = env.mode === "production";
+  }
   const mode = env.isProduction ? "production" : "development";
 
   const baseConfig: webpack.Configuration = {
     mode,
-    devtool: env.isProduction ? 'source-map' : 'eval',
+    devtool: 'source-map',// env.isProduction ? 'source-map' : 'eval',
     context: PROJECT_PATH,
     output: {
       path: path.join(PROJECT_PATH, `./dist/${type}`),
@@ -23,6 +27,7 @@ export default (type: string, entryPath: string, env: BuildEnvironment) => {
       chunkFilename: "[name].chunk.js",
     },
     resolve: {
+      plugins: [new TsconfigPathsPlugin({})],
       extensions: ['.ts', '.js', '.json'],
     },
     module: {
@@ -51,8 +56,8 @@ export default (type: string, entryPath: string, env: BuildEnvironment) => {
     plugins: [],
     externals: {},
     node: {
-      __dirname: true,
-      __filename: true,
+      __dirname: false,
+      __filename: false,
     }
   };
 

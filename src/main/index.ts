@@ -5,8 +5,8 @@ import EditorSettings from './core/EditorSettings';
 import { initializeGlobal } from './core/config';
 import { loadRecentProjects } from './project/projectValidation';
 
-if (process.env.NODE_ENV === 'development') {
-  console.log(__dirname);
+if (process.env.DEVELOPMENT) {
+  console.log(`Directory: ${__dirname}. Port: ${process.env.ELECTRON_WEBPACK_WDS_PORT}`);
   const sourceMapSupport = require('source-map-support'); // eslint-disable-line
   sourceMapSupport.install({
     environment: 'node',

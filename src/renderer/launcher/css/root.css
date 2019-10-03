@@ -1,0 +1,84 @@
+
+/* html {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+} */
+
+:root {
+  --bg: #080808;
+  --p-color-text: #f0f0f0;
+  --outFocus: #004580;
+  --labelFocus: #107bd7;
+  --dark: #141414;
+  --mid: #262626;
+  --midLight: #202020;
+
+  --p-color-text: #f0f0f0;
+
+  --p-spacing-xl: 3rem;
+  --p-spacing-l: 2rem;
+  --p-spacing-m: 1rem;
+  --p-spacing-s: 0.5rem;
+  --p-spacing-xs: 0.25rem;
+  font: 16px Segoe UI, Helvetica, Arial, sans-serif;
+  background: var(--dark);
+  color: var(--p-color-text);
+}
+
+body, html {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  -webkit-app-region: no-drag;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-user-drag: none;
+  user-zoom: none;
+  -webkit-touch-callout: none;
+  max-width: 800px;
+  max-height: 450px;
+  height: 100%;
+  position: relative;
+}
+
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+
+img {
+  border-style: none;
+  max-width: 100%;
+}
+
+
+
+h1 {
+  display: inline-block;
+  padding: 0;
+  margin: auto 8px;
+  font-size: 18px;
+  font-weight: 600;
+  flex-grow: 1;
+}
+
+h2 {
+  font-weight: 400;
+}
+
+#root {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  bottom: 0;
+}

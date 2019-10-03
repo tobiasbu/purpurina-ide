@@ -2,8 +2,27 @@ import { BrowserWindow } from 'electron';
 import version from './version';
 import * as path from 'path';
 
+import * as url from 'url';
+
 const MIN_WIDTH = 640;
 const MIN_HEIGHT = 480;
+
+function getURL(pathName:'editor' | 'launcher'):string {
+  let uo: url.UrlObject;
+  console.log(process.env.ELECTRON_WEBPACK_WDS_PORT);
+  if (process.env.development) {
+    uo = {
+      protocol: 'http',
+      hostname: 'localhost',
+      port: process.env.ELECTRON_WEBPACK_WDS_PORT,
+      pathname: `/renderer/${pathName}/`,
+    };
+  } else {
+    // TODO
+    uo = {};
+  }
+  return url.format(uo);
+}
 
 /**
  * Creates the main window.
@@ -14,14 +33,15 @@ const MIN_HEIGHT = 480;
  */
 export function createStartupWindow(): BrowserWindow {
 
-  const width = 1024;
-  const height = 576;
-  const basePath = path.join('file://', __dirname);
-  const launcherPath = path.join(basePath, '../src/renderer/launcher/index.html');
-  // const preloadPath = path.join(__dirname, '../src/app/preload.js');
+  const width = 800;
+  const height = 450;
+  const launcherPath = getURL('launcher');
+
+  const IS_DEV = (process.env.NODE_ENV === 'development');
 
   // create our main window
   let window = new BrowserWindow({
+
     width,
     height,
     minWidth: width,
@@ -39,6 +59,7 @@ export function createStartupWindow(): BrowserWindow {
       nodeIntegration: (process.env.NODE_ENV === 'development'),
       backgroundThrottling: false,
       textAreasAreResizable: false,
+      additionalArguments: (IS_DEV) ? ['DEVELOPMENT'] : [],
       // preload: path.join(__dirname, 'preload.js'),
       // contextIsolation: true,
       // nodeIntegration: false,
@@ -64,8 +85,9 @@ export function createStartupWindow(): BrowserWindow {
 
 export function createEditorWindow(): BrowserWindow {
 
-  const basePath = path.join('file://', __dirname);
-  const editorPath = path.join(basePath, 'editor/index.html');
+  const editorPath = getURL('editor');
+  // const basePath = path.join('file://', __dirname);
+  // const editorPath = path.join(basePath, 'editor/index.html');
 
   let window = new BrowserWindow({
     minWidth: MIN_WIDTH,
@@ -82,7 +104,7 @@ export function createEditorWindow(): BrowserWindow {
     resizable: true,
     webPreferences: {
       // textAreasAreResizable: false,
-
+      webSecurity: true,
       nodeIntegration: (process.env.NODE_ENV === 'development'),
     },
   });

@@ -1,9 +1,10 @@
 import WebpackDevMiddleware = require('webpack-dev-middleware');
+import * as http from 'http';
 
 export interface BuildEnvironment {
   DEV?: any,
   HOT?: any
-  MODE?: 'development' | 'production';
+  mode?: 'development' | 'production';
   isProduction?: boolean;
 }
 
@@ -11,4 +12,9 @@ export interface WebpackDevMiddlewareMoreOptions extends WebpackDevMiddleware.Op
   quiet: boolean;
   reload: boolean;
   overlay: boolean;
+}
+
+export interface RendererServer {
+  server: http.Server;
+  port: number;
 }

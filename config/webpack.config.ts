@@ -3,6 +3,8 @@ import * as path from 'path';
 
 import { CleanWebpackPlugin } from 'clean-webpack-plugin';
 import * as HtmlWebpackPlugin from 'html-webpack-plugin';
+// import * as WebpackBuildNotifierPlugin from 'webpack-build-notifier';
+import * as WebpackNotifierPlugin from 'webpack-notifier';
 import webpackMerge = require('webpack-merge');
 
 import configBase, { PROJECT_PATH } from './webpack.config.base';
@@ -18,8 +20,8 @@ function createRendererConfig(env: BuildEnvironment) {
   const EDITOR_PATH = path.join(ENTRY_PATH, '/editor');
 
   const LAUNCHER_ENTRY_PATH = path.join(LAUNCHER_PATH, '/index.ts');
-  const EDITOR_ENTRY_PATH =  path.join(EDITOR_PATH, '/index.ts');
- 
+  const EDITOR_ENTRY_PATH = path.join(EDITOR_PATH, '/index.ts');
+
 
   const config = webpackMerge.smart(
     configBase('renderer', ENTRY_PATH, env),
@@ -30,16 +32,25 @@ function createRendererConfig(env: BuildEnvironment) {
         'editor': (env.isProduction) ? EDITOR_ENTRY_PATH : [EDITOR_ENTRY_PATH, HOT_MW],
       },
       output: {
-        publicPath: `http://localhost:${PORT}/dist/`,
+        publicPath: `/dist/renderer`,
         filename: '[name]/index.bundle.js',
       },
       module: {
         rules: [
           {
-            test: /\.css$/,
+            test: /\.p?css$/,
+            exclude: /node_modules/,
             use: [
-              'style-loader',
-              { loader: 'css-loader', options: { importLoaders: 1 } },
+              {
+                loader: 'style-loader',
+              },
+              {
+                loader: 'css-loader',
+                options: {
+                  importLoaders: 1,
+                  url: true,
+                }
+              },
               {
                 loader: 'postcss-loader',
                 options: {
@@ -48,12 +59,42 @@ function createRendererConfig(env: BuildEnvironment) {
                     path: __dirname,
                   }
                 }
-              }
+              },
             ]
-          }
+          },
+          {
+            test: /\.(jpe?g|png|gif)$/i,
+            loaders: [
+              {
+                loader: 'file-loader',
+                options: {
+                  useRelativePaths: true,
+                  name: (env.isProduction) ? '[sha512:hash:hex:9].[ext]' : '[name].[ext]',
+                  emitFile: true,
+                  outputPath: (url, resourcePath) => {
+                    const chunk = /launcher|editor/g.exec(resourcePath);
+                    return `${chunk[0]}/img/${url}`;
+                  }
+                }
+              },
+              // 'file-loader?hash=sha512&digest=hex&name=img/[hash].[ext]',
+              // 'image-webpack-loader?bypassOnDebug&optipng.optimizationLevel=7&gifsicle.interlaced=false',
+            ],
+          },
+
         ],
       },
       plugins: [
+        new webpack.DefinePlugin({
+          'DEVELOPMENT': JSON.stringify(
+            true
+          ),
+        }),
+        new WebpackNotifierPlugin({
+          title: "Purpurina <Renderer>",
+          alwaysNotify: true,
+          // logo: path.resolve("./img/favicon.png"),
+        }),
         new CleanWebpackPlugin(),
         new HtmlWebpackPlugin({
           filename: "launcher/index.html",
@@ -80,18 +121,18 @@ function createRendererConfig(env: BuildEnvironment) {
       new webpack.NoEmitOnErrorsPlugin()
     );
   }
- 
+
   return config;
 }
 
 export default (env: BuildEnvironment) => {
 
   const MAIN_ENTRY_PATH = path.join(PROJECT_PATH, './src/main');
-  const RENDER_ENTRY_PATH = path.join(PROJECT_PATH, './src/renderer');
+  // const RENDER_ENTRY_PATH = path.join(PROJECT_PATH, './src/renderer');
 
   return {
     main: webpackMerge.smart(
-      configBase('main', MAIN_ENTRY_PATH, env),
+      configBase('', MAIN_ENTRY_PATH, env),
       {
         target: 'electron-main',
         entry: {
@@ -101,21 +142,20 @@ export default (env: BuildEnvironment) => {
           mainFields: ["electron-main", "module", "main"]
         },
         plugins: [
-          new CleanWebpackPlugin(),
-          new webpack.DefinePlugin({
-            'process.env': {
-              NODE_ENV: JSON.stringify(env.MODE),
-            }
+          new WebpackNotifierPlugin({
+            title: "Purpurina <Main>",
+            alwaysNotify: true
           }),
+          new CleanWebpackPlugin(),
           new webpack.NoEmitOnErrorsPlugin(),
         ]
       }),
-      renderer: createRendererConfig(env),
+    renderer: createRendererConfig(env),
   }
 }
- 
+
 //   const HTML_TEMPLATE_PATH = 'src/renderer/editor/static/index.html';
-  
+
 //   const DEV_MODE = env.DEV || env.HOT;
 //   const DIST_PATH = path.join(PROJECT_PATH, '/dist/');
 //   const mode = (DEV_MODE) ? 'development' : 'production';
@@ -180,7 +220,7 @@ export default (env: BuildEnvironment) => {
 //         [
 //           { from: HTML_TEMPLATE_PATH, to: DIST_PATH + 'editor/index.html', toType: 'file' },
 //           { from: './resources', to: path.join(DIST_PATH, 'resources'), toType: 'dir' },
-//           // {from: path.join(PROJECT_PATH, '/src/launcher/preload.js'), to: DIST_PATH }, 
+//           // {from: path.join(PROJECT_PATH, '/src/launcher/preload.js'), to: DIST_PATH },
 //         ]
 //       ) : null,
 //     );

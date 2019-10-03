@@ -19,3 +19,5 @@ takeOverConsole(LoggerMiddleware);
 
 // hyper(rootNode)`${new SplashScreen()}`;
 hyper(rootNode)`${new App()}`;
+
+console.log('hi');

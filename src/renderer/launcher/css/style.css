@@ -1,0 +1,278 @@
+@import "suitcss-base";
+@import "./root.css";
+@import "./header.css";
+@import "./menu.css";
+.content {
+  position: absolute;
+  height: 100%;
+  top: 0;
+  padding-top: 80px;
+  right: 0;
+  left: 0;
+}
+
+.content-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding: var(--p-spacing-l) var(--p-spacing-xl);
+}
+
+/* a.option:not(.selected):active  {
+    background: var(--labelFocus);
+} */
+
+#version {
+  position: absolute;
+  bottom: 0;
+  font-weight: normal;
+  font-size: 11px;
+  color: grey;
+}
+
+button {
+  font-size: 15px;
+  font-weight: 600;
+  outline: 0;
+}
+
+button:active {
+  background: #004580;
+  border-color: #004580;
+  color: var(--p-color-text);
+}
+
+/**
+* CONTENTS
+*/
+
+#content {
+  margin: 0 80px;
+  width: 100%;
+}
+
+.home-page p {
+  font-size: 14px;
+  color: #adadad;
+}
+
+.project-container {
+  cursor: pointer;
+  display: flex;
+  border-bottom: 1px solid #1a1a1a;
+}
+
+.project-container:active, .project-container.selected {
+  background-color: #1a1a1a;
+}
+
+.project-container:nth-child(1) {
+  padding: 8px 8px;
+}
+
+.project-container:not(:first-child) {
+  padding: 7px 8px 6px;
+}
+
+.project-container .info {
+  padding-left: 16px;
+  justify-content: space-between;
+  display: flex;
+  flex-direction: column;
+}
+
+.project-container .thumbnail {
+  width: 64px;
+  height: 64px;
+  margin: auto 0;
+  border: 1px solid var(--outFocus);
+}
+
+.project-container p {
+  margin: 0;
+  font-size: 12px;
+  color: #adadad;
+}
+
+.project-container p.title {
+  margin-bottom: 8px;
+  font-size: 14px;
+  color: var(--p-color-text);
+}
+
+[data-scrollcontainer] {
+  position: relative;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-content: flex-start;
+  align-items: flex-start;
+  width: inherit;
+  height: inherit;
+  max-width: inherit;
+  max-height: inherit;
+}
+
+.scrollcontainer-wrapper {
+  margin: 0;
+  overflow: hidden;
+  width: inherit;
+  height: inherit;
+  max-width: inherit;
+  max-height: inherit;
+}
+
+.scrollcontainer-mask {
+  direction: inherit;
+  position: absolute;
+  overflow: hidden;
+  padding: 0;
+  margin: 0;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  width: auto !important;
+  height: auto !important;
+  z-index: 0;
+}
+
+.scrollcontainer-content {
+  direction: inherit;
+  box-sizing: border-box !important;
+  position: relative;
+  display: block;
+  height: 100%;
+  /* Required for horizontal native scrollbar to not appear if parent is taller than natural height */
+  width: auto;
+  visibility: visible;
+  overflow: scroll;
+  /* Scroll on this element otherwise element can't have a padding applied properly */
+  max-width: 100%;
+  /* Not required for horizontal scroll to trigger */
+  max-height: 100%;
+  /* Needed for vertical scroll to trigger */
+}
+
+.scrollcontainer-offset {
+  direction: inherit !important;
+  box-sizing: inherit !important;
+  resize: none !important;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  padding: 0;
+  margin: 0;
+  -webkit-overflow-scrolling: touch;
+}
+
+.scroll-container {
+  width: 16px;
+  background: #114848;
+  height: 100%;
+  position: absolute;
+  right: 0;
+}
+
+.scroll-container .thumb {
+  width: 16px;
+  background: #d4d2d2;
+  height: 16px;
+  position: relative;
+  right: 0;
+}
+
+label {
+  display: block;
+  font-size: 13px;
+  margin-bottom: 8px;
+  color: #adadad;
+}
+
+.textbox {
+  height: 28px;
+  background: var(--midLight);
+  padding: 4px 8px;
+  /* margin-bottom: 20px; */
+  display: block;
+  position: relative;
+}
+
+.textbox>input {
+  width: 100%;
+  border: none;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: 0;
+  box-sizing: border-box;
+  position: absolute;
+  background: transparent;
+  color: var(--p-color-text);
+  width: 100%;
+  font-size: 15px;
+  padding: 4px 8px;
+  outline-offset: 0px;
+}
+
+p.inputInfo {
+  margin-top: 6px;
+  display: block;
+  margin-bottom: 16px;
+  font-size: 11px;
+  height: 16px;
+  color: #ea525f;
+}
+
+.browse-icon-container {
+  position: absolute;
+  right: 0;
+  padding-right: 8px;
+  width: 32px;
+  height: 36px;
+  top: 0;
+  text-align: center;
+  display: inline-block;
+  line-height: 0;
+}
+
+.browse-icon-container:before {
+  content: "\200B";
+  height: 100%;
+}
+
+.browse-icon {
+  cursor: pointer;
+  background-image: url(../img/browse_icon.png);
+  /* background-color: white; */
+  background-repeat: no-repeat;
+  background-position: center;
+  display: inline-block;
+  width: 100%;
+  height: 100%;
+  transition: 150ms ease background-image;
+}
+
+.browse-icon:hover {
+  background-image: url(../img/browse_icon_hover.png);
+}
+
+.browse-icon:active {
+  background-image: url(../img/browse_icon_active.png);
+}
+
+.browse-icon-container:before, .search-icon-container>.browse-icon {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+input:focus {
+  outline: var(--outFocus) solid 2px;
+}
+
+input:invalid {
+  outline: #d00a1c solid 2px;
+}

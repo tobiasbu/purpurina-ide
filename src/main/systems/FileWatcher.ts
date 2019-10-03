@@ -9,12 +9,14 @@ export default class FileWatcher {
 
   private watcher: chokidar.FSWatcher;
   private isWatching: boolean;
+  private location: string;
   public isReady: boolean;
 
   /**
    * Constructor
    */
-  constructor() {
+  constructor(location: string) {
+    this.location = location;
     this.isWatching = false;
     this.isReady = false;
   }
@@ -34,6 +36,7 @@ export default class FileWatcher {
       awaitWriteFinish: true,
       cwd: location,
       ignoreInitial: false,
+      alwaysStat: true,
     };
 
     this.watcher = chokidar.watch('.', options);
@@ -49,7 +52,7 @@ export default class FileWatcher {
     });
 
     this.watcher
-      .on('add', path => Logger.log(`File ${path} has been added`))
+      .on('add', (path, stats) => Logger.log(`File ${path} has been added`, JSON.stringify(stats)))
       .on('change', path => Logger.log(`File ${path} has been changed`))
       .on('unlink', path => Logger.log(`File ${path} has been removed`));
 
