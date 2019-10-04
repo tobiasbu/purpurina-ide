@@ -5,10 +5,6 @@
   throw new Error('Sorry, this app does not support window.eval().');
 };
 
-// if ((module as any).hot) {
-//   (module as any).hot.accept();
-// }
-
 if (DEVELOPMENT) {
   console.log('Installing debug-menu');
   const debugMenu = require('debug-menu');
@@ -26,6 +22,10 @@ document.addEventListener('drop', event => event.preventDefault());
 const root = document.getElementById('root');
 
 hyper.bind(root)`${new App()}`;
+
+if ((module as any).hot) {
+  (module as any).hot.accept();
+}
 
 // window.onload = () => {
 

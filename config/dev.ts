@@ -78,13 +78,16 @@ async function main() {
     reload: true,
     overlay: true,
     writeToDisk: true,
+    noInfo: true,
     // stats: {
     //   colors: true,
     //   assets: false,
     // }
   };
   const devMiddleware = WebpackDevMiddleware(rendererCompiler, devOptions);
-  const hotMiddleware = WebpackHotMiddleware(rendererCompiler);
+  const hotMiddleware = WebpackHotMiddleware(rendererCompiler, {
+    path: '/__webpack_hmr', heartbeat: 10 * 1000
+  });
 
   // rendererCompiler.hooks.compilation.tap('html-webpack-plugin-after-emit', () => {
   //   hotMiddleware.publish({

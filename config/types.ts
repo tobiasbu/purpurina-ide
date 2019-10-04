@@ -12,6 +12,7 @@ export interface WebpackDevMiddlewareMoreOptions extends WebpackDevMiddleware.Op
   quiet: boolean;
   reload: boolean;
   overlay: boolean;
+  noInfo: boolean;
 }
 
 export interface RendererServer {

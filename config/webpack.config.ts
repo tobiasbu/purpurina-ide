@@ -10,8 +10,11 @@ import webpackMerge = require('webpack-merge');
 import configBase, { PROJECT_PATH } from './webpack.config.base';
 import { BuildEnvironment } from './types';
 
+
+
 function createRendererConfig(env: BuildEnvironment) {
 
+  // ?path=http://localhost:${PORT}/__webpack_hmr&reload=true&timeout=20000
   const PORT = process.env.PORT || 3000;
   const HOT_MW = `webpack-hot-middleware/client?path=http://localhost:${PORT}/__webpack_hmr&reload=true&timeout=20000`;
   const ENTRY_PATH = path.join(PROJECT_PATH, './src/renderer');
@@ -118,7 +121,7 @@ function createRendererConfig(env: BuildEnvironment) {
   if (!env.isProduction) {
     config.plugins.push(
       new webpack.HotModuleReplacementPlugin(),
-      // new webpack.NoEmitOnErrorsPlugin()
+      new webpack.NoEmitOnErrorsPlugin()
     );
   }
 
