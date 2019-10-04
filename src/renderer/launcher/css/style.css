@@ -1,22 +1,11 @@
 @import "suitcss-base";
 @import "./root.css";
 @import "./header.css";
-@import "./menu.css";
-.content {
-  position: absolute;
-  height: 100%;
-  top: 0;
-  padding-top: 80px;
-  right: 0;
-  left: 0;
-}
 
-.content-wrapper {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  padding: var(--p-spacing-l) var(--p-spacing-xl);
-}
+@import "./content.css";
+@import "./menu.css";
+
+
 
 /* a.option:not(.selected):active  {
     background: var(--labelFocus);
@@ -30,17 +19,8 @@
   color: grey;
 }
 
-button {
-  font-size: 15px;
-  font-weight: 600;
-  outline: 0;
-}
 
-button:active {
-  background: #004580;
-  border-color: #004580;
-  color: var(--p-color-text);
-}
+
 
 /**
 * CONTENTS
@@ -97,7 +77,7 @@ button:active {
 .project-container p.title {
   margin-bottom: 8px;
   font-size: 14px;
-  color: var(--p-color-text);
+  color: var(--p-text-color);
 }
 
 [data-scrollcontainer] {
@@ -211,7 +191,7 @@ label {
   box-sizing: border-box;
   position: absolute;
   background: transparent;
-  color: var(--p-color-text);
+  color: var(--p-text-color);
   width: 100%;
   font-size: 15px;
   padding: 4px 8px;

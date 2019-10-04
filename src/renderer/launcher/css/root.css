@@ -1,20 +1,19 @@
-
 /* html {
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
 } */
 
 :root {
-  --bg: #080808;
-  --p-color-text: #f0f0f0;
+  --p-bg: #080808;
+  --p-text-color: #f0f0f0;
+  --p-menu-hover: #1b1b1b;
+  --p-menu-select: #262626;
   --outFocus: #004580;
   --labelFocus: #107bd7;
   --dark: #141414;
   --mid: #262626;
   --midLight: #202020;
-
-  --p-color-text: #f0f0f0;
-
+  --p-text-color: #f0f0f0;
   --p-spacing-xl: 3rem;
   --p-spacing-l: 2rem;
   --p-spacing-m: 1rem;
@@ -22,7 +21,7 @@
   --p-spacing-xs: 0.25rem;
   font: 16px Segoe UI, Helvetica, Arial, sans-serif;
   background: var(--dark);
-  color: var(--p-color-text);
+  color: var(--p-text-color);
 }
 
 body, html {
@@ -53,13 +52,10 @@ ul {
   padding: 0;
 }
 
-
 img {
   border-style: none;
   max-width: 100%;
 }
-
-
 
 h1 {
   display: inline-block;
@@ -72,6 +68,10 @@ h1 {
 
 h2 {
   font-weight: 400;
+}
+
+button, button:focus {
+  outline: none;
 }
 
 #root {

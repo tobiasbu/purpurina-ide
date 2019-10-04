@@ -1,11 +1,8 @@
-
 /**
 * MENU
 */
 
 #menu {
-  font-size: 1rem;
-  font-weight: 500;
   width: 200px;
   height: 100%;
   min-width: 200px;
@@ -22,7 +19,10 @@
   margin-bottom: var(--p-spacing-xl);
 } */
 
-.menu-list a {
+.menu-tab, button {
+  color: var(--p-text-color);
+  font-size: 1rem;
+  font-weight: 500;
   display: block;
   padding: var(--p-spacing-s) var(--p-spacing-m);
   transition: 200ms ease all;
@@ -31,57 +31,40 @@
   border-radius: var(--p-spacing-xs);
 }
 
-.menu-list a:hover {
-  background: #1a1a1a;
+.menu-tab:hover {
+  background: var(--p-menu-hover);
 }
 
-.menu-list a.special-option {
-  border: var(--p-color-text) solid 1px;
+.menu-tab.selected {
+  background-color: var(--p-menu-select);
+}
+
+.menu-list button {
+  width: 100%;
+}
+
+button {
+  border: var(--p-text-color) solid 1px;
   text-align: center;
   margin-bottom: var(--p-spacing-s);
-  transition: 200ms ease all;
+  transition: 100ms 50ms cubic-bezier(0.39, 0.575, 0.565, 1) all;
 }
 
-a.special-option:hover {
-  background: var(--p-color-text);
-  color: var(--bg);
+button:hover, button:active {
+  background: var(--p-text-color);
+  color: var(--p-bg);
 }
 
-/* a.option {
-
+button:hover:active {
+  background: #004580;
+  border-color: #004580;
+  color: var(--p-text-color);
+  transition: 0s;
 }
 
-a.option:not(.selected):hover {
-
-} */
-
-.menu-list a.selected {
-  background-color: #f0a3a3;
-  background-image: linear-gradient(to left, #ff7f4c, #fd5587, #ea28c4);
-  color: #080808;
-}
+/* background-image: linear-gradient(to left, #ff7f4c, #fd5587, #ea28c4); */
 
 .project-option.selected {
   border-color: #004580;
 }
 
-a.project-option,
-button {
-  cursor: pointer;
-  padding: 8px 16px;
-  display: block;
-  margin-bottom: 10px;
-  border: var(--p-color-text) solid 1px;
-  text-align: center;
-  color: var(--p-color-text);
-  background: transparent;
-  transition: 200ms ease all;
-  font-size: 15px;
-  font-weight: 600;
-}
-
-a.project-option:not(.selected):hover,
-button:hover {
-  background: var(--p-color-text);
-  color: var(--bg);
-}

@@ -1,0 +1,27 @@
+
+.content {
+  position: absolute;
+  height: 100%;
+  top: 0;
+  padding-top: 80px;
+  right: 0;
+  left: 0;
+}
+
+.content-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding: var(--p-spacing-l) var(--p-spacing-xl);
+}
+
+.content-inner-wrapper {
+  display: flex;
+  height: 100%;
+  flex-direction: row;
+}
+
+.content-page {
+  margin-left: var(--p-spacing-xl);
+  flex-grow: 1;
+}

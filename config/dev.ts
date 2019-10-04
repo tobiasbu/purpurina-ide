@@ -72,16 +72,16 @@ async function main() {
   const rendererCompiler = webpack(config.renderer);
 
   const devOptions: WebpackDevMiddlewareMoreOptions = {
+
     publicPath: config.renderer.output.publicPath,
     quiet: false,
     reload: true,
     overlay: true,
     writeToDisk: true,
-    logger: logger as any,
-    stats: {
-      colors: true,
-      assets: false,
-    }
+    // stats: {
+    //   colors: true,
+    //   assets: false,
+    // }
   };
   const devMiddleware = WebpackDevMiddleware(rendererCompiler, devOptions);
   const hotMiddleware = WebpackHotMiddleware(rendererCompiler);

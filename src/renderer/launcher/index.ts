@@ -5,9 +5,9 @@
   throw new Error('Sorry, this app does not support window.eval().');
 };
 
-if ((module as any).hot) {
-  (module as any).hot.accept();
-}
+// if ((module as any).hot) {
+//   (module as any).hot.accept();
+// }
 
 if (DEVELOPMENT) {
   console.log('Installing debug-menu');
@@ -62,5 +62,3 @@ hyper.bind(root)`${new App()}`;
 // }).catch((e) => {
 //     throw e;
 // })
-
-console.log('hi');

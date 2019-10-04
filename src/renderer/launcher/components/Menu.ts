@@ -36,9 +36,9 @@ export default class Menu extends hyper.Component<MenuState> {
     });
   }
 
-  private createMenuOption(name:string, specialOption: boolean = false) {
+  private createTab(name:string, specialOption: boolean = false) {
     const onSelect = this.onMenuSelect.bind(this, this.buttonId);
-    let className = `${!specialOption ? '' : 'special-'}option`;
+    let className = `${!specialOption ? '' : 'special-'}menu-tab`;
     if (this.buttonId === this.state.selected) {
       className = className.concat(' selected');
     }
@@ -59,17 +59,29 @@ export default class Menu extends hyper.Component<MenuState> {
     return el;
   }
 
+  private createButton(name: string) {
+    const el = hyper.wire(this, `:button-${this.buttonId}`)`
+      <li>
+        <button class="menu-button">
+        ${name}
+        </button>
+      </li>
+    `;
+    this.buttonId += 1;
+    return el;
+  }
+
   render() {
     this.buttonId = 0;
     return this.html`
     <nav id='menu'>
       <ul class="menu-list" style="margin-bottom: var(--p-spacing-m)">
-        ${this.createMenuOption('Projects')}
-        ${this.createMenuOption('Learn')}
+        ${this.createTab('Projects')}
+        ${this.createTab('Learn')}
       </ul>
       <ul class="menu-list">
-        ${this.createMenuOption('New Project', true)}
-        ${this.createMenuOption('Open Project', true)}
+        ${this.createButton('New Project')}
+        ${this.createButton('Open Project')}
       </ul>
     </nav>`;
   }

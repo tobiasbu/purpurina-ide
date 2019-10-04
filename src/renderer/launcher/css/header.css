@@ -26,7 +26,7 @@
 }
 
 .header-button:hover {
-  background-color: #383838;
+  background-color: var(--p-menu-select);
 }
 
 .header-button#close {

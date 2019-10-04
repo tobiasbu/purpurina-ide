@@ -1,13 +1,13 @@
 import hyper from 'hyperhtml';
+const logo = require('!svg-inline-loader!../img/purpur_icon.svg') as string;
 
 const APP_TITLE = 'Purpurina Laucher';
 
-function loadLogo() {
-  const logo = require('!svg-inline-loader!../img/purpur_icon.svg') as string;
-  const svg = document.createElement('template');
-  svg.innerHTML = logo.trim();
-  return svg.content.firstChild;
-}
+// function loadLogo() {
+//   const svg = document.createElement('template');
+//   svg.innerHTML = logo.trim();
+//   return svg.content.firstChild;
+// }
 
 export default function createHeader(onClose?: () => void, onMinimize?: () => void) {
 
@@ -24,7 +24,7 @@ export default function createHeader(onClose?: () => void, onMinimize?: () => vo
       </div>
         <div class="title-bar">
           <div id='logo'>
-            ${loadLogo()}
+            ${{ html: logo }}
           </div>
           <h1>${APP_TITLE}</h1>
         </div>

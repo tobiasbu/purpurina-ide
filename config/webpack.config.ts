@@ -13,7 +13,7 @@ import { BuildEnvironment } from './types';
 function createRendererConfig(env: BuildEnvironment) {
 
   const PORT = process.env.PORT || 3000;
-  const HOT_MW = `webpack-hot-middleware/client?path=http://localhost:${PORT}/__webpack_hmr&reload=true`;
+  const HOT_MW = `webpack-hot-middleware/client?path=http://localhost:${PORT}/__webpack_hmr&reload=true&timeout=20000`;
   const ENTRY_PATH = path.join(PROJECT_PATH, './src/renderer');
 
   const LAUNCHER_PATH = path.join(ENTRY_PATH, '/launcher');
@@ -34,6 +34,8 @@ function createRendererConfig(env: BuildEnvironment) {
       output: {
         publicPath: `/dist/renderer`,
         filename: '[name]/index.bundle.js',
+        hotUpdateChunkFilename: ".hot/[id].[hash].hot-update.js",
+        hotUpdateMainFilename: ".hot/[hash].hot-update.json"
       },
       module: {
         rules: [
@@ -115,10 +117,8 @@ function createRendererConfig(env: BuildEnvironment) {
 
   if (!env.isProduction) {
     config.plugins.push(
-      new webpack.HotModuleReplacementPlugin({
-        multiStep: false,
-      }),
-      new webpack.NoEmitOnErrorsPlugin()
+      new webpack.HotModuleReplacementPlugin(),
+      // new webpack.NoEmitOnErrorsPlugin()
     );
   }
 
