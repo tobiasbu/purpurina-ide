@@ -1,4 +1,5 @@
 import * as webpack from 'webpack';
+import * as fs from 'fs';
 import * as path from 'path';
 
 import { CleanWebpackPlugin } from 'clean-webpack-plugin';
@@ -13,6 +14,10 @@ import { BuildEnvironment } from './types';
 
 
 function createRendererConfig(env: BuildEnvironment) {
+
+  // const include = [
+  //   fs.realpathSync(path.join(PROJECT_PATH, './src/shared/maestro/')),
+  // ];
 
   // ?path=http://localhost:${PORT}/__webpack_hmr&reload=true&timeout=20000
   const PORT = process.env.PORT || 3000;
@@ -42,6 +47,22 @@ function createRendererConfig(env: BuildEnvironment) {
       },
       module: {
         rules: [
+          {
+            test: /\.ts$/,
+            enforce: "pre",
+            loader: 'tslint-loader',
+            exclude: /node_modules/,
+            options: {
+              configFile: path.join(PROJECT_PATH, './tslint.json'),
+              tsConfigFile: path.join(PROJECT_PATH, './tsconfig.json'),
+              fix: true,
+            }
+          },
+          {
+            test: /\.ts$/,
+            loader: 'ts-loader',
+            exclude: /node_modules/
+          },
           {
             test: /\.p?css$/,
             exclude: /node_modules/,
@@ -124,7 +145,6 @@ function createRendererConfig(env: BuildEnvironment) {
       new webpack.NoEmitOnErrorsPlugin()
     );
   }
-
   return config;
 }
 

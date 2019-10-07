@@ -1,0 +1,14 @@
+{
+  "name": "maestro",
+  "version": "0.0.1",
+  "author": {
+    "name": "Tobias Ulrich"
+  },
+  "main": "index.ts",
+  "devDependencies": {
+    "@types/mergerino": "^0.4.0"
+  },
+  "dependencies": {
+    "mergerino": "^0.4.0"
+  }
+}

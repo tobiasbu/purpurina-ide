@@ -12,9 +12,10 @@
     "start-electron": "cross-env HOT=1 NODE_ENV=development electron ./dist/main.js",
     "electron-dev": "npm-run-all --parallel watch-electron start-electron",
     "start-renderer": "cross-env NODE_ENV=development node ./node_modules/webpack-dev-server/bin/webpack-dev-server --config ./config/webpack.config.renderer.dev.ts",
-    "dev": "npm run clean && ts-node ./config/dev.ts",
+    "start": "npm run clean && ts-node ./config/dev.ts",
     "build": "npm run clean && npm run build-main && npm run build-renderer",
-    "clean": "rm -fr dist"
+    "clean": "rm -fr dist",
+    "lib-check": "tsc --traceResolution"
   },
   "bin": {
     "electron": "./node_modules/.bin/electron"
@@ -44,7 +45,7 @@
     "@types/fs-extra": "^8.0.0",
     "@types/html-webpack-plugin": "^3.2.1",
     "@types/lockfile": "^1.0.1",
-    "@types/node": "^12.7.8",
+    "@types/mergerino": "^0.4.0",
     "@types/proper-lockfile": "^3.0.1",
     "@types/stack-trace": "0.0.29",
     "@types/webpack": "^4.39.2",
@@ -98,6 +99,8 @@
     "hyperhtml": "^2.31.0",
     "hyperhtml-element": "^3.11.0",
     "lockfile": "^1.0.4",
+    "maestro": "file:src/shared/maestro",
+    "mergerino": "^0.4.0",
     "normalize.css": "^8.0.1",
     "proper-lockfile": "^3.2.0",
     "stack-trace": "0.0.10",

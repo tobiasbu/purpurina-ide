@@ -3,30 +3,19 @@ import { remote } from 'electron';
 
 import createHeader from './components/createHeader';
 import Menu from './components/Menu';
-import { connect } from './maestro';
-
-class Test extends hyper.Component {
-  render() {
-    return hyper.wire(this)`
-      wrapped hi
-    `;
-  }
-}
-
-const MaestroTest = connect(Test);
+import { action } from './store';
 
 export default class App extends hyper.Component {
 
   private header: HTMLElement;
   private menu: Menu;
-  test: any;
 
   constructor() {
     super();
     this.html = hyper.wire(this);
     this.header = createHeader(this.onAppClose, this.onAppMinimize);
     this.menu = new Menu();
-    this.test = new MaestroTest();
+    // this.test = new MaestroTest();
   }
 
   private onAppClose = () => {
@@ -37,15 +26,24 @@ export default class App extends hyper.Component {
     remote.getCurrentWindow().minimize();
   }
 
+  private test = () => {
+    action.test();
+    // console.log('hi');
+  }
+
   render() {
+
+    console.log('RENDER');
+
     return this.html`
       ${this.header}
+
       <main class="content">
         <div class="content-wrapper">
           <div class="content-inner-wrapper">
             ${this.menu}
+            <div onclick=${this.test}>JUST A TEST</div>
             <div class="content-page">
-            ${this.test}
             </div>
           </div>
         </div>

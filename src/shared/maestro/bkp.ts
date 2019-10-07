@@ -61,52 +61,43 @@ interface MaestroComponentConstructor<T extends MaestroComponent> {
 export function connect<T extends MaestroComponent>(component: MaestroComponentConstructor<T>) {
   // tslint:disable-next-line: function-name
 
-  return (function () {
-    // const wrapped = component;
-    function Connector(...props: any[]) {
-      const wrapped = new component(props);
+  return function (options: any) {
 
-      const log = console.log;
+    return (function () {
+      // const wrapped = component;
+      function Connector(...props: any[]) {
+        const wrapped = new component(props);
+        const log = console.log;
 
-      this.html = hyper.wire(this);
+        log(options);
 
-      this.onconnected = function () {
-        log('CONN a');
-      };
-      const render = hyper.wire(this)`
-        <div onconnected=${this.onconnected}>
-        ${wrapped.render()}
-        </div>
-      `;
+        this.html = hyper.wire(this);
 
-      this.render = function () {
-        console.log('3');
-        return render;
-      };
+        this.onconnected = function () {
+          log('CONN a');
+        };
+        const render = hyper.wire(this)`
+          <div onconnected=${this.onconnected}>
+          ${wrapped.render()}
+          </div>
+        `;
 
-      // setInterval(() => {
-      //   log('CONN a');
-      // },          500);
+        this.render = function () {
+          return render;
+        };
+      }
 
-    }
+      Object.defineProperties(
+        Connector.prototype,
+        {
+          // used to distinguish better than instanceof
+          ELEMENT_NODE: { value: 1 },
+          nodeType: { value: -1 },
+        },
+      );
 
-    // Object.defineProperties(
-    //   Connector.prototype,
-    //   {
-    //     render: {
-    //       {}
-    //     }
-    //   });
+      return Connector;
+    })();
 
-    Object.defineProperties(
-      Connector.prototype,
-      {
-        // used to distinguish better than instanceof
-        ELEMENT_NODE: { value: 1 },
-        nodeType: { value: -1 },
-      },
-    );
-
-    return Connector;
-  })();
+  };
 }

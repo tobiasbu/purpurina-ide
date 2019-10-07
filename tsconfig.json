@@ -9,16 +9,21 @@
     "strictNullChecks": false,
     "allowSyntheticDefaultImports": true,
     "noImplicitReturns": true,
+    "removeComments": true,
+    "allowJs": true,
     "lib": [
       "esnext",
       "dom"
     ],
     "paths": {
       "*": [
-        "./types/*"
+        "types/*"
       ],
       "shared": [
         "src/shared"
+      ],
+      "maestro": [
+        "src/shared/maestro"
       ],
       "renderer": [
         "src/renderer"
@@ -33,9 +38,8 @@
     ]
   },
   "include": [
-    "node_modules/@types/**/*.d.ts",
     "src/main/main.d.ts",
-    "./types/*.d.ts"
+    "types/*.d.ts"
   ],
   "exclude": [
     "dist",

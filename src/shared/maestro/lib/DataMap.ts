@@ -75,7 +75,7 @@ export default class DataMap<K extends string | number, V extends any> {
     return false;
   }
 
-  keys(): {} {
+  keys(): string[] {
     return Object.keys(this.data);
   }
 
