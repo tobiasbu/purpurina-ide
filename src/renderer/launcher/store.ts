@@ -1,19 +1,25 @@
 import { createMaestro } from 'maestro';
+import { MenuRoute } from './types';
 
 export interface State {
-  selected: string;
+  selected: MenuRoute;
 }
 
 const initialState:State = {
-  selected: 'home',
+  selected: MenuRoute.Projects,
 };
 
 const maestro = createMaestro(initialState);
 
 const action = maestro.createAction((producer) => {
   return {
-    test() {
-      producer.reduce({ selected: 'BOM DIA' });
+    navigate(route: MenuRoute) {
+
+      if (producer.state.selected === route) {
+        return;
+      }
+
+      producer.set('selected', route);
     },
   };
 });
@@ -22,4 +28,4 @@ export {
   action,
 };
 
-export default maestro;
+export default maestro.store;

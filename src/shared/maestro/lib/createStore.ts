@@ -1,7 +1,7 @@
 import DataMap from './DataMap';
 import isPlainObject from './isPlainObject';
 import isFunction from './isFunction';
-import { Action, Store, IListenerMap, Listener } from '../types';
+import { Action, Store, IListenerMap, Listener, RemoveListener } from '../types';
 
 // tslint:disable-next-line: variable-name
 const ListenerMap = (function () {
@@ -54,9 +54,9 @@ export default function createStore<S>(initialState: S): Store<S> {
   //   return holder;
   // }
 
-  function addListener(listener: Listener): void;
-  function addListener(substate: string | number, listener: Listener): void;
-  function addListener(substate: string | number | Listener, listener?: Listener): void {
+  function addListener(listener: Listener): RemoveListener;
+  function addListener(substate: string | number, listener: Listener): RemoveListener;
+  function addListener(substate: string | number | Listener, listener?: Listener): RemoveListener {
 
     const firstType = typeof (substate);
     if (arguments.length > 1) {
@@ -85,45 +85,61 @@ export default function createStore<S>(initialState: S): Store<S> {
       } else {
         subscribed.push(listener);
       }
-    } else {
-
-      if (isDispatching) {
-        throw new Error("Maestro.addListener: Can't add listener while main reducer is executing");
-      }
-
-      if (firstType === 'function') {
-        listeners.push(substate as Listener);
-        return;
-      }
-      throw new TypeError(`Maestro.addListener: Could not add global listener.
-      The 'listener' must be a function.`);
+      return null;
     }
+
+    if (isDispatching) {
+      throw new Error("Maestro.addListener: Can't add listener while action is executing.");
+    }
+
+    let isListening = true;
+
+    if (firstType === 'function') {
+      listeners.push(substate as Listener);
+
+      return function removeListener() {
+        if (!isListening) {
+          return;
+        }
+
+        isListening = false;
+        const index = listeners.indexOf(substate as Listener);
+        listeners.splice(index, 1);
+      };
+    }
+    throw new TypeError(`Maestro.addListener: Could not add global listener.
+      The 'listener' must be a function.`);
+
   }
 
-  function dispatch(action: Action<S>, ...args:any[]);
-  function dispatch(action: Action<S>) {
+  /**
+   * Dispatch an action.
+   * @param {Action<S>} action The action callback
+   * @param {any[]} args Additional arguments for the action
+   */
+  function dispatch(action: Action<S>, ...args: any[]): Readonly<S>;
+  function dispatch(action: Action<S>): Readonly<S> {
 
     if (!isFunction(action)) {
       throw new Error(
         `Maestro: Could not dispatch action.
-         Action is not e plain objects.`,
+         The 'action' parameter is not a function.`,
       );
     }
 
     if (isDispatching) {
-      throw new Error('Maestro: Could not dispatch action. Reducers may not dispatch actions.');
+      throw new Error('Maestro: Could not dispatch action.\nAn action was already dispatched.');
     }
 
     try {
       isDispatching = true;
       const argsLen = arguments.length;
-      console.log(arguments);
       if (argsLen > 1) {
-        console.log('hiaaa');
         switch (argsLen) {
           default:
             break;
-          case 2: state = action(state, arguments[1]);  break;
+          case 2: state = action(state, arguments[1]); break;
+          case 3: state = action(state, arguments[1], arguments[2]); break;
         }
       } else {
         state = action(state);

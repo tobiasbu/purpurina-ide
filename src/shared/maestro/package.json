@@ -9,6 +9,7 @@
     "@types/mergerino": "^0.4.0"
   },
   "dependencies": {
-    "mergerino": "^0.4.0"
+    "mergerino": "^0.4.0",
+    "hyperhtml": "^2.31.0"
   }
 }

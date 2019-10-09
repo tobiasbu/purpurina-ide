@@ -1,7 +1,8 @@
 import hyper from 'hyperhtml';
+import { MenuRoute } from '../types';
+import header from './header';
 
 function replaceAll(str: string, searchValue: RegExp, replaceValue: string) {
-
   return str.replace(new RegExp(searchValue, 'g'), replaceValue);
 }
 
@@ -10,14 +11,14 @@ function interpolateClassName(name: string) {
 }
 
 interface MenuState {
-  selected: number;
+  selected: MenuRoute;
 }
 
 export default class Menu extends hyper.Component<MenuState> {
   private buttonId: number;
 
   state = {
-    selected: -1,
+    selected: MenuRoute.Projects,
   };
 
   constructor() {
@@ -36,14 +37,14 @@ export default class Menu extends hyper.Component<MenuState> {
     });
   }
 
-  private createTab(name:string, specialOption: boolean = false) {
+  private createTab(name: string, specialOption: boolean = false) {
     const onSelect = this.onMenuSelect.bind(this, this.buttonId);
     let className = `${!specialOption ? '' : 'special-'}menu-tab`;
     if (this.buttonId === this.state.selected) {
       className = className.concat(' selected');
     }
 
-    const el = hyper.wire(this, `:button-${this.buttonId}`)`
+    const el = hyper.wire(this, `:option-${this.buttonId}`)`
       <li>
         <a
         id='${interpolateClassName(name)}'
@@ -51,7 +52,7 @@ export default class Menu extends hyper.Component<MenuState> {
         onclick=${onSelect}
         data-id=${this.buttonId}
         >
-            ${name}
+          ${name}
         </a>
       </li>
     `;
@@ -74,16 +75,21 @@ export default class Menu extends hyper.Component<MenuState> {
   render() {
     this.buttonId = 0;
     return this.html`
-    <nav id='menu'>
-      <ul class="menu-list" style="margin-bottom: var(--p-spacing-m)">
-        ${this.createTab('Projects')}
-        ${this.createTab('Learn')}
-      </ul>
-      <ul class="menu-list">
-        ${this.createButton('New Project')}
-        ${this.createButton('Open Project')}
-      </ul>
-    </nav>`;
+    <div class="side-bar">
+      ${header}
+      <nav id='menu'>
+        <ul class="menu-list" style="margin-bottom: var(--p-spacing-m)">
+          ${this.createTab('Projects')}
+          ${this.createTab('Learn')}
+          ${this.createTab('Settings')}
+        </ul>
+      </nav>
+    <div>`;
   }
 
 }
+
+// <ul class="menu-list">
+//         ${this.createButton('New Project')}
+//         ${this.createButton('Open Project')}
+//       </ul>

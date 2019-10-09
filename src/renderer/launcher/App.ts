@@ -1,21 +1,23 @@
 import hyper from 'hyperhtml';
 import { remote } from 'electron';
+import fregues from 'maestro/fregues';
 
-import createHeader from './components/createHeader';
+import titleBar from './components/titleBar';
 import Menu from './components/Menu';
-import { action } from './store';
+import store, { action } from './store';
+import PageContainer from './components/PageContainer';
 
 export default class App extends hyper.Component {
 
-  private header: HTMLElement;
   private menu: Menu;
+  private pages: any;
 
   constructor() {
     super();
     this.html = hyper.wire(this);
-    this.header = createHeader(this.onAppClose, this.onAppMinimize);
     this.menu = new Menu();
-    // this.test = new MaestroTest();
+    this.pages = new PageContainer();
+    fregues(this.menu, this.pages);
   }
 
   private onAppClose = () => {
@@ -26,25 +28,22 @@ export default class App extends hyper.Component {
     remote.getCurrentWindow().minimize();
   }
 
-  private test = () => {
-    action.test();
-    // console.log('hi');
-  }
-
   render() {
 
-    console.log('RENDER');
+    const { selected } = store.getState();
+    let test = 'Welcome!';
+    if (selected === 0) {
+      test = 'Do more!';
+    }
 
     return this.html`
-      ${this.header}
+      ${titleBar(this.onAppClose, this.onAppMinimize)}
 
       <main class="content">
         <div class="content-wrapper">
           <div class="content-inner-wrapper">
             ${this.menu}
-            <div onclick=${this.test}>JUST A TEST</div>
-            <div class="content-page">
-            </div>
+            ${this.pages}
           </div>
         </div>
       </main>

@@ -1,58 +1,13 @@
 /**
- * TOP BAR
- */
-
-.win-top-bar {
-  -webkit-app-region: drag;
-  height: 29px;
-  display: block;
-  width: 100%;
-  position: absolute;
-  z-index: 1;
-}
-
-.win-top-buttons {
-  float: right;
-  position: relative;
-  height: 100%;
-}
-
-.header-button {
-  position: relative;
-  -webkit-app-region: no-drag;
-  width: 45px;
-  display: inline-block;
-  height: 100%;
-}
-
-.header-button:hover {
-  background-color: var(--p-menu-select);
-}
-
-.header-button#close {
-  font-size: 0.7rem;
-}
-
-.header-button#close:hover {
-  background-color: #d71526;
-}
-
-.header-button>span {
-  line-height: 0;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translateX(-50%) translateY(-50%);
-}
-
-/**
  * TITLE
  */
 
-.title-bar {
+.title {
   position: relative;
   display: flex;
-  padding: var(--p-spacing-l) var(--p-spacing-xl) var(--p-spacing-m);
+  margin-bottom: var(--p-spacing-l);
+  height: 53px;
+  /* padding: var(--p-spacing-l) var(--p-spacing-xl) var(--p-spacing-m); */
 }
 
 #logo {
@@ -62,8 +17,8 @@
   margin: auto 0;
 }
 
-.title-bar h1 {
-  font-size: 1.25rem;
+.title h1 {
+  font-size: 0.95rem;
   font-weight: 400;
   margin: auto var(--p-spacing-m);
   line-height: var(--p-spacing-m);

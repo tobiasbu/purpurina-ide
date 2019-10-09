@@ -1,7 +1,8 @@
 @import "suitcss-base";
 @import "./root.css";
-@import "./header.css";
+@import "./titleBar.css";
 
+@import "./header.css";
 @import "./content.css";
 @import "./menu.css";
 
@@ -18,8 +19,6 @@
   font-size: 11px;
   color: grey;
 }
-
-
 
 
 /**

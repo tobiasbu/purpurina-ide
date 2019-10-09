@@ -14,6 +14,8 @@ if (DEVELOPMENT) {
 import './css/style.css';
 import hyper from 'hyperhtml';
 import App from './App';
+import store from './store';
+import listen from 'maestro/listen';
 
 document.addEventListener('dragstart', event => event.preventDefault());
 document.addEventListener('dragover', event => event.preventDefault());
@@ -21,11 +23,11 @@ document.addEventListener('drop', event => event.preventDefault());
 
 const root = document.getElementById('root');
 
-hyper.bind(root)`${new App()}`;
+hyper.bind(root)`${listen(store, App)}`;
 
-if ((module as any).hot) {
-  (module as any).hot.accept();
-}
+// if ((module as any).hot) {
+//   (module as any).hot.accept();
+// }
 
 // window.onload = () => {
 

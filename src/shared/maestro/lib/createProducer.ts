@@ -1,19 +1,28 @@
-import { Store, Producer } from '../types';
+import { Store, Producer, StateKey, StateValue } from '../types';
 import mergerino from 'mergerino';
 
 export default function createProducer<S>(store: Store<S>) {
 
-  // tslint:disable-next-line: function-name
+  function replaceFn<S>(state: S) {
+    return state;
+  }
+
   const producer = {
-    reduce(statePatch:Partial<S>) {
+    update(statePatch: Partial<S>) {
       return store.dispatch(mergerino, statePatch);
+    },
+    set<K, V>(prop: StateKey<S, K>, value: StateValue<S, K, V>) {
+      return store.dispatch(mergerino, { [prop]: value });
+    },
+    replace(newState: S) {
+      return store.dispatch(replaceFn, newState);
     },
   };
 
   Object.defineProperty(producer, 'state', {
     enumerable: true,
     configurable: false,
-    get () {
+    get() {
       return store.getState();
     },
   });
