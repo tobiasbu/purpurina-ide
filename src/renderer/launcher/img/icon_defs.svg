@@ -1,0 +1,29 @@
+<svg style="width:0;height:0;position:absolute;" aria-hidden="true" focusable="false">
+
+<defs id="defs927">
+
+    <linearGradient
+       id="purpur-gradient"
+       inkscape:collect="always"
+        x1="0%" y1="100%" x2="100%" y2="0%"
+       >
+      <stop
+         style="stop-color:#8b29ed;stop-opacity:1"
+         offset="0"
+         id="stop2476-5" />
+      <stop
+         id="stop2478-1"
+         offset="0.33"
+         style="stop-color:#ea28c4;stop-opacity:1" />
+      <stop
+         id="stop2480-8"
+         offset="0.66"
+         style="stop-color:#fd5587;stop-opacity:1" />
+      <stop
+         id="stop2482-1"
+         offset="1"
+         style="stop-color:#ff7f4c;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+
+  </svg>

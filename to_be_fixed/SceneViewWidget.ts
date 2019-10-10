@@ -1,7 +1,7 @@
 //import * as React from "react";
-import WidgetBase from "../widgets/WidgetBase";
-import { WidgetResizeEvent } from "../../types/WidgetInterfaces";
-import SceneView from "../../internal/sceneView/SceneView";
+import WidgetBase from "../src/renderer/editor/ui/widgets/WidgetBase";
+import { WidgetResizeEvent } from "../src/renderer/editor/types/WidgetInterfaces";
+import SceneView from "../src/renderer/editor/internal/sceneView/SceneView";
 
 
 
@@ -68,7 +68,7 @@ export default class SceneViewWidget extends WidgetBase {
     // const th = 16; // 12
     // const tw = 24; // 17
 
-    // // render.drawCalls = 0;     
+    // // render.drawCalls = 0;
 
     // context.beginPath();
     // context.moveTo(x, y);

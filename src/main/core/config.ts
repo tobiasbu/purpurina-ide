@@ -1,6 +1,5 @@
 import * as os from 'os';
-// import * as path from 'path';
-// import { UserInfo } from '../../shared/types';
+import { UserInfo } from '@shared/types';
 
 export function initializeGlobal() {
 

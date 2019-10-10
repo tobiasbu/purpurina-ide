@@ -3,7 +3,6 @@
   position: absolute;
   height: 100%;
   top: 0;
-  /* padding-top: 80px; */
   right: 0;
   left: 0;
 }
@@ -21,7 +20,3 @@
   flex-direction: row;
 }
 
-.content-page {
-  margin-left: var(--p-spacing-l);
-  flex-grow: 1;
-}

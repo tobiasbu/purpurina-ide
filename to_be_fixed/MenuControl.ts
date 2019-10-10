@@ -1,8 +1,8 @@
 // tslint:disable-next-line: import-name
 import hyper, { Component } from 'hyperhtml';
-import HomePage from './pages/HomePage';
-import ScrollContainer from './components/ScrollContainer';
-import LearnPage from './pages/LearnPage';
+import HomePage from '../src/renderer/launcher/pages/HomePage';
+import ScrollContainer from '../src/renderer/launcher/components/ScrollContainer';
+import LearnPage from '../src/renderer/launcher/pages/LearnPage';
 import CreateProjectPage from './pages/CreateProjectPage';
 
 export default class MenuControl {

@@ -29,6 +29,9 @@ export default (type: string, entryPath: string, env: BuildEnvironment) => {
     resolve: {
       plugins: [new TsconfigPathsPlugin({})],
       extensions: ['.ts', '.js', '.json'],
+      alias: {
+        '@shared': path.join(PROJECT_PATH, `./shared`),
+      }
     },
     module: {
       rules: [

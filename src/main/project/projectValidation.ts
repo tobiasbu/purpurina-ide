@@ -1,3 +1,4 @@
+import { IProjectInfo, IProjectPackage } from '@shared/types';
 import * as path from 'path';
 import * as fse from 'fs-extra';
 

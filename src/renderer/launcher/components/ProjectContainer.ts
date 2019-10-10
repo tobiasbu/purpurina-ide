@@ -1,5 +1,9 @@
 import hyper from 'hyperhtml';
-import HomePage from '../pages/HomePage';
+
+import { IProjectInfo } from 'shared/types';
+import ProjectsPage from '../pages/ProjectsPage';
+
+const iconPlaceholder = require('!svg-inline-loader!../img/icon_star.svg') as string;
 
 // function parseThumbail(thumbail: string) {
 
@@ -13,7 +17,7 @@ import HomePage from '../pages/HomePage';
 export default class ProjectContainer extends hyper.Component {
 
   private project: IProjectInfo;
-  private parent: HomePage;
+  private parent: ProjectsPage;
   private isSelected: boolean;
   // private onSelection: (e:MouseEvent) => void;
 
@@ -21,7 +25,7 @@ export default class ProjectContainer extends hyper.Component {
     return this.project;
   }
 
-  constructor(project: IProjectInfo, parent: HomePage) {
+  constructor(project: IProjectInfo, parent: ProjectsPage) {
     super();
     this.project = project;
     this.parent = parent;
@@ -54,16 +58,20 @@ export default class ProjectContainer extends hyper.Component {
       className = className.concat(' selected');
     }
     return hyper.wire(this)`
-        <div class=${className}
+        <li class=${className}
         onmousedown=${() => { this.parent.selectProject(this); }}
         ondblclick=${() => { this.parent.openProject(this); }} >
-                    <div class="thumbnail"></div>
+                    <div class="thumbnail">
+                      <div class="inner-thumbail">
+                        ${{ html: iconPlaceholder }}
+                      </div>
+                    </div>
                     <div class="info">
-                        <p class="title">${name}</p>
+                        <p class="project-title">${name}</p>
                         <p>${path}</p>
                         <p>${author} - ${version}</p>
                     </div>
-        </div>
+        </li>
       `;
   }
 }

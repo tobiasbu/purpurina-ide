@@ -3,7 +3,7 @@
     "target": "esnext",
     "moduleResolution": "node",
     "module": "commonjs",
-    "baseUrl": ".",
+    "baseUrl": "./",
     "sourceMap": true,
     "outDir": "dist",
     "strictNullChecks": false,
@@ -17,14 +17,10 @@
     ],
     "paths": {
       "*": [
-        "types/*",
-        "src/shared/types/*"
+        "src/*"
       ],
-      "shared": [
-        "src/shared"
-      ],
-      "maestro": [
-        "src/shared/maestro"
+      "@shared/*": [
+        "src/shared/*"
       ],
       "renderer": [
         "src/renderer"
@@ -34,19 +30,17 @@
       ]
     },
     "typeRoots": [
-      "node_modules/@types",
-      "./types"
+      "node_modules/@types"
     ]
   },
   "include": [
-    "src/main/main.d.ts",
-    "types/*.d.ts",
-    "src/shared/types/index.d.ts",
-    "src/renderer/launcher/constants.d.ts"
+    "./src/**/*",
+    "./src/main/main.d.ts",
+    "./src/renderer/launcher/constants.d.ts"
   ],
   "exclude": [
     "dist",
-    "src/engine",
+    "./src/engine",
     "engine"
   ]
 }

@@ -5,7 +5,7 @@ import { WidgetState, WidgetProps } from "../base/ReactComponentBase";
 import Checkbox, { ICheckBoxEvent } from "../../components/Checkbox";
 
 import Entity from "../../../engine/entity/Entity";
-import Transform2D from '../components/Transform2D';
+import Transform2D from '../src/renderer/editor/ui/components/Transform2D';
 
 
 interface InspectorState extends WidgetState {

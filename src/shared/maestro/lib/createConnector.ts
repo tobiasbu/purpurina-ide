@@ -1,10 +1,10 @@
 import hyper from 'hyperhtml';
 
-import { MaestroComponent, MaestroComponentConstructor, Store } from '../types';
+import { MaestroComponent, Constructor, Store } from '../types';
 
 export default function <S>(store: Store<S>) {
 
-  return function connect<T extends MaestroComponent>(component: MaestroComponentConstructor<T>) {
+  return function connect<T extends MaestroComponent>(component: Constructor<T>) {
 
     return function (options: any) {
 

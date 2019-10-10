@@ -1,4 +1,4 @@
-import * as ExplorerNodes from '../../../shared/types/projectExplorer';
+import * as ExplorerNodes from '@shared/types/projectExplorer';
 
 export default class ExplorerNode implements ExplorerNodes.INode {
 

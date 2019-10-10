@@ -15,6 +15,7 @@
   float: right;
   position: relative;
   height: 100%;
+  font-size: 0rem;
 }
 
 .win-top-button {
@@ -23,6 +24,7 @@
   width: 45px;
   display: inline-block;
   height: 100%;
+  font-size: 1rem;
 }
 
 .win-top-button:hover {

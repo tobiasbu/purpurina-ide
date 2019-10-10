@@ -1,0 +1,14 @@
+<svg width="79.636" height="11.106" version="1.1" viewBox="0 0 21.07 2.9385" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+ <defs>
+  <linearGradient id="linearGradient2331-4" x1="729.23" x2="698.98" y1="1179.6" y2="1175.9" gradientTransform="matrix(.81673 0 -2.3898e-8 .81673 -783.75 -809.03)" gradientUnits="userSpaceOnUse">
+   <stop stop-color="#6bc0e0" offset="0"/>
+   <stop stop-color="#29a0ed" offset=".24161"/>
+   <stop stop-color="#ea28c4" offset=".59556"/>
+   <stop stop-color="#fd5587" offset=".79043"/>
+   <stop stop-color="#ff7f4c" offset="1"/>
+  </linearGradient>
+ </defs>
+ <g transform="translate(225.98 -146.61)">
+  <text transform="skewX(-5.4689)" x="-201.26784" y="149.54266" fill="url(#linearGradient2331-4)" font-family="Coolvetica" font-size="3.9872px" letter-spacing=".18125px" stroke-width=".21609px" text-align="center" text-anchor="middle" word-spacing="0px" style="line-height:125%" xml:space="preserve"><tspan x="-201.26784" y="149.54266" fill="url(#linearGradient2331-4)" font-family="'The Next Font'" letter-spacing="0px" stroke-width=".21609px" text-align="center" text-anchor="middle">PURPURINA</tspan></text>
+ </g>
+</svg>

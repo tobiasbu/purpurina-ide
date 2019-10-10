@@ -1,5 +1,7 @@
 import * as path from 'path';
 import * as fse from 'fs-extra';
+import { ICreateProject, IProjectInfo, IProjectPackage } from '@shared/types';
+
 import pathValidation from '../../shared/utils/pathValidation';
 import FileSystem from '../utils/FileSystem';
 import { generatePackageJSON, generateProjectPackage } from './packageGenerator';

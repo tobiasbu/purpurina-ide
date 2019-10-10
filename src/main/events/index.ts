@@ -1,4 +1,6 @@
 import { ipcMain, dialog } from 'electron';
+import { IProjectInfo, ICreateProject } from '@shared/types';
+
 import Application from '../core/Application';
 import createNewProject from '../project/createNewProject';
 import ProjectManager from '../project/ProjectManager';

@@ -1,4 +1,7 @@
+import { IProjectInfo, IMessage } from '@shared/types';
+
 import FileWatcher from '../systems/FileWatcher';
+
 /**
  * Controls the project systems.
  */

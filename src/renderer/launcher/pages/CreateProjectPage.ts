@@ -1,10 +1,11 @@
 import hyper from 'hyperhtml';
 
-import { getUserInfo } from '../../../shared';
-
-import Dialogs from '../../../shared/Dialogs';
-import pathValidation from '../../../shared/utils/pathValidation';
+import { getUserInfo } from '@shared/index';
+import Dialogs from '@shared/Dialogs';
+import pathValidation from '@shared/utils/pathValidation';
 import { ipcRenderer } from 'electron';
+import { ICreateProject } from 'shared/types';
+
 
 const userInfo = getUserInfo();
 const DEFAULT_LOCATION = userInfo.homeDir;

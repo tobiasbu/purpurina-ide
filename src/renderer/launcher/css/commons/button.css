@@ -1,0 +1,30 @@
+
+
+button {
+  color: var(--p-text-color);
+  font-size: 1rem;
+  padding: var(--p-spacing-xs);
+  transition: 200ms ease all;
+  cursor: pointer;
+  display: flex;
+  border-radius: var(--p-spacing-xs);
+  border: var(--p-text-color) solid 1px;
+  text-align: center;
+  /* transition: 100ms 50ms cubic-bezier(0.39, 0.575, 0.565, 1) all; */
+}
+
+button:hover, button:active {
+  background: var(--p-text-color);
+  color: var(--p-bg);
+}
+
+button:hover:active {
+  background: #004580;
+  border-color: #004580;
+  color: var(--p-text-color);
+  transition: 0s;
+}
+
+.project-option.selected {
+  border-color: #004580;
+}

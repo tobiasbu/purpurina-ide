@@ -1,6 +1,7 @@
 import * as fs from 'fs';
 import * as path from 'path';
-import version from '../core/version';
+import { ICreateProject, IProjectPackage } from '@shared/types';
+import version from '@shared/version';
 
 const PACKAGE_NAME_VALIDATION = /^(?:@[a-z0-9-~][a-z0-9-._~]*\/)?[a-z0-9-~][a-z0-9-._~]*$/;
 

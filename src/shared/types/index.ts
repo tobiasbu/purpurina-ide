@@ -1,5 +1,5 @@
 
-interface UserInfo {
+export interface UserInfo {
   homeDir: string;
   userName: string;
 }
@@ -7,14 +7,14 @@ interface UserInfo {
 /**
  * Purpurina package.
  */
-interface IProjectPackage {
+export interface IProjectPackage {
   name: string;
   version?: string;
   thumbnail?: string;
   author?: string;
 }
 
-interface ICreateProject {
+export interface ICreateProject {
   projectName: string;
   location: string;
   author?: string;
@@ -23,7 +23,7 @@ interface ICreateProject {
 /**
  * Purpurina project data.
  */
-interface IProjectInfo {
+export interface IProjectInfo {
   projectPackage: IProjectPackage;
   error?: string;
   path: string;
@@ -33,8 +33,7 @@ interface IProjectInfo {
 /**
  * Interface used to communicate between main and renderer process.
  */
-interface IMessage {
+export interface IMessage {
   type: number;
   payload: {};
 }
-

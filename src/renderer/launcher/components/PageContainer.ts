@@ -1,6 +1,8 @@
 import hyper from 'hyperhtml';
 import { MenuRoute } from '../types';
 
+import ProjectsPage from '../pages/ProjectsPage';
+
 type PageState = {
   selected: MenuRoute;
 };
@@ -15,13 +17,28 @@ function getMenuName(state: PageState) {
 
 // tslint:disable-next-line: function-name
 export default class PageContainer extends hyper.Component {
-  state: any;
   readonly producerState: any;
+  private projectPage: ProjectsPage;
+
+  constructor() {
+    super();
+    this.projectPage = new ProjectsPage();
+  }
+
+  private getCurrentPage() {
+    switch (this.producerState.selected) {
+      case 0: return this.projectPage;
+    }
+    return null;
+  }
 
   render() {
+
+    const currentPage = this.getCurrentPage();
+
     return hyper.wire(this)`
     <div class="content-page">
-      <h2>${getMenuName(this.producerState)}</h2>
+      ${currentPage}
     </div>
     `;
   }

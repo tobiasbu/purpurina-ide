@@ -1,4 +1,4 @@
-/// <reference path="../shared/types/index.ts" />
+import { UserInfo } from '@shared/types';
 
 export { }
 

@@ -1,7 +1,5 @@
 import { BrowserWindow } from 'electron';
-import version from './version';
-import * as path from 'path';
-
+import version from 'shared/version';
 import * as url from 'url';
 
 const MIN_WIDTH = 640;
@@ -71,7 +69,7 @@ export function createStartupWindow(): BrowserWindow {
     fullscreenable: false,
   });
 
-  window.webContents.on('will-navigate', ev => {
+  window.webContents.on('will-navigate', (ev) => {
     ev.preventDefault();
   });
 

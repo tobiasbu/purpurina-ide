@@ -1,0 +1,10 @@
+
+@import './button.css';
+
+.name {
+  display: inline-block;
+  line-height: 28px;
+  margin: auto var(--p-spacing-m);
+}
+
+

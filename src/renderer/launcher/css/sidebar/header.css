@@ -5,16 +5,22 @@
 .title {
   position: relative;
   display: flex;
-  margin-bottom: var(--p-spacing-l);
-  height: 53px;
-  /* padding: var(--p-spacing-l) var(--p-spacing-xl) var(--p-spacing-m); */
+  margin-bottom: var(--p-spacing-m);
+  height: var(--p-spacing-xll);
+  padding: 0 var(--p-spacing-s);
 }
 
 #logo {
   display: inline-block;
-  width: 48px;
+  min-width: 48px;
   height: 48px;
   margin: auto 0;
+}
+
+#logo-title {
+  width: -webkit-fill-available;
+  height: auto;
+  margin: auto var(--p-spacing-m);
 }
 
 .title h1 {

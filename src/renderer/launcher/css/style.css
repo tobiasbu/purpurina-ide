@@ -1,24 +1,19 @@
 @import "suitcss-base";
+
 @import "./root.css";
+
+@import './commons/index.css';
 @import "./titleBar.css";
 
-@import "./header.css";
-@import "./content.css";
-@import "./menu.css";
+@import "./sidebar/index.css";
+@import "./pages/index.css";
 
+@import "./content.css";
 
 
 /* a.option:not(.selected):active  {
     background: var(--labelFocus);
 } */
-
-#version {
-  position: absolute;
-  bottom: 0;
-  font-weight: normal;
-  font-size: 11px;
-  color: grey;
-}
 
 
 /**
@@ -30,54 +25,7 @@
   width: 100%;
 }
 
-.home-page p {
-  font-size: 14px;
-  color: #adadad;
-}
 
-.project-container {
-  cursor: pointer;
-  display: flex;
-  border-bottom: 1px solid #1a1a1a;
-}
-
-.project-container:active, .project-container.selected {
-  background-color: #1a1a1a;
-}
-
-.project-container:nth-child(1) {
-  padding: 8px 8px;
-}
-
-.project-container:not(:first-child) {
-  padding: 7px 8px 6px;
-}
-
-.project-container .info {
-  padding-left: 16px;
-  justify-content: space-between;
-  display: flex;
-  flex-direction: column;
-}
-
-.project-container .thumbnail {
-  width: 64px;
-  height: 64px;
-  margin: auto 0;
-  border: 1px solid var(--outFocus);
-}
-
-.project-container p {
-  margin: 0;
-  font-size: 12px;
-  color: #adadad;
-}
-
-.project-container p.title {
-  margin-bottom: 8px;
-  font-size: 14px;
-  color: var(--p-text-color);
-}
 
 [data-scrollcontainer] {
   position: relative;
