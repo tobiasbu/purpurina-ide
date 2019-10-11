@@ -1,6 +1,6 @@
 import hyper from 'hyperhtml';
 
-import header from './header';
+import header from './Header';
 import version from 'shared/version';
 import Navigation from './Navigation';
 

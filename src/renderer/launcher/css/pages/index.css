@@ -1,20 +1,39 @@
 @import "./project-page.css";
 
 .content-page {
-  margin-left: var(--p-spacing-l);
+  padding: var(--p-spacing-l) var(--p-spacing-l);
   flex-grow: 1;
   overflow: hidden;
   display: flex;
   width: 100%;
   flex-direction: column;
+  background-color: #171717;
 }
 
-.page-bar {
-  height: 64px;
-  min-height: 64px;
-  flex-grow: 1;
-  margin-bottom: var(--p-spacing-m);
+.page-top-bar {
+  min-height: 56px;
   display: flex;
-  justify-content: flex-end;
+  justify-content: flex-start;
   align-items: center;
+  border-bottom: 1px solid #212121;
+}
+
+.page-top-bar h1 {
+  padding: 0;
+  margin: auto;
+  font-size: 1.125rem;
+  font-weight: 600;
+  width: 100%;
+}
+
+
+.page-bottom-bar {
+  min-height: 56px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.page-wrapper {
+  padding: var(--p-spacing-ms);
 }

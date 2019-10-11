@@ -3,9 +3,9 @@ import hyper from 'hyperhtml';
 import { MenuRoute } from '../types';
 import { interpolateClassName } from '../utils';
 
-const icon = require('!svg-inline-loader!../img/icon_projects.svg') as string;
+const stars = require('!svg-inline-loader!../img/icon_stars.svg') as string;
 const learn = require('!svg-inline-loader!../img/icon_learn.svg') as string;
-const projects = require('!svg-inline-loader!../img/icon_project.svg') as string;
+const home = require('!svg-inline-loader!../img/icon_home.svg') as string;
 const settings = require('!svg-inline-loader!../img/icon_settings.svg') as string;
 
 const iconDefs = require('!svg-inline-loader!../img/icon_defs.svg') as string;
@@ -38,7 +38,7 @@ export default class Navigation extends hyper.Component<MenuState> {
     });
   }
 
-  private createTab(name: string, optionIcon: string = icon) {
+  private createTab(name: string, optionIcon: string = stars) {
     const onSelect = this.onMenuSelect.bind(this, this.buttonId);
     let className = 'menu-tab';
     if (this.buttonId === this.state.selected) {
@@ -69,7 +69,8 @@ export default class Navigation extends hyper.Component<MenuState> {
     ${{ html: iconDefs }}
     <nav id='menu'>
       <ul class="menu-list" style="margin-bottom: var(--p-spacing-m)">
-        ${this.createTab('Projects', projects)}
+        ${this.createTab('Home', home)}
+        ${this.createTab('New Project', stars)}
         ${this.createTab('Learn', learn)}
         ${this.createTab('Settings', settings)}
       </ul>

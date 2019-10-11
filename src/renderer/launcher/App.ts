@@ -4,7 +4,7 @@ import fregues from 'maestro/fregues';
 
 import titleBar from './components/titleBar';
 import SideBar from './components/SideBar';
-import PageContainer from './components/PageContainer';
+import PageContainer from './pages/PageContainer';
 
 export default class App extends hyper.Component {
 

@@ -32,7 +32,7 @@ function getURL(pathName:'editor' | 'launcher'):string {
 export function createStartupWindow(): BrowserWindow {
 
   const width = 800;
-  const height = 450;
+  const height = 450 + 80;
   const launcherPath = getURL('launcher');
 
   const IS_DEV = (process.env.NODE_ENV === 'development');

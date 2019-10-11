@@ -1,10 +1,15 @@
 
 @import './button.css';
+@import './text-input.css';
 
 .name {
   display: inline-block;
-  line-height: 28px;
   margin: auto var(--p-spacing-m);
+  font-size: 1rem;
+  line-height: 1.5;
 }
 
+button .name {
+  font-size: 0.8rem;
+}
 

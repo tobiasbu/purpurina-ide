@@ -111,48 +111,16 @@
   right: 0;
 }
 
-label {
+/* label {
   display: block;
   font-size: 13px;
   margin-bottom: 8px;
   color: #adadad;
-}
+} */
 
-.textbox {
-  height: 28px;
-  background: var(--midLight);
-  padding: 4px 8px;
-  /* margin-bottom: 20px; */
-  display: block;
-  position: relative;
-}
 
-.textbox>input {
-  width: 100%;
-  border: none;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  margin: 0;
-  box-sizing: border-box;
-  position: absolute;
-  background: transparent;
-  color: var(--p-text-color);
-  width: 100%;
-  font-size: 15px;
-  padding: 4px 8px;
-  outline-offset: 0px;
-}
 
-p.inputInfo {
-  margin-top: 6px;
-  display: block;
-  margin-bottom: 16px;
-  font-size: 11px;
-  height: 16px;
-  color: #ea525f;
-}
+
 
 .browse-icon-container {
   position: absolute;

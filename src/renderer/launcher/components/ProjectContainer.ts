@@ -66,12 +66,13 @@ export default class ProjectContainer extends hyper.Component {
                         ${{ html: iconPlaceholder }}
                       </div>
                     </div>
-                    <div class="info">
+                    <div class="main-info">
                         <p class="project-title">${name}</p>
                         <p>${path}</p>
-                        <p>${author} - ${version}</p>
                     </div>
         </li>
       `;
   }
 }
+
+// <p>${author} - ${version}</p>

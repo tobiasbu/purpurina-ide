@@ -1,4 +1,3 @@
-
 .project-list {
   overflow-y: auto;
   flex-grow: 1;
@@ -8,8 +7,8 @@
   cursor: pointer;
   display: flex;
   border-bottom: 1px solid #1a1a1a;
-  height: 91.333px;
-  padding: var(--p-spacing-m);
+  height: 58px;
+  padding: var(--p-spacing-ms);
 }
 
 /* .project-container:hover {
@@ -18,8 +17,8 @@
 
 .thumbnail {
   position: relative;
-  width: 56px;
-  height: 56px;
+  width: 33px;
+  height: 100%;
   background-color: #6024ad;
   margin: auto 0;
   border-radius: var(--p-spacing-xs);
@@ -37,7 +36,7 @@
   background-color: #1a1a1a;
 }
 
-.project-container .info {
+.main-info {
   padding-left: var(--p-spacing-m);
   justify-content: space-between;
   display: flex;
@@ -47,8 +46,8 @@
 .project-container p {
   margin: 0;
   font-size: 0.7rem;
-  line-height: 1.5;
-  color: #adadad;
+  line-height: 1;
+  color: #8b8b8b;
 }
 
 .project-container .project-title {
@@ -56,5 +55,4 @@
   font-size: 0.95rem;
   color: var(--p-text-color);
   font-weight: 500;
-  line-height: 1;
 }

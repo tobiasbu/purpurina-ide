@@ -5,9 +5,9 @@
 .title {
   position: relative;
   display: flex;
-  margin-bottom: var(--p-spacing-m);
+  margin-bottom: var(--p-spacing-l);
   height: var(--p-spacing-xll);
-  padding: 0 var(--p-spacing-s);
+  padding: 0 var(--p-spacing-l);
 }
 
 #logo {
@@ -20,7 +20,8 @@
 #logo-title {
   width: -webkit-fill-available;
   height: auto;
-  margin: auto var(--p-spacing-m);
+  margin: auto 0 auto var(--p-spacing-m);
+  font-size: 0;
 }
 
 .title h1 {

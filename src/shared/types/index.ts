@@ -1,4 +1,6 @@
 
+export type AnyCallback = (...args: any) => any;
+
 export interface UserInfo {
   homeDir: string;
   userName: string;

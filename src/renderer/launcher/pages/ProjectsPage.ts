@@ -5,14 +5,50 @@ import { IProjectInfo } from 'shared/types';
 import ProjectContainer from '../components/ProjectContainer';
 import Button from '../components/Button';
 
+const add = require('!svg-inline-loader!../img/icon_add.svg') as string;
+
 export default class ProjectsPage extends hyper.Component {
 
   private projectsElements: ProjectContainer[];
   private selectedProject: ProjectContainer = null;
 
+  get title(): string {
+    return 'Recent Projects';
+  }
+
   constructor() {
     super();
     this.projectsElements = [
+      new ProjectContainer({
+        index: 0,
+        path: 'C:/tobi/ProjetoEKO',
+        projectPackage: {
+          author: 'Irmãos Bu',
+          name: 'Projeto EKO',
+          thumbnail: null,
+          version: '0.0.1',
+        },
+      },                   this),
+      new ProjectContainer({
+        index: 0,
+        path: 'C:/tobi/ProjetoEKO',
+        projectPackage: {
+          author: 'Irmãos Bu',
+          name: 'Projeto EKO',
+          thumbnail: null,
+          version: '0.0.1',
+        },
+      },                   this),
+      new ProjectContainer({
+        index: 0,
+        path: 'C:/tobi/ProjetoEKO',
+        projectPackage: {
+          author: 'Irmãos Bu',
+          name: 'Projeto EKO',
+          thumbnail: null,
+          version: '0.0.1',
+        },
+      },                   this),
       new ProjectContainer({
         index: 0,
         path: 'C:/tobi/ProjetoEKO',
@@ -108,13 +144,16 @@ export default class ProjectsPage extends hyper.Component {
   private render() {
 
     return hyper.wire(this)`
-      <div class="page-bar">
-      ${Button('New Project')}
-      </div>
       <div class="project-list">
         <ul>
           ${ !this.projectsElements ? this.welcomePage() : this.projectsElements}
         </ul>
+      </div>
+      <div class="page-bottom-bar">
+        <div class="button-row">
+        ${Button('New Project')}
+        ${Button('Open Project')}
+      </div>
       </div>
       `
       ;

@@ -1,5 +1,6 @@
 import { ipcMain, dialog } from 'electron';
 import { IProjectInfo, ICreateProject } from '@shared/types';
+import * as fse from 'fs-extra';
 
 import Application from '../core/Application';
 import createNewProject from '../project/createNewProject';
@@ -13,9 +14,9 @@ function startEditor(appControl: Application, project: IProjectInfo) {
       appControl.settings.save();
       appControl.startEditor();
     })
-    .catch((e) => {
-      throw e;
-    });
+      .catch((e) => {
+        throw e;
+      });
   } catch (err) {
     console.log('Could not start project.');
   }
@@ -68,5 +69,11 @@ export default function registerEvents(appControl: Application) {
     // const watcher = ProjectManager.openProject(openProject.path, true);
     // watcher.start(openProject.path);
 
+  });
+
+  ipcMain.on('launcher_validatePath', (event: Electron.Event, message: { path: string }) => {
+    fse.access(message.path, (err) => {
+      console.log(err);
+    });
   });
 }

@@ -1,11 +1,13 @@
 import hyper from 'hyperhtml';
+import { ipcRenderer } from 'electron';
+import * as debouncePromise from 'debounce-promise';
 
 import { getUserInfo } from '@shared/index';
 import Dialogs from '@shared/Dialogs';
 import pathValidation from '@shared/utils/pathValidation';
-import { ipcRenderer } from 'electron';
-import { ICreateProject } from 'shared/types';
 
+import { ICreateProject, AnyCallback } from 'shared/types';
+import TextInput from '../components/TextInput';
 
 const userInfo = getUserInfo();
 const DEFAULT_LOCATION = userInfo.homeDir;
@@ -16,14 +18,17 @@ export default class CreateProjectPage extends hyper.Component {
   private projectName: string;
   private location: string;
   private author: string;
+  private pathValidator: AnyCallback;
 
   private creatingProject: boolean = false;
 
-  private nameInputElement: HTMLInputElement;
-  private nameErrorElement: HTMLElement;
+  private nameInput: TextInput;
+  private locationInput: TextInput;
+  private authorInput: TextInput;
 
-  private browseErrorElement: HTMLElement;
-  private browseLocationElement: HTMLInputElement;
+  get title(): string {
+    return 'Create a New Project';
+  }
 
   constructor() {
     super();
@@ -32,30 +37,43 @@ export default class CreateProjectPage extends hyper.Component {
     this.location = DEFAULT_LOCATION;
     this.author = DEFAULT_AUTHOR;
 
-    this.nameErrorElement = hyper.wire()`<p class='inputInfo'></p>`;
-    this.browseErrorElement = hyper.wire()`<p class='inputInfo'></p>`;
+    // this.nameErrorElement = hyper.wire()`<p class='inputInfo'></p>`;
+    // this.browseErrorElement = hyper.wire()`<p class='inputInfo'></p>`;
 
-    this.nameInputElement = hyper.wire()`
-        <input
-            id="project-name"
-            accept-charset="UTF-8"
-            type="text"
-            value=${this.projectName}
-            oninput=${this.onInput}
-            maxlength="214"
-            />
-        `;
+    this.nameInput = new TextInput('Project Name', {
+      onInput: this.onInput,
+      maxLength: 214,
+      initialValue: this.projectName,
+    });
 
-    this.browseLocationElement = hyper.wire()`
-         <input
-            id="project-location"
-            accept-charset="UTF-8"
-            type="text"
-            value=${this.location}
-            style="padding-right: 48px;"
-            webkitdirectory
-            oninput=${this.onInput}
-            />`;
+    this.locationInput = new TextInput('Location', {
+      onInput: this.onInput,
+      attributes: 'webkitdirectory',
+      initialValue: this.location,
+      style: 'padding-right: 48px',
+    });
+
+    this.authorInput = new TextInput('Author / Organization', {
+      initialValue: this.author,
+      maxLength: 255,
+    });
+
+    // function validatePath(message) {
+    //   Promise.resolve(message);
+    //   console.log(message);
+    // }
+
+    // ipcRenderer.on('launcher_pathValidated', validatePath);
+
+    // const promiseValidator = (testValue: string) => {
+    //   ipcRenderer.send('launcher_validatePath', {
+    //     path: testValue,
+    //   });
+    // };
+
+    // this.pathValidator = debouncePromise(promiseValidator, 200, {
+    //   leading: false,
+    // });
 
     // ipcRenderer.on('response_projectNameValidation', (a: EventEmitter, b: ) => {
     //     console.log(a);
@@ -70,15 +88,15 @@ export default class CreateProjectPage extends hyper.Component {
     switch (inputElement.id) {
       case 'project-name': {
         error = pathValidation.folderName(testValue);
-        this.nameErrorElement.textContent = error;
+        this.nameInput.setError(error);
         if (error.length === 0) {
           this.projectName = testValue;
         }
         break;
       }
-      case 'project-location': {
+      case 'location': {
         error = pathValidation.path(testValue);
-        this.browseErrorElement.textContent = error;
+        this.locationInput.setError(error);
         if (error.length === 0) {
           this.location = testValue;
         }
@@ -91,21 +109,19 @@ export default class CreateProjectPage extends hyper.Component {
         break;
       }
     }
-
-    inputElement.setCustomValidity(error);
   }
 
-  private browseLocation = () => {
-    const path = Dialogs.openDirectoryDialog(this.location);
+  // private browseLocation = () => {
+  //   const path = Dialogs.openDirectoryDialog(this.location);
 
-    if (path) {
-      const error = pathValidation.path(path);
-      this.browseLocationElement.value = path;
-      this.browseLocationElement.setCustomValidity(error);
-      this.location = path;
-      this.browseErrorElement.textContent = error;
-    }
-  }
+  //   if (path) {
+  //     const error = pathValidation.path(path);
+  //     this.browseLocation.value = path;
+  //     this.browseLocation.setCustomValidity(error);
+  //     this.location = path;
+  //     this.browseErrorElement.textContent = error;
+  //   }
+  // }
 
   private createProject = () => {
 
@@ -131,43 +147,38 @@ export default class CreateProjectPage extends hyper.Component {
     this.location = DEFAULT_LOCATION;
     this.author = DEFAULT_AUTHOR;
 
-    this.nameInputElement.setCustomValidity('');
-    this.nameInputElement.value = this.projectName;
-    this.nameErrorElement.textContent = '';
+    this.nameInput.setValue(this.projectName);
+    this.locationInput.setValue(this.location);
+    // this.nameInputElement.value = this.projectName;
+    // this.nameErrorElement.textContent = '';
 
-    this.browseLocationElement.setCustomValidity('');
-    this.browseLocationElement.value = this.location;
-    this.browseErrorElement.textContent = '';
+    // this.browseLocation.setCustomValidity('');
+    // this.browseLocation.value = this.location;
+    // this.browseErrorElement.textContent = '';
   }
+
+  // <label>Project name</label>
+  //       <div class="textbox">
+  //          ${this.nameInputElement}
+  //       </div>
 
   render() {
     return hyper.wire(this)`
-        <label>Project name</label>
-        <div class="textbox">
-           ${this.nameInputElement}
-        </div>
-        ${this.nameErrorElement}
-        <label>Location</label>
-        <div class="textbox">
-           ${this.browseLocationElement}
+        <div class="page-wrapper">
+          ${this.nameInput}
+          ${this.locationInput}
+          ${this.authorInput}
             <div class='browse-icon-container'>
                 <div class='browse-icon'
-                onclick=${this.browseLocation}
+                onclick=${this.locationInput}
                 />
                 <!-- <img src='browse_icon.png'> -->
-            </div>
-        </div>
-        ${this.browseErrorElement}
-        <label>Author / Organzation</label>
-        <div class="textbox">
-            <input id='project-author'
-            accept-charset="UTF-8"
-            type="text" value=${this.author} maxlength="255"  oninput=${this.onInput}/>
-        </div>
+                </div>
       <button
         style = "float:right;margin-top:52px;"
         onclick = ${ this.createProject}
         > Create Project </button>
+      </div>
   `;
   }
 

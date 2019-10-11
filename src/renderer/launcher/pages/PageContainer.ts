@@ -1,33 +1,22 @@
 import hyper from 'hyperhtml';
-import { MenuRoute } from '../types';
+import ProjectsPage from './ProjectsPage';
+import CreateProjectPage from './CreateProjectPage';
 
-import ProjectsPage from '../pages/ProjectsPage';
-
-type PageState = {
-  selected: MenuRoute;
-};
-
-function getMenuName(state: PageState) {
-  switch (state.selected) {
-    case MenuRoute.Projects: return 'Projects';
-    case MenuRoute.Learn: return 'Learn';
-  }
-  return 'Home';
-}
-
-// tslint:disable-next-line: function-name
 export default class PageContainer extends hyper.Component {
   readonly producerState: any;
   private projectPage: ProjectsPage;
+  private createProjectPage: CreateProjectPage;
 
   constructor() {
     super();
     this.projectPage = new ProjectsPage();
+    this.createProjectPage = new CreateProjectPage();
   }
 
   private getCurrentPage() {
     switch (this.producerState.selected) {
       case 0: return this.projectPage;
+      case 1: return this.createProjectPage;
     }
     return null;
   }
@@ -38,6 +27,9 @@ export default class PageContainer extends hyper.Component {
 
     return hyper.wire(this)`
     <div class="content-page">
+      <div class="page-top-bar">
+        <h1>${currentPage && currentPage.title}</h1>
+      </div>
       ${currentPage}
     </div>
     `;
