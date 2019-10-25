@@ -58,7 +58,7 @@ export default class Application {
     });
   }
 
-  startLauncher() {
+  startLauncher(): Promise<BrowserWindow> {
     const promise = new Promise<BrowserWindow>((resolve, reject) => {
 
       const mainWindow = createStartupWindow();
@@ -67,13 +67,18 @@ export default class Application {
       }
       this.window = mainWindow;
 
+      mainWindow.on('ready-to-show', () => {
+        this.appState  = AppState.Launcher;
+        resolve(mainWindow);
+      });
+
       // did-finisdh-load
-      mainWindow.once('ready-to-show',
-                      this.readyToShow.bind(this, resolve, mainWindow, AppState.Launcher));
+      // mainWindow.once('ready-to-show',
+      //                 this.readyToShow.bind(this, resolve, mainWindow, AppState.Launcher));
 
       events(this);
 
-      console.log(`Starting ${APP_NAME} Launcher`);
+      console.log(`Opening ${APP_NAME} Launcher`);
       this.appState = AppState.InitializeLauncher;
 
     });

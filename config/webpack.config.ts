@@ -20,8 +20,9 @@ function createRendererConfig(env: BuildEnvironment) {
   // ];
 
   // ?path=http://localhost:${PORT}/__webpack_hmr&reload=true&timeout=20000
+  // http://localhost:${PORT}/
   const PORT = process.env.PORT || 3000;
-  const HOT_MW = `webpack-hot-middleware/client?path=http://localhost:${PORT}/__webpack_hmr&reload=true&timeout=20000`;
+  const HOT_MW = `webpack-hot-middleware/client?path=/__webpack_hmr&reload=true&timeout=20000`;
   const ENTRY_PATH = path.join(PROJECT_PATH, './src/renderer');
 
   const LAUNCHER_PATH = path.join(ENTRY_PATH, '/launcher');
@@ -36,8 +37,8 @@ function createRendererConfig(env: BuildEnvironment) {
     {
       target: 'electron-renderer',
       entry: {
-        'launcher': (env.isProduction) ? LAUNCHER_ENTRY_PATH : [LAUNCHER_ENTRY_PATH, HOT_MW],
-        'editor': (env.isProduction) ? EDITOR_ENTRY_PATH : [EDITOR_ENTRY_PATH, HOT_MW],
+        'launcher': (env.isProduction) ? LAUNCHER_ENTRY_PATH : [HOT_MW, LAUNCHER_ENTRY_PATH],
+        'editor': (env.isProduction) ? EDITOR_ENTRY_PATH : [HOT_MW, EDITOR_ENTRY_PATH],
       },
       output: {
         publicPath: `/dist/renderer`,

@@ -72,31 +72,19 @@ async function main() {
   const rendererCompiler = webpack(config.renderer);
 
   const devOptions: WebpackDevMiddlewareMoreOptions = {
-
     publicPath: config.renderer.output.publicPath,
     quiet: false,
     reload: true,
     overlay: true,
     writeToDisk: true,
     noInfo: true,
-    // stats: {
-    //   colors: true,
-    //   assets: false,
-    // }
   };
   const devMiddleware = WebpackDevMiddleware(rendererCompiler, devOptions);
   const hotMiddleware = WebpackHotMiddleware(rendererCompiler, {
     path: '/__webpack_hmr', heartbeat: 10 * 1000
   });
 
-  // rendererCompiler.hooks.compilation.tap('html-webpack-plugin-after-emit', () => {
-  //   hotMiddleware.publish({
-  //     action: 'reload'
-  //   });
-  // });
-
-
-  // Renderer Server configuring
+  // Renderer Server configuration
   const expressApp = express();
   expressApp.use(devMiddleware);
   expressApp.use(hotMiddleware);
@@ -110,7 +98,7 @@ async function main() {
         reject(error);
       }
       logger.log('Renderer dev server listening on port ' + port + '\n');
-      resolve({ server, port });
+      resolve({ server, port, devMiddleware  });
     })
   });
 

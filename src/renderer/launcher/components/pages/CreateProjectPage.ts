@@ -7,7 +7,8 @@ import Dialogs from '@shared/Dialogs';
 import pathValidation from '@shared/utils/pathValidation';
 
 import { ICreateProject, AnyCallback } from 'shared/types';
-import TextInput from '../components/TextInput';
+import TextInput from '../commons/TextInput';
+import Button from '../commons/Button';
 
 const userInfo = getUserInfo();
 const DEFAULT_LOCATION = userInfo.homeDir;
@@ -18,7 +19,6 @@ export default class CreateProjectPage extends hyper.Component {
   private projectName: string;
   private location: string;
   private author: string;
-  private pathValidator: AnyCallback;
 
   private creatingProject: boolean = false;
 
@@ -146,24 +146,12 @@ export default class CreateProjectPage extends hyper.Component {
     this.projectName = 'New Project 1';
     this.location = DEFAULT_LOCATION;
     this.author = DEFAULT_AUTHOR;
-
-    this.nameInput.setValue(this.projectName);
-    this.locationInput.setValue(this.location);
-    // this.nameInputElement.value = this.projectName;
-    // this.nameErrorElement.textContent = '';
-
-    // this.browseLocation.setCustomValidity('');
-    // this.browseLocation.value = this.location;
-    // this.browseErrorElement.textContent = '';
+    this.nameInput.reset();
+    this.locationInput.reset();
   }
 
-  // <label>Project name</label>
-  //       <div class="textbox">
-  //          ${this.nameInputElement}
-  //       </div>
-
   render() {
-    return hyper.wire(this)`
+    return this.html`
         <div class="page-wrapper">
           ${this.nameInput}
           ${this.locationInput}
@@ -174,10 +162,7 @@ export default class CreateProjectPage extends hyper.Component {
                 />
                 <!-- <img src='browse_icon.png'> -->
                 </div>
-      <button
-        style = "float:right;margin-top:52px;"
-        onclick = ${ this.createProject}
-        > Create Project </button>
+                ${Button('Create Project')}
       </div>
   `;
   }

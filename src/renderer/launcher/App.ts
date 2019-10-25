@@ -2,14 +2,15 @@ import hyper from 'hyperhtml';
 import { remote } from 'electron';
 import fregues from 'maestro/fregues';
 
-import titleBar from './components/titleBar';
-import SideBar from './components/SideBar';
-import PageContainer from './pages/PageContainer';
+import TitleBar from './components/TitleBar';
+import SideBar from './components/sidebar';
+import PageContainer from './components/pages/PageContainer';
+import { IProjectInfo } from 'shared/types';
 
 export default class App extends hyper.Component {
 
   private sideBar: SideBar;
-  private pages: any;
+  private pages: PageContainer;
 
   constructor() {
     super();
@@ -27,9 +28,15 @@ export default class App extends hyper.Component {
     remote.getCurrentWindow().minimize();
   }
 
+  public load(projectsList: IProjectInfo[]) {
+    if (this.pages.homePage.load(projectsList)) {
+      this.pages.render();
+    }
+  }
+
   render() {
     return this.html`
-      ${titleBar(this.onAppClose, this.onAppMinimize)}
+      ${TitleBar(this.onAppClose, this.onAppMinimize)}
       <main class="content">
         <div class="content-wrapper">
           <div class="content-inner-wrapper">

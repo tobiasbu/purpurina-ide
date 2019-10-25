@@ -14,20 +14,32 @@ if (DEVELOPMENT) {
 import './css/style.css';
 import hyper from 'hyperhtml';
 import App from './App';
+import { ipcRenderer } from 'electron';
+import { IProjectInfo } from 'shared/types';
 
 document.addEventListener('dragstart', event => event.preventDefault());
 document.addEventListener('dragover', event => event.preventDefault());
 document.addEventListener('drop', event => event.preventDefault());
 
-const root = document.getElementById('root');
+console.log('#######################hello');
 
 const app = new App();
-
 const wrapRender = function () {
-  return app.render();
+  const mainEl = app.render();
+  return mainEl;
 };
-
+const root = document.getElementById('root');
 hyper.bind(root)`${wrapRender}`;
+
+ipcRenderer.send('launcher_loaded');
+ipcRenderer.once('projects-loaded', (event: Electron.Event, projectsList: IProjectInfo[]) => {
+  app.load(projectsList);
+  console.log(projectsList);
+  console.log('PROJECTS RECEIVED');
+  console.log('SHOW');
+  ipcRenderer.send('show_window');
+  wrapRender();
+});
 
 if ((module as any).hot) {
   (module as any).hot.accept(() => {
@@ -36,7 +48,23 @@ if ((module as any).hot) {
   });
 }
 
-// window.onload = () => {
+// function main() {
+
+//   console.log('HELLO FROM LAUNCHER');
+
+//   ipcRenderer.send('launcher_loaded');
+//   ipcRenderer.once('projects-loaded', (event: Electron.Event, projectsList: IProjectInfo[]) => {
+//       // menu.init(projectsList);
+//     app.load(projectsList);
+//     console.log('PROJECTS RECEIVED');
+//     hyper.bind(root)`${wrapRender}`;
+//     console.log('SHOW');
+//     ipcRenderer.send('show_window');
+//   });
+
+// }
+
+// main();
 
 //   menu = new MenuControl();
 

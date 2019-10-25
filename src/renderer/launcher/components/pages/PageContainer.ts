@@ -1,21 +1,23 @@
 import hyper from 'hyperhtml';
-import ProjectsPage from './ProjectsPage';
+
+import HomePage from './HomePage';
 import CreateProjectPage from './CreateProjectPage';
 
 export default class PageContainer extends hyper.Component {
   readonly producerState: any;
-  private projectPage: ProjectsPage;
+  public readonly homePage: HomePage;
   private createProjectPage: CreateProjectPage;
 
   constructor() {
     super();
-    this.projectPage = new ProjectsPage();
+    this.homePage = new HomePage();
     this.createProjectPage = new CreateProjectPage();
+
   }
 
   private getCurrentPage() {
     switch (this.producerState.selected) {
-      case 0: return this.projectPage;
+      case 0: return this.homePage;
       case 1: return this.createProjectPage;
     }
     return null;
@@ -24,11 +26,13 @@ export default class PageContainer extends hyper.Component {
   render() {
 
     const currentPage = this.getCurrentPage();
+    const title = (currentPage) ? currentPage.title : 'No Title';
+    console.log(currentPage);
 
-    return hyper.wire(this)`
+    return this.html`
     <div class="content-page">
       <div class="page-top-bar">
-        <h1>${currentPage && currentPage.title}</h1>
+        <h1>${title}</h1>
       </div>
       ${currentPage}
     </div>

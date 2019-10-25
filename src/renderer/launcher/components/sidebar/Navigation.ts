@@ -1,14 +1,14 @@
 import hyper from 'hyperhtml';
 
-import { MenuRoute } from '../types';
-import { interpolateClassName } from '../utils';
+import { MenuRoute } from '../../types';
+import { interpolateClassName } from '../../utils';
 
-const stars = require('!svg-inline-loader!../img/icon_stars.svg') as string;
-const learn = require('!svg-inline-loader!../img/icon_learn.svg') as string;
-const home = require('!svg-inline-loader!../img/icon_home.svg') as string;
-const settings = require('!svg-inline-loader!../img/icon_settings.svg') as string;
+const stars = require('!svg-inline-loader!../../img/icon_stars.svg') as string;
+const learn = require('!svg-inline-loader!../../img/icon_learn.svg') as string;
+const home = require('!svg-inline-loader!../../img/icon_home.svg') as string;
+const settings = require('!svg-inline-loader!../../img/icon_settings.svg') as string;
 
-const iconDefs = require('!svg-inline-loader!../img/icon_defs.svg') as string;
+const iconDefs = require('!svg-inline-loader!../../img/icon_defs.svg') as string;
 
 interface MenuState {
   selected: MenuRoute;

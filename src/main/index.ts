@@ -35,8 +35,24 @@ app.once('ready', () => {
   const loaderPromise = loadRecentProjects(settings.recentProjects);
 
   Promise.all([initPromise, loaderPromise]).then((result) => {
-
     const projects = result[1];
+    const win = result[0];
+    // for some reason HMR, some middleware or anything else is blocking the first render
+    // we force to reload the web contents:
+    if (process.env.DEVELOPMENT) {
+      win.webContents.reload();
+    }
+    win.webContents.on('console-message',
+      (event: Electron.IpcMainEvent, level: number, message: string) => {
+        console.log(`[WINDOW] [${level}] ${message}`);
+      });
+
+    ipcMain.on('show_window', () => {
+      win.show();
+      win.focus();
+      win.webContents.openDevTools();
+    });
+
     ipcMain.on('launcher_loaded', (event: Electron.IpcMainEvent) => {
       event.sender.send('projects-loaded', projects);
     });

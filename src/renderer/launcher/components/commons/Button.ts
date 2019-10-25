@@ -1,5 +1,6 @@
 import hyper from 'hyperhtml';
-import { interpolateClassName } from '../utils';
+import { interpolateClassName } from '../../utils';
+import { MouseCallback } from '../../types';
 
 function random_id() {
   return `_${(
@@ -9,16 +10,21 @@ function random_id() {
   ).toString(36)}`;
 }
 
-export default function (text?: string, icon?: string) {
+export interface ButtonOptions {
+  icon?: string;
+  onClick?: MouseCallback;
+}
+
+export default function (text?: string, options?: ButtonOptions) {
 
   const buttonText = text || 'Button';
   let iconHtml: string;
-  if (icon) {
-    iconHtml = `<span class="icon">${icon}</span>`;
+  if (options && options.icon) {
+    iconHtml = `<span class="icon">${options.icon}</span>`;
   }
 
   return hyper.wire(this, `:${interpolateClassName(text)}-${random_id}`)`
-  <button>
+  <button onclick=${options && options.onClick}>
     ${{ html: iconHtml }}
     <span class="name">${buttonText}</span>
   </button>

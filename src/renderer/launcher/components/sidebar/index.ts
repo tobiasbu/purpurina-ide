@@ -12,18 +12,6 @@ export default class SideBar extends hyper.Component {
     super();
     this.navigation = new Navigation();
   }
-  // private createButton(name: string) {
-  //   const el = hyper.wire(this, `:button-${this.buttonId}`)`
-  //     <li>
-  //       <button class="menu-button">
-  //       ${name}
-  //       </button>
-  //     </li>
-  //   `;
-  //   this.buttonId += 1;
-  //   return el;
-  // }
-
   render() {
     return this.html`
     <div class="side-bar">
@@ -34,8 +22,3 @@ export default class SideBar extends hyper.Component {
   }
 
 }
-
-// <ul class="menu-list">
-//         ${this.createButton('New Project')}
-//         ${this.createButton('Open Project')}
-//       </ul>

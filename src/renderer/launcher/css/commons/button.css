@@ -2,15 +2,12 @@ button {
   color: var(--p-text-color);
   font-size: 0;
   padding: 1px;
-  transition: 100ms ease all;
+  transition: 60ms cubic-bezier(0.39, 0.575, 0.565, 1) all;
   cursor: pointer;
   display: flex;
-  padding: var(--p-spacing-xs);
+  padding: var(--p-spacing-s);
   border-radius: var(--p-spacing-xs);
   border: 1px solid var(--p-text-color);
-  /* background-image: linear-gradient(
-  to bottom,
-  #ff7f4c, #fd5587, #ea28c4); */
 }
 
 .button-row {
@@ -34,8 +31,6 @@ button {
 button:hover, button:active {
   background: var(--p-text-color);
   color: var(--p-bg);
-  transition: 100ms ease all;
-
 }
 
 button:hover:active {

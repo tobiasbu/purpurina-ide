@@ -1,6 +1,6 @@
 import hyper from 'hyperhtml';
-import objectGet from 'shared/utils/objectGet';
-import { interpolateClassName } from '../utils';
+import * as Utils from '@shared/utils';
+import { interpolateClassName } from '../../utils';
 
 interface TextInputOptions {
   initialValue?: string;
@@ -15,11 +15,11 @@ function parseOptions(options?: TextInputOptions) {
     return {};
   }
   const opts: TextInputOptions = {
-    initialValue: objectGet(options, 'initialValue', ''),
-    maxLength: objectGet(options, 'maxLength', null),
-    attributes: objectGet(options, 'attributes', ''),
-    onInput: objectGet(options, 'onInput', null),
-    style: objectGet(options, 'style', ''),
+    initialValue: Utils.objectGet(options, 'initialValue', ''),
+    maxLength: Utils.objectGet(options, 'maxLength', null),
+    attributes: Utils.objectGet(options, 'attributes', ''),
+    onInput: Utils.objectGet(options, 'onInput', null),
+    style: Utils.objectGet(options, 'style', ''),
   };
   return opts;
 }
@@ -32,6 +32,7 @@ export default class TextInput extends hyper.Component {
   private errorContainer: HTMLDivElement;
   private lastError: string;
   private hasError: boolean;
+  readonly options: TextInputOptions;
 
   constructor(label: string, options?: TextInputOptions) {
     super();
@@ -52,6 +53,7 @@ export default class TextInput extends hyper.Component {
 
     this.errorElement = document.createElement('p');
     this.errorElement.className = 'input-error';
+    this.options = opts;
 
     this.errorContainer = hyper.wire(this)`
     <div class="input-error-container">
@@ -73,9 +75,7 @@ export default class TextInput extends hyper.Component {
   }
 
   setError(errorValue: string) {
-
-    const error = errorValue || '';
-
+    const error = Utils.getValue(errorValue, '');
     if (error.length > 0) {
       if (!this.hasError) {
         this.hasError = true;
@@ -90,6 +90,11 @@ export default class TextInput extends hyper.Component {
     }
     this.errorElement.textContent = this.lastError;
     this.inputElement.setCustomValidity(errorValue);
+  }
+
+  reset() {
+    this.setError(null);
+    this.inputElement.value = this.options.initialValue;
   }
 
   render() {

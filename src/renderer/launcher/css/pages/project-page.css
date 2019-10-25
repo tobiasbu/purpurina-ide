@@ -1,7 +1,25 @@
-.project-list {
+
+
+.project-list, .welcome  {
   overflow-y: auto;
   flex-grow: 1;
 }
+
+.welcome {
+  padding: var(--p-spacing-ms);
+}
+
+.welcome p {
+  line-height: 1.25;
+  font-size: 0.9rem;
+  margin-bottom:  var(--p-spacing-m);
+}
+
+.highlight {
+  color: #ff54b9;
+  font-weight: 500;
+}
+
 
 .project-container {
   cursor: pointer;
@@ -10,10 +28,6 @@
   height: 58px;
   padding: var(--p-spacing-ms);
 }
-
-/* .project-container:hover {
-  background-color: var(--p-menu-hover);
-} */
 
 .thumbnail {
   position: relative;

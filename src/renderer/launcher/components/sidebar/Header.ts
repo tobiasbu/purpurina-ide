@@ -1,7 +1,7 @@
 import hyper from 'hyperhtml';
 
-const logo = require('!svg-inline-loader!../img/purpur_icon.svg') as string;
-const logoTitle = require('!svg-inline-loader!../img/purpur_title.svg') as string;
+const logo = require('!svg-inline-loader!../../img/purpur_icon.svg') as string;
+const logoTitle = require('!svg-inline-loader!../../img/purpur_title.svg') as string;
 
 const APP_TITLE = 'Purpurina';
 

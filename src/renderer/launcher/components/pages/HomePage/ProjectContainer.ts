@@ -1,36 +1,25 @@
 import hyper from 'hyperhtml';
 
 import { IProjectInfo } from 'shared/types';
-import ProjectsPage from '../pages/ProjectsPage';
+import RecentProjectsPage from './RecentProjectsPage';
 
-const iconPlaceholder = require('!svg-inline-loader!../img/icon_star.svg') as string;
-
-// function parseThumbail(thumbail: string) {
-
-//     if ((value as string).substr(0, 3).toLowerCase() === 'rgb') {
-//         return CSSToColor(value, source);
-//       } else {
-//         return HexToColor(value, source);
-//       }
-// }
+const iconPlaceholder = require('!svg-inline-loader!../../../img/icon_star.svg') as string;
 
 export default class ProjectContainer extends hyper.Component {
 
   private project: IProjectInfo;
-  private parent: ProjectsPage;
+  private parent: RecentProjectsPage;
   private isSelected: boolean;
-  // private onSelection: (e:MouseEvent) => void;
 
   public get info(): IProjectInfo {
     return this.project;
   }
 
-  constructor(project: IProjectInfo, parent: ProjectsPage) {
+  constructor(project: IProjectInfo, parent: RecentProjectsPage) {
     super();
     this.project = project;
     this.parent = parent;
     this.isSelected = false;
-    // this.onSelection = this.parent.selectProject.bind(parent, this);
   }
 
   public setSelection(flag: boolean): any {
@@ -39,25 +28,25 @@ export default class ProjectContainer extends hyper.Component {
   }
 
   render() {
-    const { projectPackage, path } = this.project;
-    let name;
-    let version;
-    let author: string;
-    if (!this.project.error) {
-      name = projectPackage.name;
-      version = projectPackage.version || '?';
-      author = projectPackage.author || '';
-    } else {
-      name = 'Invalid project';
-      console.log(this.project.error);
-      author = this.project.error;
-    }
-    // const style = `background-color:${this.project.thumbnail}`;
+    // const { projectPackage, path } = this.project;
+    // let name: string;
+    // let version: string;
+    // let author: string;
+    // if (!this.project.error || projectPackage != null) {
+    //   name = projectPackage.name;
+    //   version = projectPackage.version || '?';
+    //   author = projectPackage.author || '';
+    // } else {
+    //   name = 'Invalid project';
+    //   author = '';
+    // }
+    const name = 'Invalid project';
+    const path = 'any';
     let className = 'project-container';
     if (this.isSelected) {
       className = className.concat(' selected');
     }
-    return hyper.wire(this)`
+    return this.html`
         <li class=${className}
         onmousedown=${() => { this.parent.selectProject(this); }}
         ondblclick=${() => { this.parent.openProject(this); }} >
@@ -74,5 +63,3 @@ export default class ProjectContainer extends hyper.Component {
       `;
   }
 }
-
-// <p>${author} - ${version}</p>
