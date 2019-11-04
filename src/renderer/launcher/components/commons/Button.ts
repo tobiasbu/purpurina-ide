@@ -24,7 +24,7 @@ export default function (text?: string, options?: ButtonOptions) {
   }
 
   return hyper.wire(this, `:${interpolateClassName(text)}-${random_id}`)`
-  <button onclick=${options && options.onClick}>
+  <button class="btn-outline" onclick=${options && options.onClick} role="button" tabindex="0">
     ${{ html: iconHtml }}
     <span class="name">${buttonText}</span>
   </button>

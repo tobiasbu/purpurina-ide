@@ -23,10 +23,3 @@
   margin: auto 0 auto var(--p-spacing-m);
   font-size: 0;
 }
-
-.title h1 {
-  font-size: 0.95rem;
-  font-weight: 400;
-  margin: auto var(--p-spacing-m);
-  line-height: var(--p-spacing-m);
-}

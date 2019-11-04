@@ -45,11 +45,7 @@ export default class RecentProjectsPage extends hyper.Component {
   }
 
   render() {
-
     const projectElements = this.projectsElements;
-
-    console.log(projectElements);
-
     if (!isValid(projectElements)) {
       return null;
     }

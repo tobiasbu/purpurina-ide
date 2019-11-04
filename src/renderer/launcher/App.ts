@@ -37,14 +37,14 @@ export default class App extends hyper.Component {
   render() {
     return this.html`
       ${TitleBar(this.onAppClose, this.onAppMinimize)}
-      <main class="content">
+      <div class="content" tabindex="-1">
         <div class="content-wrapper">
           <div class="content-inner-wrapper">
             ${this.sideBar}
             ${this.pages}
           </div>
         </div>
-      </main>
+      </div>
     `;
   }
 

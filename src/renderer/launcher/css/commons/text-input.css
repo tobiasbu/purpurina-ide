@@ -6,7 +6,7 @@
 
 .input-label {
   display: block;
-  font-size: 0.8rem;
+  font-size: var(--p-font-s);
   margin-bottom: var(--p-spacing-xs);
   color: #adadad;
   line-height: 1.5;
@@ -15,14 +15,15 @@
 .input-box {
   background: var(--midLight);
   width: 100%;
+  position: relative;
 }
 
 .input-box>input {
   width: 100%;
   border: none;
   background: transparent;
-  color: var(--p-text-color);
-  font-size: 0.9rem;
+  color: var(--p-color-text);
+  font-size: var(--p-font-m);
   padding: var(--p-spacing-s);
   outline-offset: 0px;
   line-height: 1;
@@ -38,8 +39,8 @@
 
 .input-error {
   display: block;
-  font-size: 11px;
-  color: #ea525f;
+  font-size: var(--p-font-xs);
+  color: var(--p-color-error);
   transition: all ease 200ms;
   top: -100%;
   position: absolute;

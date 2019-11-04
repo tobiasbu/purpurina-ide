@@ -15,7 +15,7 @@
 
 .menu-tab {
   color: #7a7a7a;
-  font-size: 1rem;
+  font-size: var(--p-font-l);
   padding: var(--p-spacing-m) var(--p-spacing-l);
   transition: 200ms ease all;
   cursor: pointer;
@@ -24,17 +24,17 @@
 }
 
 .menu-tab .name {
-  font-size: 0.9rem;
+  font-size: var(--p-font-m);
 }
 
 .menu-tab:hover, .menu-tab.selected {
   background: var(--p-menu-hover);
-  color: var(--p-text-color);
+  color: var(--p-color-text);
 }
 
 /* .menu-tab.selected {
   background: var(--p-menu-select);
-  color: var(--p-text-color);
+  color: var(--p-color-text);
 } */
 
 /* .menu-tab.selected .name {
@@ -63,12 +63,12 @@
 }
 
 .menu-tab:hover .icon>svg {
-  /* stroke: var(--p-text-color); */
-  fill: var(--p-text-color);
+  /* stroke: var(--p-color-text); */
+  fill: var(--p-color-text);
 }
 
 .menu-tab.selected .icon>svg {
-  fill: var(--p-text-color);
+  fill: var(--p-color-text);
 }
 
 /*

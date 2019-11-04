@@ -1,13 +1,16 @@
 button {
-  color: var(--p-text-color);
+  cursor: pointer;
+  display: block;
+}
+
+.btn-outline {
+  color: var(--p-color-text);
   font-size: 0;
   padding: 1px;
-  transition: 60ms cubic-bezier(0.39, 0.575, 0.565, 1) all;
-  cursor: pointer;
-  display: flex;
+  transition: 30ms ease-in-out all;
   padding: var(--p-spacing-s);
   border-radius: var(--p-spacing-xs);
-  border: 1px solid var(--p-text-color);
+  border: 1px solid var(--p-color-text);
 }
 
 .button-row {
@@ -28,26 +31,26 @@ button {
   border-radius:  var(--p-spacing-xs);
 }
 
-button:hover, button:active {
-  background: var(--p-text-color);
+.btn-outline:hover, .btn-outline:active, .btn-outline:focus {
+  background: var(--p-color-text);
   color: var(--p-bg);
 }
 
-button:hover:active {
+.btn-outline:hover:active {
   background: #383838;
   border-color: #383838;
-  color: var(--p-text-color);
+  color: var(--p-color-text);
 }
 
 
-button .icon {
+.btn-outline .icon {
   display: inline-block;
   width: 20px;
   vertical-align: middle;
   margin: auto 0 auto var(--p-spacing-s);
 }
 
-button .icon > svg {
+.btn-outline .icon > svg {
   stroke: none;
-  fill: var(--p-text-color);
+  fill: var(--p-color-text);
 }

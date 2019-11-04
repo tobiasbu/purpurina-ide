@@ -5,11 +5,11 @@
 .name {
   display: inline-block;
   margin: auto var(--p-spacing-m);
-  font-size: 1rem;
+  font-size: var(--p-font-m);
   line-height: 1.5;
 }
 
 button .name {
-  font-size: 0.8rem;
+  font-size: var(--p-font-s);
 }
 

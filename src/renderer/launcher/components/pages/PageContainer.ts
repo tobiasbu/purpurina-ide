@@ -24,18 +24,15 @@ export default class PageContainer extends hyper.Component {
   }
 
   render() {
-
     const currentPage = this.getCurrentPage();
     const title = (currentPage) ? currentPage.title : 'No Title';
-    console.log(currentPage);
-
     return this.html`
-    <div class="content-page">
+    <main class="content-page">
       <div class="page-top-bar">
         <h1>${title}</h1>
       </div>
       ${currentPage}
-    </div>
+    </main>
     `;
   }
 }

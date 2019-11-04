@@ -1,18 +1,16 @@
 import hyper from 'hyperhtml';
 import { ipcRenderer } from 'electron';
-import * as debouncePromise from 'debounce-promise';
-
 import { getUserInfo } from '@shared/index';
-import Dialogs from '@shared/Dialogs';
 import pathValidation from '@shared/utils/pathValidation';
+import { ICreateProject } from '@shared/types';
 
-import { ICreateProject, AnyCallback } from 'shared/types';
 import TextInput from '../commons/TextInput';
 import Button from '../commons/Button';
 
 const userInfo = getUserInfo();
 const DEFAULT_LOCATION = userInfo.homeDir;
 const DEFAULT_AUTHOR = userInfo.userName;
+const browseIcon = require('!svg-inline-loader!../../img/icon_browse.svg') as string;
 
 export default class CreateProjectPage extends hyper.Component {
 
@@ -37,9 +35,6 @@ export default class CreateProjectPage extends hyper.Component {
     this.location = DEFAULT_LOCATION;
     this.author = DEFAULT_AUTHOR;
 
-    // this.nameErrorElement = hyper.wire()`<p class='inputInfo'></p>`;
-    // this.browseErrorElement = hyper.wire()`<p class='inputInfo'></p>`;
-
     this.nameInput = new TextInput('Project Name', {
       onInput: this.onInput,
       maxLength: 214,
@@ -47,6 +42,19 @@ export default class CreateProjectPage extends hyper.Component {
     });
 
     this.locationInput = new TextInput('Location', {
+      innerElement:  () => {
+        return hyper.wire(this)`
+          <div class='browse-icon-container'>
+             <button
+             role="button"
+             title="Browse location for new project"
+             class="btn-icon"
+             onclick=${this.locationInput}
+            >
+              ${{ html:  browseIcon }}
+            </button>
+        </div>`;
+      },
       onInput: this.onInput,
       attributes: 'webkitdirectory',
       initialValue: this.location,
@@ -153,16 +161,12 @@ export default class CreateProjectPage extends hyper.Component {
   render() {
     return this.html`
         <div class="page-wrapper">
-          ${this.nameInput}
-          ${this.locationInput}
-          ${this.authorInput}
-            <div class='browse-icon-container'>
-                <div class='browse-icon'
-                onclick=${this.locationInput}
-                />
-                <!-- <img src='browse_icon.png'> -->
-                </div>
-                ${Button('Create Project')}
+          <div class="page-main-content">
+            ${this.nameInput}
+            ${this.locationInput}
+            ${this.authorInput}
+          </div>
+          ${Button('Create Project')}
       </div>
   `;
   }

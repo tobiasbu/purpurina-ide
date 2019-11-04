@@ -11,7 +11,7 @@
 
 .welcome p {
   line-height: 1.25;
-  font-size: 0.9rem;
+  font-size: var(--p-font-m);
   margin-bottom:  var(--p-spacing-m);
 }
 
@@ -25,13 +25,15 @@
   cursor: pointer;
   display: flex;
   border-bottom: 1px solid #1a1a1a;
-  height: 58px;
+  /* height: 58px; */
+  height: 84.5px;
   padding: var(--p-spacing-ms);
 }
 
 .thumbnail {
   position: relative;
-  width: 33px;
+  /* width: 33px; */
+  width: 59.5px;
   height: 100%;
   background-color: #6024ad;
   margin: auto 0;
@@ -59,14 +61,15 @@
 
 .project-container p {
   margin: 0;
-  font-size: 0.7rem;
-  line-height: 1;
+  font-size: var(--p-font-xs);
+  line-height: 1.5;
   color: #8b8b8b;
 }
 
 .project-container .project-title {
   flex-grow: 1;
-  font-size: 0.95rem;
-  color: var(--p-text-color);
+  line-height: 1;
+  font-size: var(--p-font-m);
+  color: var(--p-color-text);
   font-weight: 500;
 }

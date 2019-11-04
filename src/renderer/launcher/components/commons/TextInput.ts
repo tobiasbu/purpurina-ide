@@ -7,6 +7,7 @@ interface TextInputOptions {
   maxLength?: number;
   attributes?: string;
   style?: string;
+  innerElement?: () => HTMLElement;
   onInput?: (e: Event) => void;
 }
 
@@ -20,10 +21,14 @@ function parseOptions(options?: TextInputOptions) {
     attributes: Utils.objectGet(options, 'attributes', ''),
     onInput: Utils.objectGet(options, 'onInput', null),
     style: Utils.objectGet(options, 'style', ''),
+    innerElement: Utils.objectGet(options, 'innerElement'),
   };
   return opts;
 }
 
+/**
+ * Represents TextInput component
+ */
 export default class TextInput extends hyper.Component {
 
   private label: string;
@@ -98,11 +103,13 @@ export default class TextInput extends hyper.Component {
   }
 
   render() {
+    const { innerElement } = this.options;
     return this.html`
     <div class="input-text-box">
       <label class="input-label">${this.label}</label>
       <div class="input-box">
         ${this.inputElement}
+        ${innerElement ? innerElement() : null}
       </div>
         ${this.errorContainer}
     </div>

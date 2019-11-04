@@ -24,7 +24,7 @@
   width: 45px;
   display: inline-block;
   height: 100%;
-  font-size: 1rem;
+  font-size: var(--p-font-l);
 }
 
 .win-top-button:hover {

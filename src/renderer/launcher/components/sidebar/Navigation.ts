@@ -40,6 +40,7 @@ export default class Navigation extends hyper.Component<MenuState> {
 
   private createTab(name: string, optionIcon: string = stars) {
     const onSelect = this.onMenuSelect.bind(this, this.buttonId);
+    const id = this.buttonId;
     let className = 'menu-tab';
     if (this.buttonId === this.state.selected) {
       className = className.concat(' selected');
@@ -50,8 +51,9 @@ export default class Navigation extends hyper.Component<MenuState> {
         <a
         id='${interpolateClassName(name)}'
         class="${className}"
-        onclick=${onSelect}
+        onclick=${(e) => { this.onMenuSelect(id, e); }}
         data-id=${this.buttonId}
+        tabindex="0"
         >
           <span class="icon">${{ html: optionIcon }}</span>
           <span class="name">${name}</span>

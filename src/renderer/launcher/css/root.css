@@ -1,14 +1,16 @@
 :root {
   --p-bg: #080808;
-  --p-text-color: #d6d6d6;
+  --p-color-text: #d6d6d6;
   --p-menu-hover: #1b1b1b;
   --p-menu-select: #262626;
   --p-sidebar-bg: #141414;
+  --p-color-error: #ea525f;
   --outFocus: #004580;
   --labelFocus: #107bd7;
 
   --mid: #262626;
   --midLight: #202020;
+  /* SPACING, MARGINS... */
   --p-spacing-xxl: 4rem;
   --p-spacing-xll: 3.5rem;
   --p-spacing-xl: 3rem;
@@ -19,9 +21,16 @@
   --p-spacing-s: 0.5rem;
   --p-spacing-xs: 0.25rem;
   --p-spacing-xxs: 0.125rem;
+  /* TEXT SIZES */
+  --p-font-xs: 0.6875rem;
+  --p-font-s: 0.8rem;
+  --p-font-m: 0.9rem;
+  --p-font-l: 1rem;
+  --p-font-xl: 1.125rem;
+
   font: 16px Segoe UI, Helvetica, Arial, sans-serif;
   background: var(--p-sidebar-bg);
-  color: var(--p-text-color);
+  color: var(--p-color-text);
 }
 
 body, html {
@@ -60,16 +69,6 @@ img {
 svg {
   shape-rendering: geometricPrecision;
 }
-/*
-h1 {
-  display: inline-block;
-  padding: 0;
-  margin: auto;
-  font-size: 1.2rem;
-  font-weight: 600;
-  flex-grow: 1;
-  line-height: 1;
-} */
 
 h2 {
   font-weight: 400;
