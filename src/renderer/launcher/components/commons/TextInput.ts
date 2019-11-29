@@ -1,6 +1,7 @@
 import hyper from 'hyperhtml';
 import * as Utils from '@shared/utils';
 import { interpolateClassName } from '../../utils';
+import maestro from 'maestro';
 
 interface TextInputOptions {
   initialValue?: string;
@@ -67,7 +68,7 @@ export default class TextInput extends hyper.Component {
     `;
   }
 
-  setValue(value: string, resetValidation: boolean = true) {
+  setValue(value: string, resetValidation: boolean = true): void {
     this.inputElement.value = value;
     if (resetValidation) {
       if (this.hasError) {
@@ -79,8 +80,9 @@ export default class TextInput extends hyper.Component {
     }
   }
 
-  setError(errorValue: string) {
+  setError(errorValue: string): void {
     const error = Utils.getValue(errorValue, '');
+    console.log(error.length);
     if (error.length > 0) {
       if (!this.hasError) {
         this.hasError = true;
@@ -94,12 +96,12 @@ export default class TextInput extends hyper.Component {
       }
     }
     this.errorElement.textContent = this.lastError;
-    this.inputElement.setCustomValidity(errorValue);
+    this.inputElement.setCustomValidity(error);
   }
 
-  reset() {
-    this.setError(null);
+  reset(): void {
     this.inputElement.value = this.options.initialValue;
+    this.setError(null);
   }
 
   render() {

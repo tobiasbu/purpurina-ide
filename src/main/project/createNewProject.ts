@@ -2,7 +2,7 @@ import * as path from 'path';
 import * as fse from 'fs-extra';
 import { ICreateProject, IProjectInfo, IProjectPackage } from '@shared/types';
 
-import pathValidation from '../../shared/utils/pathValidation';
+import * as PathValidation from '../../shared/utils/PathValidation';
 import FileSystem from '../utils/FileSystem';
 import { generatePackageJSON, generateProjectPackage } from './packageGenerator';
 
@@ -17,7 +17,7 @@ import { generatePackageJSON, generateProjectPackage } from './packageGenerator'
  */
 function validateNewProject(newProject: ICreateProject): void {
 
-  let error = pathValidation.folderName(newProject.projectName);
+  let error = PathValidation.folderName(newProject.projectName);
 
   if (error.length !== 0) {
     throw new Error(error);
@@ -25,7 +25,7 @@ function validateNewProject(newProject: ICreateProject): void {
 
   const fullPath = path.join(newProject.location, `.${path.sep}${newProject.projectName}`);
 
-  error = pathValidation.path(fullPath);
+  error = PathValidation.path(fullPath);
 
   if (error.length !== 0) {
     throw new Error(error);

@@ -1,3 +1,4 @@
+import maestro from 'maestro';
 import hyper from 'hyperhtml';
 
 import header from './Header';

@@ -1,3 +1,4 @@
+import maestro from 'maestro';
 import hyper from 'hyperhtml';
 import { isValid } from 'shared/utils';
 import { ipcRenderer } from 'electron';
@@ -47,7 +48,7 @@ export default class RecentProjectsPage extends hyper.Component {
   render() {
     const projectElements = this.projectsElements;
     if (!isValid(projectElements)) {
-      return null;
+      return;
     }
 
     return this.html`

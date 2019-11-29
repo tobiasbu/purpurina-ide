@@ -1,6 +1,6 @@
 import mergerino from 'mergerino';
 
-import { MaestroComponent } from './types';
+import { IComponent } from './types';
 import memoize from './lib/memoize';
 import isPlainObject from './lib/isPlainObject';
 
@@ -8,7 +8,7 @@ type SetState<S, Component> = (
   state: Partial<S> | ((this: Component, state: S) => Partial<S>), render?: boolean,
 ) => Component;
 
-interface ConsumerComponent<S = {}, PS = {}> extends MaestroComponent<S> {
+interface ConsumerComponent<S = {}, PS = {}> extends IComponent<S> {
   producerState?: PS;
   onConsume?(): void;
 }
@@ -17,13 +17,13 @@ interface FreguesiaOptions {
   immutable?: boolean;
 }
 
-function freguesia<S, C extends MaestroComponent<S>>(
+function freguesia<S, C extends IComponent<S>>(
   options: FreguesiaOptions, producer: C, ...consumers: ConsumerComponent[]
 ): void;
-function freguesia<S, C extends MaestroComponent<S>>(
+function freguesia<S, C extends IComponent<S>>(
   producer: C, ...consumers: ConsumerComponent[]
 ): void;
-function freguesia<S, C extends MaestroComponent<S>>(): void {
+function freguesia<S, C extends IComponent<S>>(): void {
 
   let ia = 0;
   let isImmutable = false;

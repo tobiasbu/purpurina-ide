@@ -106,10 +106,3 @@
 }
 
 
-input:focus {
-  outline: var(--outFocus) solid 2px;
-}
-
-input:invalid {
-  outline: #d00a1c solid 2px;
-}

@@ -13,3 +13,11 @@ button .name {
   font-size: var(--p-font-s);
 }
 
+input:focus {
+  outline: var(--p-color-highlight-out) solid 2px;
+}
+
+input:invalid {
+  outline: #d00a1c solid 2px;
+}
+

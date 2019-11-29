@@ -16,6 +16,7 @@
 }
 
 .highlight {
+  /* color: var(--p-color-highlight); */
   color: #ff54b9;
   font-weight: 500;
 }
@@ -32,7 +33,6 @@
 
 .thumbnail {
   position: relative;
-  /* width: 33px; */
   width: 59.5px;
   height: 100%;
   background-color: #6024ad;

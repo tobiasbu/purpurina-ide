@@ -1,5 +1,5 @@
-import hyper, { Component } from 'hyperhtml';
-import { RenderFunction } from 'maestro';
+import maestro, { RenderFunction } from 'maestro';
+import hyper from 'hyperhtml';
 
 import Button from '../../commons/Button';
 import { isValid } from 'shared/utils';
@@ -23,7 +23,7 @@ export default class HomePage extends hyper.Component {
    * @param projects Project metadata list
    */
   public load(projects: IProjectInfo[]): boolean {
-    if (!this.projects) {
+    if (!this.projects && isValid(projects)) {
       this.projects = new RecentProjectsPage(projects);
       this.render();
       return true;
@@ -110,23 +110,23 @@ export default class HomePage extends hyper.Component {
 
   render() {
 
-    let el: RenderFunction | Component = null;
+    let el: RenderFunction | any;
 
     if (isValid(this.projects)) {
       el = this.projects;
     } else {
-      el = WelcomePage;
+      el = WelcomePage();
     }
 
-    return this.html`
+    return hyper.wire(this)`
     <div class="page-main-content">
-      ${el}
+    ${el}
     </div>
-      <div class="page-bottom-bar">
-        <div class="button-row">
-        ${Button('Open Project')}
-        </div>
+    <div class="page-bottom-bar">
+      <div class="button-row">
+      ${Button('Open Project')}
       </div>
+    </div>
       `;
   }
 }

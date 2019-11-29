@@ -1,7 +1,7 @@
 import hyper from 'hyperhtml';
+
 import { ipcRenderer } from 'electron';
-import { getUserInfo } from '@shared/index';
-import pathValidation from '@shared/utils/pathValidation';
+import { getUserInfo, PathValidation, Dialogs } from '@shared';
 import { ICreateProject } from '@shared/types';
 
 import TextInput from '../commons/TextInput';
@@ -49,7 +49,7 @@ export default class CreateProjectPage extends hyper.Component {
              role="button"
              title="Browse location for new project"
              class="btn-icon"
-             onclick=${this.locationInput}
+             onclick=${this.browseLocation}
             >
               ${{ html:  browseIcon }}
             </button>
@@ -95,7 +95,7 @@ export default class CreateProjectPage extends hyper.Component {
     const testValue = inputElement.value;
     switch (inputElement.id) {
       case 'project-name': {
-        error = pathValidation.folderName(testValue);
+        error = PathValidation.folderName(testValue);
         this.nameInput.setError(error);
         if (error.length === 0) {
           this.projectName = testValue;
@@ -103,7 +103,7 @@ export default class CreateProjectPage extends hyper.Component {
         break;
       }
       case 'location': {
-        error = pathValidation.path(testValue);
+        error = PathValidation.path(testValue);
         this.locationInput.setError(error);
         if (error.length === 0) {
           this.location = testValue;
@@ -119,17 +119,17 @@ export default class CreateProjectPage extends hyper.Component {
     }
   }
 
-  // private browseLocation = () => {
-  //   const path = Dialogs.openDirectoryDialog(this.location);
-
-  //   if (path) {
-  //     const error = pathValidation.path(path);
-  //     this.browseLocation.value = path;
-  //     this.browseLocation.setCustomValidity(error);
-  //     this.location = path;
-  //     this.browseErrorElement.textContent = error;
-  //   }
-  // }
+  private browseLocation = () => {
+    const path = Dialogs.openDirectory({
+      defaultPath: this.location,
+      title: 'Browse location for you new project',
+    });
+    if (path) {
+      const error = PathValidation.path(path);
+      this.locationInput.setValue(path);
+      this.locationInput.setError(error);
+    }
+  }
 
   private createProject = () => {
 
@@ -150,17 +150,18 @@ export default class CreateProjectPage extends hyper.Component {
     this.creatingProject = false;
   }
 
-  reset() {
+  public reset(): void {
     this.projectName = 'New Project 1';
     this.location = DEFAULT_LOCATION;
     this.author = DEFAULT_AUTHOR;
     this.nameInput.reset();
     this.locationInput.reset();
+    this.authorInput.reset();
   }
 
   render() {
     return this.html`
-        <div class="page-wrapper">
+      <div class="page-wrapper">
           <div class="page-main-content">
             ${this.nameInput}
             ${this.locationInput}

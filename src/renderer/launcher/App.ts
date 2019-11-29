@@ -1,6 +1,6 @@
-import hyper from 'hyperhtml';
 import { remote } from 'electron';
-import fregues from 'maestro/fregues';
+import hyper from 'hyperhtml';
+import maestro from 'maestro';
 
 import TitleBar from './components/TitleBar';
 import SideBar from './components/sidebar';
@@ -14,10 +14,9 @@ export default class App extends hyper.Component {
 
   constructor() {
     super();
-    this.html = hyper.wire(this);
     this.sideBar = new SideBar();
     this.pages = new PageContainer();
-    fregues(this.sideBar.navigation, this.pages);
+    maestro.fregues(this.sideBar.navigation, this.pages);
   }
 
   private onAppClose = () => {
@@ -37,7 +36,7 @@ export default class App extends hyper.Component {
   render() {
     return this.html`
       ${TitleBar(this.onAppClose, this.onAppMinimize)}
-      <div class="content" tabindex="-1">
+      <div class="content">
         <div class="content-wrapper">
           <div class="content-inner-wrapper">
             ${this.sideBar}

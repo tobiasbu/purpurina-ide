@@ -147,12 +147,13 @@ export type StatefulFunctionalComponent<S = {}> = (
 
 export type FunctionalComponent = (...args: any[]) => HTMLElement;
 
-export interface MaestroComponent<S = {}> extends Component<S> {
-  html: WiredTemplateFunction;
-  render?(): HTMLElement;
+export interface IComponent<S = {}> {
+  // readonly html: WiredTemplateFunction;
+  readonly state: S;
+  render?(): HTMLElement | any;
 }
 
 export type Constructor<T> = { new(...props: any[]): T };
 
-export type ComponentTypes = Constructor<MaestroComponent> |
+export type ComponentTypes = Constructor<IComponent> |
   StatefulFunctionalComponent | FunctionalComponent;

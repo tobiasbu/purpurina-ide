@@ -9,6 +9,7 @@ if (DEVELOPMENT) {
   console.log('Installing debug-menu');
   const debugMenu = require('debug-menu');
   debugMenu.install();  // activate context menu
+  require('source-map-support').install();
 }
 
 import './css/style.css';
@@ -24,28 +25,35 @@ document.addEventListener('drop', event => event.preventDefault());
 console.log('#######################hello');
 
 const app = new App();
+
 const wrapRender = function () {
   const mainEl = app.render();
   return mainEl;
 };
+
 const root = document.getElementById('root');
 hyper.bind(root)`${wrapRender}`;
 
-ipcRenderer.send('launcher_loaded');
-ipcRenderer.once('projects-loaded', (event: Electron.Event, projectsList: IProjectInfo[]) => {
-  app.load(projectsList);
-  console.log(projectsList);
-  console.log('PROJECTS RECEIVED');
-  console.log('SHOW');
-  ipcRenderer.send('show_window');
-  wrapRender();
-});
+try {
 
-if ((module as any).hot) {
-  (module as any).hot.accept(() => {
-    console.log('HOT MODULE!');
+  ipcRenderer.send('launcher_loaded');
+  ipcRenderer.once('projects-loaded', (event: Electron.Event, projectsList: IProjectInfo[]) => {
+    app.load(projectsList);
+    console.log(projectsList);
+    console.log('PROJECTS RECEIVED');
+    console.log('SHOW');
+    ipcRenderer.send('show_window');
     wrapRender();
   });
+
+  if ((module as any).hot) {
+    (module as any).hot.accept(() => {
+      console.log('HOT MODULE!');
+      wrapRender();
+    });
+  }
+} catch (e) {
+  console.error(e);
 }
 
 // function main() {

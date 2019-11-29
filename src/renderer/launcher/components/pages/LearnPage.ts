@@ -1,9 +1,10 @@
+import maestro from 'maestro';
 import hyper from 'hyperhtml';
 
 export default class LearnPage extends hyper.Component {
 
   render() {
-    return hyper.wire(this)`<div>Comming soon...</div>`;
+    return this.html`<div>Comming soon...</div>`;
   }
 
 }

@@ -24,7 +24,6 @@ export default class Navigation extends hyper.Component<MenuState> {
 
   constructor() {
     super();
-    this.html = hyper.wire(this);
     this.buttonId = 0;
   }
 
@@ -39,11 +38,12 @@ export default class Navigation extends hyper.Component<MenuState> {
   }
 
   private createTab(name: string, optionIcon: string = stars) {
-    const onSelect = this.onMenuSelect.bind(this, this.buttonId);
     const id = this.buttonId;
-    let className = 'menu-tab';
+    let className = 'menu-option';
+    let ariaCurrent = null;
     if (this.buttonId === this.state.selected) {
       className = className.concat(' selected');
+      ariaCurrent = 'page';
     }
 
     const el = hyper.wire(this, `:option-${this.buttonId}`)`
@@ -52,8 +52,8 @@ export default class Navigation extends hyper.Component<MenuState> {
         id='${interpolateClassName(name)}'
         class="${className}"
         onclick=${(e) => { this.onMenuSelect(id, e); }}
-        data-id=${this.buttonId}
-        tabindex="0"
+        aria-current=${ariaCurrent}
+        href=""
         >
           <span class="icon">${{ html: optionIcon }}</span>
           <span class="name">${name}</span>

@@ -2,10 +2,10 @@ import getValue from './getValue';
 import objectGet from './objectGet';
 
 function isValid(value: any): boolean {
-  if (value === undefined || value === null) {
-    return false;
+  if (value !== undefined && value !== null) {
+    return true;
   }
-  return true;
+  return false;
 }
 
 export {

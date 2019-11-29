@@ -1,4 +1,4 @@
-import { Store, ActionGroup, Constructor, MaestroComponent, ComponentTypes, RemoveListener } from './types';
+import { Store, ActionGroup, Constructor, IComponent, ComponentTypes, RemoveListener } from './types';
 import memoize from './lib/memoize';
 
 function isConstructor<T = any>(obj: any): obj is Constructor<T> {
@@ -13,7 +13,7 @@ function isConstructor<T = any>(obj: any): obj is Constructor<T> {
   return false;
 }
 
-function isComponent(obj: any): obj is Constructor<MaestroComponent> {
+function isComponent(obj: any): obj is Constructor<IComponent> {
   if (isConstructor(obj) && obj.prototype.nodeType === -1) {
     return true;
   }

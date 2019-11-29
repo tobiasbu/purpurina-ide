@@ -1,12 +1,16 @@
 :root {
   --p-bg: #080808;
   --p-color-text: #d6d6d6;
-  --p-menu-hover: #1b1b1b;
-  --p-menu-select: #262626;
-  --p-sidebar-bg: #141414;
+  --p-color-menu-hover: #1b1b1b;
+  --p-color-menu-select: #262626;
+  --p-color-menu-disabled: #7a7a7a;
+
+  --p-color-sidebar: #141414;
   --p-color-error: #ea525f;
-  --outFocus: #004580;
-  --labelFocus: #107bd7;
+  --p-color-button-active: #383838;
+
+  --p-color-highlight: #107bd7;
+  --p-color-highlight-out:#004580;
 
   --mid: #262626;
   --midLight: #202020;
@@ -23,13 +27,13 @@
   --p-spacing-xxs: 0.125rem;
   /* TEXT SIZES */
   --p-font-xs: 0.6875rem;
-  --p-font-s: 0.8rem;
+  --p-font-s: 0.75rem;
   --p-font-m: 0.9rem;
   --p-font-l: 1rem;
   --p-font-xl: 1.125rem;
 
   font: 16px Segoe UI, Helvetica, Arial, sans-serif;
-  background: var(--p-sidebar-bg);
+  background: var(--p-color-sidebar);
   color: var(--p-color-text);
 }
 

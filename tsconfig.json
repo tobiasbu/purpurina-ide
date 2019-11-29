@@ -22,6 +22,9 @@
       "@shared/*": [
         "src/shared/*"
       ],
+      "@shared": [
+        "src/shared"
+      ],
       "renderer": [
         "src/renderer"
       ],

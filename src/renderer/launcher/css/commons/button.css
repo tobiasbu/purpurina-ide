@@ -27,7 +27,7 @@ button {
 
 .inner-button {
   padding: var(--p-spacing-s);
-  background: var(--p-sidebar-bg);
+  background: var(--p-color-sidebar);
   border-radius:  var(--p-spacing-xs);
 }
 
@@ -37,8 +37,8 @@ button {
 }
 
 .btn-outline:hover:active {
-  background: #383838;
-  border-color: #383838;
+  background: var(--p-color-button-active);
+  border-color: var(--p-color-button-active);
   color: var(--p-color-text);
 }
 

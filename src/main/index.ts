@@ -43,8 +43,18 @@ app.once('ready', () => {
       win.webContents.reload();
     }
     win.webContents.on('console-message',
-      (event: Electron.IpcMainEvent, level: number, message: string) => {
-        console.log(`[WINDOW] [${level}] ${message}`);
+      (event: Electron.IpcMainEvent, level: number, message: string,
+        line: number, sourceId: string) => {
+        let msg = '[WINDOW]';
+        let fn = console.log;
+        if (level >= 3) {
+          msg += ' [ERROR]';
+          fn = console.error;
+        } else {
+          msg += ' [LOG]';
+        }
+        msg = `${msg} ${message}\nat ${line} from ${sourceId}\n`;
+        fn(msg);
       });
 
     ipcMain.on('show_window', () => {
