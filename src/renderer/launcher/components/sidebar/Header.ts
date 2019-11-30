@@ -1,12 +1,10 @@
 import hyper from 'hyperhtml';
 
-const logo = require('!svg-inline-loader!../../img/purpur_icon.svg') as string;
-const logoTitle = require('!svg-inline-loader!../../img/purpur_title.svg') as string;
+import logo = require('../../img/purpur_icon.svg');
+// !svg-inline-loader!../../img/purpur_title.svg'
+import logoTitle = require('../../img/purpur_title.svg');
 
-const APP_TITLE = 'Purpurina';
-
-export default function () {
-      // <h1>${APP_TITLE}</h1>
+export default function (): HTMLElement {
   return hyper.wire(this)`
   <header class="title">
     <div id='logo'>

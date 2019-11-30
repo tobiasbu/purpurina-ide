@@ -1,22 +1,19 @@
-import maestro from 'maestro';
 import hyper from 'hyperhtml';
-
-import { IProjectInfo } from 'shared/types';
-import RecentProjectsPage from './RecentProjectsPage';
+import { ProjectInfo } from '@shared/types';
+import { IProjectContainer, IRecentProjectsPage } from '../../../types';
 
 const iconPlaceholder = require('!svg-inline-loader!../../../img/icon_star.svg') as string;
 
-export default class ProjectContainer extends hyper.Component {
-
-  private project: IProjectInfo;
-  private parent: RecentProjectsPage;
+export default class ProjectContainer extends hyper.Component implements IProjectContainer {
+  private project: ProjectInfo;
+  private parent: IRecentProjectsPage;
   private isSelected: boolean;
 
-  public get info(): IProjectInfo {
+  public get info(): ProjectInfo {
     return this.project;
   }
 
-  constructor(project: IProjectInfo, parent: RecentProjectsPage) {
+  constructor(project: ProjectInfo, parent: IRecentProjectsPage) {
     super();
     this.project = project;
     this.parent = parent;
@@ -28,7 +25,7 @@ export default class ProjectContainer extends hyper.Component {
     this.render();
   }
 
-  render() {
+  render(): HTMLElement {
     // const { projectPackage, path } = this.project;
     // let name: string;
     // let version: string;
@@ -49,8 +46,8 @@ export default class ProjectContainer extends hyper.Component {
     }
     return this.html`
         <li class=${className}
-        onmousedown=${() => { this.parent.selectProject(this); }}
-        ondblclick=${() => { this.parent.openProject(this); }} >
+        onmousedown=${(): void => { this.parent.selectProject(this); }}
+        ondblclick=${(): void => { }} >
                     <div class="thumbnail">
                       <div class="inner-thumbail">
                         ${{ html: iconPlaceholder }}

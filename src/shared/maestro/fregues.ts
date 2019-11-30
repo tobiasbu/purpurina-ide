@@ -1,3 +1,5 @@
+/* eslint-disable prefer-rest-params */
+
 import mergerino from 'mergerino';
 
 import { IComponent } from './types';
@@ -24,7 +26,6 @@ function freguesia<S, C extends IComponent<S>>(
   producer: C, ...consumers: ConsumerComponent[]
 ): void;
 function freguesia<S, C extends IComponent<S>>(): void {
-
   let ia = 0;
   let isImmutable = false;
   // has options?
@@ -41,7 +42,7 @@ function freguesia<S, C extends IComponent<S>>(): void {
 
   if (argLen <= 0) {
     console.error('Maestro: Could not create a freguesia. There is no any consumer.');
-    return null;
+    return;
   }
 
   function updateConsumers(state: S): void {
@@ -69,6 +70,7 @@ function freguesia<S, C extends IComponent<S>>(): void {
 
   // const consumers = arguments;
   const originalSetState = producer.setState.bind(producer);
+  // eslint-disable-next-line
   const produce: SetState<S, C> = function (
     state: Partial<S> | ((this: C, state: S) => Partial<S>), render?: boolean,
   ) {
@@ -77,7 +79,6 @@ function freguesia<S, C extends IComponent<S>>(): void {
     return self;
   };
   producer.setState = produce;
-
 }
 
 export default freguesia;

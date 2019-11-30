@@ -4,6 +4,7 @@ import HomePage from './HomePage';
 import CreateProjectPage from './CreateProjectPage';
 
 export default class PageContainer extends hyper.Component {
+  // eslint-disable-next-line
   readonly producerState: any;
   public readonly homePage: HomePage;
   private createProjectPage: CreateProjectPage;
@@ -37,7 +38,7 @@ export default class PageContainer extends hyper.Component {
     return page;
   }
 
-  render() {
+  render(): HTMLElement {
     const currentPage = this.getCurrentPage();
     const title = (currentPage) ? currentPage.title : 'No Title';
     return this.html`

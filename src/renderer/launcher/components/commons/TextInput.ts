@@ -35,7 +35,6 @@ function parseOptions(options?: TextInputOptions): TextInputOptions {
  * Represents TextInput component
  */
 export default class TextInput extends hyper.Component {
-
   private label: string;
   private inputElement: HTMLInputElement;
   private errorElement: HTMLParagraphElement;
@@ -102,11 +101,9 @@ export default class TextInput extends hyper.Component {
         this.errorElement.classList.add('show');
       }
       this.lastError = error;
-    } else {
-      if (this.hasError) {
-        this.errorElement.classList.remove('show');
-        this.hasError = false;
-      }
+    } else if (this.hasError) {
+      this.errorElement.classList.remove('show');
+      this.hasError = false;
     }
     this.errorElement.textContent = this.lastError;
     this.inputElement.setCustomValidity(error);
@@ -130,5 +127,4 @@ export default class TextInput extends hyper.Component {
     </div>
     `;
   }
-
 }

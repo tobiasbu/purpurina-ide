@@ -1,4 +1,4 @@
-import { IProjectInfo, IMessage } from '@shared/types';
+import { ProjectInfo } from '@shared/types';
 
 import FileWatcher from '../systems/FileWatcher';
 
@@ -7,7 +7,7 @@ import FileWatcher from '../systems/FileWatcher';
  */
 export default class ProjectManager {
 
-  private metadata: IProjectInfo;
+  private metadata: ProjectInfo;
   isReady: boolean;
   watcher: FileWatcher;
 
@@ -18,13 +18,12 @@ export default class ProjectManager {
     return this.metadata.path;
   }
 
-  public constructor(projectInfo: IProjectInfo) {
+  public constructor(projectInfo: ProjectInfo) {
     this.metadata = projectInfo;
     this.isReady = false;
   }
 
-  static openProject(projectInfo: IProjectInfo, newProject: boolean = false) {
-
+  static openProject(projectInfo: ProjectInfo): Promise<ProjectManager> {
     return new Promise<ProjectManager>((resolve, reject) => {
       const manager = new ProjectManager(projectInfo);
       // Starting systems
@@ -42,7 +41,7 @@ export default class ProjectManager {
 
   }
 
-  public send(message: string, payload: IMessage) {
+  // public send(message: string, payload: IMessage): void {
 
-  }
+  // }
 }

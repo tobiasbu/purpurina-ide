@@ -1,22 +1,19 @@
-import maestro from 'maestro';
 import hyper from 'hyperhtml';
-import { isValid } from 'shared/utils';
-import { ipcRenderer } from 'electron';
-import { IProjectInfo } from 'shared/types';
+import { ProjectInfo } from '@shared/types';
+import { isValid } from '@shared/utils';
 
+import { IProjectContainer } from '../../../types';
 import ProjectContainer from './ProjectContainer';
 
 export default class RecentProjectsPage extends hyper.Component {
+  private projectsElements: IProjectContainer[];
+  private selectedProject: IProjectContainer = null;
 
-  private projectsElements: ProjectContainer[];
-  private selectedProject: ProjectContainer = null;
-
-  constructor(projects: IProjectInfo[]) {
+  constructor(projects: ProjectInfo[]) {
     super();
     if (!isValid(projects) || projects.length === 0) {
       this.projectsElements = null;
     } else {
-
       this.projectsElements = [];
       projects.forEach((element) => {
         this.projectsElements.push(new ProjectContainer(element, this));
@@ -24,8 +21,7 @@ export default class RecentProjectsPage extends hyper.Component {
     }
   }
 
-  public selectProject(project: ProjectContainer) {
-
+  public selectProject(project: IProjectContainer): void {
     const oldSelection = this.selectedProject;
 
     if (oldSelection === project) {
@@ -38,19 +34,17 @@ export default class RecentProjectsPage extends hyper.Component {
 
     this.selectedProject = project;
     project.setSelection(true);
-
   }
 
-  public openProject(project: ProjectContainer) {
-    ipcRenderer.send('launcher_openProject', project.info);
-  }
+  // public openProject(project: IProjectContainer): void {
+  //   ipcRenderer.send('launcher_openProject', project.info);
+  // }
 
-  render() {
+  render(): HTMLElement {
     const projectElements = this.projectsElements;
     if (!isValid(projectElements)) {
-      return;
+      return null;
     }
-
     return this.html`
       <div class="project-list">
         <ul>
@@ -59,5 +53,4 @@ export default class RecentProjectsPage extends hyper.Component {
       </div>
     `;
   }
-
 }

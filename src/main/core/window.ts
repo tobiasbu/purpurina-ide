@@ -5,7 +5,7 @@ import * as url from 'url';
 const MIN_WIDTH = 640;
 const MIN_HEIGHT = 480;
 
-function getURL(pathName:'editor' | 'launcher'):string {
+function getURL(pathName: 'editor' | 'launcher'): string {
   let uo: url.UrlObject;
   console.log(process.env.ELECTRON_WEBPACK_WDS_PORT);
   if (process.env.development) {

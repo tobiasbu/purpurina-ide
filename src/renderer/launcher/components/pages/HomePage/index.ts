@@ -1,14 +1,14 @@
-import maestro, { RenderFunction } from 'maestro';
+import { RenderFunction } from 'maestro';
 import hyper from 'hyperhtml';
 
+import { isValid } from '@shared/utils';
+import { ProjectInfo } from '@shared/types';
+
 import Button from '../../commons/Button';
-import { isValid } from 'shared/utils';
 import WelcomePage from './WelcomePage';
 import RecentProjectsPage from './RecentProjectsPage';
-import { IProjectInfo } from 'shared/types';
 
 export default class HomePage extends hyper.Component {
-
   private projects: RecentProjectsPage;
 
   get title(): string {
@@ -22,7 +22,7 @@ export default class HomePage extends hyper.Component {
    * Return if was project was loaded successfully
    * @param projects Project metadata list
    */
-  public load(projects: IProjectInfo[]): boolean {
+  public load(projects: ProjectInfo[]): boolean {
     if (!this.projects && isValid(projects)) {
       this.projects = new RecentProjectsPage(projects);
       this.render();
@@ -108,8 +108,7 @@ export default class HomePage extends hyper.Component {
 
   // }
 
-  render() {
-
+  render(): HTMLElement {
     let el: RenderFunction | any;
 
     if (isValid(this.projects)) {

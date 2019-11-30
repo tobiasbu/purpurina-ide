@@ -15,7 +15,8 @@
     "start": "npm run clean && ts-node ./config/dev.ts",
     "build": "npm run clean && npm run build-main && npm run build-renderer",
     "clean": "rm -fr dist",
-    "lib-check": "tsc --traceResolution"
+    "lib-check": "tsc --traceResolution",
+    "lint": "eslint src --ext .ts"
   },
   "bin": {
     "electron": "./node_modules/.bin/electron"
@@ -54,6 +55,8 @@
     "@types/webpack-hot-middleware": "^2.16.5",
     "@types/webpack-merge": "^4.1.5",
     "@types/webpack-notifier": "^1.5.3",
+    "@typescript-eslint/eslint-plugin": "^2.9.0",
+    "@typescript-eslint/parser": "^2.9.0",
     "awesome-typescript-loader": "^5.2.0",
     "browser-sync": "^2.26.7",
     "browser-sync-webpack-plugin": "^2.2.2",
@@ -62,16 +65,11 @@
     "copy-webpack-plugin": "^5.0.5",
     "cross-env": "^6.0.3",
     "css-loader": "^3.2.0",
-    "debug-menu": "^0.6.1",
-    "electron": "^6.1.5",
-    "electron-devtools-installer": "^2.2.4",
     "eslint": "^6.1.0",
-    "eslint-config-airbnb": "^18.0.1",
+    "eslint-config-airbnb-typescript": "^6.3.1",
+    "eslint-import-resolver-alias": "^1.1.2",
     "eslint-loader": "^3.0.2",
     "eslint-plugin-import": "^2.18.2",
-    "eslint-plugin-jsx-a11y": "^6.2.3",
-    "eslint-plugin-react": "^7.14.3",
-    "eslint-plugin-react-hooks": "^1.7.0",
     "express": "^4.17.1",
     "file-loader": "^4.3.0",
     "html-webpack-plugin": "^3.2.0",
@@ -98,11 +96,12 @@
     "webpack-notifier": "^1.8.0"
   },
   "dependencies": {
-    "@typescript-eslint/eslint-plugin": "^2.9.0",
-    "@typescript-eslint/parser": "^2.9.0",
     "chokidar": "^3.3.0",
     "debounce-promise": "^3.1.2",
+    "debug-menu": "^0.6.1",
     "document-register-element": "^1.14.3",
+    "electron": "^6.1.5",
+    "electron-devtools-installer": "^2.2.4",
     "fs-extra": "^8.1.0",
     "hyperhtml": "^2.31.5",
     "hyperhtml-element": "^3.11.0",
@@ -111,6 +110,7 @@
     "mergerino": "^0.4.0",
     "normalize.css": "^8.0.1",
     "proper-lockfile": "^3.2.0",
+    "source-map-support": "^0.5.16",
     "stack-trace": "0.0.10",
     "suitcss-base": "^5.0.0"
   }

@@ -23,3 +23,7 @@ export function openDirectory(options?: OpenDirectoryOptions): string {
   }
   return null;
 }
+
+export function doSome(): void {
+
+}

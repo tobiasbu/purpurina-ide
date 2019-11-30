@@ -1,14 +1,14 @@
 import { remote } from 'electron';
 import hyper from 'hyperhtml';
 import maestro from 'maestro';
+import { ProjectInfo } from '@shared/types';
 
 import TitleBar from './components/TitleBar';
 import SideBar from './components/sidebar';
 import PageContainer from './components/pages/PageContainer';
-import { IProjectInfo } from 'shared/types';
+
 
 export default class App extends hyper.Component {
-
   private sideBar: SideBar;
   private pages: PageContainer;
 
@@ -19,21 +19,21 @@ export default class App extends hyper.Component {
     maestro.fregues(this.sideBar.navigation, this.pages);
   }
 
-  private onAppClose = () => {
+  private onAppClose = (): void => {
     remote.getCurrentWindow().close();
-  }
+  };
 
-  private onAppMinimize = () => {
+  private onAppMinimize = (): void => {
     remote.getCurrentWindow().minimize();
-  }
+  };
 
-  public load(projectsList: IProjectInfo[]) {
+  public load(projectsList: ProjectInfo[]): void {
     if (this.pages.homePage.load(projectsList)) {
       this.pages.render();
     }
   }
 
-  render() {
+  render(): HTMLElement {
     return this.html`
       ${TitleBar(this.onAppClose, this.onAppMinimize)}
       <div class="content">
@@ -46,5 +46,4 @@ export default class App extends hyper.Component {
       </div>
     `;
   }
-
 }

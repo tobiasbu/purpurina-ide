@@ -1,5 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Store, ActionGroup, Constructor, IComponent, ComponentTypes, RemoveListener } from './types';
+import {
+  Store,
+  ActionGroup,
+  Constructor,
+  IComponent,
+  ComponentTypes,
+} from './types';
 import memoize from './lib/memoize';
 
 
@@ -25,44 +31,47 @@ function isComponent(obj: any): obj is Constructor<IComponent> {
 export default function listen<S, A>(
   store: Store<S>, component: ComponentTypes, actions?: ActionGroup<A>,
 ): () => void {
-
   let parentNode: ParentNode;
   let currentEl: HTMLElement;
   let componentRender: () => HTMLElement;
-  let removeListener: RemoveListener;
+  // let removeListener: RemoveListener;
   const previousState = memoize(() => store.getState(), store);
 
   if (typeof component === 'function') {
-
     if (isComponent(component)) {
-      componentRender = (function () {
+      // eslint-disable-next-line
+      componentRender = (function (): () => HTMLElement {
+        // eslint-disable-next-line
         const wrap = new component();
-        return function () {
+        return (): HTMLElement => {
           if (typeof wrap.render === 'function') {
-            return wrap.render();
+            return wrap.render() as HTMLElement;
           }
           return null;
         };
       })();
     } else {
-      componentRender = function () { return component(store.getState(), actions); };
+      // eslint-disable-next-line
+      componentRender = function (): HTMLElement {
+        return component(store.getState(), actions);
+      };
     }
   }
 
-  function wrapRender() {
+  function wrapRender(): HTMLElement {
     const el = componentRender();
     if (currentEl !== el) {
       currentEl = el;
     }
     const parent = currentEl.parentNode;
-    if (parentNode !== parentNode) {
+    if (parent !== parentNode) {
       parentNode = parent;
     }
     return currentEl;
   }
 
-  const removeListener = store.addListener(handleChanges);
-
+  // const removeListener = store.addListener(handleChanges);
+  // eslint-disable-next-line
   function handleChanges(): void {
     const newState = store.getState();
     if (previousState.get() === newState) {
@@ -86,5 +95,4 @@ export default function listen<S, A>(
   // }
 
   // let isConnected = false;
-
 }

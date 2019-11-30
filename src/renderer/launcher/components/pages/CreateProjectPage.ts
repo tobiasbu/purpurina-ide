@@ -1,8 +1,9 @@
 import hyper from 'hyperhtml';
 
 import { ipcRenderer } from 'electron';
+
+import { CreateProject } from '@shared/types';
 import { getUserInfo, PathValidation, Dialogs } from '@shared';
-import { ICreateProject } from '@shared/types';
 
 import TextInput from '../commons/TextInput';
 import Button from '../commons/Button';
@@ -10,18 +11,14 @@ import Button from '../commons/Button';
 const userInfo = getUserInfo();
 const DEFAULT_LOCATION = userInfo.homeDir;
 const DEFAULT_AUTHOR = userInfo.userName;
-const browseIcon = require('!svg-inline-loader!../../img/icon_browse.svg') as string;
+import browseIcon = require('../../img/icon_browse.svg');
 
 export default class CreateProjectPage extends hyper.Component {
-
   private creatingProject: boolean;
   private nameInput: TextInput;
   private locationInput: TextInput;
   private authorInput: TextInput;
-
-  get title(): string {
-    return 'Create a New Project';
-  }
+  readonly title = 'Create a New Project';
 
   constructor() {
     super();
@@ -34,8 +31,8 @@ export default class CreateProjectPage extends hyper.Component {
     });
 
     this.locationInput = new TextInput('Location', {
-      innerElement:  (): HTMLElement => {
-        return hyper.wire(this)`
+      innerElement: (): HTMLElement => (
+        hyper.wire(this)`
           <div class='browse-icon-container'>
              <button
              role="button"
@@ -43,10 +40,10 @@ export default class CreateProjectPage extends hyper.Component {
              class="btn-icon"
              onclick=${this.browseLocation}
             >
-              ${{ html:  browseIcon }}
+              ${{ html: browseIcon }}
             </button>
-        </div>`;
-      },
+        </div>`
+      ),
       onInput: this.onInput,
       attributes: 'webkitdirectory',
       initialValue: DEFAULT_LOCATION,
@@ -88,6 +85,8 @@ export default class CreateProjectPage extends hyper.Component {
     let error: string;
     const testValue = inputElement.value;
     switch (inputElement.id) {
+      default:
+        break;
       case 'project-name': {
         error = PathValidation.folderName(testValue);
         this.nameInput.setError(error);
@@ -110,7 +109,7 @@ export default class CreateProjectPage extends hyper.Component {
         break;
       }
     }
-  }
+  };
 
   private browseLocation = (): void => {
     const path = Dialogs.openDirectory({
@@ -122,10 +121,9 @@ export default class CreateProjectPage extends hyper.Component {
       this.locationInput.setValue(path);
       this.locationInput.setError(error);
     }
-  }
+  };
 
   private onSubmit = (e: Event): void => {
-
     if (e) {
       e.preventDefault();
     }
@@ -134,14 +132,14 @@ export default class CreateProjectPage extends hyper.Component {
       return;
     }
     this.creatingProject = true;
-    const createProject: ICreateProject = {
+    const createProject: CreateProject = {
       projectName: this.nameInput.value,
       location: this.locationInput.value,
       author: this.authorInput.value,
     };
     ipcRenderer.send('createProject', createProject);
     this.creatingProject = false;
-  }
+  };
 
   public reset(): void {
     this.nameInput.reset();
@@ -149,7 +147,7 @@ export default class CreateProjectPage extends hyper.Component {
     this.authorInput.reset();
   }
 
-  render() {
+  render(): HTMLElement {
     return this.html`
       <div class="page-wrapper">
         <form autocomplete="off" onsubmit=${this.onSubmit}>
@@ -163,5 +161,4 @@ export default class CreateProjectPage extends hyper.Component {
       </div>
   `;
   }
-
 }

@@ -1,10 +1,10 @@
 type TypeOfValue<T> =
-  T extends boolean ? boolean :
-  T extends string ? string :
-  T extends number ? number :
-  T extends undefined ? undefined :
-  T extends object ? T :
-  T extends Function ? AnyType : AnyType;
+        T extends boolean ? boolean :
+          T extends string ? string :
+            T extends number ? number :
+              T extends undefined ? undefined :
+                T extends object ? T :
+                  T extends Function ? AnyType : AnyType;
 
 /**
  * Get property from object by given key.
@@ -23,7 +23,7 @@ function objectGet<T extends string | number,
     return defaultValue;
   }
 
-  if (obj.hasOwnProperty(key) && obj[key] !== undefined) {
+  if (Object.prototype.hasOwnProperty.call(obj, key) && obj[key] !== undefined) {
     return obj[key];
   }
   return defaultValue;

@@ -35,7 +35,7 @@ export default class Application {
     this.settings = editorSettings;
   }
 
-  private readyToShow = (resolve, mainWindow: BrowserWindow, toState: AppState) => {
+  private readyToShow = (resolve: (BrowserWindow) => void, mainWindow: BrowserWindow, toState: AppState): void => {
     mainWindow.show();
     mainWindow.focus();
     if (DEV_MODE) {
@@ -45,7 +45,7 @@ export default class Application {
     resolve(mainWindow);
   }
 
-  initialize() {
+  initialize(): void  {
     console.log(`Initializing ${APP_NAME}`);
 
     app.on('window-all-closed', () => {
@@ -86,7 +86,7 @@ export default class Application {
     return promise;
   }
 
-  startEditor() {
+  startEditor(): Promise<BrowserWindow> {
     const oldState = this.appState;
     this.appState = AppState.InitializeEditor;
 

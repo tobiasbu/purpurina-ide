@@ -1,6 +1,7 @@
 
 import * as chalk from 'chalk';
 
+// eslint-disable-next-line
 type LogFunction = (message: string, ...optionalParams: any[]) => void;
 
 /**
@@ -68,7 +69,7 @@ const colors = {
   verbose: 'magenta',
 };
 
-const noop = () => {};
+const noop = (): void => {};
 
 type Logger = {
   [indexer in LogLevel]: LogFunction;
@@ -80,7 +81,7 @@ type Logger = {
   readonly levels: LogLevel;
 }
 
-function capitalize(s: string) {
+function capitalize(s: string): string {
   if (typeof s !== 'string') return '';
   return s.charAt(0).toUpperCase() + s.slice(1);
 }
@@ -111,7 +112,7 @@ export default function getLogger(options: LoggerOptions): Logger {
     userLevel = EnumeratedLogLevel.verbose;
   }
 
-  const methods:LogLevel[] = [
+  const methods: LogLevel[] = [
     'error',
     'warn',
     'info',
@@ -119,7 +120,7 @@ export default function getLogger(options: LoggerOptions): Logger {
     'verbose'
   ];
 
-  let logger = {
+  const logger = {
     options: opts,
     template: `${opts.displayLevel === true ? ' {{ level }}' : ''}${opts.timestamp === true ? ' [{{ time }}]' : ''}`,
     prefix: `${opts.symbol} ${opts.name}`,
@@ -127,7 +128,7 @@ export default function getLogger(options: LoggerOptions): Logger {
     levels: userLevel,
   };
 
-  function interpolate(level) {
+  function interpolate(level: string): string {
     return logger.template.replace(/{{([^{}]*)}}/g, (substr, match) => {
       if (/level/.test(match)) {
         return level;
@@ -139,7 +140,8 @@ export default function getLogger(options: LoggerOptions): Logger {
   }
 
   function compose(fn: LogFunction, color: string, prefix: string) {
-    return (message: string, ...optionalParams: any[]) => {
+    // eslint-disable-next-line
+    return (message: string, ...optionalParams: any[]): void => {
       let prefixColorFn = chalk[color];
       if (logger.options.bgPrefix) {
         prefixColorFn = chalk[`bg${capitalize(color)}`].black;
@@ -159,7 +161,8 @@ export default function getLogger(options: LoggerOptions): Logger {
 
   methods.forEach(methodName => {
     const methodLevel = EnumeratedLogLevel[methodName];
-    let method;
+    // eslint-disable-next-line
+    let method: (...params: any[]) => void;
     if (methodLevel > userLevel) {
       method = noop;
     } else {
@@ -182,5 +185,6 @@ export default function getLogger(options: LoggerOptions): Logger {
   logger['trace'] = logger['verbose'];
   logger['debug'] = logger['log'];
 
+  // eslint-disable-next-line
   return logger as any;
 }

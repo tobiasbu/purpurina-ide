@@ -4,7 +4,7 @@ const MINOR = 0;
 const REVISION = 1;
 
 export default {
-  toString() {
+  toString(): string {
     return `${MAJOR}.${MINOR}.${REVISION}`;
   },
   MAJOR,

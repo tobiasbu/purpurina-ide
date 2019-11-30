@@ -1,4 +1,5 @@
 
+// eslint-disable-next-line
 export type AnyCallback = (...args: any) => any;
 
 export interface UserInfo {
@@ -9,14 +10,14 @@ export interface UserInfo {
 /**
  * Purpurina package.
  */
-export interface IProjectPackage {
+export interface ProjectPackage {
   name: string;
   version?: string;
   thumbnail?: string;
   author?: string;
 }
 
-export interface ICreateProject {
+export interface CreateProject {
   projectName: string;
   location: string;
   author?: string;
@@ -25,8 +26,8 @@ export interface ICreateProject {
 /**
  * Purpurina project data.
  */
-export interface IProjectInfo {
-  projectPackage: IProjectPackage;
+export interface ProjectInfo {
+  projectPackage: ProjectPackage;
   error?: string;
   path: string;
   index: number;
@@ -35,7 +36,7 @@ export interface IProjectInfo {
 /**
  * Interface used to communicate between main and renderer process.
  */
-export interface IMessage {
+export interface Message {
   type: number;
   payload: {};
 }

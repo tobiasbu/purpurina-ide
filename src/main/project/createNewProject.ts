@@ -1,7 +1,7 @@
 import * as path from 'path';
 import * as fse from 'fs-extra';
 
-import { ICreateProject, IProjectInfo, IProjectPackage } from '@shared/types';
+import { CreateProject, ProjectInfo, ProjectPackage } from '@shared/types';
 import * as PathValidation from '@shared/utils/PathValidation';
 
 import * as FileSystem from '../utils/FileSystem';
@@ -16,7 +16,7 @@ import { generatePackageJSON, generateProjectPackage } from './packageGenerator'
  * @param newProject Project creation data.
  * @throws When there is a error in validation.
  */
-function validateNewProject(newProject: ICreateProject): void {
+function validateNewProject(newProject: CreateProject): void {
 
   let error = PathValidation.folderName(newProject.projectName);
 
@@ -39,7 +39,7 @@ function validateNewProject(newProject: ICreateProject): void {
  *
  * @param createProjectInfo Project creation data.
  */
-export default function createNewProject(createProjectInfo: ICreateProject): IProjectInfo {
+export default function createNewProject(createProjectInfo: CreateProject): ProjectInfo {
 
   validateNewProject(createProjectInfo);
 
@@ -66,7 +66,7 @@ export default function createNewProject(createProjectInfo: ICreateProject): IPr
     }
   }
 
-  let projectPackage: IProjectPackage;
+  let projectPackage: ProjectPackage;
 
   try {
     generatePackageJSON(fullPath, createProjectInfo);
@@ -84,7 +84,7 @@ export default function createNewProject(createProjectInfo: ICreateProject): IPr
     throw new Error(`Could not initialize new project\n${e}`);
   }
 
-  const projectInfo: IProjectInfo = {
+  const projectInfo: ProjectInfo = {
     projectPackage,
     path: fullPath,
     index: -1,

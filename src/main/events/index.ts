@@ -1,14 +1,14 @@
 import { ipcMain, dialog } from 'electron';
-import { IProjectInfo, ICreateProject } from '@shared/types';
+import { ProjectInfo, CreateProject } from '@shared/types';
 import * as fse from 'fs-extra';
 
 import Application from '../core/Application';
 import createNewProject from '../project/createNewProject';
 import ProjectManager from '../project/ProjectManager';
 
-function startEditor(appControl: Application, project: IProjectInfo) {
+function startEditor(appControl: Application, project: ProjectInfo) {
   try {
-    const promise = ProjectManager.openProject(project, true);
+    const promise = ProjectManager.openProject(project);
     promise.then((manager) => {
       appControl.settings.addRecentProject(manager.path);
       appControl.settings.save();
@@ -36,9 +36,9 @@ export default function registerEvents(appControl: Application) {
     dialog.showMessageBox(appControl.mainWindow, options);
   });
 
-  ipcMain.on('createProject', (event: Electron.Event, createProjectInfo: ICreateProject) => {
+  ipcMain.on('createProject', (event: Electron.Event, createProjectInfo: CreateProject) => {
 
-    let project: IProjectInfo;
+    let project: ProjectInfo;
 
     try {
       project = createNewProject(createProjectInfo);
@@ -58,7 +58,7 @@ export default function registerEvents(appControl: Application) {
     }
   });
 
-  ipcMain.on('launcher_openProject', (event: Electron.Event, openProject: IProjectInfo) => {
+  ipcMain.on('launcher_openProject', (event: Electron.Event, openProject: ProjectInfo) => {
 
     startEditor(appControl, openProject);
     ipcMain.removeAllListeners('launcher_openProject');

@@ -1,32 +1,41 @@
-
+/* eslint-disable import/first */
 (window as any).global = window;
 
-(window as any).eval = global.eval = function () {
+function evaluate(): void {
   throw new Error('Sorry, this app does not support window.eval().');
-};
+}
+
+window.eval = evaluate;
+// eslint-disable-next-line
+global.eval = evaluate;
 
 if (DEVELOPMENT) {
   console.log('Installing debug-menu');
-  const debugMenu = require('debug-menu');
-  debugMenu.install();  // activate context menu
-  require('source-map-support').install();
+  import('debug-menu').then((dm) => {
+    dm.install();
+  });
+  // debugMenu.install(); // activate context menu
+  import('source-map-support').then((sourceMapSupport) => {
+    sourceMapSupport.install();
+  });
 }
 
-import './css/style.css';
-import hyper from 'hyperhtml';
-import App from './App';
 import { ipcRenderer } from 'electron';
-import { IProjectInfo } from 'shared/types';
+import hyper from 'hyperhtml';
+import { ProjectInfo } from '@shared/types';
 
-document.addEventListener('dragstart', event => event.preventDefault());
-document.addEventListener('dragover', event => event.preventDefault());
-document.addEventListener('drop', event => event.preventDefault());
+import './css/style.css';
+import App from './App';
 
-console.log('#######################hello');
+document.addEventListener('dragstart', (event) => event.preventDefault());
+document.addEventListener('dragover', (event) => event.preventDefault());
+document.addEventListener('drop', (event) => event.preventDefault());
 
-const app = new App();
-
-const wrapRender = function () {
+let app: App;
+if (!app) {
+  app = new App();
+}
+const wrapRender = (): HTMLElement => {
   const mainEl = app.render();
   return mainEl;
 };
@@ -35,12 +44,11 @@ const root = document.getElementById('root');
 hyper.bind(root)`${wrapRender}`;
 
 try {
-
   ipcRenderer.send('launcher_loaded');
-  ipcRenderer.once('projects-loaded', (event: Electron.Event, projectsList: IProjectInfo[]) => {
+  ipcRenderer.once('projects-loaded', (event: Electron.Event, projectsList: ProjectInfo[]) => {
     app.load(projectsList);
-    console.log(projectsList);
-    console.log('PROJECTS RECEIVED');
+    // console.log(projectsList);
+    // console.log('PROJECTS RECEIVED');
     console.log('SHOW');
     ipcRenderer.send('show_window');
     wrapRender();
@@ -48,12 +56,12 @@ try {
 
   if ((module as any).hot) {
     (module as any).hot.accept(() => {
-      console.log('HOT MODULE!');
+      // console.log('HOT MODULE!');
       wrapRender();
     });
   }
 } catch (e) {
-  console.error(e);
+  // console.error(e);
 }
 
 // function main() {

@@ -1,11 +1,11 @@
-import { IProjectInfo, IProjectPackage } from '@shared/types';
+import { ProjectInfo, ProjectPackage } from '@shared/types';
 import * as path from 'path';
 import * as fse from 'fs-extra';
 
-function readPackage(buffer: Buffer, projectPath: string, indexer: number) {
-  let projectInfo: IProjectInfo | Error;
+function readPackage(buffer: Buffer, projectPath: string, indexer: number): ProjectInfo  {
+  let projectInfo: ProjectInfo | Error;
   try {
-    const json: IProjectPackage = JSON.parse(buffer.toString('utf-8'));
+    const json: ProjectPackage = JSON.parse(buffer.toString('utf-8'));
     projectInfo = {
       projectPackage: json,
       path: projectPath,
@@ -17,7 +17,7 @@ function readPackage(buffer: Buffer, projectPath: string, indexer: number) {
   return projectInfo;
 }
 
-export function loadRecentProjects(recentProjects: string[]): Promise<null | IProjectInfo[]> {
+export function loadRecentProjects(recentProjects: string[]): Promise<null | ProjectInfo[]> {
 
   if (!recentProjects) {
     return Promise.resolve(null);
@@ -27,8 +27,8 @@ export function loadRecentProjects(recentProjects: string[]): Promise<null | IPr
     return Promise.resolve(null);
   }
 
-  const projectsPromisesFiles: Promise<IProjectInfo>[] = [];
-  let indexer: number = 0;
+  const projectsPromisesFiles: Promise<ProjectInfo>[] = [];
+  let indexer = 0;
 
   for (const projectPath of recentProjects) {
 
@@ -39,7 +39,7 @@ export function loadRecentProjects(recentProjects: string[]): Promise<null | IPr
       const p = fse.readFile(purpurPackage)
         .then(buffer => readPackage(buffer, projectPath, indexer))
         .catch((e) => {
-          const projectInfo: IProjectInfo = {
+          const projectInfo: ProjectInfo = {
             projectPackage: null,
             error: e,
             path: projectPath,

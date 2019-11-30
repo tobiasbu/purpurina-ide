@@ -22,12 +22,12 @@ function checkSettingsPath(): boolean {
   return firstTime;
 }
 
-interface IEditorSettings {
+interface EditorSettingsPack {
   readonly recentProjects: string[];
   readonly language: string;
 }
 
-export default class EditorSettings implements IEditorSettings {
+export default class EditorSettings implements EditorSettingsPack {
 
   private recentProj: string[];
   private lang: string;
@@ -43,7 +43,7 @@ export default class EditorSettings implements IEditorSettings {
   /**
    * Constructor
    */
-  constructor(json?: IEditorSettings) {
+  constructor(json?: EditorSettingsPack) {
     if (!json) {
       this.recentProj = [];
       this.lang = 'en';
@@ -78,12 +78,12 @@ export default class EditorSettings implements IEditorSettings {
     }
   }
 
-  save() {
+  save(): void {
     checkSettingsPath();
     fse.writeFileSync(SETTINGS_PATH, this.toJSON(true));
   }
 
-  toJSON(stringify: boolean = false) {
+  toJSON(stringify = false): EditorSettingsPack | string {
     const json = {
       recentProjects: this.recentProj,
       language: this.lang,
@@ -139,7 +139,7 @@ export default class EditorSettings implements IEditorSettings {
       p = new Promise((resolve) => {
         fse.readFile(SETTINGS_PATH, { encoding: 'utf-8' })
           .then((value: string) => {
-            const json: IEditorSettings = JSON.parse(value);
+            const json: EditorSettingsPack = JSON.parse(value);
             resolve(new EditorSettings(json));
           });
       });

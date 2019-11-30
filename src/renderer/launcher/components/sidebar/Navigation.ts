@@ -1,25 +1,23 @@
 import hyper from 'hyperhtml';
 
-import { MenuRoute } from '../../types';
 import { interpolateClassName } from '../../utils';
 
-const stars = require('!svg-inline-loader!../../img/icon_stars.svg') as string;
-const learn = require('!svg-inline-loader!../../img/icon_learn.svg') as string;
-const home = require('!svg-inline-loader!../../img/icon_home.svg') as string;
-const settings = require('!svg-inline-loader!../../img/icon_settings.svg') as string;
+import stars = require('../../img/icon_stars.svg');
+import learn = require('../../img/icon_learn.svg');
+import home = require('../../img/icon_home.svg');
+import settings = require('../../img/icon_settings.svg');
 
-const iconDefs = require('!svg-inline-loader!../../img/icon_defs.svg') as string;
+import iconDefs = require('../../img/icon_defs.svg');
 
 interface MenuState {
-  selected: MenuRoute;
+  selected: number;
 }
 
 export default class Navigation extends hyper.Component<MenuState> {
-
   private buttonId: number;
 
   state = {
-    selected: MenuRoute.Projects,
+    selected: 0,
   };
 
   constructor() {
@@ -27,7 +25,7 @@ export default class Navigation extends hyper.Component<MenuState> {
     this.buttonId = 0;
   }
 
-  private onMenuSelect = (id: number, e: MouseEvent) => {
+  private onMenuSelect = (id: number, e: MouseEvent): void => {
     const target = e.target as HTMLElement;
     // e.preventDefault();
     (document.activeElement as HTMLElement).blur();
@@ -38,19 +36,19 @@ export default class Navigation extends hyper.Component<MenuState> {
     this.setState({
       selected: id,
     });
-  }
+  };
 
-  private onMenuDown = (e: MouseEvent) => {
+  private onMenuDown = (e: MouseEvent): void => {
     e.preventDefault();
-  }
+  };
 
-  private onKeyUp = (e: KeyboardEvent) => {
+  private onKeyUp = (e: KeyboardEvent): void => {
     if (e.keyCode === 13 || e.keyCode === 32) {
       (e.target as HTMLElement).blur();
     }
-  }
+  };
 
-  private createTab(name: string, optionIcon: string = stars) {
+  private createTab(name: string, optionIcon: string = stars): HTMLElement {
     const id = this.buttonId;
     let className = 'menu-option';
     let ariaCurrent = null;
@@ -66,7 +64,7 @@ export default class Navigation extends hyper.Component<MenuState> {
         class="${className}"
         onmousedown=${this.onMenuDown}
         onkeyup=${this.onKeyUp}
-        onclick=${(e) => { this.onMenuSelect(id, e); }}
+        onclick=${(e: MouseEvent): void => { this.onMenuSelect(id, e); }}
         aria-current=${ariaCurrent}
         href=""
         >
@@ -79,9 +77,8 @@ export default class Navigation extends hyper.Component<MenuState> {
     return el;
   }
 
-  render() {
+  render(): HTMLElement {
     this.buttonId = 0;
-
     return this.html`
     ${{ html: iconDefs }}
     <nav id='menu'>

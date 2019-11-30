@@ -1,5 +1,4 @@
 import * as webpack from 'webpack';
-import * as fs from 'fs';
 import * as path from 'path';
 
 import { CleanWebpackPlugin } from 'clean-webpack-plugin';
@@ -11,8 +10,6 @@ import webpackMerge = require('webpack-merge');
 import configBase, { PROJECT_PATH } from './webpack.config.base';
 import { BuildEnvironment } from './types';
 
-
-
 function createRendererConfig(env: BuildEnvironment): webpack.Configuration {
 
   // const include = [
@@ -21,7 +18,7 @@ function createRendererConfig(env: BuildEnvironment): webpack.Configuration {
 
   // ?path=http://localhost:${PORT}/__webpack_hmr&reload=true&timeout=20000
   // http://localhost:${PORT}/
-  const PORT = process.env.PORT || 3000;
+  // const PORT = process.env.PORT || 3000;
   const HOT_MW = `webpack-hot-middleware/client?path=/__webpack_hmr&reload=true&timeout=20000`;
   const ENTRY_PATH = path.join(PROJECT_PATH, './src/renderer');
 
@@ -48,17 +45,12 @@ function createRendererConfig(env: BuildEnvironment): webpack.Configuration {
       },
       module: {
         rules: [
-          {
-            test: /\.ts$/,
-            enforce: "pre",
-            loader: 'tslint-loader',
-            exclude: /node_modules/,
-            options: {
-              configFile: path.join(PROJECT_PATH, './tslint.json'),
-              tsConfigFile: path.join(PROJECT_PATH, './tsconfig.json'),
-              fix: true,
-            }
-          },
+          // {
+          //   test: /\.ts$/,
+          //   enforce: "pre",
+          //   loader: 'eslint-loader',
+          //   exclude: /node_modules/,
+          // },
           {
             test: /\.ts$/,
             loader: 'ts-loader',
@@ -108,7 +100,10 @@ function createRendererConfig(env: BuildEnvironment): webpack.Configuration {
               // 'image-webpack-loader?bypassOnDebug&optipng.optimizationLevel=7&gifsicle.interlaced=false',
             ],
           },
-
+          {
+            test: /.svg$/i,
+            loader: 'svg-inline-loader'
+          }
         ],
       },
       plugins: [

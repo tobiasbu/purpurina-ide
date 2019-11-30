@@ -1,19 +1,17 @@
-import maestro from 'maestro';
 import hyper from 'hyperhtml';
+import version from '@shared/version';
 
 import header from './Header';
-import version from 'shared/version';
 import Navigation from './Navigation';
 
 export default class SideBar extends hyper.Component {
-
   readonly navigation: Navigation;
 
   constructor() {
     super();
     this.navigation = new Navigation();
   }
-  render() {
+  render(): HTMLElement {
     return this.html`
     <div class="side-bar">
       ${header}
@@ -21,5 +19,4 @@ export default class SideBar extends hyper.Component {
       <p id="version">Purpurina Launcher v${version.toString()} ~ ${version.STAGE}</p>
     </div>`;
   }
-
 }

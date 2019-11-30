@@ -2,7 +2,7 @@ import hyper from 'hyperhtml';
 import { RenderFunction } from 'maestro';
 
 // tslint:disable-next-line: function-name
-function WelcomePage() {
+function WelcomePage(): HTMLElement {
   return hyper.wire()`
   <div class="welcome">
     <p>Click on <span class="highlight">"New Project"</span> option on the left to create a something new.</p>

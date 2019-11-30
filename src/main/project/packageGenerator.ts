@@ -1,6 +1,6 @@
 import * as fs from 'fs';
 import * as path from 'path';
-import { ICreateProject, IProjectPackage } from '@shared/types';
+import { CreateProject, ProjectPackage } from '@shared/types';
 import version from '@shared/version';
 
 const PACKAGE_NAME_VALIDATION = /^(?:@[a-z0-9-~][a-z0-9-._~]*\/)?[a-z0-9-~][a-z0-9-._~]*$/;
@@ -21,7 +21,7 @@ interface PackageJSON {
  * @param createProject The project information
  * @see https://docs.npmjs.com/files/package.json
  */
-export function generatePackageJSON(dir: string, createProject: ICreateProject): void {
+export function generatePackageJSON(dir: string, createProject: CreateProject): void {
 
   let name = createProject.projectName;
 
@@ -60,9 +60,9 @@ export function generatePackageJSON(dir: string, createProject: ICreateProject):
  * @param createProject Project information
  */
 export function generateProjectPackage(dir: string,
-                                       createProject: ICreateProject): IProjectPackage {
+                                       createProject: CreateProject): ProjectPackage {
 
-  const json: IProjectPackage = {
+  const json: ProjectPackage = {
     name: createProject.projectName,
     author: createProject.author,
     version: version.toString(),

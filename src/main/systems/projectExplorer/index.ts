@@ -1,13 +1,13 @@
-import * as ExplorerNodes from '@shared/types/projectExplorer';
+// import * as ExplorerNodes from '@shared/types/projectExplorer';
 
-export default class ProjectExplorer  {
+// export default class ProjectExplorer  {
 
-  private children: ExplorerNodes.INode[];
-  public readonly type: ExplorerNodes.NodeType = ExplorerNodes.NodeType.Root;
-  public readonly projectPath: string;
+//   private children: ExplorerNodes.INode[];
+//   public readonly type: ExplorerNodes.NodeType = ExplorerNodes.NodeType.Root;
+//   public readonly projectPath: string;
 
-  constructor(projectPath: string) {
-    this.projectPath = projectPath;
-  }
+//   constructor(projectPath: string) {
+//     this.projectPath = projectPath;
+//   }
 
-}
+// }

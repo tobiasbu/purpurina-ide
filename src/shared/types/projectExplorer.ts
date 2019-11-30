@@ -1,26 +1,26 @@
 
-export enum NodeType {
-  Root,
-  Directory,
-  File,
-}
+// export enum NodeType {
+//   Root,
+//   Directory,
+//   File,
+// }
 
-export interface INode {
-  readonly path: string;
-  readonly type: NodeType;
-  children: ReadonlyArray<INode>;
-}
+// export interface Node {
+//   readonly path: string;
+//   readonly type: NodeType;
+//   children: ReadonlyArray<Node>;
+// }
 
-export interface RootNode extends INode {
+// export interface RootNode extends Node {
 
-}
+// }
 
-export interface DirectoryNode extends INode {
-  type: NodeType.Directory;
-}
+// export interface DirectoryNode extends Node {
+//   type: NodeType.Directory;
+// }
 
-export interface FileNode {
-  type: NodeType.File;
-  extension: string;
-  name: string;
-}
+// export interface FileNode {
+//   type: NodeType.File;
+//   extension: string;
+//   name: string;
+// }
