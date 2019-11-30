@@ -2,7 +2,6 @@ import hyper from 'hyperhtml';
 
 import HomePage from './HomePage';
 import CreateProjectPage from './CreateProjectPage';
-import maestro from 'maestro';
 
 export default class PageContainer extends hyper.Component {
   readonly producerState: any;
@@ -17,7 +16,7 @@ export default class PageContainer extends hyper.Component {
     this.lastPage = 0;
   }
 
-  private getCurrentPage() {
+  private getCurrentPage(): HomePage | CreateProjectPage {
     let page: HomePage | CreateProjectPage = null;
     switch (this.producerState.selected) {
       default:

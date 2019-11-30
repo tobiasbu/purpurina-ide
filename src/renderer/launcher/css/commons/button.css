@@ -36,7 +36,7 @@ button {
   color: var(--p-bg);
 }
 
-.btn-outline:hover:active {
+.btn-outline:active:hover {
   background: var(--p-color-button-active);
   border-color: var(--p-color-button-active);
   color: var(--p-color-text);

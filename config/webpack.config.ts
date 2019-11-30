@@ -13,7 +13,7 @@ import { BuildEnvironment } from './types';
 
 
 
-function createRendererConfig(env: BuildEnvironment) {
+function createRendererConfig(env: BuildEnvironment): webpack.Configuration {
 
   // const include = [
   //   fs.realpathSync(path.join(PROJECT_PATH, './src/shared/maestro/')),
@@ -98,7 +98,7 @@ function createRendererConfig(env: BuildEnvironment) {
                   useRelativePaths: true,
                   name: (env.isProduction) ? '[sha512:hash:hex:9].[ext]' : '[name].[ext]',
                   emitFile: true,
-                  outputPath: (url, resourcePath) => {
+                  outputPath: (url: string, resourcePath: string): string => {
                     const chunk = /launcher|editor/g.exec(resourcePath);
                     return `${chunk[0]}/img/${url}`;
                   }
@@ -149,7 +149,7 @@ function createRendererConfig(env: BuildEnvironment) {
   return config;
 }
 
-export default (env: BuildEnvironment) => {
+export default (env: BuildEnvironment): { main: webpack.Configuration; renderer: webpack.Configuration } => {
 
   const MAIN_ENTRY_PATH = path.join(PROJECT_PATH, './src/main');
   // const RENDER_ENTRY_PATH = path.join(PROJECT_PATH, './src/renderer');

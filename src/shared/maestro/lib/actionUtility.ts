@@ -2,7 +2,7 @@ import { Producer, ActionProducer, ActionGroup } from '../types';
 
 export function createActionUtility<S>(producer: Producer<S>) {
 
-  return function createAction<A>(actionsProducer: ActionProducer<S, A>) {
+  return function createAction<A>(actionsProducer: ActionProducer<S, A>): ActionGroup<A> {
     const actions = actionsProducer(producer);
     return actions;
   };
@@ -10,7 +10,7 @@ export function createActionUtility<S>(producer: Producer<S>) {
 }
 
 // TODO
-export function combineActionGroups(...groups: ActionGroup<any>[]) {
+export function combineActionGroups(...groups: ActionGroup<any>[]): void {
 
   const len =  groups.length;
 

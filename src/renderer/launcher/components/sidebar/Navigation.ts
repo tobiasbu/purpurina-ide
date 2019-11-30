@@ -28,13 +28,26 @@ export default class Navigation extends hyper.Component<MenuState> {
   }
 
   private onMenuSelect = (id: number, e: MouseEvent) => {
-    // const target = e.target as HTMLElement;
+    const target = e.target as HTMLElement;
+    // e.preventDefault();
+    (document.activeElement as HTMLElement).blur();
+    // target.focus({ preventScroll: true });
     if (this.state.selected === id) {
       return;
     }
     this.setState({
       selected: id,
     });
+  }
+
+  private onMenuDown = (e: MouseEvent) => {
+    e.preventDefault();
+  }
+
+  private onKeyUp = (e: KeyboardEvent) => {
+    if (e.keyCode === 13 || e.keyCode === 32) {
+      (e.target as HTMLElement).blur();
+    }
   }
 
   private createTab(name: string, optionIcon: string = stars) {
@@ -51,6 +64,8 @@ export default class Navigation extends hyper.Component<MenuState> {
         <a
         id='${interpolateClassName(name)}'
         class="${className}"
+        onmousedown=${this.onMenuDown}
+        onkeyup=${this.onKeyUp}
         onclick=${(e) => { this.onMenuSelect(id, e); }}
         aria-current=${ariaCurrent}
         href=""

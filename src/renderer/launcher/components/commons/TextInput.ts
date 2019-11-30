@@ -1,28 +1,32 @@
 import hyper from 'hyperhtml';
 import * as Utils from '@shared/utils';
 import { interpolateClassName } from '../../utils';
-import maestro from 'maestro';
 
 interface TextInputOptions {
   initialValue?: string;
   maxLength?: number;
+  required?: boolean;
   attributes?: string;
   style?: string;
   innerElement?: () => HTMLElement;
   onInput?: (e: Event) => void;
 }
 
-function parseOptions(options?: TextInputOptions) {
+function parseOptions(options?: TextInputOptions): TextInputOptions {
   if (!options) {
     return {};
   }
+
+  const get = Utils.objectGet;
+
   const opts: TextInputOptions = {
-    initialValue: Utils.objectGet(options, 'initialValue', ''),
-    maxLength: Utils.objectGet(options, 'maxLength', null),
-    attributes: Utils.objectGet(options, 'attributes', ''),
-    onInput: Utils.objectGet(options, 'onInput', null),
-    style: Utils.objectGet(options, 'style', ''),
-    innerElement: Utils.objectGet(options, 'innerElement'),
+    initialValue: get(options, 'initialValue', ''),
+    maxLength: get(options, 'maxLength', null),
+    attributes: get(options, 'attributes', ''),
+    onInput: get(options, 'onInput', null),
+    style: get(options, 'style', null),
+    innerElement: get(options, 'innerElement'),
+    required: get(options, 'required', false),
   };
   return opts;
 }
@@ -40,6 +44,10 @@ export default class TextInput extends hyper.Component {
   private hasError: boolean;
   readonly options: TextInputOptions;
 
+  get value(): string {
+    return this.inputElement.value;
+  }
+
   constructor(label: string, options?: TextInputOptions) {
     super();
     this.label = label;
@@ -47,7 +55,7 @@ export default class TextInput extends hyper.Component {
 
     const opts = parseOptions(options);
 
-    this.inputElement = hyper.wire()`<input
+    const input = hyper.wire()`<input
         id="${interpolateClassName(label)}"
         accept-charset="UTF-8"
         type="text"
@@ -56,6 +64,12 @@ export default class TextInput extends hyper.Component {
         style="${opts.style}"
         oninput=${opts.onInput}
         />`;
+
+    if (opts.required) {
+      input.setAttribute('required', '');
+    }
+
+    this.inputElement = input;
 
     this.errorElement = document.createElement('p');
     this.errorElement.className = 'input-error';
@@ -68,7 +82,7 @@ export default class TextInput extends hyper.Component {
     `;
   }
 
-  setValue(value: string, resetValidation: boolean = true): void {
+  setValue(value: string, resetValidation = true): void {
     this.inputElement.value = value;
     if (resetValidation) {
       if (this.hasError) {
@@ -82,7 +96,6 @@ export default class TextInput extends hyper.Component {
 
   setError(errorValue: string): void {
     const error = Utils.getValue(errorValue, '');
-    console.log(error.length);
     if (error.length > 0) {
       if (!this.hasError) {
         this.hasError = true;
@@ -104,7 +117,7 @@ export default class TextInput extends hyper.Component {
     this.setError(null);
   }
 
-  render() {
+  render(): HTMLElement {
     const { innerElement } = this.options;
     return this.html`
     <div class="input-text-box">

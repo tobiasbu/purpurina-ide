@@ -1,11 +1,10 @@
-
 const INVALID_FOLDER_CHARS = /[<>:\x22\/\\|?*\x00-\x1F]+/;
 const INVALID_PATH_CHARS = /[<>:\x22|?*\x00-\x1F]+/;
 // const PATH_VALIDATOR = /^(\/|\\)([A-z0-9-_+]+\/)*([A-z0-9]+)(\/|\\)?$/i;
 const WIN_SPECIAL_CHARS = /^(?:aux|con|clock\$|nul|prn|com[1-9]|lpt[1-9])$/i;
 const WIN_DISK = /^([a-zA-Z]:)(\\|\/)/;
 
-export function folderName(value: string) {
+export function folderName(value: string): string {
 
   if (value.length === 0 || value.trim().length === 0) {
     return 'Please give a name for your project';
@@ -24,7 +23,7 @@ export function folderName(value: string) {
   return '';
 }
 
-export function path(value: string) {
+export function path(value: string): string {
 
   let v = value;
 
@@ -39,7 +38,7 @@ export function path(value: string) {
   v = value.substr(2);
 
   if (INVALID_PATH_CHARS.test(v)) {
-    return `Illegal characters. Make sure to not use the following
+    return `Invalid path characters. Make sure to not use the following
       characters: <, >, :, \\, |, ?, *`;
   }
   if (v.length > 3) {

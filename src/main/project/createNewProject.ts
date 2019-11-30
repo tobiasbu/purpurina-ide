@@ -1,9 +1,10 @@
 import * as path from 'path';
 import * as fse from 'fs-extra';
-import { ICreateProject, IProjectInfo, IProjectPackage } from '@shared/types';
 
-import * as PathValidation from '../../shared/utils/PathValidation';
-import FileSystem from '../utils/FileSystem';
+import { ICreateProject, IProjectInfo, IProjectPackage } from '@shared/types';
+import * as PathValidation from '@shared/utils/PathValidation';
+
+import * as FileSystem from '../utils/FileSystem';
 import { generatePackageJSON, generateProjectPackage } from './packageGenerator';
 
 /**
@@ -54,7 +55,7 @@ export default function createNewProject(createProjectInfo: ICreateProject): IPr
        Try another path.`);
     }
 
-    if (!FileSystem.isEmptyDirectory(fullPath)) {
+    if (!FileSystem.isEmpty(fullPath)) {
       throw new Error(`The location '${fullPath}' is already in use and not empty.`);
     }
   } else {

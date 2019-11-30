@@ -1,5 +1,7 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Store, ActionGroup, Constructor, IComponent, ComponentTypes, RemoveListener } from './types';
 import memoize from './lib/memoize';
+
 
 function isConstructor<T = any>(obj: any): obj is Constructor<T> {
   if (typeof obj === 'function') {
@@ -22,7 +24,7 @@ function isComponent(obj: any): obj is Constructor<IComponent> {
 
 export default function listen<S, A>(
   store: Store<S>, component: ComponentTypes, actions?: ActionGroup<A>,
-) {
+): () => void {
 
   let parentNode: ParentNode;
   let currentEl: HTMLElement;
@@ -59,9 +61,9 @@ export default function listen<S, A>(
     return currentEl;
   }
 
-  removeListener = store.addListener(handleChanges);
+  const removeListener = store.addListener(handleChanges);
 
-  function handleChanges() {
+  function handleChanges(): void {
     const newState = store.getState();
     if (previousState.get() === newState) {
       return;

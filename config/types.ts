@@ -6,8 +6,8 @@ import { NextHandleFunction } from 'connect';
 export type DevMiddleware = WebpackDevMiddleware.WebpackDevMiddleware & NextHandleFunction;
 
 export interface BuildEnvironment {
-  DEV?: any,
-  HOT?: any
+  DEV?: any;
+  HOT?: any;
   mode?: 'development' | 'production';
   isProduction?: boolean;
 }

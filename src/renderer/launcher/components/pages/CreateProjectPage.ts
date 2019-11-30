@@ -14,12 +14,7 @@ const browseIcon = require('!svg-inline-loader!../../img/icon_browse.svg') as st
 
 export default class CreateProjectPage extends hyper.Component {
 
-  private projectName: string;
-  private location: string;
-  private author: string;
-
-  private creatingProject: boolean = false;
-
+  private creatingProject: boolean;
   private nameInput: TextInput;
   private locationInput: TextInput;
   private authorInput: TextInput;
@@ -30,19 +25,16 @@ export default class CreateProjectPage extends hyper.Component {
 
   constructor() {
     super();
-
-    this.projectName = 'New Project 1';
-    this.location = DEFAULT_LOCATION;
-    this.author = DEFAULT_AUTHOR;
-
+    this.creatingProject = false;
     this.nameInput = new TextInput('Project Name', {
       onInput: this.onInput,
       maxLength: 214,
-      initialValue: this.projectName,
+      initialValue: 'New Project 1',
+      required: true,
     });
 
     this.locationInput = new TextInput('Location', {
-      innerElement:  () => {
+      innerElement:  (): HTMLElement => {
         return hyper.wire(this)`
           <div class='browse-icon-container'>
              <button
@@ -57,13 +49,15 @@ export default class CreateProjectPage extends hyper.Component {
       },
       onInput: this.onInput,
       attributes: 'webkitdirectory',
-      initialValue: this.location,
+      initialValue: DEFAULT_LOCATION,
       style: 'padding-right: 48px',
+      required: true,
     });
 
     this.authorInput = new TextInput('Author / Organization', {
-      initialValue: this.author,
+      initialValue: DEFAULT_AUTHOR,
       maxLength: 255,
+      required: true,
     });
 
     // function validatePath(message) {
@@ -88,7 +82,7 @@ export default class CreateProjectPage extends hyper.Component {
     // })
   }
 
-  private onInput = (e: Event) => {
+  private onInput = (e: Event): void => {
     // const inputEvent = (e as any);
     const inputElement = (e.srcElement as HTMLInputElement);
     let error: string;
@@ -97,31 +91,30 @@ export default class CreateProjectPage extends hyper.Component {
       case 'project-name': {
         error = PathValidation.folderName(testValue);
         this.nameInput.setError(error);
-        if (error.length === 0) {
-          this.projectName = testValue;
-        }
+        // if (error.length === 0) {
+        //   this.projectName = testValue;
+        // }
         break;
       }
       case 'location': {
         error = PathValidation.path(testValue);
         this.locationInput.setError(error);
-        if (error.length === 0) {
-          this.location = testValue;
-        }
+        // if (error.length === 0) {
+        //   this.location = testValue;
+        // }
 
         break;
       }
       case 'project-author': {
-        this.author = testValue;
         error = '';
         break;
       }
     }
   }
 
-  private browseLocation = () => {
+  private browseLocation = (): void => {
     const path = Dialogs.openDirectory({
-      defaultPath: this.location,
+      defaultPath: this.locationInput.value,
       title: 'Browse location for you new project',
     });
     if (path) {
@@ -131,29 +124,26 @@ export default class CreateProjectPage extends hyper.Component {
     }
   }
 
-  private createProject = () => {
+  private onSubmit = (e: Event): void => {
+
+    if (e) {
+      e.preventDefault();
+    }
 
     if (this.creatingProject === true) {
       return;
     }
-
     this.creatingProject = true;
-
     const createProject: ICreateProject = {
-      projectName: this.projectName,
-      location: this.location,
-      author: this.author,
+      projectName: this.nameInput.value,
+      location: this.locationInput.value,
+      author: this.authorInput.value,
     };
-
     ipcRenderer.send('createProject', createProject);
-
     this.creatingProject = false;
   }
 
   public reset(): void {
-    this.projectName = 'New Project 1';
-    this.location = DEFAULT_LOCATION;
-    this.author = DEFAULT_AUTHOR;
     this.nameInput.reset();
     this.locationInput.reset();
     this.authorInput.reset();
@@ -162,12 +152,14 @@ export default class CreateProjectPage extends hyper.Component {
   render() {
     return this.html`
       <div class="page-wrapper">
+        <form autocomplete="off" onsubmit=${this.onSubmit}>
           <div class="page-main-content">
             ${this.nameInput}
             ${this.locationInput}
             ${this.authorInput}
           </div>
-          ${Button('Create Project')}
+          ${Button('Create Project', { type: 'submit' })}
+        </form>
       </div>
   `;
   }

@@ -38,6 +38,7 @@
   },
   "include": [
     "./src/**/*",
+    "./index.d.ts",
     "./src/main/main.d.ts",
     "./src/renderer/launcher/constants.d.ts"
   ],

@@ -8,7 +8,7 @@ import { BuildEnvironment } from './types';
 
 export const PROJECT_PATH = path.resolve(__dirname, '../');
 
-export default (type: string, entryPath: string, env: BuildEnvironment) => {
+export default (type: string, entryPath: string, env: BuildEnvironment): webpack.Configuration => {
 
   const PROJECT_PATH = path.resolve(__dirname, '../');
   if (env.isProduction === undefined) {
@@ -36,15 +36,10 @@ export default (type: string, entryPath: string, env: BuildEnvironment) => {
     module: {
       rules: [
         {
-          test: /\.ts$/,
+          test: /\.tsx?$/,
           enforce: "pre",
-          loader: 'tslint-loader',
+          loader: 'eslint-loader',
           exclude: /node_modules/,
-          options: {
-            configFile: path.join(PROJECT_PATH, './tslint.json'),
-            tsConfigFile: path.join(entryPath, './tsconfig.json'),
-            fix: true,
-          }
         },
         {
           test: /\.ts$/,

@@ -4,7 +4,7 @@ type TypeOfValue<T> =
   T extends number ? number :
   T extends undefined ? undefined :
   T extends object ? T :
-  T extends Function ? any : any;
+  T extends Function ? AnyType : AnyType;
 
 /**
  * Get property from object by given key.

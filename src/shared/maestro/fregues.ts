@@ -44,7 +44,7 @@ function freguesia<S, C extends IComponent<S>>(): void {
     return null;
   }
 
-  function updateConsumers(state: S) {
+  function updateConsumers(state: S): void {
     for (let i = 0; i < consumers.length; i += 1) {
       const consumer = consumers[i];
       // if (typeof consumer === 'object') {

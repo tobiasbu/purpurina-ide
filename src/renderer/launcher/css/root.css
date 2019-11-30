@@ -9,6 +9,9 @@
   --p-color-error: #ea525f;
   --p-color-button-active: #383838;
 
+  --p-color-focus-outline: rgb(214, 214, 214, 1);
+  --p-color-focus: #d6d6d6;
+
   --p-color-highlight: #107bd7;
   --p-color-highlight-out:#004580;
 
@@ -128,3 +131,4 @@ button, button:focus {
   border-bottom: 4px solid rgba(0, 0, 0, 0);
   -webkit-border-radius: 8px;
 }
+

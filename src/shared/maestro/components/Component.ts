@@ -2,6 +2,8 @@ import hyper, { WiredTemplateFunction } from 'hyperhtml';
 
 import { IComponent } from '../types';
 
+type MaestroElement = HTMLElement | string | boolean | number;
+
 // tslint:disable-next-line: function-name
 class Component<S = {}> implements IComponent<S> {
   protected readonly html: WiredTemplateFunction;
@@ -9,7 +11,7 @@ class Component<S = {}> implements IComponent<S> {
   constructor() {
     this.html = hyper.wire(this);
   }
-  render?(): HTMLElement | string | boolean | number;
+  render?(): MaestroElement;
   setState(state: Partial<S> | ((this: this, state: S) => Partial<S>), render?: boolean): this {
     const target = this.state;
     const source = typeof state === 'function' ? state.call(this, target) : state;

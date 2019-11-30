@@ -11,18 +11,6 @@ import { WebpackDevMiddlewareMoreOptions, RendererServer } from './types';
 import { spawn } from 'child_process';
 
 
-// https://github.com/webpack/webpack/pull/9436
-// const logging = require('webpack/lib/logging/runtime');
-
-// const logger = logging.getLogger('purpurina');
-// logging.configureDefaultLogger(
-//   {
-//     level: 'log',
-//     colors: true
-// });
-
-
-// const getLogger = require('webpack-log');
 import getLogger from './getLogger';
 const logger = getLogger(
   {
@@ -34,7 +22,7 @@ const logger = getLogger(
 
 logger.log('Preparing development environment');
 
-async function main() {
+async function main(): Promise<unknown> {
 
   const DIST_PATH = path.join(__dirname, '../dist');
 
@@ -117,6 +105,7 @@ async function main() {
   }
 
 
+  // eslint-disable-next-line
   const electron = require("electron");
   logger.info(`Starting the app with ${electron}...`);
   const rendererServerResult = await rendererServerPromise;
