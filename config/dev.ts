@@ -37,9 +37,11 @@ async function main(): Promise<unknown> {
   });
 
   // Create webpack config for electron processes
+  const PORT = 3000;
   const config = webpackConfigFn({
     mode: "development",
     isProduction: false,
+    port: PORT,
   });
 
   // Main webpack compilation
@@ -66,10 +68,12 @@ async function main(): Promise<unknown> {
     overlay: true,
     writeToDisk: true,
     noInfo: true,
+    stats: require('./stats.ts'),
   };
   const devMiddleware = WebpackDevMiddleware(rendererCompiler, devOptions);
   const hotMiddleware = WebpackHotMiddleware(rendererCompiler, {
-    path: '/__webpack_hmr', heartbeat: 10 * 1000
+    // path: '/__webpack_hmr',
+    heartbeat: 10 * 1000
   });
 
   // Renderer Server configuration
@@ -80,13 +84,12 @@ async function main(): Promise<unknown> {
 
   // Renderer promise
   const rendererServerPromise = new Promise<RendererServer>((resolve, reject) => {
-    const port = 3000;
-    const server = expressApp.listen(port, 'localhost', (error) => {
+    const server = expressApp.listen(PORT, 'localhost', (error) => {
       if (error) {
         reject(error);
       }
-      logger.log('Renderer dev server listening on port ' + port + '\n');
-      resolve({ server, port, devMiddleware  });
+      logger.log('Renderer dev server listening on port ' + PORT + '\n');
+      resolve({ server, devMiddleware, port: PORT });
     })
   });
 
@@ -107,13 +110,14 @@ async function main(): Promise<unknown> {
 
   // eslint-disable-next-line
   const electron = require("electron");
-  logger.info(`Starting the app with ${electron}...`);
+  logger.info(`Starting Electron with ${electron}...`);
   const rendererServerResult = await rendererServerPromise;
 
   return new Promise((resolve, reject) => {
     const env: NodeJS.ProcessEnv = {
       ...process.env,
       ELECTRON_WEBPACK_WDS_PORT: rendererServerResult.port.toString(10),
+      ELECTRON_WEBPACK_WDS_HOST: 'locahost',
       DEVELOPMENT: JSON.stringify(true),
     }
 
@@ -127,10 +131,10 @@ async function main(): Promise<unknown> {
         stdio: ['ignore', 'inherit', 'inherit'],
       });
 
-    logger.log(`App started at ${env.ELECTRON_WEBPACK_WDS_PORT}`);
+    logger.log(`Electron started at ${env.ELECTRON_WEBPACK_WDS_PORT}`);
 
     electronProcess.on("close", (code) => {
-      logger.info(`App closed with code: ${code}`);
+      logger.info(`Electron exited with code: ${code}`);
       devMiddleware.close();
       rendererServerResult.server.close((err) => {
         if (err) {
@@ -143,7 +147,7 @@ async function main(): Promise<unknown> {
     })
 
     electronProcess.on("error", (err) => {
-      logger.error(`Error occurred `, err);
+      logger.error(`Electron: Error occurred `, err);
       reject(err)
     })
 

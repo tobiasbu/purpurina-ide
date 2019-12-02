@@ -25,12 +25,15 @@
       "@shared": [
         "src/shared"
       ],
-      "renderer": [
+      "@main": [
+        "src/main",
+      ],
+      "@main/*": [
+        "src/main/*",
+      ],
+      "@renderer": [
         "src/renderer"
       ],
-      "main": [
-        "src/main"
-      ]
     },
     "typeRoots": [
       "node_modules/@types"

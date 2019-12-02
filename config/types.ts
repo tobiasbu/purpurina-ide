@@ -10,6 +10,7 @@ export interface BuildEnvironment {
   HOT?: boolean;
   mode?: 'development' | 'production';
   isProduction?: boolean;
+  port?: number;
 }
 
 export interface WebpackDevMiddlewareMoreOptions extends WebpackDevMiddleware.Options {

@@ -1,7 +1,6 @@
 build
 dist
 src/engine
-src/main
 src/renderer/editor
 src/shared/maestro
 config

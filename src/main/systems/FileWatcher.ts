@@ -6,7 +6,6 @@ import Logger from '../logger';
  * File Watcher system.
  */
 export default class FileWatcher {
-
   private watcher: chokidar.FSWatcher;
   private isWatching: boolean;
   private location: string;
@@ -53,14 +52,14 @@ export default class FileWatcher {
 
     this.watcher
       .on('add', (path, stats) => Logger.log(`File ${path} has been added`, JSON.stringify(stats)))
-      .on('change', path => Logger.log(`File ${path} has been changed`))
-      .on('unlink', path => Logger.log(`File ${path} has been removed`));
+      .on('change', (path) => Logger.log(`File ${path} has been changed`))
+      .on('unlink', (path) => Logger.log(`File ${path} has been removed`));
 
     // More possible events.
     this.watcher
-      .on('addDir', path => Logger.log(`Directory ${path} has been added`))
-      .on('unlinkDir', path => Logger.log(`Directory ${path} has been removed`))
-      .on('error', error => Logger.error(`Watcher error: ${error}`))
+      .on('addDir', (path) => Logger.log(`Directory ${path} has been added`))
+      .on('unlinkDir', (path) => Logger.log(`Directory ${path} has been removed`))
+      .on('error', (error) => Logger.error(`Watcher error: ${error}`))
       .on('raw', (event, path, details) => {
         Logger.log('Raw event info:', event, path, details);
       });
@@ -69,5 +68,4 @@ export default class FileWatcher {
 
     return promise;
   }
-
 }

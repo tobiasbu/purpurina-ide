@@ -22,14 +22,11 @@ interface PackageJSON {
  * @see https://docs.npmjs.com/files/package.json
  */
 export function generatePackageJSON(dir: string, createProject: CreateProject): void {
-
   let name = createProject.projectName;
-
   name = name.toLowerCase();
   name = name.trim();
 
   if (!PACKAGE_NAME_VALIDATION.test(name)) {
-
     name = name.replace(/ /g, '');
 
     if (name.startsWith('.')) {
@@ -39,16 +36,14 @@ export function generatePackageJSON(dir: string, createProject: CreateProject): 
     }
   }
 
+  const desc = `New Purpurina project ${((createProject.author) ? `by ${createProject.author}` : '')}`;
+
   const json: PackageJSON = {
     name,
     author: createProject.author,
     version: '1.0.0',
-    license: 'ISC',
-    description: (createProject.author) ?
-     `New Purpurina project by ${createProject.author}`
-     :
-     'New Glitter project',
-    keywords: ['glitter', 'project', 'game'],
+    license: 'MIT',
+    description: desc,
   };
   fs.writeFileSync(path.join(dir, 'package.json'), JSON.stringify(json, null, '\t'));
 }
@@ -59,9 +54,10 @@ export function generatePackageJSON(dir: string, createProject: CreateProject): 
  * @param dir Location
  * @param createProject Project information
  */
-export function generateProjectPackage(dir: string,
-                                       createProject: CreateProject): ProjectPackage {
-
+export function generateProjectPackage(
+  dir: string,
+  createProject: CreateProject,
+): ProjectPackage {
   const json: ProjectPackage = {
     name: createProject.projectName,
     author: createProject.author,

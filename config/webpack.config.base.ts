@@ -8,6 +8,9 @@ import { BuildEnvironment } from './types';
 
 export const PROJECT_PATH = path.resolve(__dirname, '../');
 
+/**
+ * Base webpack configuration.
+ */
 export default (type: string, entryPath: string, env: BuildEnvironment): webpack.Configuration => {
 
   const PROJECT_PATH = path.resolve(__dirname, '../');

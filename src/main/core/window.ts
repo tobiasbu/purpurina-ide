@@ -1,13 +1,15 @@
 import { BrowserWindow } from 'electron';
-import version from 'shared/version';
 import * as url from 'url';
+
+import version from '@shared/version';
+import Logger from '@main/logger';
 
 const MIN_WIDTH = 640;
 const MIN_HEIGHT = 480;
 
 function getURL(pathName: 'editor' | 'launcher'): string {
   let uo: url.UrlObject;
-  console.log(process.env.ELECTRON_WEBPACK_WDS_PORT);
+  Logger.log(process.env.ELECTRON_WEBPACK_WDS_PORT);
   if (process.env.development) {
     uo = {
       protocol: 'http',
@@ -30,7 +32,6 @@ function getURL(pathName: 'editor' | 'launcher'): string {
  * @return The startup window.
  */
 export function createStartupWindow(): BrowserWindow {
-
   const width = 800;
   const height = 450 + 80;
   const launcherPath = getURL('launcher');
@@ -73,7 +74,7 @@ export function createStartupWindow(): BrowserWindow {
     ev.preventDefault();
   });
 
-  window.on('close', () => window = null);
+  window.on('close', () => { window = null; });
 
   // load entry html page in the renderer.
   window.loadURL(launcherPath);
@@ -82,7 +83,6 @@ export function createStartupWindow(): BrowserWindow {
 }
 
 export function createEditorWindow(): BrowserWindow {
-
   const editorPath = getURL('editor');
   // const basePath = path.join('file://', __dirname);
   // const editorPath = path.join(basePath, 'editor/index.html');
@@ -106,13 +106,11 @@ export function createEditorWindow(): BrowserWindow {
       nodeIntegration: (process.env.NODE_ENV === 'development'),
     },
   });
-
-  window.on('close', () => window = null);
+  window.on('close', () => { window = null; });
   window.setMenu(null);
 
   window.loadURL(editorPath);
   // window.maximize();
 
   return window;
-
 }

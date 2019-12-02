@@ -1,8 +1,7 @@
 import * as os from 'os';
 import { UserInfo } from '@shared/types';
 
-export function initializeGlobal() {
-
+export default function initializeGlobal(): void {
   const osUserInfo = os.userInfo();
 
   const userInfo: UserInfo = {

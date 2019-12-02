@@ -17,7 +17,6 @@ import { generatePackageJSON, generateProjectPackage } from './packageGenerator'
  * @throws When there is a error in validation.
  */
 function validateNewProject(newProject: CreateProject): void {
-
   let error = PathValidation.folderName(newProject.projectName);
 
   if (error.length !== 0) {
@@ -31,7 +30,6 @@ function validateNewProject(newProject: CreateProject): void {
   if (error.length !== 0) {
     throw new Error(error);
   }
-
 }
 
 /**
@@ -40,18 +38,18 @@ function validateNewProject(newProject: CreateProject): void {
  * @param createProjectInfo Project creation data.
  */
 export default function createNewProject(createProjectInfo: CreateProject): ProjectInfo {
-
   validateNewProject(createProjectInfo);
 
   const fullPath = path.join(
-    createProjectInfo.location, `.${path.sep}${createProjectInfo.projectName}`);
+    createProjectInfo.location,
+    `.${path.sep}${createProjectInfo.projectName}`,
+  );
 
   if (fse.existsSync(fullPath)) {
-
     try {
       fse.accessSync(createProjectInfo.location);
     } catch (err) {
-      throw new Error(`No access permission for the location '${createProjectInfo.location}'.
+      throw new Error(`No access permission for location '${createProjectInfo.location}'.
        Try another path.`);
     }
 
@@ -79,7 +77,6 @@ export default function createNewProject(createProjectInfo: CreateProject): Proj
     }
 
     fse.mkdirSync(path.join(fullPath, 'assets'));
-
   } catch (e) {
     throw new Error(`Could not initialize new project\n${e}`);
   }
@@ -91,5 +88,4 @@ export default function createNewProject(createProjectInfo: CreateProject): Proj
   };
 
   return projectInfo;
-
 }

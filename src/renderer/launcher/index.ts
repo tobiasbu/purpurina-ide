@@ -9,7 +9,9 @@ window.eval = evaluate;
 // eslint-disable-next-line
 global.eval = evaluate;
 
-if (DEVELOPMENT) {
+let installed = false;
+if (DEVELOPMENT && !installed) {
+  // eslint-disable-next-line
   console.log('Installing debug-menu');
   import('debug-menu').then((dm) => {
     dm.install();
@@ -18,6 +20,7 @@ if (DEVELOPMENT) {
   import('source-map-support').then((sourceMapSupport) => {
     sourceMapSupport.install();
   });
+  installed = true;
 }
 
 import { ipcRenderer } from 'electron';
@@ -31,10 +34,7 @@ document.addEventListener('dragstart', (event) => event.preventDefault());
 document.addEventListener('dragover', (event) => event.preventDefault());
 document.addEventListener('drop', (event) => event.preventDefault());
 
-let app: App;
-if (!app) {
-  app = new App();
-}
+const app = new App();
 const wrapRender = (): HTMLElement => {
   const mainEl = app.render();
   return mainEl;
@@ -47,16 +47,13 @@ try {
   ipcRenderer.send('launcher_loaded');
   ipcRenderer.once('projects-loaded', (event: Electron.Event, projectsList: ProjectInfo[]) => {
     app.load(projectsList);
-    // console.log(projectsList);
-    // console.log('PROJECTS RECEIVED');
-    console.log('SHOW');
     ipcRenderer.send('show_window');
     wrapRender();
   });
 
   if ((module as any).hot) {
     (module as any).hot.accept(() => {
-      // console.log('HOT MODULE!');
+      console.log('HOT MODULE!!');
       wrapRender();
     });
   }

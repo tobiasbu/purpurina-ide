@@ -1,8 +1,12 @@
 
 import { app, BrowserWindow } from 'electron';
+
+import Logger from 'main/logger';
+
 import { createStartupWindow, createEditorWindow } from './window';
-import events from '../events';
+// import events from '../events';
 import EditorSettings from './EditorSettings';
+
 
 enum AppState {
   Uninitialized,
@@ -16,7 +20,6 @@ const DEV_MODE = process.env.NODE_ENV === 'development';
 const APP_NAME = 'Purpurina';
 
 export default class Application {
-
   private window: Electron.BrowserWindow;
   private appState: AppState;
   settings: EditorSettings;
@@ -35,7 +38,11 @@ export default class Application {
     this.settings = editorSettings;
   }
 
-  private readyToShow = (resolve: (BrowserWindow) => void, mainWindow: BrowserWindow, toState: AppState): void => {
+  private readyToShow = (
+    resolve: (win: BrowserWindow) => void,
+    mainWindow: BrowserWindow,
+    toState: AppState,
+  ): void => {
     mainWindow.show();
     mainWindow.focus();
     if (DEV_MODE) {
@@ -43,15 +50,14 @@ export default class Application {
     }
     this.appState = toState;
     resolve(mainWindow);
-  }
+  };
 
-  initialize(): void  {
-    console.log(`Initializing ${APP_NAME}`);
-
+  initialize(): void {
+    Logger.log(`Initializing ${APP_NAME}`);
     app.on('window-all-closed', () => {
-      const isLaunching = this.appState === AppState.Launcher ||
-        this.appState === AppState.InitializeLauncher ||
-        this.appState === AppState.Uninitialized;
+      const isLaunching = this.appState === AppState.Launcher
+        || this.appState === AppState.InitializeLauncher
+        || this.appState === AppState.Uninitialized;
       if (isLaunching) {
         app.quit();
       }
@@ -60,7 +66,6 @@ export default class Application {
 
   startLauncher(): Promise<BrowserWindow> {
     const promise = new Promise<BrowserWindow>((resolve, reject) => {
-
       const mainWindow = createStartupWindow();
       if (!mainWindow) {
         reject(new Error('"mainWindow" is not defined'));
@@ -68,7 +73,7 @@ export default class Application {
       this.window = mainWindow;
 
       mainWindow.on('ready-to-show', () => {
-        this.appState  = AppState.Launcher;
+        this.appState = AppState.Launcher;
         resolve(mainWindow);
       });
 
@@ -76,11 +81,10 @@ export default class Application {
       // mainWindow.once('ready-to-show',
       //                 this.readyToShow.bind(this, resolve, mainWindow, AppState.Launcher));
 
-      events(this);
+      // events(this);
 
-      console.log(`Opening ${APP_NAME} Launcher`);
+      Logger.log(`Opening ${APP_NAME} Launcher`);
       this.appState = AppState.InitializeLauncher;
-
     });
 
     return promise;
@@ -99,18 +103,13 @@ export default class Application {
     }
 
     const promise = new Promise<BrowserWindow>((resolve, reject) => {
-
       const mainWindow = createEditorWindow();
-
       if (!mainWindow) {
         reject(new Error('"mainWindow" is not defined'));
       }
-
       this.window = mainWindow;
 
-      mainWindow.once('ready-to-show', this.readyToShow.bind(this,
-                                                             resolve, mainWindow, AppState.Editor));
-
+      mainWindow.once('ready-to-show', this.readyToShow.bind(this, resolve, mainWindow, AppState.Editor));
     });
 
     return promise;

@@ -6,7 +6,6 @@ import FileWatcher from '../systems/FileWatcher';
  * Controls the project systems.
  */
 export default class ProjectManager {
-
   private metadata: ProjectInfo;
   isReady: boolean;
   watcher: FileWatcher;
@@ -29,16 +28,15 @@ export default class ProjectManager {
       // Starting systems
       const watcher = new FileWatcher(projectInfo.path);
       watcher.start(manager.metadata.path)
-      .then(() => {
-        manager.watcher = watcher;
-        manager.isReady = true;
-        resolve(manager);
-      })
-      .catch((reason) => {
-        reject(reason);
-      });
+        .then(() => {
+          manager.watcher = watcher;
+          manager.isReady = true;
+          resolve(manager);
+        })
+        .catch((reason) => {
+          reject(reason);
+        });
     });
-
   }
 
   // public send(message: string, payload: IMessage): void {

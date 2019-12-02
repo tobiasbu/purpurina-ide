@@ -4,19 +4,14 @@ import * as path from 'path';
 import * as os from 'os';
 
 const homeDir = os.homedir();
-const EDITOR_CONFIG_PATH = path.join(homeDir, path.sep, '.glitter');
+const EDITOR_CONFIG_PATH = path.join(homeDir, path.sep, '.purpurina');
 const SETTINGS_PATH = path.join(EDITOR_CONFIG_PATH, 'settings.json');
 
 function checkSettingsPath(): boolean {
   const firstTime = !fse.existsSync(EDITOR_CONFIG_PATH);
-
   if (firstTime) {
-    try {
-      fse.mkdirpSync(EDITOR_CONFIG_PATH);
-      fse.mkdirpSync(path.join(EDITOR_CONFIG_PATH, 'logs'));
-    } catch (err) {
-      throw err;
-    }
+    fse.mkdirpSync(EDITOR_CONFIG_PATH);
+    fse.mkdirpSync(path.join(EDITOR_CONFIG_PATH, 'logs'));
   }
 
   return firstTime;
@@ -28,7 +23,6 @@ interface EditorSettingsPack {
 }
 
 export default class EditorSettings implements EditorSettingsPack {
-
   private recentProj: string[];
   private lang: string;
 
@@ -58,7 +52,6 @@ export default class EditorSettings implements EditorSettingsPack {
       this.recentProj = [];
       this.recentProj.push(projectPath);
     } else {
-
       const recents: string[] = [];
       const len = this.recentProj.length;
 
@@ -104,7 +97,7 @@ export default class EditorSettings implements EditorSettingsPack {
         .then(() => {
           resolve(settings);
         })
-        .catch(err => reject(err));
+        .catch((err) => reject(err));
     });
   }
 
@@ -131,7 +124,6 @@ export default class EditorSettings implements EditorSettingsPack {
   }
 
   static loadAsync(): Promise<EditorSettings> {
-
     let p: Promise<EditorSettings>;
     if (checkSettingsPath()) {
       p = this.createAsync();
@@ -146,5 +138,4 @@ export default class EditorSettings implements EditorSettingsPack {
     }
     return p;
   }
-
 }

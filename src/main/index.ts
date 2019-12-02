@@ -1,12 +1,14 @@
+/* eslint-disable no-console */
 import { ipcMain, app } from 'electron';
 
 import Application from './core/Application';
 import EditorSettings from './core/EditorSettings';
-import { initializeGlobal } from './core/config';
-import { loadRecentProjects } from './project/projectValidation';
+import initializeGlobal from './core/config';
+import loadRecentProjects from './project/loadRecentProjects';
+import Logger from './logger';
 
 if (process.env.DEVELOPMENT) {
-  console.log(`Directory: ${__dirname}. Port: ${process.env.ELECTRON_WEBPACK_WDS_PORT}`);
+  Logger.log(`Directory: ${__dirname}. Port: ${process.env.ELECTRON_WEBPACK_WDS_PORT}`);
   const sourceMapSupport = require('source-map-support'); // eslint-disable-line
   sourceMapSupport.install({
     environment: 'node',
@@ -20,7 +22,6 @@ const settings = EditorSettings.load();
 const AppControl = new Application(settings);
 
 app.once('ready', () => {
-
   AppControl.initialize();
 
   // function a() {
@@ -67,21 +68,10 @@ app.once('ready', () => {
       event.sender.send('projects-loaded', projects);
     });
   });
-
 });
-/*const initPromise = AppControl.initialize();
-const loaderPromise = ProjectManagement.loadRecentProjects(settings.recentProjects);
 
-Promise.all([initPromise, loaderPromise]).then((result) => {
-
-    const projects = result[1];
-    ipcMain.on('launcher_loaded', (event: Electron.Event) => {
-        event.sender.send('projects-loaded', projects);
-    });
-});*/
-
-if (process.env.NODE_ENV === 'development' ||
-  process.env.DEBUG_PROD === 'true') {
+if (process.env.NODE_ENV === 'development'
+  || process.env.DEBUG_PROD === 'true') {
 
   // require('electron-debug')();
   // const path = require('path');

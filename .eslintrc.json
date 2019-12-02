@@ -18,13 +18,23 @@
     "@typescript-eslint/interface-name-prefix": "off",
     "import/no-webpack-loader-syntax": "off",
     "no-unused-expressions": "off",
-    "@typescript-eslint/no-unused-expressions": "off"
+    "@typescript-eslint/no-unused-expressions": "off",
+    "no-bitwise": "off"
   },
+  "overrides": [
+    {
+      "files": ["*.ts", "*.tsx"],
+      "rules": {
+        "@typescript-eslint/no-unused-vars": [2, { "args": "none" }]
+      }
+    }
+  ],
   "settings": {
     "import/resolver": {
       "alias": {
         "map": [
-          ["@shared","./shared"]
+          ["@shared","./shared"],
+          ["@main","./src/main"]
         ]
       }
     }

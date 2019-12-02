@@ -2,7 +2,8 @@ import hyper from 'hyperhtml';
 import { ProjectInfo } from '@shared/types';
 import { IProjectContainer, IRecentProjectsPage } from '../../../types';
 
-const iconPlaceholder = require('!svg-inline-loader!../../../img/icon_star.svg') as string;
+// const iconPlaceholder = require('!svg-inline-loader!../../../img/icon_star.svg') as string;
+import iconPlaceholder from '../../../img/icon_star.svg';
 
 export default class ProjectContainer extends hyper.Component implements IProjectContainer {
   private project: ProjectInfo;

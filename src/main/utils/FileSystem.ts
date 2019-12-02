@@ -1,9 +1,7 @@
 import * as fs from 'fs';
 import * as path from 'path';
 
-const _0777 = parseInt('0777', 8);
-
-
+const OCT_0777 = 0o0777; // parseInt('0777', 8);;
 /**
  * Verify if given directory path is empty.
  * @param dirname Directory path.
@@ -19,20 +17,17 @@ export function isEmpty(dirname: string): boolean {
 export function mkdirpSync(dirname: string, options?: { mode?: number }): string {
   let opt = options;
   if (!options || typeof options !== 'object') {
-    opt = { mode: _0777 };
+    opt = { mode: OCT_0777 };
   }
-
-  let mode = opt.mode;
-
+  let { mode } = opt;
   if (mode === undefined) {
-    mode = _0777 & (~process.umask());
+    mode = OCT_0777 & (~process.umask());
   }
   const splitedDir = dirname.split(path.sep);
   const baseDir = path.isAbsolute(dirname) ? path.sep : '.';
   // const initValue = path.isAbsolute(dirname) ?
 
   return splitedDir.reduce((previousValue, currentValue) => {
-
     const curDir = path.resolve(baseDir, previousValue, currentValue);
     try {
       fs.mkdirSync(curDir, mode);
@@ -46,7 +41,7 @@ export function mkdirpSync(dirname: string, options?: { mode?: number }): string
         }
         default: {
           const caughtErr = ['EACCES', 'EPERM', 'EISDIR'].indexOf(err.code) > -1;
-          if (!caughtErr || caughtErr && curDir === path.resolve(dirname)) {
+          if (!caughtErr || (caughtErr && curDir === path.resolve(dirname))) {
             throw err;
           }
         }
@@ -54,6 +49,5 @@ export function mkdirpSync(dirname: string, options?: { mode?: number }): string
     }
 
     return curDir;
-
   });
 }

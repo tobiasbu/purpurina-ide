@@ -2,7 +2,7 @@ import { ProjectInfo, ProjectPackage } from '@shared/types';
 import * as path from 'path';
 import * as fse from 'fs-extra';
 
-function readPackage(buffer: Buffer, projectPath: string, indexer: number): ProjectInfo  {
+function readPackage(buffer: Buffer, projectPath: string, indexer: number): ProjectInfo {
   let projectInfo: ProjectInfo | Error;
   try {
     const json: ProjectPackage = JSON.parse(buffer.toString('utf-8'));
@@ -17,8 +17,9 @@ function readPackage(buffer: Buffer, projectPath: string, indexer: number): Proj
   return projectInfo;
 }
 
-export function loadRecentProjects(recentProjects: string[]): Promise<null | ProjectInfo[]> {
-
+export default function loadRecentProjects(
+  recentProjects: string[],
+): Promise<null | ProjectInfo[]> {
   if (!recentProjects) {
     return Promise.resolve(null);
   }
@@ -28,29 +29,25 @@ export function loadRecentProjects(recentProjects: string[]): Promise<null | Pro
   }
 
   const projectsPromisesFiles: Promise<ProjectInfo>[] = [];
-  let indexer = 0;
-
-  for (const projectPath of recentProjects) {
-
+  recentProjects.forEach((projectPath, index) => {
     if (fse.existsSync(projectPath)) {
-
       const purpurPackage = path.join(projectPath, path.sep, 'purpurina.json');
 
       const p = fse.readFile(purpurPackage)
-        .then(buffer => readPackage(buffer, projectPath, indexer))
+        .then((buffer) => readPackage(buffer, projectPath, index))
         .catch((e) => {
           const projectInfo: ProjectInfo = {
+            index,
             projectPackage: null,
             error: e,
             path: projectPath,
-            index: indexer,
           };
           return projectInfo;
         });
 
       projectsPromisesFiles.push(p);
-      indexer += 1;
     }
-  }
+  });
+
   return Promise.all(projectsPromisesFiles);
 }

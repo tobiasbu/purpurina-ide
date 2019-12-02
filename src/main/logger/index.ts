@@ -1,10 +1,11 @@
+/* eslint-disable no-console */
 
 type LogFunction = (message: string, ...optionalParams: any[]) => void;
 
-const Logger = (function () {
-
+// eslint-disable-next-line
+const Logger = (function (): any {
   function composeTimestamp(fn: LogFunction, level: string): LogFunction {
-    return (message: string, ...optionalParams: any[]) => {
+    return (message: string, ...optionalParams: any[]): void => {
       if (optionalParams && optionalParams.length > 0) {
         fn(`${level} [${new Date().toISOString()}] ${message}`, optionalParams);
         return;
@@ -13,8 +14,7 @@ const Logger = (function () {
     };
   }
 
-  const Logger = {
-
+  return {
     /**
      * Print a debug message.
      * @param {string} message The message to print.
@@ -34,7 +34,6 @@ const Logger = (function () {
      */
     error: composeTimestamp(console.error, 'ERROR'),
   };
-  return Logger;
 }());
 
 export default Logger;
