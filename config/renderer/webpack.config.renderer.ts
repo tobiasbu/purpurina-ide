@@ -6,14 +6,14 @@ import * as HtmlWebpackPlugin from 'html-webpack-plugin';
 import * as WebpackNotifierPlugin from 'webpack-notifier';
 import { CleanWebpackPlugin } from 'clean-webpack-plugin';
 
-import configBase, { PROJECT_PATH } from './webpack.config.base';
-import { BuildEnvironment } from "./types";
+import configBase from '../webpack.config.base';
+import { WebpackBuildConfig } from "../types";
 
 /**
  * Purpurina renderer configuration
  * @param env BUild enviroment
  */
-export default function(env: BuildEnvironment): webpack.Configuration {
+export default function(env: WebpackBuildConfig): webpack.Configuration {
 
   // const include = [
   //   fs.realpathSync(path.join(PROJECT_PATH, './src/shared/maestro/')),
@@ -21,7 +21,7 @@ export default function(env: BuildEnvironment): webpack.Configuration {
 
   const PATH = `http://localhost:${env.port || 3000}/__webpack_hmr`;
   const HOT_MW = `webpack-hot-middleware/client?path=${PATH}&reload=true`;
-  const ENTRY_PATH = path.join(PROJECT_PATH, './src/renderer');
+  const ENTRY_PATH = path.join(env.projectPath, './src/renderer');
 
   const LAUNCHER_PATH = path.join(ENTRY_PATH, '/launcher');
   const EDITOR_PATH = path.join(ENTRY_PATH, '/editor');
@@ -30,7 +30,7 @@ export default function(env: BuildEnvironment): webpack.Configuration {
   const EDITOR_ENTRY_PATH = path.join(EDITOR_PATH, '/index.ts');
 
   const config = webpackMerge.smart(
-    configBase('renderer', ENTRY_PATH, env),
+    configBase('renderer', env),
     {
       target: 'electron-renderer',
       entry: {

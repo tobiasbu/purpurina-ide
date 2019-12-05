@@ -4,19 +4,19 @@ import * as webpack from 'webpack';
 import * as path from 'path';
 import TsconfigPathsPlugin from 'tsconfig-paths-webpack-plugin';
 
-import { BuildEnvironment } from './types';
+import { WebpackBuildConfig } from './types';
 
 export const PROJECT_PATH = path.resolve(__dirname, '../');
 
 /**
  * Base webpack configuration.
  */
-export default (type: string, entryPath: string, env: BuildEnvironment): webpack.Configuration => {
+export default (type: string, env: WebpackBuildConfig): webpack.Configuration => {
 
   const PROJECT_PATH = path.resolve(__dirname, '../');
-  if (env.isProduction === undefined) {
-    env.isProduction = env.mode === "production";
-  }
+  // if (env.isProduction === undefined) {
+  //   env.isProduction = env.mode === "production";
+  // }
   const mode = env.isProduction ? "production" : "development";
 
   const baseConfig: webpack.Configuration = {

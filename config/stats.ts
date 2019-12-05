@@ -2,22 +2,25 @@ import webpack = require("webpack");
 
 type LoggingDebugFn = (name: string) => boolean | string | RegExp;
 
-interface ExtendedStats extends webpack.Stats.ToJsonOptionsObject {
+interface ExtendedWebpackStats extends webpack.Stats.ToJsonOptionsObject {
   chunkGroups: boolean,
   colors: boolean,
   loggingDebug: string[] | RegExp | LoggingDebugFn;
   logging: 'none' | 'error' | 'warn' | 'info' | 'log' | 'verbose' | boolean;
   loggingTrace: boolean;
   outputPath: boolean;
+  errorStack: boolean;
+  preset: string;
 }
 
 /**
  * Webpack stats.
  * @see https://webpack.js.org/configuration/stats/
  */
-const stats: ExtendedStats = {
-  all: false,
+const stats: ExtendedWebpackStats = {
+  all: undefined,
   assets: false,
+  assetsSort: '!size',
   builtAt: false,
   cached: false,
   cachedAssets: false,
@@ -35,10 +38,11 @@ const stats: ExtendedStats = {
   env: false,
 
   errors: true,
+  errorStack: true,
   errorDetails: true,
 
-  excludeAssets: () => false,
-  excludeModules: () => false,
+  // excludeAssets: () => false,
+  // excludeModules: () => false,
 
   hash: false,
 
@@ -52,6 +56,7 @@ const stats: ExtendedStats = {
 
   outputPath: false,
   performance: false,
+  preset: 'minimal',
   providedExports: false,
 
   publicPath: false,
