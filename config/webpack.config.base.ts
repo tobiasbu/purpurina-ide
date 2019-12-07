@@ -5,6 +5,7 @@ import * as path from 'path';
 import TsconfigPathsPlugin from 'tsconfig-paths-webpack-plugin';
 
 import { WebpackBuildConfig } from './types';
+import { CleanWebpackPlugin } from 'clean-webpack-plugin';
 
 export const PROJECT_PATH = path.resolve(__dirname, '../');
 
@@ -21,13 +22,13 @@ export default (type: string, env: WebpackBuildConfig): webpack.Configuration =>
 
   const baseConfig: webpack.Configuration = {
     mode,
-    devtool: 'source-map',// env.isProduction ? 'source-map' : 'eval',
+    devtool: env.isProduction ? 'nosources-source-map' : 'source-map',
     context: PROJECT_PATH,
     output: {
       path: path.join(PROJECT_PATH, `./dist/${type}`),
       libraryTarget: 'commonjs2',
-      filename: "[name].bundle.js",
-      chunkFilename: "[name].chunk.js",
+      filename: "[name].js",
+      chunkFilename: "[name].bundle.js",
     },
     resolve: {
       plugins: [new TsconfigPathsPlugin({})],
@@ -51,16 +52,29 @@ export default (type: string, env: WebpackBuildConfig): webpack.Configuration =>
         }]
     },
     optimization: {
-      minimize: false,
+      minimize: env.isProduction === true,
       minimizer: [],
     },
-    plugins: [],
+    plugins: [
+      new CleanWebpackPlugin(),
+      new webpack.DefinePlugin({
+        'process.env.NODE_ENV': env.isProduction ? "\"production\"" : "\"development\"",
+        'DEVELOPMENT': JSON.stringify(env.isProduction),
+      }),
+    ],
     externals: {},
     node: {
-      __dirname: false,
-      __filename: false,
-    }
+      __dirname: env.isProduction === false,
+      __filename: env.isProduction === false,
+    },
   };
+
+  if (env.isProduction) {
+    baseConfig.plugins.push(
+      new webpack.HotModuleReplacementPlugin(),
+      new webpack.NoEmitOnErrorsPlugin()
+    );
+  }
 
   return baseConfig;
 

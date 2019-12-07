@@ -16,18 +16,19 @@ export default function startHmrServer(logger: Logger) {
     try {
       ipc.serve(path, () => {
         ipc.server.on('connect', (data, socket) => {
-          console.log(`[IPC SERVER CONNECTED] path: ${path}`, data, socket);
-          resolve(
-            {
-              path: `${ipc.config.socketRoot}${appspace}${id}`,
-              ipc,
-            });
+          logger.info(`[IPC] socket connected`, data, socket);
         });
         ipc.server.on('error', (error: Error) => {
-          console.error('[IPC SERVER] Error:', error);
-        })
+          logger.info('[IPC] Server Error:', error);
+        });
+        resolve(
+          {
+            path: `${ipc.config.socketRoot}${appspace}${id}`,
+            ipc,
+          });
       })
       ipc.server.start();
+
     } catch (e) {
       reject(e);
     }

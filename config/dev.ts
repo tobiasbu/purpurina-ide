@@ -43,19 +43,20 @@ async function main() {
     }
   }
 
-  await Promise.all([
-    startHmrServer(logger)
-      .then((r) => {
-        console.log(r);
-      }),
+
+  const results = await Promise.all([
+    startHmrServer(logger),
     startRenderer(env,
       purpurLogger({
         name: 'renderer',
         color: 'green',
         symbol: '\u2606',
         errorSymbol: '\u2623',
-      })
-    ),])
+      })),
+    // startMain(),
+  ]);
+
+  const hmrServer = results[0]
 
   //   child.on('error', (e) =>{
   //     console.error(e);

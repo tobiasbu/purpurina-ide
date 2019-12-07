@@ -5,39 +5,37 @@ import { CleanWebpackPlugin } from 'clean-webpack-plugin';
 import * as WebpackNotifierPlugin from 'webpack-notifier';
 import webpackMerge = require('webpack-merge');
 
-import configBase, { PROJECT_PATH } from './webpack.config.base';
-import { BuildEnvironment } from './types';
+import configBase, { PROJECT_PATH } from '../webpack.config.base';
+import { WebpackBuildConfig } from '../types';
 
-import rendererConfig from './webpack.config.renderer';
 
-export default (env: BuildEnvironment): { main: webpack.Configuration; renderer: webpack.Configuration } => {
+export default (env: WebpackBuildConfig): webpack.Configuration => {
 
   const MAIN_ENTRY_PATH = path.join(PROJECT_PATH, './src/main');
-  return {
-    main: webpackMerge.smart(
-      configBase('', MAIN_ENTRY_PATH, env),
-      {
-        target: 'electron-main',
-        entry: {
-          main: path.join(MAIN_ENTRY_PATH + '/index.ts')
-        },
-        resolve: {
-          mainFields: ["electron-main", "module", "main"],
-          alias: {
-            '@main': path.join(PROJECT_PATH, `./src/main`),
-          }
-        },
-        plugins: [
-          new WebpackNotifierPlugin({
-            title: "Purpurina <Main>",
-            alwaysNotify: true
-          }),
-          new CleanWebpackPlugin(),
-          new webpack.NoEmitOnErrorsPlugin(),
-        ]
-      }),
-    renderer: rendererConfig(env),
-  }
+
+  const config = webpackMerge.smart(
+    configBase('main', env),
+    {
+      target: 'electron-main',
+      entry: {
+        main: path.join(MAIN_ENTRY_PATH + '/index.ts')
+      },
+      resolve: {
+        mainFields: ["electron-main", "module", "main"],
+        alias: {
+          '@main': path.join(PROJECT_PATH, `./src/main`),
+        }
+      },
+      plugins: [
+        new WebpackNotifierPlugin({
+          title: "Purpurina <Main>",
+          alwaysNotify: true
+        }),
+        new CleanWebpackPlugin(),
+      ]
+    });
+
+  return config;
 }
 
 //   const HTML_TEMPLATE_PATH = 'src/renderer/editor/static/index.html';

@@ -267,6 +267,8 @@ export function makeLogger(compose: ComposeLog, level?: LogLevel): Logger {
     }
   }
 
+  const Logger = {}
+
   methods.forEach((methodName) => {
     const methodLevel = EnumeratedLogLevel[methodName];
     let method: LogFunction = noop;
@@ -277,12 +279,12 @@ export function makeLogger(compose: ComposeLog, level?: LogLevel): Logger {
     } else if (methodName === 'verbose') {
       method = createMethod(console.error, 'verbose');
     }
-    devLogger[methodName] = method;
+    Logger[methodName] = method;
   });
 
-  devLogger['trace'] = devLogger['verbose'];
-  devLogger['debug'] = devLogger['log'];
-  return devLogger as any;
+  Logger['trace'] = Logger['verbose'];
+  Logger['debug'] = Logger['log'];
+  return Logger as any;
 }
 
 /**

@@ -37,7 +37,7 @@ export interface WebpackBuildConfig {
   readonly host: string;
   readonly port: string | number;
   readonly isProduction: boolean;
-  mode?: 'development' | 'production';
+  readonly mode?: 'development' | 'production';
 }
 
 export interface WebpackDevMiddlewareMoreOptions extends WebpackDevMiddleware.Options {
