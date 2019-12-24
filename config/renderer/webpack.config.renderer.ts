@@ -44,6 +44,7 @@ export default function(env: WebpackBuildConfig): webpack.Configuration {
         hotUpdateMainFilename: ".hot/[hash].hot-update.json"
       },
       module: {
+        exprContextCritical: !env.isProduction,
         rules: [
           // {
           //   test: /\.ts$/,
@@ -136,6 +137,9 @@ export default function(env: WebpackBuildConfig): webpack.Configuration {
     });
 
   if (!env.isProduction) {
+    // config.externals = [
+    //   'source-map-support/source-map-support.js',
+    // ];
     config.plugins.push(
       new webpack.HotModuleReplacementPlugin(),
       new webpack.NoEmitOnErrorsPlugin()
