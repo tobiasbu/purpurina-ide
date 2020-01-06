@@ -4,28 +4,28 @@ import * as webpack from 'webpack';
 import * as path from 'path';
 import TsconfigPathsPlugin from 'tsconfig-paths-webpack-plugin';
 
-import { WebpackBuildConfig } from './types';
+import { WebpackBaseBuildConfig, PurpurinaWebpackConfig } from './types';
 import { CleanWebpackPlugin } from 'clean-webpack-plugin';
-
-export const PROJECT_PATH = path.resolve(__dirname, '../');
+import getValue from './commons/getValue';
 
 /**
  * Base webpack configuration.
  */
-export default (type: string, env: WebpackBuildConfig): webpack.Configuration => {
+export default (env: WebpackBaseBuildConfig, configType?: string): PurpurinaWebpackConfig => {
 
   const PROJECT_PATH = path.resolve(__dirname, '../');
-  // if (env.isProduction === undefined) {
-  //   env.isProduction = env.mode === "production";
-  // }
-  const mode = env.isProduction ? "production" : "development";
 
-  const baseConfig: webpack.Configuration = {
+  const mode = getValue(env.NODE_ENV, 'development');
+  const IS_PROD = mode === 'development';
+  const TYPE = configType || 'project';
+
+  const baseConfig: PurpurinaWebpackConfig = {
     mode,
-    devtool: env.isProduction ? 'nosources-source-map' : 'source-map',
+    PURPURINA_PROJECT_PATH: PROJECT_PATH,
+    devtool: IS_PROD ? 'nosources-source-map' : 'source-map',
     context: PROJECT_PATH,
     output: {
-      path: path.join(PROJECT_PATH, `./dist/${type}`),
+      path: path.join(PROJECT_PATH, `./dist/${TYPE}`),
       libraryTarget: 'commonjs2',
       filename: "[name].js",
       chunkFilename: "[name].bundle.js",
@@ -40,7 +40,7 @@ export default (type: string, env: WebpackBuildConfig): webpack.Configuration =>
     module: {
       rules: [
         {
-          test: /\.tsx?$/,
+          test: /\.ts$/,
           enforce: "pre",
           loader: 'eslint-loader',
           exclude: /node_modules/,
@@ -52,24 +52,35 @@ export default (type: string, env: WebpackBuildConfig): webpack.Configuration =>
         }]
     },
     optimization: {
-      minimize: env.isProduction === true,
+      minimize: IS_PROD === true,
       minimizer: [],
+      noEmitOnErrors: true,
+      nodeEnv: mode,
     },
     plugins: [
       new CleanWebpackPlugin(),
       new webpack.DefinePlugin({
-        'process.env.NODE_ENV': env.isProduction ? "\"production\"" : "\"development\"",
-        'DEVELOPMENT': JSON.stringify(env.isProduction),
+        'process.env.NODE_ENV': IS_PROD ? "\"production\"" : "\"development\"",
+        'PURPUR_DEVELOPMENT': JSON.stringify(IS_PROD === false),
       }),
     ],
-    externals: {},
+    externals: [
+      "source-map-support/source-map-support.js"
+    ],
     node: {
-      __dirname: env.isProduction === false,
-      __filename: env.isProduction === false,
+      __dirname: IS_PROD === false,
+      __filename: IS_PROD === false,
     },
   };
 
-  if (env.isProduction) {
+  // Additional environment variables
+  const additionalEnvironmentVariables = Object.keys(process.env).filter(it => it.startsWith("ELECTRON_WEBPACK_"))
+  if (additionalEnvironmentVariables.length > 0) {
+    baseConfig.plugins.push(new webpack.EnvironmentPlugin(additionalEnvironmentVariables))
+  }
+
+
+  if (!IS_PROD) {
     baseConfig.plugins.push(
       new webpack.HotModuleReplacementPlugin(),
       new webpack.NoEmitOnErrorsPlugin()
@@ -77,7 +88,6 @@ export default (type: string, env: WebpackBuildConfig): webpack.Configuration =>
   }
 
   return baseConfig;
-
 }
 
 // const common_config = {

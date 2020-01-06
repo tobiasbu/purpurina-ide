@@ -7,21 +7,25 @@ import * as WebpackNotifierPlugin from 'webpack-notifier';
 import { CleanWebpackPlugin } from 'clean-webpack-plugin';
 
 import configBase from '../webpack.config.base';
-import { WebpackBuildConfig } from "../types";
+import { DevServerBuildConfig } from "../types";
 
 /**
  * Purpurina renderer configuration
- * @param env BUild enviroment
+ *
+ * @param env Build environment
  */
-export default function(env: WebpackBuildConfig): webpack.Configuration {
+export default function(env: DevServerBuildConfig): webpack.Configuration {
 
-  // const include = [
-  //   fs.realpathSync(path.join(PROJECT_PATH, './src/shared/maestro/')),
-  // ];
+  const baseWebpackConfig = configBase(env, 'renderer');
+  const PROJECT_PATH = baseWebpackConfig.PURPURINA_PROJECT_PATH;
+  const IS_PROD = env.NODE_ENV.toLowerCase() === 'production';
 
-  const PATH = `http://localhost:${env.port || 3000}/__webpack_hmr`;
+  // hot module replacement
+  const PATH = `http://localhost:${env.PORT || 3000}/__webpack_hmr`;
   const HOT_MW = `webpack-hot-middleware/client?path=${PATH}&reload=true`;
-  const ENTRY_PATH = path.join(env.projectPath, './src/renderer');
+
+  // entry paths
+  const ENTRY_PATH = path.join(PROJECT_PATH, './src/renderer');
 
   const LAUNCHER_PATH = path.join(ENTRY_PATH, '/launcher');
   const EDITOR_PATH = path.join(ENTRY_PATH, '/editor');
@@ -29,13 +33,14 @@ export default function(env: WebpackBuildConfig): webpack.Configuration {
   const LAUNCHER_ENTRY_PATH = path.join(LAUNCHER_PATH, '/index.ts');
   const EDITOR_ENTRY_PATH = path.join(EDITOR_PATH, '/index.ts');
 
+  // Webpack config
   const config = webpackMerge.smart(
-    configBase('renderer', env),
+    baseWebpackConfig,
     {
       target: 'electron-renderer',
       entry: {
-        'launcher': (env.isProduction) ? LAUNCHER_ENTRY_PATH : [HOT_MW, LAUNCHER_ENTRY_PATH],
-        'editor': (env.isProduction) ? EDITOR_ENTRY_PATH : [HOT_MW, EDITOR_ENTRY_PATH],
+        'launcher': (IS_PROD) ? LAUNCHER_ENTRY_PATH : [HOT_MW, LAUNCHER_ENTRY_PATH],
+        'editor': (IS_PROD) ? EDITOR_ENTRY_PATH : [HOT_MW, EDITOR_ENTRY_PATH],
       },
       output: {
         publicPath: `/dist/renderer`,
@@ -44,7 +49,7 @@ export default function(env: WebpackBuildConfig): webpack.Configuration {
         hotUpdateMainFilename: ".hot/[hash].hot-update.json"
       },
       module: {
-        exprContextCritical: !env.isProduction,
+        exprContextCritical: !IS_PROD,
         rules: [
           // {
           //   test: /\.ts$/,
@@ -89,7 +94,7 @@ export default function(env: WebpackBuildConfig): webpack.Configuration {
                 loader: 'file-loader',
                 options: {
                   useRelativePaths: true,
-                  name: (env.isProduction) ? '[sha512:hash:hex:9].[ext]' : '[name].[ext]',
+                  name: (IS_PROD) ? '[sha512:hash:hex:9].[ext]' : '[name].[ext]',
                   emitFile: true,
                   outputPath: (url: string, resourcePath: string): string => {
                     const chunk = /launcher|editor/g.exec(resourcePath);
@@ -136,7 +141,7 @@ export default function(env: WebpackBuildConfig): webpack.Configuration {
       ]
     });
 
-  if (!env.isProduction) {
+  if (!IS_PROD) {
     // config.externals = [
     //   'source-map-support/source-map-support.js',
     // ];

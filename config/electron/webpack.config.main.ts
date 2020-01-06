@@ -5,26 +5,29 @@ import { CleanWebpackPlugin } from 'clean-webpack-plugin';
 import * as WebpackNotifierPlugin from 'webpack-notifier';
 import webpackMerge = require('webpack-merge');
 
-import configBase, { PROJECT_PATH } from '../webpack.config.base';
-import { WebpackBuildConfig } from '../types';
+import configBase from '../webpack.config.base';
+import { WebpackBaseBuildConfig } from '../types';
 
 
-export default (env: WebpackBuildConfig): webpack.Configuration => {
+export default (env: WebpackBaseBuildConfig): webpack.Configuration => {
 
+  const baseWebpackConfig = configBase(env, 'main');
+
+  const PROJECT_PATH = baseWebpackConfig.PURPURINA_PROJECT_PATH;
   const MAIN_ENTRY_PATH = path.join(PROJECT_PATH, './src/main');
 
   const config = webpackMerge.smart(
-    configBase('main', env),
+    baseWebpackConfig,
     {
       target: 'electron-main',
       entry: {
-        main: path.join(MAIN_ENTRY_PATH + '/index.ts')
+        main: path.join(MAIN_ENTRY_PATH + '/index.ts'),
       },
       resolve: {
         mainFields: ["electron-main", "module", "main"],
         alias: {
-          '@main': path.join(PROJECT_PATH, `./src/main`),
-        }
+          '@main': MAIN_ENTRY_PATH,
+        },
       },
       plugins: [
         new WebpackNotifierPlugin({
@@ -32,6 +35,11 @@ export default (env: WebpackBuildConfig): webpack.Configuration => {
           alwaysNotify: true
         }),
         new CleanWebpackPlugin(),
+      ],
+      externals: [
+        'electron-hmr-client',
+        'electron',
+        'webpack'
       ]
     });
 

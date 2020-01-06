@@ -1,14 +1,14 @@
 
 import * as path from 'path';
 
-import { DevelopmentEnvironment } from './types';
-import startHmrServer from './electron/startHmrServer';
-import startRenderer from './renderer/startRenderer';
+import { CommonEnv } from './types';
+import createHmrServer from './electron/createHmrServer';
+import startRendererProcess from './renderer/startRendererProcess';
 
 import purpurLogger from './devLogger/purpurLogger';
-
-
-
+import getPort = require('get-port');
+import startElectronProcess from './electron/startElectronProcess';
+import compileMain from './electron/compileMain';
 
 async function main() {
 
@@ -31,32 +31,54 @@ async function main() {
     process.exit(1);
   });
 
-  const env: DevelopmentEnvironment = {
+  // const env: DevelopmentSettings = {
+  //   NODE_ENV: 'development',
+  //   cwd: process.cwd(),
+  //   configPath: __dirname,
+  //   projectPath: path.join(__dirname, '../'),
+  //   distPath: path.join(__dirname, '../dist'),
+  // }
+
+  const devEnv: CommonEnv = {
+    ...process.env,
     NODE_ENV: 'development',
-    cwd: process.cwd(),
-    configPath: __dirname,
-    projectPath: path.join(__dirname, '../'),
-    distPath: path.join(__dirname, '../dist'),
-    renderer: {
-      host: 'localhost',
-      port: 3000,
-    }
+    PURPUR_DIST_PATH: path.join(__dirname, '../dist'),
+    PURPUR_PROJECT_PATH: path.join(__dirname, '../'),
+    ELECTRON_WEBPACK_WDS_PORT: (await getPort({ port: getPort.makeRange(3000, 3100), host: '127.0.0.1'})).toString(10),
+    ELECTRON_WEBPACK_WDS_HOST: 'localhost',
   }
 
+  const hmrServer = createHmrServer(logger);
 
   const results = await Promise.all([
-    startHmrServer(logger),
-    startRenderer(env,
+    hmrServer.listen(),
+    startRendererProcess(process.cwd(),
+      devEnv,
       purpurLogger({
         name: 'renderer',
         color: 'green',
         symbol: '\u2606',
         errorSymbol: '\u2623',
       })),
-    // startMain(),
+    compileMain(devEnv,
+      hmrServer,
+      purpurLogger({
+      name: 'main',
+      color: 'yellow',
+      symbol: '\u2606',
+      errorSymbol: '\u2623',
+    })),
   ]);
 
-  const hmrServer = results[0]
+  startElectronProcess(purpurLogger({
+    name: 'electron',
+    color: 'blue',
+    symbol: '\u2606',
+    errorSymbol: '\u2623',
+  }), {
+    ...devEnv,
+      ELECTRON_HMR_SOCKET_PATH: hmrServer.socketPath,
+  });
 
   //   child.on('error', (e) =>{
   //     console.error(e);

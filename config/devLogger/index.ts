@@ -364,38 +364,6 @@ export default function devLogger(options: DevLoggerOptions): DevLogger {
   const devLogger = {
     options: opts,
     levels: logLevelUtil.toString(userLevel),
-    // createProcessLogger: function (processName: string, color: Color, symbol?: string) {
-    //   if (typeof (processName) === 'string') {
-    //     if (this[processName] === undefined || this[processName] === null) {
-    //       const logger = {}
-    //       symbol = (typeof(symbol) === 'string') ? `${symbol} ` : '';
-    //       const prefix = `${symbol}${processName} - - - - - - - - -\n`;
-
-    //       methods.forEach((methodName) => {
-    //         const methodLevel = EnumeratedLogLevel[methodName];
-    //         let method: LogFunction = noop;
-    //         if (methodLevel < userLevel) {
-    //           method = noop;
-    //         } else if (console[methodName]) {
-    //           // let prefix: string;
-    //           // if (methodName === 'warn' || methodName === 'error') {
-    //           //   prefix = logger.prefixError;
-    //           // } else {
-    //           //   prefix = logger.prefix;
-    //           // }
-    //           method = compose(console[methodName], Color[color], prefix);
-    //           // methodWithPrefix = composeWithPrefix(console[methodName], colors[methodName], prefix);
-    //         }
-    //         logger[methodName] = method;
-    //       });
-    //       logger['trace'] = logger['verbose'];
-    //       logger['debug'] = logger['log'];
-    //       this[processName] = logger;
-    //       return true;
-    //     }
-    //   }
-    //   throw new Error(`devLogger: Could not create sub logger named ${processName}.`);
-    // }
   };
 
   const symbol = (typeof (opts.symbol) === 'string') ? `${opts.symbol} ` : '';

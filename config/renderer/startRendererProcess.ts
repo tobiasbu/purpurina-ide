@@ -1,26 +1,19 @@
 import { ChildProcess, spawn } from 'child_process';
-import devLogger, { Logger } from '../devLogger';
 
-import { DevelopmentEnvironment } from '../types';
+import { Logger } from '../devLogger';
+import { CommonEnv } from '../types';
+import stripFNL from '../commons/stripFinalNewLine';
 
-export default function startRenderer(env: DevelopmentEnvironment, logger: Logger) {
+export default function startRendererProcess(cwd: string, devEnv: CommonEnv, logger: Logger) {
   return new Promise<ChildProcess>((resolve, reject) => {
     let childProcess: ChildProcess = null;
     try {
       childProcess = spawn('ts-node', ['config/renderer/rendererServer.ts'],
         {
-          cwd: env.cwd,
+          cwd,
           shell: true,
-          env: {
-            ...process.env,
-            NODE_ENV: env.NODE_ENV,
-            PURPURINA_DEV_PORT: env.renderer.port.toString(10),
-            PURPURINA_DEV_HOST: env.renderer.host,
-            PURPURINA_DEV_DIST_PATH: env.distPath,
-            PURPURINA_DEV_PROJECT_PATH: env.projectPath,
-          }
+          env: devEnv
         });
-      // rendererProcess.unref();
     } catch (e) {
       reject(e);
       return;
@@ -35,27 +28,30 @@ export default function startRenderer(env: DevelopmentEnvironment, logger: Logge
       }
     });
     childProcess.on('close', (code, signal) => {
-      let msg = `Closed with code ${code}`;
+      let msg = `Exited with code ${code}`;
       if (signal) {
-        msg = msg.concat(` and with signal ${JSON.stringify(signal)}.`)
+        msg = msg.concat(` and signal ${JSON.stringify(signal)}`)
       }
       msg = msg.concat('.');
 
       if (code !== 0) {
         logger.error(msg);
+        if (reject !== null) {
+          reject('Renderer exited with error');
+          reject = null;
+        }
       } else {
         logger.log(msg);
       }
     });
 
-
-    childProcess.stderr.on('data', (data) => {
-      logger.error(data);
+    childProcess.stderr!!.on('data', (data: Buffer) => {
+      logger.error(data.toString());
     });
 
-    childProcess.stdout.on('data', (data: string) => {
+    childProcess.stdout.on('data', (data: Buffer) => {
       if (!data.includes('Asset written to')) { // filter this message from dev-middleware
-        logger.log(data);
+        logger.log(stripFNL(data.toString()));
       }
       const res = resolve
       if (res !== null) {
@@ -66,6 +62,6 @@ export default function startRenderer(env: DevelopmentEnvironment, logger: Logge
       }
     })
 
-    resolve(childProcess);
+    // resolve(childProcess);
   })
 }

@@ -4,24 +4,17 @@ import * as webpack from 'webpack';
 import * as WebpackDevMiddleware from 'webpack-dev-middleware';
 import * as WebpackHotMiddleware from 'webpack-hot-middleware';
 
-import webpackStats from '../stats';
+import { WebpackDevMiddlewareMoreOptions, RendererServer, CommonEnv } from '../types';
+import webpackStats from '../commons/stats';
 
-import { WebpackDevMiddlewareMoreOptions, RendererServer } from '../types';
-import webpackConfig from './webpack.config.renderer';
+import rendererWebpackConfig from './webpack.config.renderer';
 
 async function serve() {
 
+  const devEnv = process.env as CommonEnv;
 
-  const DIST_PATH = process.env.PURPURINA_DEV_DIST_PATH; // path.join(__dirname, '../dist');
-  const PORT = (process.env.PURPURINA_DEV_PORT) ? parseInt(process.env.PURPURINA_DEV_PORT) : 3000;
-
-  // const logger = getLogger(
-  //   {
-  //     name: 'purpur [RENDERER]',
-  //     timestamp: true,
-  //     symbol: ' \u2615',
-  //     errorSymbol: ' \u2620'
-  //   });
+  const DIST_PATH = devEnv.PURPUR_DIST_PATH;
+  const PORT = (devEnv.ELECTRON_WEBPACK_WDS_PORT) ? parseInt(devEnv.ELECTRON_WEBPACK_WDS_PORT) : 3000;
 
   const logger = {
     log: console.log,
@@ -32,13 +25,10 @@ async function serve() {
     debug: console.debug,
   }
 
-
-  const config = webpackConfig({
-    host: process.env.PURPURINA_DEV_HOST,
-    port: PORT,
-    isProduction: process.env.NODE_ENV === 'development',
-    distPath: DIST_PATH,
-    projectPath: process.env.PURPURINA_DEV_PROJECT_PATH,
+  const config = rendererWebpackConfig({
+    HOST: devEnv.ELECTRON_WEBPACK_WDS_HOST,
+    PORT: PORT,
+    DIST_PATH: DIST_PATH,
   });
 
   logger.info('Compiling renderer...');
@@ -82,14 +72,13 @@ async function serve() {
 
   // Renderer promise
   return new Promise<RendererServer>((resolve, reject) => {
-    const server = expressApp.listen(PORT, 'localhost', (error) => {
+    const server = expressApp.listen(PORT, devEnv.ELECTRON_WEBPACK_WDS_HOST, (error) => {
       if (error) {
         reject(error);
+        return;
       }
       logger.info('Dev server listening on port ' + PORT + '.');
-      // process.send('serverOnline')
       resolve({ server, devMiddleware });
-      // resolve({ server, devMiddleware, port: PORT });
     })
   });
 }
