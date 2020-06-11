@@ -46,14 +46,14 @@ export default async function compileMain(env: CommonEnv, hmrServer: HmrServer, 
       hmrServer.onCompiled(stats);
     });
 
-    require("async-exit-hook")((callback: () => void) => {
+    require("async-exit-hook")((callback?: () => void) => {
         const w = watcher
         if (w == null) {
           return
         }
 
         watcher = null
-        w.close(() => callback())
+        w.close(() => callback && callback())
     });
   });
 }

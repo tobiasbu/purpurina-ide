@@ -44,7 +44,7 @@ app.once('ready', () => {
       win.webContents.reload();
     }
     win.webContents.on('console-message',
-      (event: Electron.IpcMainEvent, level: number, message: string,
+      (_event: Electron.IpcMainEvent, level: number, message: string,
         line: number, sourceId: string) => {
         let msg = '[WINDOW]';
         let fn = console.log;
@@ -57,6 +57,10 @@ app.once('ready', () => {
         msg = `${msg} ${message}\nat ${line} from ${sourceId}\n`;
         fn(msg);
       });
+
+    win.show();
+    win.focus();
+    win.webContents.openDevTools();
 
     ipcMain.on('show_window', () => {
       win.show();

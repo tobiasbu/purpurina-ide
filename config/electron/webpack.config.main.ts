@@ -1,4 +1,4 @@
-import type * as webpack from 'webpack';
+import * as webpack from 'webpack';
 import * as path from 'path';
 
 import { CleanWebpackPlugin } from 'clean-webpack-plugin';
@@ -15,15 +15,13 @@ export default (env: WebpackBaseBuildConfig): webpack.Configuration => {
 
   const PROJECT_PATH = base.PURPURINA_PROJECT_PATH;
   const MAIN_ENTRY_PATH = path.join(PROJECT_PATH, './src/main');
-  const HMR_ENTRY = path.join(__dirname, './hmr/main-hmr.ts');
+  const HMR_ENTRY = path.join(PROJECT_PATH, './config/electron/hmr/main-hmr.ts');
 
   const config = webpackMerge.smart(
     base.config,
     {
       target: 'electron-main',
-      entry: {
-        main: [HMR_ENTRY, path.join(MAIN_ENTRY_PATH + '/index.ts')],
-      },
+      entry: [HMR_ENTRY, path.join(MAIN_ENTRY_PATH + '/index.ts')],
       resolve: {
         mainFields: ["electron-main", "module", "main"],
         alias: {
@@ -31,6 +29,7 @@ export default (env: WebpackBaseBuildConfig): webpack.Configuration => {
         },
       },
       plugins: [
+        new webpack.HotModuleReplacementPlugin({ multiStep: true }),
         new WebpackNotifierPlugin({
           title: "Purpurina <Main>",
           alwaysNotify: true
@@ -38,11 +37,16 @@ export default (env: WebpackBaseBuildConfig): webpack.Configuration => {
         new CleanWebpackPlugin(),
       ],
       externals: [
-        './HmrClient',
+        // './HmrClient',
+        'source-map-support/source-map-support.js',
         'electron',
         'webpack'
       ]
     });
+
+  // if (base.IS_PROD) {
+    // config.plugins.push(new webpack.ExtendedAPIPlugin());
+  // }
 
   return config;
 }

@@ -2,6 +2,7 @@ import { spawn } from 'child_process';
 
 import { ElectronEnv } from '../types';
 import { Logger } from '../devLogger';
+import stripFinalNewLine from '../commons/stripFinalNewLine';
 
 
 export default function startElectronProcess(logger: Logger, electronEnv: ElectronEnv) {
@@ -14,7 +15,7 @@ export default function startElectronProcess(logger: Logger, electronEnv: Electr
 
     const electronProcess = spawn(`${electron}`,
       [
-        ".", `--inspect=5858`, "--color"
+        ".", "--color" //  `--inspect=5858`,
       ],
       {
         env: electronEnv,
@@ -33,8 +34,12 @@ export default function startElectronProcess(logger: Logger, electronEnv: Electr
       resolve();
     });
 
+    electronProcess.stdout!!.on('data', (data: Buffer) => {
+      logger.log(stripFinalNewLine(data.toString()));
+    });
+
     electronProcess.stderr!!.on('data', (data: Buffer) => {
-      logger.error(data.toString());
+      logger.error('ERROR', data.toString());
     });
 
     electronProcess.on("error", (err) => {

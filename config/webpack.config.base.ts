@@ -8,10 +8,16 @@ import { WebpackBaseBuildConfig } from './types';
 import { CleanWebpackPlugin } from 'clean-webpack-plugin';
 import getValue from './commons/getValue';
 
+interface BaseConfig {
+  config: webpack.Configuration;
+  PURPURINA_PROJECT_PATH: string;
+  IS_PROD: boolean;
+}
+
 /**
  * Base webpack configuration.
  */
-export default (env: WebpackBaseBuildConfig, configType?: string): { config: webpack.Configuration, PURPURINA_PROJECT_PATH: string } => {
+export default (env: WebpackBaseBuildConfig, configType?: string): BaseConfig => {
 
   const PROJECT_PATH = path.resolve(__dirname, '../');
 
@@ -81,12 +87,11 @@ export default (env: WebpackBaseBuildConfig, configType?: string): { config: web
 
   if (!IS_PROD) {
     baseConfig.plugins.push(
-      new webpack.HotModuleReplacementPlugin(),
       new webpack.NoEmitOnErrorsPlugin()
     );
   }
 
-  return { config: baseConfig,  PURPURINA_PROJECT_PATH: PROJECT_PATH };
+  return { config: baseConfig,  PURPURINA_PROJECT_PATH: PROJECT_PATH, IS_PROD };
 }
 
 // const common_config = {

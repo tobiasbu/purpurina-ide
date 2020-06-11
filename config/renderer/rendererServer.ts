@@ -57,13 +57,14 @@ async function serve() {
     noInfo: true,
     logLevel: 'warn',
   };
-  const devMiddleware = WebpackDevMiddleware(compiler, devOptions);
   const hotMiddleware = WebpackHotMiddleware(compiler, {
     // path: '/__webpack_hmr',
     log: logger.log,
     heartbeat: 10 * 1000,
-    reload: true,
+
   });
+  const devMiddleware = WebpackDevMiddleware(compiler, devOptions);
+
 
   // Renderer Server configuration
   const expressApp = express();

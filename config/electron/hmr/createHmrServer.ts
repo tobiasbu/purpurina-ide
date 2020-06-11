@@ -17,6 +17,7 @@ export default function createHmrServer(logger: Logger): HmrServer {
   ipc.config.id = id;
   ipc.config.logger = logger.log.bind(logger, '[IPC]');
 
+  let connectedSockets = [];
   let connectionStatus: ConnectionStatus = ConnectionStatus.None;
   let compiled = false;
 
@@ -34,7 +35,9 @@ export default function createHmrServer(logger: Logger): HmrServer {
           return;
         }
         const hash = stats.toJson({ assets: false, chunks: false, children: false, modules: false }).hash;
-        ipc.server.emit('compiled', hash);
+        for (let i = 0; i < connectedSockets.length; i += 1) {
+          ipc.server.emit(connectedSockets[i], 'compiled', hash);
+        }
       });
     },
     listen: function () {
@@ -51,12 +54,23 @@ export default function createHmrServer(logger: Logger): HmrServer {
       return new Promise((resolve, reject) => {
         try {
           ipc.serve(path, () => {
-            ipc.server.on('connect', (data, socket) => {
-              logger.info(`[IPC] Socket connected`, data, socket);
+            ipc.server.on('connect', (socket) => {
+              logger.info(`[IPC] Socket connected`);
+
+              if (connectedSockets.indexOf(socket) === -1) {
+                connectedSockets.push(socket)
+              }
             });
             ipc.server.on('error', (error: Error) => {
               logger.error('[IPC] Server Error:', error);
             });
+            ipc.server.on('socket.disconnect', (socket, destroyedSocketID) => {
+              const index = connectedSockets.indexOf(socket);
+              if (index !== -1) {
+                connectedSockets.splice(index, 1);
+              }
+              logger.info(`[IPC] Socket ${destroyedSocketID} has disconnected!`);
+            })
             connectionStatus = ConnectionStatus.Connected;
             resolve(this);
           });

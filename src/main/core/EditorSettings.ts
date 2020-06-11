@@ -73,7 +73,7 @@ export default class EditorSettings implements EditorSettingsPack {
 
   save(): void {
     checkSettingsPath();
-    fse.writeFileSync(SETTINGS_PATH, this.toJSON(true));
+    fse.writeFileSync(SETTINGS_PATH, this.toJSON(true) as string);
   }
 
   toJSON(stringify = false): EditorSettingsPack | string {
@@ -103,7 +103,7 @@ export default class EditorSettings implements EditorSettingsPack {
 
   static create(): EditorSettings {
     const config = new EditorSettings();
-    fse.writeFileSync(SETTINGS_PATH, config.toJSON(true));
+    fse.writeFileSync(SETTINGS_PATH, config.toJSON(true) as string);
     return config;
   }
 
