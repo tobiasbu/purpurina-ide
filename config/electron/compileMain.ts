@@ -1,14 +1,59 @@
-import * as webpack from 'webpack';
+import webpack from 'webpack';
 
 import mainWebpackConfig from './webpack.config.main';
-import { Logger } from '../devLogger';
-import { HmrServer } from './hmr/createHmrServer';
-import { CommonEnv } from '../types';
+import type { Logger } from '../devLogger';
+// import createHmrServer from './hmr/createHmrServer';
+import type { CommonEnv } from '../types';
+import type { HmrServer } from './hmr/types';
 
 export default async function compileMain(env: CommonEnv, hmrServer: HmrServer, logger: Logger) {
 
-  await new Promise<webpack.Stats>((resolve, reject) => {
+  await new Promise((resolve, reject) => {
+    const mainCompiler = webpack(mainWebpackConfig(env));
+
+    mainCompiler.hooks.compile.tap("electron-webpack-dev-runner", () => {
+      hmrServer.onBeforeCompile();
       logger.log('Compiling main...');
-      const mainCompiler = webpack(mainWebpackConfig(env));
+    })
+
+    let watcher = mainCompiler.watch({}, (error, stats) => {
+
+      if (error && reject !== null) {
+        reject(error);
+        reject = null;
+        return;
+      }
+
+      const info = stats.toJson();
+      if (stats.hasErrors()) {
+        logger.error("Main error:\n", info.errors.join("\n\n"));
+        if (reject !== null) {
+          reject();
+          return;
+        }
+      }
+
+      if (stats.hasWarnings()) {
+        logger.warn("Main warnings:\n:", info.warnings.join("\n\n"));
+      }
+      if (resolve !== null) {
+        logger.log(`Main has been built successfully!`);
+        resolve();
+        resolve = null;
+        return;
+      }
+
+      hmrServer.onCompiled(stats);
+    });
+
+    require("async-exit-hook")((callback: () => void) => {
+        const w = watcher
+        if (w == null) {
+          return
+        }
+
+        watcher = null
+        w.close(() => callback())
+    });
   });
 }

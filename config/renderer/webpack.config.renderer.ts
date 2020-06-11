@@ -2,8 +2,8 @@ import * as webpack from 'webpack';
 import * as path from 'path';
 
 import webpackMerge = require('webpack-merge');
-import * as HtmlWebpackPlugin from 'html-webpack-plugin';
-import * as WebpackNotifierPlugin from 'webpack-notifier';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
+import WebpackNotifierPlugin from 'webpack-notifier';
 import { CleanWebpackPlugin } from 'clean-webpack-plugin';
 
 import configBase from '../webpack.config.base';
@@ -16,8 +16,8 @@ import { DevServerBuildConfig } from "../types";
  */
 export default function(env: DevServerBuildConfig): webpack.Configuration {
 
-  const baseWebpackConfig = configBase(env, 'renderer');
-  const PROJECT_PATH = baseWebpackConfig.PURPURINA_PROJECT_PATH;
+  const base = configBase(env, 'renderer');
+  const PROJECT_PATH = base.PURPURINA_PROJECT_PATH;
   const IS_PROD = env.NODE_ENV.toLowerCase() === 'production';
 
   // hot module replacement
@@ -35,7 +35,7 @@ export default function(env: DevServerBuildConfig): webpack.Configuration {
 
   // Webpack config
   const config = webpackMerge.smart(
-    baseWebpackConfig,
+    base.config,
     {
       target: 'electron-renderer',
       entry: {

@@ -25,6 +25,7 @@ export interface CommonEnv extends NodeJS.ProcessEnv {
 
 export interface ElectronEnv extends CommonEnv {
   readonly ELECTRON_HMR_SOCKET_PATH: string;
+  readonly ELECTRON_HMR_SOCKET_ID: string;
 }
 
 // export interface DevelopmentSettings {
@@ -60,10 +61,6 @@ export interface DevServerBuildConfig extends WebpackBaseBuildConfig {
   readonly PORT: string | number;
 }
 
-export interface PurpurinaWebpackConfig extends webpack.Configuration {
-  readonly PURPURINA_PROJECT_PATH: string;
-}
-
 export interface WebpackDevMiddlewareMoreOptions extends WebpackDevMiddleware.Options {
   quiet: boolean;
   reload: boolean;
@@ -79,4 +76,12 @@ export interface RendererCompilation {
 export interface RendererServer {
   server: http.Server;
   devMiddleware: DevMiddleware;
+}
+
+export namespace IPCMessage {
+
+  export interface CompiledMessage {
+    readonly hash: string;
+  }
+
 }

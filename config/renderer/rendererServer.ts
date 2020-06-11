@@ -1,11 +1,11 @@
-import * as express from 'express';
+import express from 'express';
 
-import * as webpack from 'webpack';
-import * as WebpackDevMiddleware from 'webpack-dev-middleware';
-import * as WebpackHotMiddleware from 'webpack-hot-middleware';
+import webpack from 'webpack';
+import WebpackDevMiddleware from 'webpack-dev-middleware';
+import WebpackHotMiddleware from 'webpack-hot-middleware';
 
 import { WebpackDevMiddlewareMoreOptions, RendererServer, CommonEnv } from '../types';
-import webpackStats from '../commons/stats';
+import webpackStats from '../commons/webpackStats';
 
 import rendererWebpackConfig from './webpack.config.renderer';
 
@@ -26,6 +26,7 @@ async function serve() {
   }
 
   const config = rendererWebpackConfig({
+    NODE_ENV: devEnv.NODE_ENV,
     HOST: devEnv.ELECTRON_WEBPACK_WDS_HOST,
     PORT: PORT,
     DIST_PATH: DIST_PATH,

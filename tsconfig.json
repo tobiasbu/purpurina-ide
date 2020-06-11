@@ -1,16 +1,18 @@
 {
   "compilerOptions": {
-    "target": "esnext",
+    "target": "ES5",
+    "module": "CommonJS",
     "moduleResolution": "node",
-    "module": "commonjs",
     "baseUrl": "./",
     "sourceMap": true,
     "outDir": "dist",
     "strictNullChecks": false,
     "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
     "noImplicitReturns": true,
     "removeComments": true,
     "allowJs": true,
+    "importsNotUsedAsValues": "remove",
     "lib": [
       "esnext",
       "dom"

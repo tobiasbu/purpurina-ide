@@ -1,6 +1,4 @@
-/* eslint-disable no-console */
-// eslint-disable-next-line import/no-extraneous-dependencies
-import chalk, { Chalk } from 'chalk';
+import chalk from 'chalk';
 
 export type LogFunction = (message: any, ...optionalParams: any[]) => void;
 export type PrefixLogFunction = (prefix: string, message: any, ...optionalParams: any[]) => void;
@@ -215,7 +213,7 @@ function objectGet(obj: any, key: string, defaultValue = undefined) {
 interface ComposeDescriptor {
   level: LogLevel;
   std: 'stderr' | 'stdout';
-  readonly chalk: Chalk,
+  readonly chalk: chalk.Chalk,
   readonly msg: symbol;
   readonly args: symbol;
 }

@@ -4,14 +4,14 @@ import * as webpack from 'webpack';
 import * as path from 'path';
 import TsconfigPathsPlugin from 'tsconfig-paths-webpack-plugin';
 
-import { WebpackBaseBuildConfig, PurpurinaWebpackConfig } from './types';
+import { WebpackBaseBuildConfig } from './types';
 import { CleanWebpackPlugin } from 'clean-webpack-plugin';
 import getValue from './commons/getValue';
 
 /**
  * Base webpack configuration.
  */
-export default (env: WebpackBaseBuildConfig, configType?: string): PurpurinaWebpackConfig => {
+export default (env: WebpackBaseBuildConfig, configType?: string): { config: webpack.Configuration, PURPURINA_PROJECT_PATH: string } => {
 
   const PROJECT_PATH = path.resolve(__dirname, '../');
 
@@ -19,9 +19,8 @@ export default (env: WebpackBaseBuildConfig, configType?: string): PurpurinaWebp
   const IS_PROD = mode === 'development';
   const TYPE = configType || 'project';
 
-  const baseConfig: PurpurinaWebpackConfig = {
+  const baseConfig: webpack.Configuration = {
     mode,
-    PURPURINA_PROJECT_PATH: PROJECT_PATH,
     devtool: IS_PROD ? 'nosources-source-map' : 'source-map',
     context: PROJECT_PATH,
     output: {
@@ -87,7 +86,7 @@ export default (env: WebpackBaseBuildConfig, configType?: string): PurpurinaWebp
     );
   }
 
-  return baseConfig;
+  return { config: baseConfig,  PURPURINA_PROJECT_PATH: PROJECT_PATH };
 }
 
 // const common_config = {

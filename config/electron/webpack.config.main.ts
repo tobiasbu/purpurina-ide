@@ -1,8 +1,8 @@
-import * as webpack from 'webpack';
+import type * as webpack from 'webpack';
 import * as path from 'path';
 
 import { CleanWebpackPlugin } from 'clean-webpack-plugin';
-import * as WebpackNotifierPlugin from 'webpack-notifier';
+import WebpackNotifierPlugin from 'webpack-notifier';
 import webpackMerge = require('webpack-merge');
 
 import configBase from '../webpack.config.base';
@@ -11,17 +11,18 @@ import { WebpackBaseBuildConfig } from '../types';
 
 export default (env: WebpackBaseBuildConfig): webpack.Configuration => {
 
-  const baseWebpackConfig = configBase(env, 'main');
+  const base = configBase(env, 'main');
 
-  const PROJECT_PATH = baseWebpackConfig.PURPURINA_PROJECT_PATH;
+  const PROJECT_PATH = base.PURPURINA_PROJECT_PATH;
   const MAIN_ENTRY_PATH = path.join(PROJECT_PATH, './src/main');
+  const HMR_ENTRY = path.join(__dirname, './hmr/main-hmr.ts');
 
   const config = webpackMerge.smart(
-    baseWebpackConfig,
+    base.config,
     {
       target: 'electron-main',
       entry: {
-        main: path.join(MAIN_ENTRY_PATH + '/index.ts'),
+        main: [HMR_ENTRY, path.join(MAIN_ENTRY_PATH + '/index.ts')],
       },
       resolve: {
         mainFields: ["electron-main", "module", "main"],
@@ -37,7 +38,7 @@ export default (env: WebpackBaseBuildConfig): webpack.Configuration => {
         new CleanWebpackPlugin(),
       ],
       externals: [
-        'electron-hmr-client',
+        './HmrClient',
         'electron',
         'webpack'
       ]

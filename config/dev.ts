@@ -1,14 +1,13 @@
-
 import * as path from 'path';
 
 import { CommonEnv } from './types';
-import createHmrServer from './electron/createHmrServer';
+import createHmrServer from './electron/hmr/createHmrServer';
 import startRendererProcess from './renderer/startRendererProcess';
 
 import purpurLogger from './devLogger/purpurLogger';
-import getPort = require('get-port');
 import startElectronProcess from './electron/startElectronProcess';
 import compileMain from './electron/compileMain';
+const getPort = require('get-port');
 
 async function main() {
 
@@ -78,6 +77,7 @@ async function main() {
   }), {
     ...devEnv,
       ELECTRON_HMR_SOCKET_PATH: hmrServer.socketPath,
+      ELECTRON_HMR_SOCKET_ID: hmrServer.socketId
   });
 
   //   child.on('error', (e) =>{

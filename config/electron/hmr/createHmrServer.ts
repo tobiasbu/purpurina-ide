@@ -3,14 +3,7 @@ import * as RootIPC from 'node-ipc';
 import { Stats } from 'webpack';
 
 import { Logger } from '../../devLogger';
-
-export interface HmrServer {
-  readonly socketPath: string;
-  onBeforeCompile(): void;
-  onCompiled(stats: Stats): void;
-  isListening(): boolean;
-  listen(): Promise<HmrServer>;
-}
+import { HmrServer, ConnectionStatus } from './types';
 
 
 export default function createHmrServer(logger: Logger): HmrServer {
@@ -24,12 +17,12 @@ export default function createHmrServer(logger: Logger): HmrServer {
   ipc.config.id = id;
   ipc.config.logger = logger.log.bind(logger, '[IPC]');
 
-  let isListening = false;
+  let connectionStatus: ConnectionStatus = ConnectionStatus.None;
   let compiled = false;
 
   const hmrServer = {
     isListening: function () {
-      return isListening;
+      return connectionStatus === ConnectionStatus.Connected;
     },
     onBeforeCompile: function () {
       compiled = false;
@@ -45,8 +38,13 @@ export default function createHmrServer(logger: Logger): HmrServer {
       });
     },
     listen: function () {
-      if (isListening) {
+      if (this.isListening()) {
         logger.warn('HmrServer is already listening.');
+        return Promise.resolve(this);
+      }
+
+      if (connectionStatus === ConnectionStatus.Connecting) {
+        logger.warn('HmrServer is connecting...');
         return Promise.resolve(this);
       }
 
@@ -59,10 +57,11 @@ export default function createHmrServer(logger: Logger): HmrServer {
             ipc.server.on('error', (error: Error) => {
               logger.error('[IPC] Server Error:', error);
             });
-            isListening = true;
+            connectionStatus = ConnectionStatus.Connected;
             resolve(this);
           });
           ipc.server.start();
+          connectionStatus = ConnectionStatus.Connecting;
 
         } catch (e) {
           reject(e);
@@ -76,7 +75,12 @@ export default function createHmrServer(logger: Logger): HmrServer {
     writable: false
   });
 
-  Object.defineProperty(ipc, "ipc", {
+  Object.defineProperty(hmrServer, "socketId", {
+    value: id,
+    writable: false
+  });
+
+  Object.defineProperty(hmrServer, "ipc", {
     value: ipc,
     writable: false
   });
