@@ -2,7 +2,7 @@ import * as path from 'path';
 import * as fse from 'fs-extra';
 
 import { CreateProject, ProjectInfo, ProjectPackage } from '@shared/types';
-import * as PathValidation from '@shared/utils/pathValidation';
+import * as PathValidation from 'renderer/commons/utils/pathValidation';
 
 import * as FileSystem from '../utils/FileSystem';
 import {

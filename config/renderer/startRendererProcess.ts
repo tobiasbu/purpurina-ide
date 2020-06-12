@@ -65,7 +65,5 @@ export default function startRendererProcess(
         }
       }
     });
-
-    // resolve(childProcess);
   });
 }

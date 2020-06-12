@@ -1,4 +1,4 @@
-// import Crocket from 'crocket';
+import { Socket } from 'net';
 import * as RootIPC from 'node-ipc';
 import { Stats } from 'webpack';
 
@@ -15,9 +15,16 @@ export default function createHmrServer(logger: Logger): HmrServer {
   ipc.config.id = id;
   ipc.config.logger = logger.log.bind(logger, '[IPC]');
 
-  let connectedSockets = [];
+  let connectedSockets: Socket[] = [];
   let connectionStatus: ConnectionStatus = ConnectionStatus.None;
   let compiled = false;
+
+  function removeSocket(socket: Socket) {
+    const index = connectedSockets.indexOf(socket);
+    if (index !== -1) {
+      connectedSockets.splice(index, 1);
+    }
+  }
 
   const hmrServer = {
     isListening: function () {
@@ -38,8 +45,19 @@ export default function createHmrServer(logger: Logger): HmrServer {
           children: false,
           modules: false,
         }).hash;
+        let removeSockets = [];
         for (let i = 0; i < connectedSockets.length; i += 1) {
-          ipc.server.emit(connectedSockets[i], 'compiled', hash);
+          const socket = connectedSockets[i];
+          if (!socket.destroyed) {
+            ipc.server.emit(socket, 'compiled', hash);
+          } else {
+            removeSockets.push(socket);
+          }
+
+        }
+        while (removeSockets.length > 0) {
+          const socket = removeSockets.pop();
+          removeSocket(socket);
         }
       });
     },
@@ -57,23 +75,30 @@ export default function createHmrServer(logger: Logger): HmrServer {
       return new Promise((resolve, reject) => {
         try {
           ipc.serve(path, () => {
-            ipc.server.on('connect', (socket) => {
+            ipc.server.on('connect', (socket: Socket) => {
               if (connectedSockets.indexOf(socket) === -1) {
                 connectedSockets.push(socket);
+
+                socket.on("close", () => {
+                  logger.info(
+                    `[IPC] Socket has disconnected`
+                  );
+                  removeSocket(socket);
+                })
               }
             });
+
             ipc.server.on('error', (error: Error) => {
               logger.error('[IPC] Server Error:', error);
             });
+
             ipc.server.on('socket.disconnect', (socket, destroyedSocketID) => {
-              const index = connectedSockets.indexOf(socket);
-              if (index !== -1) {
-                connectedSockets.splice(index, 1);
-              }
+              removeSocket(socket);
               logger.info(
                 `[IPC] Socket ${destroyedSocketID} has disconnected!`
               );
             });
+
             connectionStatus = ConnectionStatus.Connected;
             resolve(this);
           });

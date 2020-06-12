@@ -10,7 +10,7 @@ const MIN_HEIGHT = 480;
 function getURL(pathName: 'editor' | 'launcher'): string {
   let uo: url.UrlObject;
   Logger.log(process.env.ELECTRON_WEBPACK_WDS_PORT);
-  if (process.env.development) {
+  if (__PURPUR_DEV__) {
     uo = {
       protocol: 'http',
       hostname: 'localhost',
@@ -21,6 +21,7 @@ function getURL(pathName: 'editor' | 'launcher'): string {
     // TODO
     uo = {};
   }
+
   return url.format(uo);
 }
 
@@ -52,10 +53,13 @@ export function createStartupWindow(): BrowserWindow {
     transparent: false,
     title: `Purpurina Editor v${version.toString()}`,
     webPreferences: {
-      nodeIntegration: process.env.NODE_ENV === 'development',
+      nodeIntegration: false,
+      contextIsolation: true,
+      enableRemoteModule: false,
       backgroundThrottling: false,
       textAreasAreResizable: false,
-      additionalArguments: IS_DEV ? ['DEVELOPMENT'] : [],
+      additionalArguments: IS_DEV ? ['DEVELOPMENT', '__PURPUR_DEV__'] : [],
+      webgl: false,
       // preload: path.join(__dirname, 'preload.js'),
       // contextIsolation: true,
       // nodeIntegration: false,

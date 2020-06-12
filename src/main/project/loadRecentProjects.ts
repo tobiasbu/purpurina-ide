@@ -24,11 +24,7 @@ function readPackage(
 export default function loadRecentProjects(
   recentProjects: string[]
 ): Promise<null | ProjectInfo[]> {
-  if (!recentProjects) {
-    return Promise.resolve(null);
-  }
-
-  if (recentProjects.length === 0) {
+  if (!recentProjects || recentProjects.length === 0) {
     return Promise.resolve(null);
   }
 

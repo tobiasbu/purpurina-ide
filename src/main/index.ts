@@ -6,15 +6,16 @@ import EditorSettings from './core/EditorSettings';
 import initializeGlobal from './core/config';
 import loadRecentProjects from './project/loadRecentProjects';
 import Logger from './logger';
+import initializeLauncherEvents from './events/launcher';
 
 if (__PURPUR_DEV__) {
-  Logger.log(
-    `Directory: ${__dirname}. Port: ${process.env.ELECTRON_WEBPACK_WDS_PORT}`
-  );
-  const sourceMapSupport = require('source-map-support'); // eslint-disable-line
-  sourceMapSupport.install({
-    environment: 'node',
-  });
+  // Logger.log(
+  //   `Directory: ${__dirname}. Port: ${process.env.ELECTRON_WEBPACK_WDS_PORT}`
+  // );
+  // const sourceMapSupport = require('source-map-support'); // eslint-disable-line
+  // sourceMapSupport.install({
+  //   environment: 'node',
+  // });
 }
 
 initializeGlobal();
@@ -25,11 +26,7 @@ const AppControl = new Application(settings);
 app.once('ready', () => {
   AppControl.initialize();
 
-  // function a() {
-  //   const e = new Error();
-  //   const trace = stackTrace.parse(e);
-  //   console.log(e);
-  // }
+  initializeLauncherEvents(AppControl);
 
   const initPromise = AppControl.startLauncher();
   const loaderPromise = loadRecentProjects(settings.recentProjects);
@@ -39,7 +36,7 @@ app.once('ready', () => {
     const win = result[0];
     // for some reason HMR, some middleware or anything else is blocking the first render
     // we force to reload the web contents:
-    if (process.env.DEVELOPMENT) {
+    if (__PURPUR_DEV__) {
       win.webContents.reload();
     }
     win.webContents.on(
@@ -64,18 +61,19 @@ app.once('ready', () => {
       }
     );
 
+    // win.show();
+    // win.focus()
     win.show();
     win.focus();
-
-    // win.webContents.openDevTools();
+    win.webContents.openDevTools({ mode: 'undocked' });
     // ipcMain.on('show_window', () => {
-    //   win.show();
-    //   win.focus();
     //   win.webContents.openDevTools();
     // });
 
     ipcMain.emit('projects-loaded', projects);
-    ipcMain.on('launcher_loaded', (event: Electron.IpcMainEvent) => {});
+    ipcMain.on('launcher_loaded', (event: Electron.IpcMainEvent) => {
+      console.log('hello ');
+    });
   });
 });
 

@@ -40,17 +40,6 @@ async function serve() {
   logger.info('Compiling renderer...');
   const compiler = webpack(config);
 
-  // const rendererCompiler = new Promise((resolve, reject) => {
-  //   logger.info('Compiling renderer...');
-  //   const compiler = webpack(config, (err, stats) => {
-  //     if (err) {
-  //       reject(err);
-  //     } else {
-  //       resolve({ stats, compiler });
-  //     }
-  //   });
-  // }).then(({ stats, compiler }) => {
-
   const devOptions: WebpackDevMiddlewareMoreOptions = {
     logger: logger as any,
     stats: webpackStats,

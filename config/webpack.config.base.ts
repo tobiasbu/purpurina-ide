@@ -22,7 +22,7 @@ export default (
   const PROJECT_PATH = path.resolve(__dirname, '../');
 
   const mode = getValue(env.NODE_ENV, 'development');
-  const IS_PROD = mode === 'development';
+  const IS_PROD = mode !== 'development';
   const TYPE = configType || 'project';
 
   const baseConfig: webpack.Configuration = {
@@ -30,7 +30,7 @@ export default (
     devtool: IS_PROD ? 'nosources-source-map' : 'source-map',
     context: PROJECT_PATH,
     output: {
-      path: path.join(PROJECT_PATH, `./dist/${TYPE}`),
+      path: path.join(PROJECT_PATH, `./out/dev/dist/${TYPE}`),
       libraryTarget: 'commonjs2',
       filename: '[name].js',
       chunkFilename: '[name].bundle.js',

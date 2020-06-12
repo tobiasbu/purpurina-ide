@@ -5,12 +5,7 @@ declare global {
   namespace NodeJS {
     interface Global {
       userInfo: UserInfo;
+      __PURPUR_DEV__: boolean;
     }
   }
 }
-
-// declare process {
-//   namespace env {
-
-//   }
-// }

@@ -1,8 +1,4 @@
 import { ipcMain } from 'electron';
-// import { ProjectInfo, CreateProject } from '@shared/types';
-
-// import createNewProject from '../project/createNewProject';
-// import ProjectManager from '../project/ProjectManager';
 
 type ElectronEventCallback = (
   event: Electron.IpcMainEvent,
@@ -18,7 +14,7 @@ type ElectronEventCallback = (
 export function on(
   name: string,
   callback: ElectronEventCallback,
-  once: boolean
+  once?: boolean
 ): void {
   if (once) {
     ipcMain.once(name, callback);
@@ -43,22 +39,6 @@ export function clear(name: string): void {
   ipcMain.removeAllListeners(name);
 }
 
-// function startEditor(appControl: Application, project: ProjectInfo): void {
-//   try {
-//     const promise = ProjectManager.openProject(project);
-//     promise.then((manager) => {
-//       appControl.settings.addRecentProject(manager.path);
-//       appControl.settings.save();
-//       appControl.startEditor();
-//     })
-//       .catch((e) => {
-//         throw e;
-//       });
-//   } catch (err) {
-//     console.log('Could not start project.');
-//   }
-// }
-
 // export default function registerEvents(appControl: Application) {
 
 //   ipcMain.on('build', () => {
@@ -71,28 +51,6 @@ export function clear(name: string): void {
 //     };
 
 //     dialog.showMessageBox(appControl.mainWindow, options);
-//   });
-
-//   ipcMain.on('createProject', (event: Electron.Event, createProjectInfo: CreateProject) => {
-
-//     let project: ProjectInfo;
-
-//     try {
-//       project = createNewProject(createProjectInfo);
-//     } catch (e) {
-//       dialog.showMessageBox(appControl.mainWindow, {
-//         type: 'error',
-//         title: 'Could not create project',
-//         message: e.message,
-//         buttons: ['OK'],
-//       });
-//     } finally {
-//       if (project) {
-//         startEditor(appControl, project);
-//         ipcMain.removeAllListeners('createProject');
-//         // ProjectManagement.openProject(project.path, true);
-//       }
-//     }
 //   });
 
 //   ipcMain.on('launcher_openProject', (event: Electron.Event, openProject: ProjectInfo) => {

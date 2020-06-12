@@ -13,43 +13,66 @@ export default function startElectronProcess(
   const electron = require('electron').toString();
   logger.info('Starting Electron...');
 
-  // [
-  //   '.',
-  //   '--color',
-  //   `--inspect=5858`,
-  // ],
-
-  return new Promise((resolve, reject) => {
     const electronProcess = spawn(
       `${electron}`,
       args,
       {
         env: electronEnv,
-        // stdio: ['ignore', 'inherit', 'inherit'],
-        // stdio: ['ignore', 'inherit', 'inherit'],
       }
     );
 
+    // For Windows
+    require("async-exit-hook")(() => {
+      electronProcess.kill("SIGINT")
+    })
+
+    let queuedData: string | null = null
+    electronProcess.stdout.on('data', (buffer: Buffer) => {
+
+      let data = buffer.toString()
+      // do not print the only line - doesn't make sense
+      if (data.trim() === "[HMR] Updated modules:") {
+        queuedData = data
+        return
+      }
+
+      if (queuedData != null) {
+        data = queuedData + data
+        queuedData = null
+      }
+
+      logger.log(stripFinalNewLine(data.toString()));
+    });
+
     electronProcess.on('close', (code, signal) => {
-      let msg = `Exited with code ${code}`;
+
+      let msg = `Electron Exited with code ${code}`;
       if (signal) {
         msg = msg.concat(` and signal ${JSON.stringify(signal)}`);
       }
       msg = msg.concat('.');
-      resolve();
+      logger.log(msg);
+
+      if (code === 100) {
+        msg = msg.concat("  ")
+        setImmediate(() => {
+          // logger.log('Restarting Electron process...');
+          startElectronProcess(logger, args, electronEnv)
+        })
+      } else {
+        // TODO close HMR server
+
+      }
     });
 
-    electronProcess.stdout!!.on('data', (data: Buffer) => {
-      logger.log(stripFinalNewLine(data.toString()));
-    });
 
-    electronProcess.stderr!!.on('data', (data: Buffer) => {
-      logger.error('ERROR', data.toString());
-    });
+
+    // electronProcess.stderr!!.on('data', (data: Buffer) => {
+    //   logger.error('ERROR', data.toString());
+    // });
 
     electronProcess.on('error', (err) => {
       logger.error(`Error occurred `, err);
-      reject(err);
     });
 
     // process.on('SIGTERM', () => {
@@ -66,5 +89,4 @@ export default function startElectronProcess(
     // }).then((electron) => {
 
     // });
-  });
 }

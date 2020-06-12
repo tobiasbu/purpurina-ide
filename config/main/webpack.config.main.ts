@@ -28,7 +28,7 @@ export default (env: WebpackBaseBuildConfig): webpack.Configuration => {
       },
     },
     plugins: [
-      new webpack.HotModuleReplacementPlugin({ multiStep: true }),
+      new webpack.HotModuleReplacementPlugin(),
       new WebpackNotifierPlugin({
         title: 'Purpurina <Main>',
         alwaysNotify: true,
@@ -36,6 +36,7 @@ export default (env: WebpackBaseBuildConfig): webpack.Configuration => {
       new CleanWebpackPlugin(),
     ],
     externals: [
+      "fsevents",
       'webpack/hot/log-apply-result',
       'source-map-support/source-map-support.js',
       'electron',

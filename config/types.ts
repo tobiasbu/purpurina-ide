@@ -29,29 +29,6 @@ export interface ElectronEnv extends CommonEnv {
   readonly ELECTRON_HMR_SOCKET_ID: string;
 }
 
-// export interface DevelopmentSettings {
-//   electronSocketPath?: string;
-//   readonly NODE_ENV: 'development' | 'production';
-//   readonly cwd: string;
-//   /**
-//    *  Directory name of the directory containing the JavaScript source code file
-//    */
-//   readonly configPath: string;
-//   /**
-//    * Project path
-//    */
-//   readonly projectPath: string;
-//   /**
-//    * Distribution path.
-//    */
-//   readonly distPath: string;
-// }
-
-// export interface RendererServer {
-//   host: string;
-//   port: number;
-// }
-
 export interface WebpackBaseBuildConfig {
   readonly DIST_PATH?: string;
   readonly NODE_ENV?: 'development' | 'production';

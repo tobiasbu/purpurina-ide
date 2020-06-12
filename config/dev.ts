@@ -20,12 +20,16 @@ async function main() {
   logger.log('Starting development environment');
 
   process.on('unhandledRejection', (e: Error) => {
-    logger.error(`Unhandled rejection `, e.stack || e);
+    if (e) {
+      logger.error(`Uncaught exception `, e.stack ?? e);
+    }
     process.exit(1);
   });
 
   process.on('uncaughtException', (e: Error) => {
-    logger.error(`Uncaught exception `, e.stack || e);
+    if (e) {
+      logger.error(`Uncaught exception `, e.stack ?? e);
+    }
     process.exit(1);
   });
 
@@ -75,7 +79,7 @@ async function main() {
   ]);
 
   const electronMainFile = path.join(devEnv.PURPUR_PROJECT_PATH, './dist/main/main.js');
-  const electronArgs = [electronMainFile, '--color', `--inspect=${getPort({port: 5858 })}`];
+  const electronArgs = [electronMainFile, '--color', `--inspect=${await getPort({port: 5858 })}`];
 
   startElectronProcess(
     purpurLogger({

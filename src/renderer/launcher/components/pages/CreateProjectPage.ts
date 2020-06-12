@@ -3,14 +3,14 @@ import hyper from 'hyperhtml';
 import { ipcRenderer } from 'electron';
 
 import { CreateProject } from '@shared/types';
-import { getUserInfo, PathValidation, Dialogs } from '@shared';
+import { PathValidation, Dialogs } from '@shared';
 
 import TextInput from '../commons/TextInput';
 import Button from '../commons/Button';
 
-const userInfo = getUserInfo();
-const DEFAULT_LOCATION = userInfo.homeDir;
-const DEFAULT_AUTHOR = userInfo.userName;
+// const userInfo = getUserInfo();
+// const DEFAULT_LOCATION = userInfo.homeDir;
+// const DEFAULT_AUTHOR = userInfo.userName;
 import browseIcon = require('../../img/icon_browse.svg');
 
 export default class CreateProjectPage extends hyper.Component {
@@ -131,12 +131,12 @@ export default class CreateProjectPage extends hyper.Component {
       return;
     }
     this.creatingProject = true;
-    const createProject: CreateProject = {
+    const projectmetadata: CreateProject = {
       projectName: this.nameInput.value,
       location: this.locationInput.value,
       author: this.authorInput.value,
     };
-    ipcRenderer.send('createProject', createProject);
+    ipcRenderer.send('create-project', projectmetadata);
     this.creatingProject = false;
   };
 

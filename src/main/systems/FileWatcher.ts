@@ -1,4 +1,4 @@
-import * as chokidar from 'chokidar';
+import chokidar from 'chokidar';
 import Logger from '../logger';
 
 /**
@@ -24,7 +24,7 @@ export default class FileWatcher {
    * @param location Project location
    * @return A promise with project file structure
    */
-  start(location: string): Promise<{}> {
+  start(location: string): Promise<unknown> {
     if (this.isWatching) {
       return null;
     }
@@ -38,8 +38,6 @@ export default class FileWatcher {
     };
 
     this.watcher = chokidar.watch('.', options);
-
-    // const log = console.log.bind(console);
 
     const promise = new Promise((resolve) => {
       this.watcher.once('ready', () => {
