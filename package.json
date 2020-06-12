@@ -12,9 +12,10 @@
     "start-electron": "cross-env HOT=1 NODE_ENV=development electron ./dist/main.js",
     "electron-dev": "npm-run-all --parallel watch-electron start-electron",
     "start-renderer": "cross-env NODE_ENV=development node ./node_modules/webpack-dev-server/bin/webpack-dev-server --config ./config/webpack.config.renderer.dev.ts",
-    "start": "npm run clean && ts-node ./config/dev.ts",
     "build": "npm run clean && npm run build-main && npm run build-renderer",
     "clean": "rm -fr dist",
+    "pre-start": "./node_modules/webpack/bin/webpack.js --config ./config/electron-hmr/webpack.config.hmr.ts",
+    "start": "npm run clean && ts-node ./config/dev.ts",
     "lib-check": "tsc --traceResolution",
     "lint": "eslint src --ext .ts --fix",
     "pretty": "prettier --write ."

@@ -23,11 +23,11 @@
       "@main/*": ["src/main/*"],
       "@renderer": ["src/renderer"]
     },
-    "typeRoots": ["node_modules/@types"]
+    "typeRoots": ["types", "node_modules/@types"],
   },
   "include": [
+    "./types/**/*",
     "./src/**/*",
-    "./index.d.ts",
     "./src/main/main.d.ts",
     "./src/renderer/launcher/constants.d.ts"
   ],

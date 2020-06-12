@@ -6,27 +6,29 @@ import stripFinalNewLine from '../commons/stripFinalNewLine';
 
 export default function startElectronProcess(
   logger: Logger,
+  args: string[],
   electronEnv: ElectronEnv
 ) {
   // eslint-disable-next-line
   const electron = require('electron').toString();
   logger.info('Starting Electron...');
 
+  // [
+  //   '.',
+  //   '--color',
+  //   `--inspect=5858`,
+  // ],
+
   return new Promise((resolve, reject) => {
     const electronProcess = spawn(
       `${electron}`,
-      [
-        '.',
-        '--color', //  `--inspect=5858`,
-      ],
+      args,
       {
         env: electronEnv,
         // stdio: ['ignore', 'inherit', 'inherit'],
         // stdio: ['ignore', 'inherit', 'inherit'],
       }
     );
-
-    // logger.log(`Started at ${electronEnv.ELECTRON_WEBPACK_WDS_PORT}`);
 
     electronProcess.on('close', (code, signal) => {
       let msg = `Exited with code ${code}`;

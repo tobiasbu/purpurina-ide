@@ -2,7 +2,7 @@
 import * as RootIPC from 'node-ipc';
 import { Stats } from 'webpack';
 
-import { Logger } from '../../devLogger';
+import { Logger } from '../devLogger';
 import { HmrServer, ConnectionStatus } from './types';
 
 export default function createHmrServer(logger: Logger): HmrServer {
@@ -58,8 +58,6 @@ export default function createHmrServer(logger: Logger): HmrServer {
         try {
           ipc.serve(path, () => {
             ipc.server.on('connect', (socket) => {
-              logger.info(`[IPC] Socket connected`);
-
               if (connectedSockets.indexOf(socket) === -1) {
                 connectedSockets.push(socket);
               }
@@ -104,14 +102,4 @@ export default function createHmrServer(logger: Logger): HmrServer {
   });
 
   return hmrServer as HmrServer;
-  // const ipc = new Crocket();
-  // const socketRoot = `/tmp/electron-main-ipc-${process.pid.toString(16)}.sock`;
-  // return new Promise<string>((resolve, reject) => {
-  //   ipc.listen({ path: socketRoot }, (error) => {
-  //     if (error != null) {
-  //       reject(error);
-  //     }
-  //     resolve(socketRoot);
-  //   })
-  // });
 }

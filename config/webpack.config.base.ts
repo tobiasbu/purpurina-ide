@@ -64,11 +64,12 @@ export default (
       nodeEnv: mode,
     },
     plugins: [
-      new CleanWebpackPlugin(),
       new webpack.DefinePlugin({
         'process.env.NODE_ENV': IS_PROD ? '"production"' : '"development"',
-        PURPUR_DEVELOPMENT: JSON.stringify(IS_PROD === false),
+        __PURPUR_DEV__: JSON.stringify(IS_PROD === false),
       }),
+      new CleanWebpackPlugin(),
+
     ],
     externals: ['source-map-support/source-map-support.js'],
     node: {
@@ -87,9 +88,9 @@ export default (
     );
   }
 
-  if (!IS_PROD) {
-    baseConfig.plugins.push(new webpack.NoEmitOnErrorsPlugin());
-  }
+  // if (!IS_PROD) {
+  //   baseConfig.plugins.push(new webpack.NoEmitOnErrorsPlugin());
+  // }
 
   return { config: baseConfig, PURPURINA_PROJECT_PATH: PROJECT_PATH, IS_PROD };
 };

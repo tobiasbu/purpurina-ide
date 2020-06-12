@@ -7,7 +7,7 @@ import initializeGlobal from './core/config';
 import loadRecentProjects from './project/loadRecentProjects';
 import Logger from './logger';
 
-if (process.env.DEVELOPMENT) {
+if (__PURPUR_DEV__) {
   Logger.log(
     `Directory: ${__dirname}. Port: ${process.env.ELECTRON_WEBPACK_WDS_PORT}`
   );
@@ -20,7 +20,6 @@ if (process.env.DEVELOPMENT) {
 initializeGlobal();
 
 const settings = EditorSettings.load();
-
 const AppControl = new Application(settings);
 
 app.once('ready', () => {
@@ -31,8 +30,6 @@ app.once('ready', () => {
   //   const trace = stackTrace.parse(e);
   //   console.log(e);
   // }
-
-  // a();
 
   const initPromise = AppControl.startLauncher();
   const loaderPromise = loadRecentProjects(settings.recentProjects);
@@ -69,17 +66,16 @@ app.once('ready', () => {
 
     win.show();
     win.focus();
-    win.webContents.openDevTools();
 
-    ipcMain.on('show_window', () => {
-      win.show();
-      win.focus();
-      win.webContents.openDevTools();
-    });
+    // win.webContents.openDevTools();
+    // ipcMain.on('show_window', () => {
+    //   win.show();
+    //   win.focus();
+    //   win.webContents.openDevTools();
+    // });
 
-    ipcMain.on('launcher_loaded', (event: Electron.IpcMainEvent) => {
-      event.sender.send('projects-loaded', projects);
-    });
+    ipcMain.emit('projects-loaded', projects);
+    ipcMain.on('launcher_loaded', (event: Electron.IpcMainEvent) => {});
   });
 });
 

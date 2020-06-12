@@ -4,7 +4,7 @@ import mainWebpackConfig from './webpack.config.main';
 import type { Logger } from '../devLogger';
 // import createHmrServer from './hmr/createHmrServer';
 import type { CommonEnv } from '../types';
-import type { HmrServer } from './hmr/types';
+import type { HmrServer } from '../electron-hmr/types';
 
 export default async function compileMain(
   env: CommonEnv,
@@ -50,12 +50,16 @@ export default async function compileMain(
 
     require('async-exit-hook')((callback?: () => void) => {
       const w = watcher;
-      if (w == null) {
+      if (w === null) {
         return;
       }
 
       watcher = null;
-      w.close(() => callback && callback());
+      w.close(() => {
+        if (callback) {
+          callback()
+        }
+      });
     });
   });
 }

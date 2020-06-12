@@ -1,12 +1,12 @@
 import * as path from 'path';
 
 import { CommonEnv } from './types';
-import createHmrServer from './electron/hmr/createHmrServer';
+import createHmrServer from './electron-hmr/createHmrServer';
 import startRendererProcess from './renderer/startRendererProcess';
 
 import purpurLogger from './devLogger/purpurLogger';
-import startElectronProcess from './electron/startElectronProcess';
-import compileMain from './electron/compileMain';
+import startElectronProcess from './main/startElectronProcess';
+import compileMain from './main/compileMain';
 const getPort = require('get-port');
 
 async function main() {
@@ -42,10 +42,10 @@ async function main() {
     NODE_ENV: 'development',
     PURPUR_DIST_PATH: path.join(__dirname, '../dist'),
     PURPUR_PROJECT_PATH: path.join(__dirname, '../'),
-    ELECTRON_WEBPACK_WDS_PORT: (
-      await getPort({ port: getPort.makeRange(3000, 3100), host: '127.0.0.1' })
-    ).toString(10),
     ELECTRON_WEBPACK_WDS_HOST: 'localhost',
+    ELECTRON_WEBPACK_WDS_PORT: (
+      await getPort({ port: getPort.makeRange(3000, 4000), host: '127.0.0.1' })
+    ).toString(10),
   };
 
   const hmrServer = createHmrServer(logger);
@@ -74,13 +74,17 @@ async function main() {
     ),
   ]);
 
+  const electronMainFile = path.join(devEnv.PURPUR_PROJECT_PATH, './dist/main/main.js');
+  const electronArgs = [electronMainFile, '--color', `--inspect=${getPort({port: 5858 })}`];
+
   startElectronProcess(
     purpurLogger({
       name: 'electron',
-      color: 'blue',
+      color: 'blueBright',
       symbol: '\u2606',
       errorSymbol: '\u2623',
     }),
+    electronArgs,
     {
       ...devEnv,
       ELECTRON_HMR_SOCKET_PATH: hmrServer.socketPath,

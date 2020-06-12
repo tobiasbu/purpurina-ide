@@ -15,7 +15,7 @@ export default (env: WebpackBaseBuildConfig): webpack.Configuration => {
   const MAIN_ENTRY_PATH = path.join(PROJECT_PATH, './src/main');
   const HMR_ENTRY = path.join(
     PROJECT_PATH,
-    './config/electron/hmr/main-hmr.ts'
+    './config/electron-hmr/main-hmr.ts'
   );
 
   const config = webpackMerge.smart(base.config, {
@@ -36,7 +36,7 @@ export default (env: WebpackBaseBuildConfig): webpack.Configuration => {
       new CleanWebpackPlugin(),
     ],
     externals: [
-      // './HmrClient',
+      'webpack/hot/log-apply-result',
       'source-map-support/source-map-support.js',
       'electron',
       'webpack',
