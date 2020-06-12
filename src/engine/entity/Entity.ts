@@ -4,7 +4,7 @@ import Transform2D from "../math/transform/Transform2D";
 import EntityBase from "./EntityBase";
 import ITransform2D from "../math/transform/ITransform2D";
 
-export default class Entity extends EntityBase //Hierarchy {
+export default class Entity extends EntityBase {
   protected _transform: ITransform2D;
   private _pool = null;
   private _pendingRemoval: boolean;
