@@ -1,6 +1,5 @@
-
-
-.project-list, .welcome  {
+.project-list,
+.welcome {
   overflow-y: auto;
   flex-grow: 1;
 }
@@ -12,7 +11,7 @@
 .welcome p {
   line-height: 1.25;
   font-size: var(--p-font-m);
-  margin-bottom:  var(--p-spacing-m);
+  margin-bottom: var(--p-spacing-m);
 }
 
 .highlight {
@@ -20,7 +19,6 @@
   color: #ff54b9;
   font-weight: 500;
 }
-
 
 .project-container {
   cursor: pointer;
@@ -48,7 +46,8 @@
   fill: #ff3b62;
 }
 
-.project-container:active, .project-container.selected {
+.project-container:active,
+.project-container.selected {
   background-color: #1a1a1a;
 }
 

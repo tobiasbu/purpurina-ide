@@ -1,139 +1,130 @@
-import MathUtils from "../MathUtils";
-import { EasingType, EASE_BACK_CONST } from "./EasingType";
-
+import MathUtils from '../MathUtils';
+import { EasingType, EASE_BACK_CONST } from './EasingType';
 
 class EaseInFunctions {
+  /**
+   *
+   * @param {Number} from
+   * @param {Number} to
+   * @param {Number} t
+   * @param {Number} [duration]
+   */
+  linear(from: number, to: number, t: number): number {
+    return MathUtils.lerp(from, to, t);
+  }
 
+  stepped(from: number, to: number, t: number): number {
+    if (t < 0.5) return from;
 
-    /**
-     * 
-     * @param {Number} from 
-     * @param {Number} to 
-     * @param {Number} t 
-     * @param {Number} [duration]
-     */
-    linear(from: number, to: number, t: number): number {
-        return MathUtils.lerp(from, to, t);
-    }
+    return from + to;
+  }
 
-    stepped(from: number, to: number, t: number): number {
+  cut(from: number, to: number, t: number, levels?: number): number {
+    if (levels === undefined) levels = 2;
+    return MathUtils.lerp(from, to, MathUtils.floor(t * levels) / levels);
+  }
 
-        if (t < 0.5)
-            return from;
+  sine(from: number, to: number, t: number): number {
+    return to * (Math.sin(t * MathUtils.HALFPI - MathUtils.HALFPI) + 1) + from;
+  }
 
-        return from + to;
-    }
+  power(from: number, to: number, t: number, power: number): number {
+    return to * Math.pow(t, power) + from;
+  }
 
-    cut(from: number, to: number, t: number, levels?: number): number {
-        if (levels === undefined) levels = 2;
-        return MathUtils.lerp(from, to, MathUtils.floor(t * levels) / levels);
-    }
+  quadratic(from: number, to: number, t: number): number {
+    return this.power(from, to, t, 2);
+  }
 
-    sine(from: number, to: number, t: number): number {
-        return to * (Math.sin(t * MathUtils.HALFPI - MathUtils.HALFPI) + 1) + from;
-    }
+  cubic(from: number, to: number, t: number): number {
+    return this.power(from, to, t, 3);
+  }
 
-    power(from: number, to: number, t: number, power: number): number {
-        return to * Math.pow(t, power) + from;
-    }
+  quartic(from: number, to: number, t: number): number {
+    return this.power(from, to, t, 4);
+  }
 
-    quadratic(from: number, to: number, t: number): number {
-        return this.power(from, to, t, 2);
-    }
+  quintic(from: number, to: number, t: number): number {
+    return this.power(from, to, t, 5);
+  }
 
-    cubic(from: number, to: number, t: number): number {
-        return this.power(from, to, t, 3);
-    }
+  exponential(from: number, to: number, t: number): number {
+    return t == 0 ? from : to * Math.pow(2, 10 * (t - 1)) + from;
+  }
 
-    quartic(from: number, to: number, t: number): number {
-        return this.power(from, to, t, 4);
-    }
+  circ(from: number, to: number, t: number): number {
+    return -to * (Math.sqrt(1 - t * t) - 1) + from;
+  }
 
-    quintic(from: number, to: number, t: number): number {
-        return this.power(from, to, t, 5);
-    }
+  elastic(from: number, to: number, t: number, duration?: number): number {
+    if (duration === undefined) duration = 1;
 
-    exponential(from: number, to: number, t: number): number {
-        return (t == 0) ? from : to * Math.pow(2, 10 * (t - 1)) + from;
-    }
+    if (t == 0) return from;
+    if ((t /= duration) == 1) return from + to;
 
-    circ(from: number, to: number, t: number): number {
-        return -to * (Math.sqrt(1 - t * t) - 1) + from
-    }
+    let p = duration * 0.3;
+    let s = p / 4;
+    // this is a fix, again, with post-increment operators
+    let postFix = to * Math.pow(2, 10 * (t -= 1));
+    return (
+      -(postFix * Math.sin(((t * duration - s) * (2 * Math.PI)) / p)) + from
+    );
+  }
 
-    elastic(from: number, to: number, t: number, duration?: number): number {
-        if (duration === undefined) duration = 1;
+  back(from: number, to: number, t: number): number {
+    return to * t * t * ((EASE_BACK_CONST + 1) * t - EASE_BACK_CONST) + from;
+  }
 
-        if (t == 0)
-            return from;
-        if ((t /= duration) == 1)
-            return from + to;
+  /**
+   * Ease-in by specific EasingType.
+   *
+   * @param {EasingType} type The type of easing
+   * @param {Number} from Start point
+   * @param {Number} to End point
+   * @param {Number} t Normalized time
+   * @param {Number} [arg] Additional argument for specific types:
+   *
+   * @constant EasingType.CUT: The cell levels of the interpolation
+   * @constant EasintType.ELASTIC: The duration of the easing.
+   * @constant EasintType.POWER: The pow product.
+   */
+  by(type: EasingType, from: number, to: number, t: number, arg: number) {
+    if (arg === undefined) arg = 3;
 
-        let p = duration * 0.3;
-        let s = p / 4;
-        // this is a fix, again, with post-increment operators
-        let postFix = to * Math.pow(2, 10 * (t -= 1));
-        return -(postFix * Math.sin((t * duration - s) * (2 * Math.PI) / p)) + from;
-    }
-
-    back(from: number, to: number, t: number): number {
-        return to * t * t * ((EASE_BACK_CONST + 1) * t - EASE_BACK_CONST) + from;
-    }
-
-    /**
-     * Ease-in by specific EasingType.
-     * 
-     * @param {EasingType} type The type of easing
-     * @param {Number} from Start point
-     * @param {Number} to End point
-     * @param {Number} t Normalized time
-     * @param {Number} [arg] Additional argument for specific types:
-     * 
-     * @constant EasingType.CUT: The cell levels of the interpolation
-     * @constant EasintType.ELASTIC: The duration of the easing.
-     * @constant EasintType.POWER: The pow product.
-     */
-    by(type: EasingType, from: number, to: number, t: number, arg: number) {
-
-        if (arg === undefined) arg = 3;
-
-        switch (type) {
-
-            case EasingType.NONE:
-                return t;
-            case EasingType.STEPPED:
-                return this.stepped(from, to, t);
-            case EasingType.CUT:
-                return this.cut(from, to, t, arg);
-            case EasingType.LINEAR:
-                return this.linear(from, to, t);
-            case EasingType.SINE:
-                return this.sine(from, to, t);
-            case EasingType.QUADRATIC:
-                return this.power(from, to, t, 2);
-            case EasingType.CUBIC:
-                return this.power(from, to, t, 3);
-            case EasingType.QUARTIC:
-                return this.power(from, to, t, 4);
-            case EasingType.QUINTIC:
-                return this.power(from, to, t, 5);
-            case EasingType.POWER:
-                return this.power(from, to, t, arg);
-            case EasingType.EXPONENTIAL:
-                return this.exponential(from, to, t);
-            case EasingType.CIRC:
-                return this.circ(from, to, t);
-            case EasingType.BACK:
-                return this.back(from, to, t);
-            case EasingType.ELASTIC:
-                return this.elastic(from, to, t, arg);
-        }
-
+    switch (type) {
+      case EasingType.NONE:
         return t;
+      case EasingType.STEPPED:
+        return this.stepped(from, to, t);
+      case EasingType.CUT:
+        return this.cut(from, to, t, arg);
+      case EasingType.LINEAR:
+        return this.linear(from, to, t);
+      case EasingType.SINE:
+        return this.sine(from, to, t);
+      case EasingType.QUADRATIC:
+        return this.power(from, to, t, 2);
+      case EasingType.CUBIC:
+        return this.power(from, to, t, 3);
+      case EasingType.QUARTIC:
+        return this.power(from, to, t, 4);
+      case EasingType.QUINTIC:
+        return this.power(from, to, t, 5);
+      case EasingType.POWER:
+        return this.power(from, to, t, arg);
+      case EasingType.EXPONENTIAL:
+        return this.exponential(from, to, t);
+      case EasingType.CIRC:
+        return this.circ(from, to, t);
+      case EasingType.BACK:
+        return this.back(from, to, t);
+      case EasingType.ELASTIC:
+        return this.elastic(from, to, t, arg);
     }
 
-
-};
+    return t;
+  }
+}
 
 const EaseIn = new EaseInFunctions();
 

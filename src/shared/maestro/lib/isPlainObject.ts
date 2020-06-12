@@ -1,10 +1,8 @@
-
 /// From jQuery
 
 export default function isPlainObject(obj: any) {
-
   // Detect obvious negatives
-  if (typeof (obj) !== 'object' || obj.nodeType || obj === obj.window) {
+  if (typeof obj !== 'object' || obj.nodeType || obj === obj.window) {
     return false;
   }
 
@@ -16,7 +14,10 @@ export default function isPlainObject(obj: any) {
 
   try {
     // Objects with prototype are plain if they were constructed by a global Object function
-    if (obj.constructor && !({}).hasOwnProperty.call(obj.constructor.prototype, 'isPrototypeOf')) {
+    if (
+      obj.constructor &&
+      !{}.hasOwnProperty.call(obj.constructor.prototype, 'isPrototypeOf')
+    ) {
       return false;
     }
   } catch (e) {

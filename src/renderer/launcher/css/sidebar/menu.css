@@ -40,9 +40,9 @@ a.menu-option {
   right: -4px;
   bottom: -4px;
   -webkit-box-shadow: inset 0px 0px 0px 2px var(--p-color-focus);
-  -moz-box-shadow: inset 0px 0px 0px 2px  var(--p-color-focus);
-  box-shadow: inset 0px 0px 0px 2px  var(--p-color-focus-outline);
-  z-index: 1  ;
+  -moz-box-shadow: inset 0px 0px 0px 2px var(--p-color-focus);
+  box-shadow: inset 0px 0px 0px 2px var(--p-color-focus-outline);
+  z-index: 1;
 }
 
 .menu-option {
@@ -63,7 +63,8 @@ a.menu-option {
   font-size: var(--p-font-m);
 }
 
-.menu-option:hover, .menu-option.selected {
+.menu-option:hover,
+.menu-option.selected {
   background: var(--p-color-menu-hover);
   color: var(--p-color-text);
   outline: none;
@@ -89,22 +90,22 @@ a.menu-option {
   vertical-align: middle;
 }
 
-.icon>svg {
+.icon > svg {
   vertical-align: middle;
   fill: var(--p-color-menu-disabled);
   transition: all 160ms ease;
 }
 
-.menu-option .icon>svg {
+.menu-option .icon > svg {
   transition: all 160ms ease;
 }
 
-.menu-option:hover .icon>svg {
+.menu-option:hover .icon > svg {
   /* stroke: var(--p-color-text); */
   fill: var(--p-color-text);
 }
 
-.menu-option.selected .icon>svg {
+.menu-option.selected .icon > svg {
   fill: var(--p-color-text);
 }
 

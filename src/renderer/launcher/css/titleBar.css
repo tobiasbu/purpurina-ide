@@ -39,7 +39,7 @@
   background-color: #d71526;
 }
 
-.win-top-button>span {
+.win-top-button > span {
   line-height: 0;
   position: absolute;
   top: 50%;

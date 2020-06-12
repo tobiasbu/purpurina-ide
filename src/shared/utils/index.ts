@@ -8,8 +8,4 @@ function isValid(value: AnyType): boolean {
   return false;
 }
 
-export {
-  getValue,
-  objectGet,
-  isValid,
-};
+export { getValue, objectGet, isValid };

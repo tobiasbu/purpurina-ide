@@ -1,9 +1,9 @@
-import { Stats } from "webpack";
+import { Stats } from 'webpack';
 
 export enum ConnectionStatus {
   None,
   Connecting,
-  Connected
+  Connected,
 }
 
 export interface HmrServer {

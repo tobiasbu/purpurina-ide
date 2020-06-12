@@ -34,6 +34,6 @@ const Logger = (function (): any {
      */
     error: composeTimestamp(console.error, 'ERROR'),
   };
-}());
+})();
 
 export default Logger;

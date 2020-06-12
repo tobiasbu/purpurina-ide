@@ -8,48 +8,47 @@ import webpackMerge = require('webpack-merge');
 import configBase from '../webpack.config.base';
 import { WebpackBaseBuildConfig } from '../types';
 
-
 export default (env: WebpackBaseBuildConfig): webpack.Configuration => {
-
   const base = configBase(env, 'main');
 
   const PROJECT_PATH = base.PURPURINA_PROJECT_PATH;
   const MAIN_ENTRY_PATH = path.join(PROJECT_PATH, './src/main');
-  const HMR_ENTRY = path.join(PROJECT_PATH, './config/electron/hmr/main-hmr.ts');
+  const HMR_ENTRY = path.join(
+    PROJECT_PATH,
+    './config/electron/hmr/main-hmr.ts'
+  );
 
-  const config = webpackMerge.smart(
-    base.config,
-    {
-      target: 'electron-main',
-      entry: [HMR_ENTRY, path.join(MAIN_ENTRY_PATH + '/index.ts')],
-      resolve: {
-        mainFields: ["electron-main", "module", "main"],
-        alias: {
-          '@main': MAIN_ENTRY_PATH,
-        },
+  const config = webpackMerge.smart(base.config, {
+    target: 'electron-main',
+    entry: [HMR_ENTRY, path.join(MAIN_ENTRY_PATH + '/index.ts')],
+    resolve: {
+      mainFields: ['electron-main', 'module', 'main'],
+      alias: {
+        '@main': MAIN_ENTRY_PATH,
       },
-      plugins: [
-        new webpack.HotModuleReplacementPlugin({ multiStep: true }),
-        new WebpackNotifierPlugin({
-          title: "Purpurina <Main>",
-          alwaysNotify: true
-        }),
-        new CleanWebpackPlugin(),
-      ],
-      externals: [
-        // './HmrClient',
-        'source-map-support/source-map-support.js',
-        'electron',
-        'webpack'
-      ]
-    });
+    },
+    plugins: [
+      new webpack.HotModuleReplacementPlugin({ multiStep: true }),
+      new WebpackNotifierPlugin({
+        title: 'Purpurina <Main>',
+        alwaysNotify: true,
+      }),
+      new CleanWebpackPlugin(),
+    ],
+    externals: [
+      // './HmrClient',
+      'source-map-support/source-map-support.js',
+      'electron',
+      'webpack',
+    ],
+  });
 
   // if (base.IS_PROD) {
-    // config.plugins.push(new webpack.ExtendedAPIPlugin());
+  // config.plugins.push(new webpack.ExtendedAPIPlugin());
   // }
 
   return config;
-}
+};
 
 //   const HTML_TEMPLATE_PATH = 'src/renderer/editor/static/index.html';
 
@@ -107,7 +106,6 @@ export default (env: WebpackBaseBuildConfig): webpack.Configuration => {
 //     }),
 //   );
 
-
 //   if (DEV_MODE) {
 
 //     config.plugins.push(
@@ -122,8 +120,6 @@ export default (env: WebpackBaseBuildConfig): webpack.Configuration => {
 //       ) : null,
 //     );
 //   }
-
-
 
 //   return config;
 

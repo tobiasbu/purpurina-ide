@@ -3,7 +3,8 @@ import * as http from 'http';
 import webpack = require('webpack');
 import { NextHandleFunction } from 'connect';
 
-export type DevMiddleware = WebpackDevMiddleware.WebpackDevMiddleware & NextHandleFunction;
+export type DevMiddleware = WebpackDevMiddleware.WebpackDevMiddleware &
+  NextHandleFunction;
 
 export interface CommonEnv extends NodeJS.ProcessEnv {
   readonly NODE_ENV: 'development' | 'production';
@@ -61,7 +62,8 @@ export interface DevServerBuildConfig extends WebpackBaseBuildConfig {
   readonly PORT: string | number;
 }
 
-export interface WebpackDevMiddlewareMoreOptions extends WebpackDevMiddleware.Options {
+export interface WebpackDevMiddlewareMoreOptions
+  extends WebpackDevMiddleware.Options {
   quiet: boolean;
   reload: boolean;
   overlay: boolean;
@@ -79,9 +81,7 @@ export interface RendererServer {
 }
 
 export namespace IPCMessage {
-
   export interface CompiledMessage {
     readonly hash: string;
   }
-
 }

@@ -1,4 +1,3 @@
-
 // eslint-disable-next-line
 export type AnyCallback = (...args: any) => any;
 

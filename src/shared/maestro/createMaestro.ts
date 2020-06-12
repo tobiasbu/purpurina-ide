@@ -8,7 +8,6 @@ import createProducer from './lib/createProducer';
  * @param initialState The initial state.
  */
 export default function createMaestro<S = {}>(initialState?: S) {
-
   const store = createStore(initialState);
   const producer = createProducer(store);
   const createAction = createActionUtility(producer);
@@ -18,5 +17,4 @@ export default function createMaestro<S = {}>(initialState?: S) {
     createAction,
     producer,
   };
-
 }

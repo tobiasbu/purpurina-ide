@@ -1,4 +1,3 @@
-
 type ValueType = string | number | boolean | object;
 
 /**
@@ -8,7 +7,10 @@ type ValueType = string | number | boolean | object;
  * @param value Value
  * @param defaultValue Default value
  */
-export default function getValue<T extends ValueType>(value: T, defaultValue?: T): T {
+export default function getValue<T extends ValueType>(
+  value: T,
+  defaultValue?: T
+): T {
   if (value === null || value === undefined) {
     return defaultValue;
   }

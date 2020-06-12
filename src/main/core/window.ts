@@ -36,11 +36,10 @@ export function createStartupWindow(): BrowserWindow {
   const height = 450 + 80;
   const launcherPath = getURL('launcher');
 
-  const IS_DEV = (process.env.NODE_ENV === 'development');
+  const IS_DEV = process.env.NODE_ENV === 'development';
 
   // create our main window
   let window = new BrowserWindow({
-
     width,
     height,
     minWidth: width,
@@ -50,15 +49,13 @@ export function createStartupWindow(): BrowserWindow {
     useContentSize: true,
     center: true,
     backgroundColor: '#080808',
-    vibrancy: 'dark',
     transparent: false,
     title: `Purpurina Editor v${version.toString()}`,
-    darkTheme: true,
     webPreferences: {
-      nodeIntegration: (process.env.NODE_ENV === 'development'),
+      nodeIntegration: process.env.NODE_ENV === 'development',
       backgroundThrottling: false,
       textAreasAreResizable: false,
-      additionalArguments: (IS_DEV) ? ['DEVELOPMENT'] : [],
+      additionalArguments: IS_DEV ? ['DEVELOPMENT'] : [],
       // preload: path.join(__dirname, 'preload.js'),
       // contextIsolation: true,
       // nodeIntegration: false,
@@ -74,7 +71,9 @@ export function createStartupWindow(): BrowserWindow {
     ev.preventDefault();
   });
 
-  window.on('close', () => { window = null; });
+  window.on('close', () => {
+    window = null;
+  });
 
   // load entry html page in the renderer.
   window.loadURL(launcherPath);
@@ -103,10 +102,12 @@ export function createEditorWindow(): BrowserWindow {
     webPreferences: {
       // textAreasAreResizable: false,
       webSecurity: true,
-      nodeIntegration: (process.env.NODE_ENV === 'development'),
+      nodeIntegration: process.env.NODE_ENV === 'development',
     },
   });
-  window.on('close', () => { window = null; });
+  window.on('close', () => {
+    window = null;
+  });
   window.setMenu(null);
 
   window.loadURL(editorPath);

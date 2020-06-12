@@ -1,4 +1,3 @@
-
 type MemoFn<T> = () => T;
 type Memo<T> = T | MemoFn<T>;
 
@@ -9,9 +8,9 @@ export default function memoize<T>(memo: Memo<T>, ...dependencies: any[]) {
   if (typeof memo !== 'function') {
     const initialMemo = memo;
     // tslint:disable-next-line: no-parameter-reassignment
-    memo = (function () {
+    memo = function () {
       return initialMemo;
-    });
+    };
   }
 
   function someValueChanged(value: any, index: number) {

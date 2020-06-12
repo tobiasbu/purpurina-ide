@@ -1,25 +1,21 @@
-@import "suitcss-base";
+@import 'suitcss-base';
 
-@import "./root.css";
+@import './root.css';
 
 @import './commons/index.css';
-@import "./titleBar.css";
+@import './titleBar.css';
 
-@import "./sidebar/index.css";
-@import "./pages/index.css";
+@import './sidebar/index.css';
+@import './pages/index.css';
 
-@import "./browse-icon.css";
+@import './browse-icon.css';
 
-@import "./content.css";
-
-
+@import './content.css';
 
 #content {
   margin: 0 80px;
   width: 100%;
 }
-
-
 
 [data-scrollcontainer] {
   position: relative;
@@ -104,5 +100,3 @@
   position: relative;
   right: 0;
 }
-
-

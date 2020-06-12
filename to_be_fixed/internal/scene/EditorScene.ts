@@ -1,11 +1,8 @@
-
 /**
  * Global Editor Scene Manager
  */
 class EditorScene {
+  private _entityHierarchy;
 
-    private _entityHierarchy;
-
-    private _sceneName:string;
-    
+  private _sceneName: string;
 }

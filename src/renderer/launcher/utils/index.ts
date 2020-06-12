@@ -1,5 +1,8 @@
-
-export function replaceAll(str: string, searchValue: RegExp, replaceValue: string): string {
+export function replaceAll(
+  str: string,
+  searchValue: RegExp,
+  replaceValue: string
+): string {
   return str.replace(new RegExp(searchValue, 'g'), replaceValue);
 }
 

@@ -59,11 +59,9 @@ export default class PointerManager {
     this._delta = new Vector2();
     this._emitter = emitter;
     this.setPointerMode(PointerMode.None);
-
   }
 
   private processMouseMove = (event: MouseEvent) => {
-
     if (event.srcElement.tagName !== 'INPUT') {
       event.preventDefault();
       event.stopPropagation();
@@ -82,7 +80,6 @@ export default class PointerManager {
     this._delta.y = this._position.y - this._startPosition.y;
 
     switch (this._mode) {
-
       case PointerMode.ViewMoving:
       case PointerMode.ViewSelectionArea: {
         this._emitter.emit('sceneView_mousemove', this._position, this._delta);
@@ -109,7 +106,7 @@ export default class PointerManager {
     //     }
 
     // }
-  }
+  };
 
   private processMouseUp = (event: MouseEvent) => {
     if (event.srcElement.tagName !== 'INPUT') {
@@ -129,11 +126,9 @@ export default class PointerManager {
     }
 
     this.setPointerMode(PointerMode.None);
-
-  }
+  };
 
   startListeners() {
-
     const config = {
       passive: false,
     };
@@ -144,7 +139,6 @@ export default class PointerManager {
 
   public setPointerMode(mode: PointerMode) {
     if (this._mode !== mode) {
-
       let cursorStyle: string;
 
       switch (mode) {
@@ -192,7 +186,11 @@ export default class PointerManager {
     }
   }
 
-  setAxisEditing(onChange: CursorEditingCallback, onEnd: CursorEditingEndCallback, context?: any) {
+  setAxisEditing(
+    onChange: CursorEditingCallback,
+    onEnd: CursorEditingEndCallback,
+    context?: any
+  ) {
     this.setPointerMode(PointerMode.VectorAxisEditing);
 
     this._callbackChanger = onChange;

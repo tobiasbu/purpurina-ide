@@ -2,7 +2,6 @@ import { Store, Producer, StateKey, StateValue } from '../types';
 import mergerino from 'mergerino';
 
 export default function createProducer<S>(store: Store<S>) {
-
   function replaceFn<S>(state: S) {
     return state;
   }
@@ -28,5 +27,4 @@ export default function createProducer<S>(store: Store<S>) {
   });
 
   return producer as Producer<S>;
-
 }

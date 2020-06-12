@@ -1,10 +1,10 @@
-import webpack = require("webpack");
+import webpack = require('webpack');
 
 type LoggingDebugFn = (name: string) => boolean | string | RegExp;
 
 interface ExtendedWebpackStats extends webpack.Stats.ToJsonOptionsObject {
-  chunkGroups: boolean,
-  colors: boolean,
+  chunkGroups: boolean;
+  colors: boolean;
   loggingDebug: string[] | RegExp | LoggingDebugFn;
   logging: 'none' | 'error' | 'warn' | 'info' | 'log' | 'verbose' | boolean;
   loggingTrace: boolean;

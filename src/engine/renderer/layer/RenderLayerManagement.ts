@@ -1,4 +1,3 @@
-
 // import RenderLayer from './RenderLayer';
 // import List from '../../../engine/structures/List';
 // //import Renderable from '../../modules/renderables/Renderable';
@@ -17,14 +16,13 @@
 //         return this.renderLayers.hasAt(id);
 //     }
 
-
 //     add(name: string) {
 
 //         if (this.contains(name))
 //         {
 //             throw new Error("RenderLayerManagement.add: There is already a RenderLayer called: \"" +  name + "\".");
 //         }
-       
+
 //         //this.__renderLayersMap.set(name, this.__renderLayers.length);
 //         this.renderLayers.push(new RenderLayer(name));
 //     }
@@ -57,7 +55,7 @@
 //             throw new Error("RenderLayerManagement.contains: The value name is not a string.");
 
 //         let val = this.renderLayers.each(function(layer) {
-           
+
 //             if (layer.name == layerName)
 //             {
 //                 return true;
@@ -73,7 +71,6 @@
 //                 return layer;
 //         }) || null;
 //     }
-
 
 //     findRenderableLayer(renderable) {
 //         return this.renderLayers.each(function(layer) {

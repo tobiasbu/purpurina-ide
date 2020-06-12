@@ -25,7 +25,7 @@ interface MaestroComponent<T = {}> extends Component<T> {
 }
 
 interface MaestroComponentConstructor<T extends MaestroComponent> {
-  new(...props: any[]): T;
+  new (...props: any[]): T;
 }
 
 // class MaestroConnector extends HyperHTMLElement {
@@ -58,11 +58,12 @@ interface MaestroComponentConstructor<T extends MaestroComponent> {
 
 // customElements.define('maestro-connector', MaestroConnector);
 
-export function connect<T extends MaestroComponent>(component: MaestroComponentConstructor<T>) {
+export function connect<T extends MaestroComponent>(
+  component: MaestroComponentConstructor<T>
+) {
   // tslint:disable-next-line: function-name
 
   return function (options: any) {
-
     return (function () {
       // const wrapped = component;
       function Connector(...props: any[]) {
@@ -87,17 +88,13 @@ export function connect<T extends MaestroComponent>(component: MaestroComponentC
         };
       }
 
-      Object.defineProperties(
-        Connector.prototype,
-        {
-          // used to distinguish better than instanceof
-          ELEMENT_NODE: { value: 1 },
-          nodeType: { value: -1 },
-        },
-      );
+      Object.defineProperties(Connector.prototype, {
+        // used to distinguish better than instanceof
+        ELEMENT_NODE: { value: 1 },
+        nodeType: { value: -1 },
+      });
 
       return Connector;
     })();
-
   };
 }

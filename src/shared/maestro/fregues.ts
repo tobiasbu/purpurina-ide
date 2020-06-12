@@ -7,7 +7,8 @@ import memoize from './lib/memoize';
 import isPlainObject from './lib/isPlainObject';
 
 type SetState<S, Component> = (
-  state: Partial<S> | ((this: Component, state: S) => Partial<S>), render?: boolean,
+  state: Partial<S> | ((this: Component, state: S) => Partial<S>),
+  render?: boolean
 ) => Component;
 
 interface ConsumerComponent<S = {}, PS = {}> extends IComponent<S> {
@@ -20,10 +21,13 @@ interface FreguesiaOptions {
 }
 
 function freguesia<S, C extends IComponent<S>>(
-  options: FreguesiaOptions, producer: C, ...consumers: ConsumerComponent[]
+  options: FreguesiaOptions,
+  producer: C,
+  ...consumers: ConsumerComponent[]
 ): void;
 function freguesia<S, C extends IComponent<S>>(
-  producer: C, ...consumers: ConsumerComponent[]
+  producer: C,
+  ...consumers: ConsumerComponent[]
 ): void;
 function freguesia<S, C extends IComponent<S>>(): void {
   let ia = 0;
@@ -41,7 +45,9 @@ function freguesia<S, C extends IComponent<S>>(): void {
   const argLen = consumers.length;
 
   if (argLen <= 0) {
-    console.error('Maestro: Could not create a freguesia. There is no any consumer.');
+    console.error(
+      'Maestro: Could not create a freguesia. There is no any consumer.'
+    );
     return;
   }
 
@@ -72,7 +78,8 @@ function freguesia<S, C extends IComponent<S>>(): void {
   const originalSetState = producer.setState.bind(producer);
   // eslint-disable-next-line
   const produce: SetState<S, C> = function (
-    state: Partial<S> | ((this: C, state: S) => Partial<S>), render?: boolean,
+    state: Partial<S> | ((this: C, state: S) => Partial<S>),
+    render?: boolean
   ) {
     const self = originalSetState(state, render);
     updateConsumers(memo.get());

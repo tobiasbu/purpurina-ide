@@ -1,9 +1,7 @@
-import ICamera from "./ICamera";
+import ICamera from './ICamera';
 
 export default interface ICameraImpl extends ICamera {
+  updateTransform();
 
-    updateTransform();
-
-    resize(width: number, height: number);
-
+  resize(width: number, height: number);
 }

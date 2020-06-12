@@ -1,4 +1,4 @@
 export interface WidgetResizeEvent {
-    width: number;
-    height: number;
+  width: number;
+  height: number;
 }

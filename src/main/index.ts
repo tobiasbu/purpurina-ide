@@ -8,7 +8,9 @@ import loadRecentProjects from './project/loadRecentProjects';
 import Logger from './logger';
 
 if (process.env.DEVELOPMENT) {
-  Logger.log(`Directory: ${__dirname}. Port: ${process.env.ELECTRON_WEBPACK_WDS_PORT}`);
+  Logger.log(
+    `Directory: ${__dirname}. Port: ${process.env.ELECTRON_WEBPACK_WDS_PORT}`
+  );
   const sourceMapSupport = require('source-map-support'); // eslint-disable-line
   sourceMapSupport.install({
     environment: 'node',
@@ -43,9 +45,15 @@ app.once('ready', () => {
     if (process.env.DEVELOPMENT) {
       win.webContents.reload();
     }
-    win.webContents.on('console-message',
-      (_event: Electron.IpcMainEvent, level: number, message: string,
-        line: number, sourceId: string) => {
+    win.webContents.on(
+      'console-message',
+      (
+        _event: Electron.IpcMainEvent,
+        level: number,
+        message: string,
+        line: number,
+        sourceId: string
+      ) => {
         let msg = '[WINDOW]';
         let fn = console.log;
         if (level >= 3) {
@@ -56,7 +64,8 @@ app.once('ready', () => {
         }
         msg = `${msg} ${message}\nat ${line} from ${sourceId}\n`;
         fn(msg);
-      });
+      }
+    );
 
     win.show();
     win.focus();
@@ -74,9 +83,10 @@ app.once('ready', () => {
   });
 });
 
-if (process.env.NODE_ENV === 'development'
-  || process.env.DEBUG_PROD === 'true') {
-
+if (
+  process.env.NODE_ENV === 'development' ||
+  process.env.DEBUG_PROD === 'true'
+) {
   // require('electron-debug')();
   // const path = require('path');
   // const p = path.join(__dirname, '..', 'app', 'node_modules');

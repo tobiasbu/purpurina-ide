@@ -1,20 +1,24 @@
 import DataMap from './DataMap';
 import isPlainObject from './isPlainObject';
 import isFunction from './isFunction';
-import { Action, Store, IListenerMap, Listener, RemoveListener } from '../types';
+import {
+  Action,
+  Store,
+  IListenerMap,
+  Listener,
+  RemoveListener,
+} from '../types';
 
 // tslint:disable-next-line: variable-name
 const ListenerMap = (function () {
-  function listenerMap() {
-  }
+  function listenerMap() {}
   if (Object.create) {
     listenerMap.prototype = Object.create(null);
   }
   return listenerMap as unknown;
-}()) as IListenerMap;
+})() as IListenerMap;
 
 export default function createStore<S>(initialState: S): Store<S> {
-
   // if (typeof globalReducer !== 'function') {
   //   throw new Error('Maestro: Expected the reducer to be a function.');
   // }
@@ -55,17 +59,22 @@ export default function createStore<S>(initialState: S): Store<S> {
   // }
 
   function addListener(listener: Listener): RemoveListener;
-  function addListener(substate: string | number, listener: Listener): RemoveListener;
-  function addListener(substate: string | number | Listener, listener?: Listener): RemoveListener {
-
-    const firstType = typeof (substate);
+  function addListener(
+    substate: string | number,
+    listener: Listener
+  ): RemoveListener;
+  function addListener(
+    substate: string | number | Listener,
+    listener?: Listener
+  ): RemoveListener {
+    const firstType = typeof substate;
     if (arguments.length > 1) {
       if (firstType !== 'string' && firstType !== 'number') {
         throw new TypeError(`Maestro.addListener: Could not add listener to substate.
        Argument 'substate' is not string or number.`);
       }
 
-      if (typeof (listener) !== 'function') {
+      if (typeof listener !== 'function') {
         throw new TypeError(`Maestro.addListener: Could not add listener to substate named '${substate}'.
         The listener argument must be a function`);
       }
@@ -89,7 +98,9 @@ export default function createStore<S>(initialState: S): Store<S> {
     }
 
     if (isDispatching) {
-      throw new Error("Maestro.addListener: Can't add listener while action is executing.");
+      throw new Error(
+        "Maestro.addListener: Can't add listener while action is executing."
+      );
     }
 
     let isListening = true;
@@ -109,7 +120,6 @@ export default function createStore<S>(initialState: S): Store<S> {
     }
     throw new TypeError(`Maestro.addListener: Could not add global listener.
       The 'listener' must be a function.`);
-
   }
 
   /**
@@ -119,16 +129,17 @@ export default function createStore<S>(initialState: S): Store<S> {
    */
   function dispatch(action: Action<S>, ...args: any[]): Readonly<S>;
   function dispatch(action: Action<S>): Readonly<S> {
-
     if (!isFunction(action)) {
       throw new Error(
         `Maestro: Could not dispatch action.
-         The 'action' parameter is not a function.`,
+         The 'action' parameter is not a function.`
       );
     }
 
     if (isDispatching) {
-      throw new Error('Maestro: Could not dispatch action.\nAn action was already dispatched.');
+      throw new Error(
+        'Maestro: Could not dispatch action.\nAn action was already dispatched.'
+      );
     }
 
     try {
@@ -138,8 +149,12 @@ export default function createStore<S>(initialState: S): Store<S> {
         switch (argsLen) {
           default:
             break;
-          case 2: state = action(state, arguments[1]); break;
-          case 3: state = action(state, arguments[1], arguments[2]); break;
+          case 2:
+            state = action(state, arguments[1]);
+            break;
+          case 3:
+            state = action(state, arguments[1], arguments[2]);
+            break;
         }
       } else {
         state = action(state);
@@ -163,5 +178,4 @@ export default function createStore<S>(initialState: S): Store<S> {
     dispatch,
     addListener,
   };
-
 }

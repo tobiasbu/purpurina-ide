@@ -14,13 +14,11 @@ import WorkspacePanel from './ui/workspace/WorkspacePanel';
 // console.log(process)
 
 export default class App extends hyper.Component {
-
   private workspace: WorkspacePanel;
 
   constructor() {
     super();
     this.workspace = new WorkspacePanel();
-
   }
 
   render() {
@@ -28,7 +26,6 @@ export default class App extends hyper.Component {
     <div class='toolbar'/>
       ${this.workspace.element}
     <div class='statusbar'/>`;
-
   }
 }
 

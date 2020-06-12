@@ -4,12 +4,11 @@ import { objectGet } from '@shared/utils';
 import { interpolateClassName } from '../../utils';
 import { MouseCallback } from '../../types';
 
-
 function randomId(): string {
   return `_${(
-    Number(String(Math.random()).slice(2))
-    + Date.now()
-    + Math.round(performance.now())
+    Number(String(Math.random()).slice(2)) +
+    Date.now() +
+    Math.round(performance.now())
   ).toString(36)}`;
 }
 

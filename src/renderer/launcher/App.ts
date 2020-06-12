@@ -7,7 +7,6 @@ import TitleBar from './components/TitleBar';
 import SideBar from './components/sidebar';
 import PageContainer from './components/pages/PageContainer';
 
-
 export default class App extends hyper.Component {
   private sideBar: SideBar;
   private pages: PageContainer;

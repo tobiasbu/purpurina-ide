@@ -13,33 +13,16 @@
     "removeComments": true,
     "allowJs": true,
     "importsNotUsedAsValues": "remove",
-    "lib": [
-      "esnext",
-      "dom"
-    ],
+    "lib": ["esnext", "dom"],
     "paths": {
-      "*": [
-        "src/*"
-      ],
-      "@shared/*": [
-        "src/shared/*"
-      ],
-      "@shared": [
-        "src/shared"
-      ],
-      "@main": [
-        "src/main",
-      ],
-      "@main/*": [
-        "src/main/*",
-      ],
-      "@renderer": [
-        "src/renderer"
-      ],
+      "*": ["src/*"],
+      "@shared/*": ["src/shared/*"],
+      "@shared": ["src/shared"],
+      "@main": ["src/main"],
+      "@main/*": ["src/main/*"],
+      "@renderer": ["src/renderer"]
     },
-    "typeRoots": [
-      "node_modules/@types"
-    ]
+    "typeRoots": ["node_modules/@types"]
   },
   "include": [
     "./src/**/*",
@@ -47,9 +30,5 @@
     "./src/main/main.d.ts",
     "./src/renderer/launcher/constants.d.ts"
   ],
-  "exclude": [
-    "dist",
-    "./src/engine",
-    "engine"
-  ]
+  "exclude": ["dist", "./src/engine", "engine"]
 }

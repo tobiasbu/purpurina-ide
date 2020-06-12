@@ -1,14 +1,14 @@
-import CanvasRenderer from "../../engine/renderer/CanvasRenderer";
-import CanvasPool from "../../engine/renderer/canvas/CanvasPool";
-import { ContextID } from "../../engine/renderer/RendererProperties";
-import SceneView from "../../src/renderer/editor/internal/sceneView/SceneView";
-import Renderer from "../../engine/renderer/Renderer";
-
+import CanvasRenderer from '../../engine/renderer/CanvasRenderer';
+import CanvasPool from '../../engine/renderer/canvas/CanvasPool';
+import { ContextID } from '../../engine/renderer/RendererProperties';
+import SceneView from '../../src/renderer/editor/internal/sceneView/SceneView';
+import Renderer from '../../engine/renderer/Renderer';
 
 module SystemFactory {
-
-  export function createRenderer(contextID: ContextID, doubleBuffer: boolean): Renderer | CanvasRenderer {
-
+  export function createRenderer(
+    contextID: ContextID,
+    doubleBuffer: boolean
+  ): Renderer | CanvasRenderer {
     let domCanvas = CanvasPool.create();
     let canvasBuffer;
     let renderer: Renderer;
@@ -22,7 +22,6 @@ module SystemFactory {
     }
 
     return renderer;
-
   }
 
   export function createSceneViewEditor(): SceneView {
@@ -32,11 +31,6 @@ module SystemFactory {
 
     return editor;
   }
-
-
-
 }
-
-
 
 export default SystemFactory;

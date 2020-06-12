@@ -1,5 +1,1 @@
-
-
-export interface IColor {
-
-}
+export interface IColor {}

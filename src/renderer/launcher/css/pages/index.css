@@ -1,4 +1,4 @@
-@import "./project-page.css";
+@import './project-page.css';
 
 .content-page {
   padding: var(--p-spacing-l) var(--p-spacing-l);
@@ -25,7 +25,6 @@
   font-weight: 600;
   width: 100%;
 }
-
 
 .page-bottom-bar {
   min-height: 56px;

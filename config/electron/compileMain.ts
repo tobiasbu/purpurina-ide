@@ -6,18 +6,20 @@ import type { Logger } from '../devLogger';
 import type { CommonEnv } from '../types';
 import type { HmrServer } from './hmr/types';
 
-export default async function compileMain(env: CommonEnv, hmrServer: HmrServer, logger: Logger) {
-
+export default async function compileMain(
+  env: CommonEnv,
+  hmrServer: HmrServer,
+  logger: Logger
+) {
   await new Promise((resolve, reject) => {
     const mainCompiler = webpack(mainWebpackConfig(env));
 
-    mainCompiler.hooks.compile.tap("electron-webpack-dev-runner", () => {
+    mainCompiler.hooks.compile.tap('electron-webpack-dev-runner', () => {
       hmrServer.onBeforeCompile();
       logger.log('Compiling main...');
-    })
+    });
 
     let watcher = mainCompiler.watch({}, (error, stats) => {
-
       if (error && reject !== null) {
         reject(error);
         reject = null;
@@ -26,7 +28,7 @@ export default async function compileMain(env: CommonEnv, hmrServer: HmrServer, 
 
       const info = stats.toJson();
       if (stats.hasErrors()) {
-        logger.error("Main error:\n", info.errors.join("\n\n"));
+        logger.error('Main error:\n', info.errors.join('\n\n'));
         if (reject !== null) {
           reject();
           return;
@@ -34,7 +36,7 @@ export default async function compileMain(env: CommonEnv, hmrServer: HmrServer, 
       }
 
       if (stats.hasWarnings()) {
-        logger.warn("Main warnings:\n:", info.warnings.join("\n\n"));
+        logger.warn('Main warnings:\n:', info.warnings.join('\n\n'));
       }
       if (resolve !== null) {
         logger.log(`Main has been built successfully!`);
@@ -46,14 +48,14 @@ export default async function compileMain(env: CommonEnv, hmrServer: HmrServer, 
       hmrServer.onCompiled(stats);
     });
 
-    require("async-exit-hook")((callback?: () => void) => {
-        const w = watcher
-        if (w == null) {
-          return
-        }
+    require('async-exit-hook')((callback?: () => void) => {
+      const w = watcher;
+      if (w == null) {
+        return;
+      }
 
-        watcher = null
-        w.close(() => callback && callback())
+      watcher = null;
+      w.close(() => callback && callback());
     });
   });
 }

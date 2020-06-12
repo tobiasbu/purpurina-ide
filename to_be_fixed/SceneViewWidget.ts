@@ -1,32 +1,26 @@
 //import * as React from "react";
-import WidgetBase from "../src/renderer/editor/ui/widgets/WidgetBase";
-import { WidgetResizeEvent } from "../src/renderer/editor/types/WidgetInterfaces";
-import SceneView from "../src/renderer/editor/internal/sceneView/SceneView";
-
-
+import WidgetBase from '../src/renderer/editor/ui/widgets/WidgetBase';
+import { WidgetResizeEvent } from '../src/renderer/editor/types/WidgetInterfaces';
+import SceneView from '../src/renderer/editor/internal/sceneView/SceneView';
 
 // const style: React.CSSProperties = {
 //     backgroundColor: '#171717',
 //     border: '1px solid black'
 // }
 
-
 export default class SceneViewWidget extends WidgetBase {
-
   private _editor: SceneView;
 
   constructor(sceneView: SceneView) {
-    super("Game View");
+    super('Game View');
 
-    this.title.caption = "Game View";
-    this.title.label = "Game View";
+    this.title.caption = 'Game View';
+    this.title.label = 'Game View';
     this._editor = sceneView; //
     //this._renderer = this._editor.renderer as CanvasRenderer;
     //this._renderer = SystemFactory.createRenderer('2d', true) as CanvasRenderer;
 
     // this._canvas.style.backgroundColor = style.backgroundColor;
-
-
 
     this.appendChild(this._editor.renderer.canvas);
     //this.props.parent.node.appendChild(this._canvas);
@@ -46,30 +40,21 @@ export default class SceneViewWidget extends WidgetBase {
 
   onAfterAttach() {
     this._editor.init();
-
-
-
-
   }
 
   repaint() {
     // const context = this._renderer.context;
     // const width = this._renderer.canvas.width;
     // const height = this._renderer.canvas.height;
-
     // context.clearRect(0, 0, width, height);
-
     // context.fillStyle = '#000';
     // context.fillRect(0, 0, width, height);
-
     // const x = 100;
     // const y = 100;
     // const lw = 80; // 73
     // const th = 16; // 12
     // const tw = 24; // 17
-
     // // render.drawCalls = 0;
-
     // context.beginPath();
     // context.moveTo(x, y);
     // context.lineTo(x + lw, y);
@@ -77,7 +62,6 @@ export default class SceneViewWidget extends WidgetBase {
     // context.lineWidth = 1;
     // context.strokeStyle = 'white';
     // context.stroke();
-
     // context.beginPath();
     // context.moveTo(x + lw, y - th / 2);
     // context.lineTo(x + lw, y + th / 2);
@@ -86,7 +70,6 @@ export default class SceneViewWidget extends WidgetBase {
     // context.strokeStyle = 'none';
     // context.fillStyle = 'white';
     // context.fill();
-
     // this._renderer.repaint();
   }
 
@@ -98,13 +81,10 @@ export default class SceneViewWidget extends WidgetBase {
     //this.repaint();
   }
 
-
-
   // render() {
   //     const w = this.state.width.toString(10) + 'px';
   //     const h = this.state.height.toString(10) + 'px';
   //     const id = this._canvas.id;
   //     return(<canvas className='gameView' id={id} width={w} height={h}/>)
   // }
-
 }

@@ -6,9 +6,11 @@ interface MaestroService<S, A> {
   state(): Readonly<S>;
 }
 
-export default function createComponent<S, A>(store: Store<S>, actionsGroup: ActionGroup<A>) {
-  return (function () {
-
+export default function createComponent<S, A>(
+  store: Store<S>,
+  actionsGroup: ActionGroup<A>
+) {
+  return function () {
     const getState = store.getState;
 
     class MaestroComponent<State = {}> extends hyper.Component<State> {
@@ -32,6 +34,5 @@ export default function createComponent<S, A>(store: Store<S>, actionsGroup: Act
 
       render?(): WiredTemplateFunction;
     }
-
-  });
+  };
 }

@@ -1,34 +1,34 @@
 /* eslint-disable import/first */
 (window as any).global = window;
 
-function evaluate(): void {
-  throw new Error('Sorry, this app does not support window.eval().');
-}
-
-window.eval = evaluate;
-// eslint-disable-next-line
-global.eval = evaluate;
-
-let installed = false;
-if (DEVELOPMENT && !installed) {
-  // eslint-disable-next-line
-  console.log('Installing debug-menu');
-  import('debug-menu').then((dm) => {
-    dm.install();
-  });
-  // debugMenu.install(); // activate context menu
-  import('source-map-support').then((sourceMapSupport) => {
-    sourceMapSupport.install();
-  });
-  installed = true;
-}
-
 import { ipcRenderer } from 'electron';
 import hyper from 'hyperhtml';
 import { ProjectInfo } from '@shared/types';
 
 import './css/style.css';
 import App from './App';
+
+function evaluate(): void {
+  throw new Error('Sorry, this app does not support window.eval().');
+}
+
+/* eslint-disable-next-line no-eval */
+window.eval = evaluate;
+global.eval = evaluate;
+
+let installed = false;
+if (DEVELOPMENT && !installed) {
+  // eslint-disable-next-line
+  console.log('Installing debug-menu');
+  // import('debug-menu').then((dm) => {
+  //   dm.install();
+  // });
+  // debugMenu.install(); // activate context menu
+  import('source-map-support').then((sourceMapSupport) => {
+    sourceMapSupport.install();
+  });
+  installed = true;
+}
 
 document.addEventListener('dragstart', (event) => event.preventDefault());
 document.addEventListener('dragover', (event) => event.preventDefault());
@@ -45,11 +45,14 @@ hyper.bind(root)`${wrapRender}`;
 
 try {
   ipcRenderer.send('launcher_loaded');
-  ipcRenderer.once('projects-loaded', (event: Electron.Event, projectsList: ProjectInfo[]) => {
-    app.load(projectsList);
-    ipcRenderer.send('show_window');
-    wrapRender();
-  });
+  ipcRenderer.once(
+    'projects-loaded',
+    (event: Electron.Event, projectsList: ProjectInfo[]) => {
+      app.load(projectsList);
+      ipcRenderer.send('show_window');
+      wrapRender();
+    }
+  );
 
   if ((module as any).hot) {
     (module as any).hot.accept(() => {

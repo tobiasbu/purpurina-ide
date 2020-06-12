@@ -7,7 +7,4 @@ export function getUserInfo(): UserInfo {
   return remote.getGlobal('userInfo');
 }
 
-export {
-  PathValidation,
-  Dialogs,
-};
+export { PathValidation, Dialogs };

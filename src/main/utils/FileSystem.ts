@@ -14,7 +14,10 @@ export function isEmpty(dirname: string): boolean {
   return false;
 }
 
-export function mkdirpSync(dirname: string, options?: { mode?: number }): string {
+export function mkdirpSync(
+  dirname: string,
+  options?: { mode?: number }
+): string {
   let opt = options;
   if (!options || typeof options !== 'object') {
     opt = { mode: OCT_0777 };
@@ -23,7 +26,7 @@ export function mkdirpSync(dirname: string, options?: { mode?: number }): string
   if (mode === undefined) {
     // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
     // @ts-ignore
-    mode = OCT_0777 & (~process.umask());
+    mode = OCT_0777 & ~process.umask();
   }
   const splitedDir = dirname.split(path.sep);
   const baseDir = path.isAbsolute(dirname) ? path.sep : '.';
@@ -35,14 +38,16 @@ export function mkdirpSync(dirname: string, options?: { mode?: number }): string
       fs.mkdirSync(curDir, mode);
     } catch (err) {
       switch (err.code) {
-        case 'EEXIST': { // already exists!
+        case 'EEXIST': {
+          // already exists!
           return curDir;
         }
         case 'ENOENT': {
           throw new Error(err);
         }
         default: {
-          const caughtErr = ['EACCES', 'EPERM', 'EISDIR'].indexOf(err.code) > -1;
+          const caughtErr =
+            ['EACCES', 'EPERM', 'EISDIR'].indexOf(err.code) > -1;
           if (!caughtErr || (caughtErr && curDir === path.resolve(dirname))) {
             throw err;
           }

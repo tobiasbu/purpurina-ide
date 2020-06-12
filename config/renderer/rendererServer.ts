@@ -4,17 +4,22 @@ import webpack from 'webpack';
 import WebpackDevMiddleware from 'webpack-dev-middleware';
 import WebpackHotMiddleware from 'webpack-hot-middleware';
 
-import { WebpackDevMiddlewareMoreOptions, RendererServer, CommonEnv } from '../types';
+import {
+  WebpackDevMiddlewareMoreOptions,
+  RendererServer,
+  CommonEnv,
+} from '../types';
 import webpackStats from '../commons/webpackStats';
 
 import rendererWebpackConfig from './webpack.config.renderer';
 
 async function serve() {
-
   const devEnv = process.env as CommonEnv;
 
   const DIST_PATH = devEnv.PURPUR_DIST_PATH;
-  const PORT = (devEnv.ELECTRON_WEBPACK_WDS_PORT) ? parseInt(devEnv.ELECTRON_WEBPACK_WDS_PORT) : 3000;
+  const PORT = devEnv.ELECTRON_WEBPACK_WDS_PORT
+    ? parseInt(devEnv.ELECTRON_WEBPACK_WDS_PORT)
+    : 3000;
 
   const logger = {
     log: console.log,
@@ -23,7 +28,7 @@ async function serve() {
     warn: console.warn,
     verbose: console.error,
     debug: console.debug,
-  }
+  };
 
   const config = rendererWebpackConfig({
     NODE_ENV: devEnv.NODE_ENV,
@@ -61,10 +66,8 @@ async function serve() {
     // path: '/__webpack_hmr',
     log: logger.log,
     heartbeat: 10 * 1000,
-
   });
   const devMiddleware = WebpackDevMiddleware(compiler, devOptions);
-
 
   // Renderer Server configuration
   const expressApp = express();
@@ -74,14 +77,18 @@ async function serve() {
 
   // Renderer promise
   return new Promise<RendererServer>((resolve, reject) => {
-    const server = expressApp.listen(PORT, devEnv.ELECTRON_WEBPACK_WDS_HOST, (error) => {
-      if (error) {
-        reject(error);
-        return;
+    const server = expressApp.listen(
+      PORT,
+      devEnv.ELECTRON_WEBPACK_WDS_HOST,
+      (error) => {
+        if (error) {
+          reject(error);
+          return;
+        }
+        logger.info('Dev server listening on port ' + PORT + '.');
+        resolve({ server, devMiddleware });
       }
-      logger.info('Dev server listening on port ' + PORT + '.');
-      resolve({ server, devMiddleware });
-    })
+    );
   });
 }
 

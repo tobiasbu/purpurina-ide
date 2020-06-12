@@ -1,72 +1,73 @@
-import * as React from "react";
+import * as React from 'react';
 
 interface IFoldoutProps {
-    label?: string
+  label?: string;
 }
 
 interface IFoldoutState {
-    enable: boolean;
+  enable: boolean;
 }
 
+export default class Foldout extends React.Component<
+  IFoldoutProps,
+  IFoldoutState
+> {
+  private _content: HTMLElement;
+  private _contentHeight: number;
 
+  state = {
+    enable: true,
+  };
 
+  componentDidMount() {
+    let h = 0;
 
-export default class Foldout extends React.Component<IFoldoutProps, IFoldoutState> {
+    h = this._content.offsetHeight;
 
-    private _content: HTMLElement;
-    private _contentHeight: number;
+    if (this._content.clientHeight > 0) {
+      h = this._content.clientHeight;
+    }
+    this._contentHeight = h + 4;
 
-    state = {
-        enable: true
-    };
+    if (this.state.enable) {
+      this._content.style.height = this._contentHeight + 'px';
+    }
+  }
 
-    componentDidMount() {
-        let h = 0;
+  private onHeaderClick = () => {
+    let trigger = !this.state.enable;
 
-        h = this._content.offsetHeight
-
-        if (this._content.clientHeight > 0) {
-            h = this._content.clientHeight;
-        }
-        this._contentHeight = h + 4;
-
-        if (this.state.enable) {
-            this._content.style.height = this._contentHeight + 'px';
-        }
-        
+    if (trigger) {
+      this._content.style.height = this._contentHeight + 'px';
+    } else {
+      this._content.style.height = '0';
     }
 
-    private onHeaderClick = () => {
-        let trigger = !this.state.enable;
+    this.setState({ enable: trigger });
+  };
 
-        if (trigger) {
-            this._content.style.height = this._contentHeight + 'px';
-        } else {
-            this._content.style.height = '0';
-        }
+  render() {
+    /*9658	25BA	 9654 25B6*/
+    const { label } = this.props;
 
-        this.setState({ enable: trigger });
-    }
+    return (
+      <div className={'foldout' + (this.state.enable ? ' enable' : '')}>
+        <div className="foldout-header" onClick={this.onHeaderClick}>
+          <div className="foldout-arrow-container">
+            <span className="foldout-arrow" />
+          </div>
+          <label className="foldout-label">{label}</label>
+        </div>
 
-    render() {
-        /*9658	25BA	 9654 25B6*/
-        const { label } = this.props;
-
-        return (
-            <div className={'foldout' + ((this.state.enable) ? ' enable' : '')}>
-                <div className='foldout-header' onClick={this.onHeaderClick}>
-
-                    <div className='foldout-arrow-container'>
-                        <span className='foldout-arrow' />
-                    </div>
-                    <label className='foldout-label'>{label}</label>
-                </div>
-
-                <div className='foldout-content' ref={(child) => { this._content = child; }}>
-                    {this.props.children}
-                </div>
-            </div >
-        )
-    }
-
+        <div
+          className="foldout-content"
+          ref={(child) => {
+            this._content = child;
+          }}
+        >
+          {this.props.children}
+        </div>
+      </div>
+    );
+  }
 }

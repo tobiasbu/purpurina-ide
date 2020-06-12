@@ -9,7 +9,6 @@ const nativeScrollBarWidth = 17;
 
 /// TODO
 export default class ScrollContainer<T extends Component> extends Component {
-
   public readonly component: T;
   private offsetElement: HTMLElement;
   private maskElement: HTMLElement;
@@ -54,5 +53,4 @@ export default class ScrollContainer<T extends Component> extends Component {
         </div>
         `;
   }
-
 }

@@ -8,7 +8,6 @@ import {
 } from './types';
 import memoize from './lib/memoize';
 
-
 function isConstructor<T = any>(obj: any): obj is Constructor<T> {
   if (typeof obj === 'function') {
     try {
@@ -29,7 +28,9 @@ function isComponent(obj: any): obj is Constructor<IComponent> {
 }
 
 export default function listen<S, A>(
-  store: Store<S>, component: ComponentTypes, actions?: ActionGroup<A>,
+  store: Store<S>,
+  component: ComponentTypes,
+  actions?: ActionGroup<A>
 ): () => void {
   let parentNode: ParentNode;
   let currentEl: HTMLElement;

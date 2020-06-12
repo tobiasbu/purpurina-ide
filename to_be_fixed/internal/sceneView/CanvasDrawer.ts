@@ -1,7 +1,6 @@
 import CanvasRenderer from '../../../engine/renderer/CanvasRenderer';
 
 export default class CanvasDrawer {
-
   private _ctx: CanvasRenderingContext2D;
   private _outlineWidth = 0;
   private _fillStyle = 'white';
@@ -59,18 +58,22 @@ export default class CanvasDrawer {
   }
 
   rect(x: number, y: number, width: number, height: number, color?: string) {
-
     if (color !== undefined) {
       this.color = color;
     }
 
     this._ctx.strokeStyle = color;
     this._ctx.fillRect(x, y, width, height);
-
   }
 
-  outlineRect(x: number, y: number, width: number, height: number, outlineColor?: string, outlineWidth?: number) {
-
+  outlineRect(
+    x: number,
+    y: number,
+    width: number,
+    height: number,
+    outlineColor?: string,
+    outlineWidth?: number
+  ) {
     if (!outlineWidth) {
       outlineWidth = this._outlineWidth;
     }
@@ -85,5 +88,4 @@ export default class CanvasDrawer {
       this._ctx.strokeRect(x, y, width, height);
     }
   }
-
 }

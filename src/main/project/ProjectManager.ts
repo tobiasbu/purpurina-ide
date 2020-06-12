@@ -27,7 +27,8 @@ export default class ProjectManager {
       const manager = new ProjectManager(projectInfo);
       // Starting systems
       const watcher = new FileWatcher(projectInfo.path);
-      watcher.start(manager.metadata.path)
+      watcher
+        .start(manager.metadata.path)
         .then(() => {
           manager.watcher = watcher;
           manager.isReady = true;

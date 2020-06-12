@@ -4,7 +4,10 @@ import { ipcMain } from 'electron';
 // import createNewProject from '../project/createNewProject';
 // import ProjectManager from '../project/ProjectManager';
 
-type ElectronEventCallback = (event: Electron.IpcMainEvent, ...args: any[]) => void;
+type ElectronEventCallback = (
+  event: Electron.IpcMainEvent,
+  ...args: any[]
+) => void;
 
 /**
  * Listen to a Electron channel
@@ -12,7 +15,11 @@ type ElectronEventCallback = (event: Electron.IpcMainEvent, ...args: any[]) => v
  * @param callback Callback when the channel was emitted
  * @param once Should this listener execute once?
  */
-export function on(name: string, callback: ElectronEventCallback, once: boolean): void {
+export function on(
+  name: string,
+  callback: ElectronEventCallback,
+  once: boolean
+): void {
   if (once) {
     ipcMain.once(name, callback);
   } else {

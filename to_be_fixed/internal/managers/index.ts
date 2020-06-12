@@ -8,8 +8,4 @@ const Selection = new EditorSelectionManager(Events);
 
 Pointer.startListeners();
 
-export {
-    Events,
-    Pointer,
-    Selection,
-};
+export { Events, Pointer, Selection };

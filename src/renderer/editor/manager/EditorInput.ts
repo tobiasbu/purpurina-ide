@@ -27,12 +27,9 @@
 //         this._mode = Editing.None;
 //     }
 
-
 //     public get position(): IVector2 {
 //         return this._position;
 //     }
-
-
 
 //     init() {
 
@@ -57,7 +54,7 @@
 //                 this._manager.body.style.cursor = 'col-resize';
 
 //                 if (this._position.x < window.screen.availWidth) {
-                    
+
 //                 }
 
 //                 this._callbackChanger.call(this._callbackTarget, deltaPos.x)

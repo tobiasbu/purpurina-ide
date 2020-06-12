@@ -31,7 +31,7 @@ export default class CreateProjectPage extends hyper.Component {
     });
 
     this.locationInput = new TextInput('Location', {
-      innerElement: (): HTMLElement => (
+      innerElement: (): HTMLElement =>
         hyper.wire(this)`
           <div class='browse-icon-container'>
              <button
@@ -42,8 +42,7 @@ export default class CreateProjectPage extends hyper.Component {
             >
               ${{ html: browseIcon }}
             </button>
-        </div>`
-      ),
+        </div>`,
       onInput: this.onInput,
       attributes: 'webkitdirectory',
       initialValue: DEFAULT_LOCATION,
@@ -81,7 +80,7 @@ export default class CreateProjectPage extends hyper.Component {
 
   private onInput = (e: Event): void => {
     // const inputEvent = (e as any);
-    const inputElement = (e.srcElement as HTMLInputElement);
+    const inputElement = e.srcElement as HTMLInputElement;
     let error: string;
     const testValue = inputElement.value;
     switch (inputElement.id) {

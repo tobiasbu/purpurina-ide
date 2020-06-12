@@ -1,12 +1,9 @@
 import { ConsoleMessagePayload, ConsoleFunction } from './types';
 
 // tslint:disable-next-line: function-name
-function NOOP() {
-
-}
+function NOOP() {}
 
 export default class HijackLoggerMiddleware {
-
   original: {
     log: ConsoleFunction;
     error: ConsoleFunction;

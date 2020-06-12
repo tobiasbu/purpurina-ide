@@ -1,8 +1,9 @@
 {
-  "extends": ["airbnb-typescript/base", "plugin:@typescript-eslint/recommended"],
-  "plugins": [
-    "@typescript-eslint"
+  "extends": [
+    "airbnb-typescript/base",
+    "plugin:@typescript-eslint/recommended"
   ],
+  "plugins": ["@typescript-eslint"],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "ecmaFeatures": {
@@ -36,8 +37,8 @@
     "import/resolver": {
       "alias": {
         "map": [
-          ["@shared","./shared"],
-          ["@main","./src/main"]
+          ["@shared", "./shared"],
+          ["@main", "./src/main"]
         ]
       }
     }

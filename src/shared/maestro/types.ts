@@ -62,7 +62,10 @@ export interface Producer<S> {
    * set('details', { isSunny: true } );
    * // state = { ... details: { isSunny: true } ... }
    */
-  set<K extends string | number, V extends any>(prop: K, value: V): Readonly<S & StatePart<K, V>>;
+  set<K extends string | number, V extends any>(
+    prop: K,
+    value: V
+  ): Readonly<S & StatePart<K, V>>;
 
   /**
    * Replace the entire state by a new state.
@@ -92,7 +95,7 @@ export interface Producer<S> {
 export type Listener = () => void;
 
 export interface IListenerMap {
-  new(): IListenerMap;
+  new (): IListenerMap;
   [indexer: string]: Listener[] | Listener;
 }
 
@@ -138,11 +141,11 @@ export interface Store<S = {}> {
   // createSubState<SS, SA extends Action = Action>(
   //   name: string | number, reducer: Reducer<SS, SA>, initialState?: SS,
   // ): SubState<SS, SA> | false;
-
 }
 
 export type StatefulFunctionalComponent<S = {}> = (
-  state?: S, ...args: any[]
+  state?: S,
+  ...args: any[]
 ) => HTMLElement;
 
 export type FunctionalComponent = (...args: any[]) => HTMLElement;
@@ -153,7 +156,9 @@ export interface IComponent<S = {}> {
   render?(): HTMLElement | any;
 }
 
-export type Constructor<T> = { new(...props: any[]): T };
+export type Constructor<T> = { new (...props: any[]): T };
 
-export type ComponentTypes = Constructor<IComponent> |
-  StatefulFunctionalComponent | FunctionalComponent;
+export type ComponentTypes =
+  | Constructor<IComponent>
+  | StatefulFunctionalComponent
+  | FunctionalComponent;

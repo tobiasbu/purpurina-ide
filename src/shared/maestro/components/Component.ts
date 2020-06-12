@@ -12,9 +12,13 @@ class Component<S = {}> implements IComponent<S> {
     this.html = hyper.wire(this);
   }
   render?(): MaestroElement;
-  setState(state: Partial<S> | ((this: this, state: S) => Partial<S>), render?: boolean): this {
+  setState(
+    state: Partial<S> | ((this: this, state: S) => Partial<S>),
+    render?: boolean
+  ): this {
     const target = this.state;
-    const source = typeof state === 'function' ? state.call(this, target) : state;
+    const source =
+      typeof state === 'function' ? state.call(this, target) : state;
     for (const key in source) target[key] = source[key];
     if (render !== false) {
       this.render();
@@ -23,13 +27,10 @@ class Component<S = {}> implements IComponent<S> {
   }
 }
 
-Object.defineProperties(
-  Component.prototype,
-  {
-    // used to distinguish better than instanceof
-    ELEMENT_NODE: { value: 1 },
-    nodeType: { value: -1 },
-  },
-);
+Object.defineProperties(Component.prototype, {
+  // used to distinguish better than instanceof
+  ELEMENT_NODE: { value: 1 },
+  nodeType: { value: -1 },
+});
 
 export default Component;

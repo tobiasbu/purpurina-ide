@@ -4,16 +4,19 @@ import { Logger } from '../devLogger';
 import { CommonEnv } from '../types';
 import stripFNL from '../commons/stripFinalNewLine';
 
-export default function startRendererProcess(cwd: string, devEnv: CommonEnv, logger: Logger) {
+export default function startRendererProcess(
+  cwd: string,
+  devEnv: CommonEnv,
+  logger: Logger
+) {
   return new Promise<ChildProcess>((resolve, reject) => {
     let childProcess: ChildProcess = null;
     try {
-      childProcess = spawn('ts-node', ['config/renderer/rendererServer.ts'],
-        {
-          cwd,
-          shell: true,
-          env: devEnv
-        });
+      childProcess = spawn('ts-node', ['config/renderer/rendererServer.ts'], {
+        cwd,
+        shell: true,
+        env: devEnv,
+      });
     } catch (e) {
       reject(e);
       return;
@@ -30,7 +33,7 @@ export default function startRendererProcess(cwd: string, devEnv: CommonEnv, log
     childProcess.on('close', (code, signal) => {
       let msg = `Exited with code ${code}`;
       if (signal) {
-        msg = msg.concat(` and signal ${JSON.stringify(signal)}`)
+        msg = msg.concat(` and signal ${JSON.stringify(signal)}`);
       }
       msg = msg.concat('.');
 
@@ -50,18 +53,19 @@ export default function startRendererProcess(cwd: string, devEnv: CommonEnv, log
     });
 
     childProcess.stdout.on('data', (data: Buffer) => {
-      if (!data.includes('Asset written to')) { // filter this message from dev-middleware
+      if (!data.includes('Asset written to')) {
+        // filter this message from dev-middleware
         logger.log(stripFNL(data.toString()));
       }
-      const res = resolve
+      const res = resolve;
       if (res !== null) {
         if (data.includes('Compiled')) {
           resolve = null;
           res(childProcess);
         }
       }
-    })
+    });
 
     // resolve(childProcess);
-  })
+  });
 }

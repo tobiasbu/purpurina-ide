@@ -5,9 +5,7 @@ import { Stats } from 'webpack';
 import { Logger } from '../../devLogger';
 import { HmrServer, ConnectionStatus } from './types';
 
-
 export default function createHmrServer(logger: Logger): HmrServer {
-
   const ipc = new RootIPC.IPC();
 
   const appspace = 'electron';
@@ -34,7 +32,12 @@ export default function createHmrServer(logger: Logger): HmrServer {
         if (!compiled) {
           return;
         }
-        const hash = stats.toJson({ assets: false, chunks: false, children: false, modules: false }).hash;
+        const hash = stats.toJson({
+          assets: false,
+          chunks: false,
+          children: false,
+          modules: false,
+        }).hash;
         for (let i = 0; i < connectedSockets.length; i += 1) {
           ipc.server.emit(connectedSockets[i], 'compiled', hash);
         }
@@ -58,7 +61,7 @@ export default function createHmrServer(logger: Logger): HmrServer {
               logger.info(`[IPC] Socket connected`);
 
               if (connectedSockets.indexOf(socket) === -1) {
-                connectedSockets.push(socket)
+                connectedSockets.push(socket);
               }
             });
             ipc.server.on('error', (error: Error) => {
@@ -69,34 +72,35 @@ export default function createHmrServer(logger: Logger): HmrServer {
               if (index !== -1) {
                 connectedSockets.splice(index, 1);
               }
-              logger.info(`[IPC] Socket ${destroyedSocketID} has disconnected!`);
-            })
+              logger.info(
+                `[IPC] Socket ${destroyedSocketID} has disconnected!`
+              );
+            });
             connectionStatus = ConnectionStatus.Connected;
             resolve(this);
           });
           ipc.server.start();
           connectionStatus = ConnectionStatus.Connecting;
-
         } catch (e) {
           reject(e);
         }
       });
-    }
+    },
   };
 
-  Object.defineProperty(hmrServer, "socketPath", {
+  Object.defineProperty(hmrServer, 'socketPath', {
     value: path,
-    writable: false
+    writable: false,
   });
 
-  Object.defineProperty(hmrServer, "socketId", {
+  Object.defineProperty(hmrServer, 'socketId', {
     value: id,
-    writable: false
+    writable: false,
   });
 
-  Object.defineProperty(hmrServer, "ipc", {
+  Object.defineProperty(hmrServer, 'ipc', {
     value: ipc,
-    writable: false
+    writable: false,
   });
 
   return hmrServer as HmrServer;

@@ -1,7 +1,3 @@
-
-
-namespace purpur {
-    
-}
+namespace purpur {}
 
 export default purpur;

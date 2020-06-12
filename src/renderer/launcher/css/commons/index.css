@@ -1,4 +1,3 @@
-
 @import './button.css';
 @import './text-input.css';
 
@@ -20,4 +19,3 @@ input:focus {
 input:invalid {
   outline: #d00a1c solid 2px;
 }
-

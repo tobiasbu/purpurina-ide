@@ -63,7 +63,9 @@ export default class Navigation extends hyper.Component<MenuState> {
         class="${className}"
         onmousedown=${this.onMenuDown}
         onkeyup=${this.onKeyUp}
-        onclick=${(e: MouseEvent): void => { this.onMenuSelect(id, e); }}
+        onclick=${(e: MouseEvent): void => {
+          this.onMenuSelect(id, e);
+        }}
         aria-current=${ariaCurrent}
         href=""
         >

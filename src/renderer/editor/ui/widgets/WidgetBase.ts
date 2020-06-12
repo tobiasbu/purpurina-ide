@@ -5,9 +5,7 @@ import hyper from 'hyperhtml';
 import WidgetComponent, { ComponentConstructor } from './WidgetComponent';
 
 // U extends typeof WidgetComponent
-export default class WidgetBase<T extends WidgetComponent>
-  extends Widget {
-
+export default class WidgetBase<T extends WidgetComponent> extends Widget {
   private componentClass: ComponentConstructor<WidgetComponent>;
   private componentElement: T;
   private contentWidth: number;
@@ -35,7 +33,6 @@ export default class WidgetBase<T extends WidgetComponent>
     // this.wrapperElement = document.createElement('div');
     // this.wrapperElement.className = 'p-Widget-wrapper';
     // this.node.appendChild(this.wrapperElement);
-
   }
 
   protected onAfterAttach(msg: Message): void {
@@ -64,7 +61,7 @@ export default class WidgetBase<T extends WidgetComponent>
     this.componentElement = component as T;
     hyper(host)`
       <div class="p-Widget-wrapper">
-        ${(component) ? component : null}
+        ${component ? component : null}
       </div>
     `;
 
@@ -88,11 +85,9 @@ export default class WidgetBase<T extends WidgetComponent>
 
     // this._originalComponentWillUpdate = this._reactComponent.componentWillUpdate;
     // this._reactComponent.componentWillUpdate = this.onUpdate.bind(this);
-
   }
 
   protected onResize(msg: Widget.ResizeMessage) {
-
     // const computed = window.getComputedStyle(this._wrapperElement);
     // const paddingHorizontal = parseFloat(computed.paddingLeft.replace('px','')) +
     // parseFloat(computed.paddingRight.replace('px',''));
@@ -111,7 +106,6 @@ export default class WidgetBase<T extends WidgetComponent>
         height: Math.round(this.contentHeight),
       });
     }
-
   }
 
   protected onResizeEvent(resizeEvent: WidgetResizeEvent): void {
@@ -123,8 +117,5 @@ export default class WidgetBase<T extends WidgetComponent>
     }
   }
 
-  public send() {
-
-  }
-
+  public send() {}
 }

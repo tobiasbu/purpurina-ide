@@ -1,5 +1,5 @@
-import { makeLogger, capitalize } from ".";
-import chalk from "chalk";
+import { makeLogger, capitalize } from '.';
+import chalk from 'chalk';
 
 // const loggerCommon = {
 //   name: 'purpur',
@@ -43,8 +43,8 @@ export default function purpurLogger(opts: purpurOptions) {
       const joinedParams = args.join(' ');
       return {
         [desc.msg]: msg,
-        [desc.args]: chalk[`${textColor}Bright`](`${joinedParams}`)
-      }
+        [desc.args]: chalk[`${textColor}Bright`](`${joinedParams}`),
+      };
     }
     return `${msg}`;
   });

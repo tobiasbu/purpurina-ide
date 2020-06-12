@@ -10,22 +10,21 @@ import compileMain from './electron/compileMain';
 const getPort = require('get-port');
 
 async function main() {
-
   const logger = purpurLogger({
     name: 'purpurina',
     symbol: '\u26A1',
     errorSymbol: '\u2620',
-    color: 'magenta'
+    color: 'magenta',
   });
 
   logger.log('Starting development environment');
 
-  process.on("unhandledRejection", (e: Error) => {
+  process.on('unhandledRejection', (e: Error) => {
     logger.error(`Unhandled rejection `, e.stack || e);
     process.exit(1);
   });
 
-  process.on("uncaughtException", (e: Error) => {
+  process.on('uncaughtException', (e: Error) => {
     logger.error(`Uncaught exception `, e.stack || e);
     process.exit(1);
   });
@@ -43,42 +42,51 @@ async function main() {
     NODE_ENV: 'development',
     PURPUR_DIST_PATH: path.join(__dirname, '../dist'),
     PURPUR_PROJECT_PATH: path.join(__dirname, '../'),
-    ELECTRON_WEBPACK_WDS_PORT: (await getPort({ port: getPort.makeRange(3000, 3100), host: '127.0.0.1'})).toString(10),
+    ELECTRON_WEBPACK_WDS_PORT: (
+      await getPort({ port: getPort.makeRange(3000, 3100), host: '127.0.0.1' })
+    ).toString(10),
     ELECTRON_WEBPACK_WDS_HOST: 'localhost',
-  }
+  };
 
   const hmrServer = createHmrServer(logger);
 
   const results = await Promise.all([
     hmrServer.listen(),
-    startRendererProcess(process.cwd(),
+    startRendererProcess(
+      process.cwd(),
       devEnv,
       purpurLogger({
         name: 'renderer',
         color: 'green',
         symbol: '\u2606',
         errorSymbol: '\u2623',
-      })),
-    compileMain(devEnv,
+      })
+    ),
+    compileMain(
+      devEnv,
       hmrServer,
       purpurLogger({
-      name: 'main',
-      color: 'yellow',
-      symbol: '\u2606',
-      errorSymbol: '\u2623',
-    })),
+        name: 'main',
+        color: 'yellow',
+        symbol: '\u2606',
+        errorSymbol: '\u2623',
+      })
+    ),
   ]);
 
-  startElectronProcess(purpurLogger({
-    name: 'electron',
-    color: 'blue',
-    symbol: '\u2606',
-    errorSymbol: '\u2623',
-  }), {
-    ...devEnv,
+  startElectronProcess(
+    purpurLogger({
+      name: 'electron',
+      color: 'blue',
+      symbol: '\u2606',
+      errorSymbol: '\u2623',
+    }),
+    {
+      ...devEnv,
       ELECTRON_HMR_SOCKET_PATH: hmrServer.socketPath,
-      ELECTRON_HMR_SOCKET_ID: hmrServer.socketId
-  });
+      ELECTRON_HMR_SOCKET_ID: hmrServer.socketId,
+    }
+  );
 
   //   child.on('error', (e) =>{
   //     console.error(e);
@@ -98,8 +106,6 @@ async function main() {
   //   console.error(err);
   // });
 
-
-
   // function exitChildHandler(code: number, signal) {
   //   if (!rendererProcess || rendererProcess === null) {
   //     return;
@@ -115,8 +121,6 @@ async function main() {
   // rendererProcess.on('close', exitChildHandler);
   // rendererProcess.on('exit', exitChildHandler);
   // rendererProcess.send({ type: 'shutdown' })
-
-
 
   // function exitHandler(options, exitCode) {
   //   if (rendererProcess !== null) {
@@ -142,7 +146,6 @@ async function main() {
   //catches uncaught exceptions
   // process.on('uncaughtException', exitHandler.bind(null, { exit: true }));
 
-
   // Create webpack config for electron main and renderer
   // const PORT = 3000;
   // const config = webpackConfigFn({
@@ -162,7 +165,6 @@ async function main() {
   //     }
   //   });
   // });
-
 
   // logger.info('Compiling renderer...');
   // logger.log(`Middleware public path: ${config.renderer.output.publicPath}`)
@@ -217,7 +219,6 @@ async function main() {
   //   }
   //   logger.log(`Main has been built successfully!`);
   // }
-
 
   // // eslint-disable-next-line
   // const electron = require("electron");
@@ -275,10 +276,8 @@ async function main() {
   //   return electron.default;
   // }).then((electron) => {
 
-
   // });
   // })
-
 }
 
 main();
@@ -290,7 +289,6 @@ main();
 // })
 //   .on('close', code => process.exit(code))
 //   .on('error', spawnError => console.error(spawnError));
-
 
 // process.on('SIGTERM', () => {
 //   console.log('Stopping dev server');

@@ -19,7 +19,6 @@ import { parseMessage } from './parseMessage';
 // }
 
 export default class ConsoleMessageComponent extends hyper.Component {
-
   private payload: ConsoleMessagePayload;
 
   constructor(payload: ConsoleMessagePayload) {
@@ -29,37 +28,31 @@ export default class ConsoleMessageComponent extends hyper.Component {
   }
 
   private onSelect = () => {
-  //     private onSelectLog = (e: MouseEvent) => {
-  //   LoggerMiddleware.original.log(e);
-  //   // (e.target as HTMLElement).style.background = '#fff';
-  // }
-
-  // private renderLogItem(msgPayload: ConsoleMessagePayload, index: number) {
-
-  //   // const logType = (msgPayload.type === MessageLogType.Info) ?
-  //   //   'LOG' : (msgPayload.type === MessageLogType.Warn) ? 'WARN' : 'ERROR';
-
-  //   LoggerMiddleware.original.log(msgPayload);
-
-  //   // const output = msgPayload.message;
-  //   // const type = typeof (output);
-  //   // if (type === 'string') {
-  //   //   // output = (output as string).replace(/(?:\r\n|\r|\n)/g, '<br>');
-  //   // }
-
-  //   return hyper.wire(this, `:console-item-${index}`)`
-  //           <li onclick=${this.onSelectLog}>
-  //               <div class="console-icon">
-  //                 <i class="icon">&#x24D8;</i>
-  //               </div>
-  //             <div class="console-message">
-  //               <span class="str">${parseMessage(msgPayload)} | ${msgPayload.st}</span>
-  //             </div>
-  //           </li>
-  //       `;
-
-  // }
-  }
+    //     private onSelectLog = (e: MouseEvent) => {
+    //   LoggerMiddleware.original.log(e);
+    //   // (e.target as HTMLElement).style.background = '#fff';
+    // }
+    // private renderLogItem(msgPayload: ConsoleMessagePayload, index: number) {
+    //   // const logType = (msgPayload.type === MessageLogType.Info) ?
+    //   //   'LOG' : (msgPayload.type === MessageLogType.Warn) ? 'WARN' : 'ERROR';
+    //   LoggerMiddleware.original.log(msgPayload);
+    //   // const output = msgPayload.message;
+    //   // const type = typeof (output);
+    //   // if (type === 'string') {
+    //   //   // output = (output as string).replace(/(?:\r\n|\r|\n)/g, '<br>');
+    //   // }
+    //   return hyper.wire(this, `:console-item-${index}`)`
+    //           <li onclick=${this.onSelectLog}>
+    //               <div class="console-icon">
+    //                 <i class="icon">&#x24D8;</i>
+    //               </div>
+    //             <div class="console-message">
+    //               <span class="str">${parseMessage(msgPayload)} | ${msgPayload.st}</span>
+    //             </div>
+    //           </li>
+    //       `;
+    // }
+  };
 
   public render() {
     // `:console-item-${index}`
@@ -73,6 +66,5 @@ export default class ConsoleMessageComponent extends hyper.Component {
       </div>
     </li>
   `;
-
   }
 }

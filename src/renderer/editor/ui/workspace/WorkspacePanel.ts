@@ -34,7 +34,6 @@ import WidgetFactory from '../widgets/WidgetFactory';
 // }
 
 export default class WorkspacePanel {
-
   elem: HTMLElement;
   dock: DockPanel;
   width: number;
@@ -47,7 +46,6 @@ export default class WorkspacePanel {
   }
 
   constructor() {
-
     this.dock = new DockPanel();
 
     // this._node = document.createElement('div');
@@ -93,32 +91,24 @@ export default class WorkspacePanel {
   }
 
   componentWillMount() {
-
     // let widgetInfos = [];
     // let widget = new SceneViewWidget();
     // this.dock.addWidget(widget);
     // let widget2 = new ReactWidgetBase('Entities', EntityList);
     // this.dock.addWidget(widget2, {mode:'split-right'});
     // let inspector = new ReactWidgetBase('Inspector', Inspector);
-
     // inspector.reactComponent.
-
     // for (let index = 0; index < 5; index++) {
     //     //const element = createContent('Yellow');
     //     //let node = document.createElement("div");
-
     // let widget = new ReactWidgetBase('Game View', GameView);
     // new WrapperWidget("Widget Name", node);
-
     //     //children.push(widget);
     //     this.dock.addWidget(widget, {mode:'split-bottom'});
     //     //widgetInfos.push({ node, component: <GameView/> });
     // }
-
     // this.setState({ ...this.state, widgetInfos });
-
     // let parent = this.dock.handleEvent.bind(this.dock);
-
     // const wrapper = (event: any) => {
     //     if (event.type === 'p-dragover') {
     //         event.dropAction = event.proposedAction;
@@ -128,21 +118,25 @@ export default class WorkspacePanel {
     //         parent(event);
     //     }
     // }
-
     // this.dock.handleEvent = wrapper.bind(this.dock);
-
   }
 
   resize() {
     let w: number;
     let h: number;
 
-    if (document.documentElement &&
-      (document.documentElement.clientWidth || document.documentElement.clientHeight)) {
+    if (
+      document.documentElement &&
+      (document.documentElement.clientWidth ||
+        document.documentElement.clientHeight)
+    ) {
       w = document.documentElement.clientWidth;
       h = document.documentElement.clientHeight;
     } else {
-      if (document.body && (document.body.clientWidth || document.body.clientHeight)) {
+      if (
+        document.body &&
+        (document.body.clientWidth || document.body.clientHeight)
+      ) {
         w = document.body.clientWidth;
         h = document.body.clientHeight;
       }
@@ -159,7 +153,6 @@ export default class WorkspacePanel {
       this.node.style.height = strH;
       this.node.style.minWidth = strW;
       this.node.style.minHeight = strH;
-
     }
   }
 }

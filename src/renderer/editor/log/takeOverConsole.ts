@@ -1,4 +1,8 @@
-import { ConsoleMethodNames, MessageLogType, ConsoleMessagePayload } from './types';
+import {
+  ConsoleMethodNames,
+  MessageLogType,
+  ConsoleMessagePayload,
+} from './types';
 import HijackLoggerMiddleware from './HijackLoggerMiddleware';
 import { backtrace } from './stacktrace/backtrace';
 
@@ -12,8 +16,11 @@ export default function takeOverConsole(middleware: HijackLoggerMiddleware) {
   }
   function intercept(method: ConsoleMethodNames, messageType: MessageLogType) {
     const original = console[method];
-    const composeConsoleFunc = function (type: MessageLogType, message: any, ...args: any[]) {
-
+    const composeConsoleFunc = function (
+      type: MessageLogType,
+      message: any,
+      ...args: any[]
+    ) {
       const st = backtrace();
       // original(st);
 
@@ -48,9 +55,16 @@ export default function takeOverConsole(middleware: HijackLoggerMiddleware) {
 
     middleware.original[method] = original;
     console[method] = composeConsoleFunc.bind(window, messageType);
-
   }
-  const methods: ConsoleMethodNames[] = ['log', 'debug', 'info', 'warn', 'error', 'group', 'groupEnd'];
+  const methods: ConsoleMethodNames[] = [
+    'log',
+    'debug',
+    'info',
+    'warn',
+    'error',
+    'group',
+    'groupEnd',
+  ];
   let type: MessageLogType;
   for (let i = 0; i < methods.length; i += 1) {
     const method = methods[i];

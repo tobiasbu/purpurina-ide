@@ -15,7 +15,6 @@
   line-height: 0;
 }
 
-
 .btn-icon {
   position: relative;
   /* background-image: url(../img/browse_icon.png); */
@@ -30,7 +29,6 @@
   /* padding: 0 11px; */
   height: 100%;
   vertical-align: middle;
-
 }
 
 .btn-icon > svg {
@@ -40,7 +38,8 @@
   transition: 40ms cubic-bezier(0.39, 0.575, 0.565, 1) fill;
 }
 
-.btn-icon:hover > svg, .btn-icon:focus > svg  {
+.btn-icon:hover > svg,
+.btn-icon:focus > svg {
   fill: var(--p-color-text);
 }
 

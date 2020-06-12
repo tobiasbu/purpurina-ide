@@ -3,20 +3,18 @@
 @import './tabbar.css';
 @import './splitpanel.css';
 
-
 #dock-panel {
-    position: relative;
+  position: relative;
 }
 
 #main {
-    position: absolute;
-    top: 1px;
-    left: 1px;
-    right: 1px;
-    bottom: 1px;
+  position: absolute;
+  top: 1px;
+  left: 1px;
+  right: 1px;
+  bottom: 1px;
 }
 
 body.p-mod-override-cursor * {
-    cursor: inherit !important;
+  cursor: inherit !important;
 }
-

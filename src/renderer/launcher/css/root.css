@@ -13,7 +13,7 @@
   --p-color-focus: #d6d6d6;
 
   --p-color-highlight: #107bd7;
-  --p-color-highlight-out:#004580;
+  --p-color-highlight-out: #004580;
 
   --mid: #262626;
   --midLight: #202020;
@@ -40,7 +40,8 @@
   color: var(--p-color-text);
 }
 
-body, html {
+body,
+html {
   height: 100%;
 }
 
@@ -82,7 +83,8 @@ h2 {
   line-height: 1;
 }
 
-button, button:focus {
+button,
+button:focus {
   outline: none;
 }
 
@@ -105,11 +107,10 @@ button, button:focus {
   background: transparent;
 }
 
-
-
 /* Handle */
 
-::-webkit-scrollbar-thumb, ::-webkit-scrollbar-thumb:hover {
+::-webkit-scrollbar-thumb,
+::-webkit-scrollbar-thumb:hover {
   background-color: #363535;
   width: 10px;
   background-clip: padding-box;
@@ -133,4 +134,3 @@ button, button:focus {
   -webkit-border-radius: 8px;
   border-radius: 8px;
 }
-

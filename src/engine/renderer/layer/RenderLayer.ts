@@ -67,30 +67,27 @@
 
 // }
 
-
-
 // /*
 //       this.__renderers.sort(
 
 //           function(a, b) {
-      
+
 //             if (a.depth > b.depth) {
-      
+
 //               return 1;
-      
+
 //             } else if (a.depth < b.depth) {
-      
+
 //               return -1;
-      
+
 //             } else {
-      
+
 //               if (a.z > b.z) {
 //                 return 1;
 //               } else {
 //                 return -1;
 //               }
-      
-      
+
 //             }
 //           });
 // */

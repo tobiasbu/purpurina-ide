@@ -1,5 +1,3 @@
-
-
 // <div id='splash'>
 // <div class='vertical-flex-center'>
 //     <div style='margin: auto;'>

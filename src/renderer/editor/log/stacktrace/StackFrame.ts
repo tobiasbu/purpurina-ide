@@ -1,4 +1,3 @@
-
 export interface StackFrameProps {
   functionName?: string;
   args?: any[];
@@ -14,5 +13,4 @@ export default class StackFrame {
       this.args = props.args;
     }
   }
-
 }

@@ -1,191 +1,187 @@
 import InputSystem, { MouseEventHandler } from '../InputSystem';
 import Vector2 from '../../math/Vector2';
 import List from '../../structures/List';
-import KeyButtonControl, { KeyButtonStatus } from '../keyButton/KeyButtonControl';
+import KeyButtonControl, {
+  KeyButtonStatus,
+} from '../keyButton/KeyButtonControl';
 import MouseConfig from './MouseConfig';
 import ObjectGet from '../../utils/object/ObjectGet';
 import IMouseSystem, { MouseButton } from './IMouseSystem';
 import startMouseListener from './components/startMouseListeners';
 import SharedInputData from '../SharedInputData';
-import { processMouseMove, processMouseButtonDown, processMouseButtonUp, processMouseWheel } from './components/processMouseEvents';
-
+import {
+  processMouseMove,
+  processMouseButtonDown,
+  processMouseButtonUp,
+  processMouseWheel,
+} from './components/processMouseEvents';
 
 const LogicalMouseButton = {
-    Left: 1,
-    Middle: 4,
-    Right: 2,
-    Back: 8,
-    Forward: 16
+  Left: 1,
+  Middle: 4,
+  Right: 2,
+  Back: 8,
+  Forward: 16,
 };
 
-
-
 export default class MouseSystem extends InputSystem implements IMouseSystem {
-    
+  down(code: number): boolean {
+    throw new Error('Method not implemented.');
+  }
+  reset() {
+    throw new Error('Method not implemented.');
+  }
+  protected onEnable() {
+    throw new Error('Method not implemented.');
+  }
+  protected onDisable() {
+    throw new Error('Method not implemented.');
+  }
 
-    down(code: number): boolean {
-        throw new Error("Method not implemented.");
+  private _clientPosition: Vector2;
+  private _normalizedPosition: IVector2;
+  private _sharedInputData: SharedInputData;
+
+  private _buttonList: List<KeyButtonControl>;
+  protected eventHandler: MouseEventHandler;
+  wheelEventName: string;
+  wheelDelta: number;
+  eventQueue: List<MouseEvent | WheelEvent>;
+
+  moved: boolean;
+  isDown: boolean;
+  position: Vector2;
+  buttons: number;
+  lastEvent: Event;
+  isDirty: boolean;
+
+  constructor() {
+    super('MouseSystem');
+
+    this._buttonList = new List();
+    this.isDirty = false;
+
+    this.lastEvent = null;
+    this.buttons = -1;
+    this.moved = false;
+
+    this.isDown = false;
+
+    this._clientPosition = new Vector2(-Infinity, -Infinity);
+    this.position = new Vector2(-Infinity, -Infinity);
+  }
+
+  get x() {
+    return this.position.x;
+  }
+
+  get y() {
+    return this.position.y;
+  }
+
+  public get clientPosition(): Vector2 {
+    return this._clientPosition;
+  }
+
+  public get normalizedPosition(): IVector2 {
+    return this._normalizedPosition;
+  }
+
+  init(config: MouseConfig, sharedInputData: SharedInputData) {
+    if (this._initialized) {
+      return;
     }
-    reset() {
-        throw new Error("Method not implemented.");
-    }
-    protected onEnable() {
-        throw new Error("Method not implemented.");
-    }
-    protected onDisable() {
-        throw new Error("Method not implemented.");
+
+    for (const prop in LogicalMouseButton) {
+      if (LogicalMouseButton.hasOwnProperty(prop)) {
+        const value = LogicalMouseButton[prop];
+        this._buttonList.push(new KeyButtonControl(value));
+      }
     }
 
+    this._sharedInputData = sharedInputData;
 
+    let target = ObjectGet.typedValue<MouseConfig, HTMLElement>(
+      config,
+      'target',
+      null
+    );
+    let enable = ObjectGet.typedValue(config, 'enable', true);
 
-    private _clientPosition: Vector2;
-    private _normalizedPosition: IVector2;
-    private _sharedInputData: SharedInputData;
+    if (!target) {
+      target = sharedInputData.canvas;
+    }
+    this._enabled = enable;
+    this.eventTarget = target;
 
-    private _buttonList: List<KeyButtonControl>;
-    protected eventHandler: MouseEventHandler;
-    wheelEventName: string;
-    wheelDelta: number;
-    eventQueue: List<MouseEvent | WheelEvent>;
+    this.eventHandler = startMouseListener.call(this, target);
+    this._initialized = true;
+  }
 
-    moved: boolean;
-    isDown: boolean;
-    position: Vector2;
-    buttons: number;
-    lastEvent: Event;
-    isDirty: boolean;
-
-    constructor() {
-        super('MouseSystem');
-
-        this._buttonList = new List();
-        this.isDirty = false;
-
-        this.lastEvent = null;
-        this.buttons = -1;
-        this.moved = false;
-
-        this.isDown = false;
-
-
-        this._clientPosition = new Vector2(-Infinity, -Infinity);
-        this.position = new Vector2(-Infinity, -Infinity);
-
+  update() {
+    if (!this._enabled) {
+      return;
     }
 
-    get x() {
-        return this.position.x;
-    }
+    let eventSize = this.eventQueue.size;
+    this.wheelDelta = 0;
 
-    get y() {
-        return this.position.y;
-    }
+    if (eventSize === 0) return;
 
-    public get clientPosition(): Vector2 {
-        return this._clientPosition;
-    }
+    // clear and copy queue
+    let queue = this.eventQueue.splice(0, eventSize);
 
-    public get normalizedPosition(): IVector2 {
-        return this._normalizedPosition;
-    }
+    for (let i = 0; i < eventSize; i++) {
+      let event = queue[i];
+      let button;
+      let buttonCode = event.button;
 
-    init(config: MouseConfig, sharedInputData: SharedInputData) {
-        if (this._initialized) {
-            return;
+      if (buttonCode !== undefined) button = this._buttonList.get(buttonCode);
+
+      switch (event.type) {
+        case 'mousemove': {
+          processMouseMove(event, this, this._sharedInputData);
+          break;
         }
-
-        for (const prop in LogicalMouseButton) {
-
-            if (LogicalMouseButton.hasOwnProperty(prop)) {
-                const value = LogicalMouseButton[prop];
-                this._buttonList.push(new KeyButtonControl(value));
+        case 'mousedown': {
+          if (button.press === false) {
+            if (button.status === KeyButtonStatus.NONE) {
+              this.watcher.insert(buttonCode, button);
             }
+
+            processMouseButtonDown(event, button, this, this._sharedInputData);
+          }
+          break;
         }
-
-        this._sharedInputData = sharedInputData;
-
-        let target = ObjectGet.typedValue<MouseConfig, HTMLElement>(config, 'target', null);
-        let enable = ObjectGet.typedValue(config, 'enable', true);
-
-        if (!target) {
-            target = sharedInputData.canvas;
+        case 'mouseup': {
+          processMouseButtonUp(event, button, this, this._sharedInputData);
+          break;
         }
-        this._enabled = enable;
-        this.eventTarget = target;
+        case 'wheel':
+        case 'mousewheel': {
+          processMouseWheel(event as WheelEvent, this);
+          break;
+        }
+      }
+    }
+  }
 
-        this.eventHandler = startMouseListener.call(this, target);
-        this._initialized = true;
+  stop() {
+    if (!this._initialized) {
+      return;
     }
 
-    update() {
-        if (!this._enabled) {
-            return;
-        }
+    let target = this.eventTarget;
 
-        let eventSize = this.eventQueue.size;
-        this.wheelDelta = 0;
+    target.removeEventListener('mousemove', this.eventHandler);
+    target.removeEventListener('mousedown', this.eventHandler);
+    target.removeEventListener('mouseup', this.eventHandler);
+    target.removeEventListener('mouseenter', this.eventHandler);
+    target.removeEventListener('mouseleave', this.eventHandler);
+    this._initialized = false;
+  }
 
-        if (eventSize === 0)
-            return;
-
-        // clear and copy queue
-        let queue = this.eventQueue.splice(0, eventSize);
-
-        for (let i = 0; i < eventSize; i++) {
-            let event = queue[i];
-            let button;
-            let buttonCode = event.button;
-
-            if (buttonCode !== undefined)
-                button = this._buttonList.get(buttonCode);
-
-            switch (event.type) {
-                case 'mousemove': {
-                    processMouseMove(event, this, this._sharedInputData);
-                    break;
-                }
-                case 'mousedown': {
-                    if (button.press === false) {
-                        if (button.status === KeyButtonStatus.NONE) {
-                            this.watcher.insert(buttonCode, button);
-                        }
-
-                        processMouseButtonDown(event, button, this, this._sharedInputData);
-                    }
-                    break;
-                }
-                case 'mouseup': {
-                    processMouseButtonUp(event, button, this, this._sharedInputData);
-                    break;
-                }
-                case 'wheel':
-                case 'mousewheel': {
-                    processMouseWheel(event as WheelEvent, this);
-                    break;
-                }
-
-            }
-        }
-    }
-
-
-    stop() {
-
-        if (!this._initialized) {
-            return;
-        }
-
-        let target = this.eventTarget;
-
-        target.removeEventListener('mousemove', this.eventHandler);
-        target.removeEventListener('mousedown', this.eventHandler);
-        target.removeEventListener('mouseup', this.eventHandler);
-        target.removeEventListener('mouseenter', this.eventHandler);
-        target.removeEventListener('mouseleave', this.eventHandler);
-        this._initialized = false;
-    }
-
-    /*onMouseMove(event) {
+  /*onMouseMove(event) {
   
       if (!this.active)
         return;
@@ -238,59 +234,54 @@ export default class MouseSystem extends InputSystem implements IMouseSystem {
   
     }*/
 
-    pressed(button: MouseButton): boolean {
+  pressed(button: MouseButton): boolean {
+    // var buttonLock = false;
 
-        // var buttonLock = false;
+    // if (this._mouseButtonsLocksPressed[button] == MouseEvent.PRESSED) {
+    //   buttonLock = true;
+    //   this._mouseButtonsLocksPressed[button] = MouseEvent.PRESS;
+    // }
 
-        // if (this._mouseButtonsLocksPressed[button] == MouseEvent.PRESSED) {
-        //   buttonLock = true;
-        //   this._mouseButtonsLocksPressed[button] = MouseEvent.PRESS;
-        // }
+    // var hit = this._mouseButtons[button] && buttonLock;
 
-        // var hit = this._mouseButtons[button] && buttonLock;
+    // return hit;
 
-        // return hit;
+    let mouseButton = this._buttonList.get(button);
 
-        let mouseButton = this._buttonList.get(button);
+    if (mouseButton) return mouseButton.isPressed();
 
-        if (mouseButton)
-            return mouseButton.isPressed();
+    return null;
+  }
 
-        return null;
+  release(button: MouseButton): boolean {
+    return true;
 
-    }
+    // var buttonLock = false;
 
-    release(button: MouseButton): boolean {
+    // if (this._mouseButtonsLocks[button] ==  MouseEvent.PRESSED ||
+    //     this._mouseButtonsLocks[button] ==  MouseEvent.PRESS ||
+    //     this._mouseButtonsLocks[button] ==  MouseEvent.NONE)
+    // 	buttonLock = false;
+    // else
+    // 	buttonLock = true;
 
-        return true;
+    // var hit = !this._mouseButtons[button] && buttonLock;
 
-        // var buttonLock = false;
+    // this._mouseButtonsLocks[button] = MouseEvent.NONE;
 
-        // if (this._mouseButtonsLocks[button] ==  MouseEvent.PRESSED ||
-        //     this._mouseButtonsLocks[button] ==  MouseEvent.PRESS ||
-        //     this._mouseButtonsLocks[button] ==  MouseEvent.NONE)
-        // 	buttonLock = false;
-        // else
-        // 	buttonLock = true;
+    // return hit;
+  }
 
-        // var hit = !this._mouseButtons[button] && buttonLock;
+  /**
+   * Check if a Mouse button is pressing.
+   *
+   * @param {MouseButton} button
+   */
+  press(button: MouseButton): boolean {
+    return (this.buttons & (LogicalMouseButton[button] || 0)) > 0;
+  }
 
-        // this._mouseButtonsLocks[button] = MouseEvent.NONE;
-
-        // return hit;
-
-    }
-
-    /**
-     * Check if a Mouse button is pressing.
-     * 
-     * @param {MouseButton} button 
-     */
-    press(button: MouseButton): boolean {
-        return (this.buttons & (LogicalMouseButton[button] || 0)) > 0;
-    }
-
-    /*update() {
+  /*update() {
   
       for (var i = 0; i < this._mouseButtons.length; i++) {
   
@@ -307,22 +298,18 @@ export default class MouseSystem extends InputSystem implements IMouseSystem {
   
     }*/
 
-    // posRelativeTo(object) {
+  // posRelativeTo(object) {
 
-    //     var vec2 = { x: 0, y: 0 };
+  //     var vec2 = { x: 0, y: 0 };
 
-    //     vec2.x = this.x - object.x;
-    //     vec2.y = this.y - object.y;
+  //     vec2.x = this.x - object.x;
+  //     vec2.y = this.y - object.y;
 
+  //     return vec2;
 
-    //     return vec2;
+  // }
 
-    // }
-
-    destroy() {
-        this.stop();
-    }
-
-
+  destroy() {
+    this.stop();
+  }
 }
-

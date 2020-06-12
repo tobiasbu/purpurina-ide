@@ -1,4 +1,3 @@
-
 import { app, BrowserWindow } from 'electron';
 
 import Logger from 'main/logger';
@@ -6,7 +5,6 @@ import Logger from 'main/logger';
 import { createStartupWindow, createEditorWindow } from './window';
 // import events from '../events';
 import EditorSettings from './EditorSettings';
-
 
 enum AppState {
   Uninitialized,
@@ -41,7 +39,7 @@ export default class Application {
   private readyToShow = (
     resolve: (win: BrowserWindow) => void,
     mainWindow: BrowserWindow,
-    toState: AppState,
+    toState: AppState
   ): void => {
     mainWindow.show();
     mainWindow.focus();
@@ -55,9 +53,10 @@ export default class Application {
   initialize(): void {
     Logger.log(`Initializing ${APP_NAME}`);
     app.on('window-all-closed', () => {
-      const isLaunching = this.appState === AppState.Launcher
-        || this.appState === AppState.InitializeLauncher
-        || this.appState === AppState.Uninitialized;
+      const isLaunching =
+        this.appState === AppState.Launcher ||
+        this.appState === AppState.InitializeLauncher ||
+        this.appState === AppState.Uninitialized;
       if (isLaunching) {
         app.quit();
       }
@@ -109,7 +108,10 @@ export default class Application {
       }
       this.window = mainWindow;
 
-      mainWindow.once('ready-to-show', this.readyToShow.bind(this, resolve, mainWindow, AppState.Editor));
+      mainWindow.once(
+        'ready-to-show',
+        this.readyToShow.bind(this, resolve, mainWindow, AppState.Editor)
+      );
     });
 
     return promise;

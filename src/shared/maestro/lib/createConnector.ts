@@ -3,11 +3,8 @@ import hyper from 'hyperhtml';
 import { IComponent, Constructor, Store } from '../types';
 
 export default function <S>(store: Store<S>) {
-
   return function connect<T extends IComponent>(component: Constructor<T>) {
-
     return function (options: any) {
-
       return (function () {
         // tslint:disable-next-line: function-name
         function Connector(...props: any[]) {
@@ -32,18 +29,14 @@ export default function <S>(store: Store<S>) {
           };
         }
 
-        Object.defineProperties(
-          Connector.prototype,
-          {
-            // used to distinguish better than instanceof
-            ELEMENT_NODE: { value: 1 },
-            nodeType: { value: -1 },
-          },
-        );
+        Object.defineProperties(Connector.prototype, {
+          // used to distinguish better than instanceof
+          ELEMENT_NODE: { value: 1 },
+          nodeType: { value: -1 },
+        });
 
         return Connector;
       })();
-
     };
   };
 }

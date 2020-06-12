@@ -5,7 +5,8 @@ import { IProjectContainer, IRecentProjectsPage } from '../../../types';
 // const iconPlaceholder = require('!svg-inline-loader!../../../img/icon_star.svg') as string;
 import iconPlaceholder from '../../../img/icon_star.svg';
 
-export default class ProjectContainer extends hyper.Component implements IProjectContainer {
+export default class ProjectContainer extends hyper.Component
+  implements IProjectContainer {
   private project: ProjectInfo;
   private parent: IRecentProjectsPage;
   private isSelected: boolean;
@@ -47,8 +48,10 @@ export default class ProjectContainer extends hyper.Component implements IProjec
     }
     return this.html`
         <li class=${className}
-        onmousedown=${(): void => { this.parent.selectProject(this); }}
-        ondblclick=${(): void => { }} >
+        onmousedown=${(): void => {
+          this.parent.selectProject(this);
+        }}
+        ondblclick=${(): void => {}} >
                     <div class="thumbnail">
                       <div class="inner-thumbail">
                         ${{ html: iconPlaceholder }}

@@ -3,7 +3,9 @@ import fregues from './fregues';
 
 import Component from './components/Component';
 
-export type RenderFunction = (...args: any[]) => HTMLElement | string | number | boolean;
+export type RenderFunction = (
+  ...args: any[]
+) => HTMLElement | string | number | boolean;
 
 export default {
   createMaestro,
@@ -11,6 +13,4 @@ export default {
   Component,
 };
 
-export {
-  createMaestro,
-};
+export { createMaestro };
