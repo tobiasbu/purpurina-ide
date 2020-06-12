@@ -1,4 +1,3 @@
-/* eslint-disable import/first */
 (window as any).global = window;
 
 import { ipcRenderer } from 'electron';
@@ -61,7 +60,7 @@ try {
     });
   }
 } catch (e) {
-  // console.error(e);
+  console.error(e);
 }
 
 // function main() {

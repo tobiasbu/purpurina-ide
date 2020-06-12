@@ -24,7 +24,6 @@ export function mkdirpSync(
   }
   let { mode } = opt;
   if (mode === undefined) {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
     // @ts-ignore
     mode = OCT_0777 & ~process.umask();
   }

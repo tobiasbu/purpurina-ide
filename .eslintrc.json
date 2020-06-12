@@ -1,9 +1,9 @@
 {
   "extends": [
-    "airbnb-typescript/base",
-    "plugin:@typescript-eslint/recommended"
+    "prettier",
+    "plugin:prettier/recommended"
   ],
-  "plugins": ["@typescript-eslint"],
+  "plugins": ["@typescript-eslint", "prettier"],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "ecmaFeatures": {
@@ -13,15 +13,15 @@
     "sourceType": "module"
   },
   "rules": {
-    "import/no-unresolved": 0,
-    "@typescript-eslint/no-explicit-any": "off",
     "lines-between-class-members": "off",
-    "@typescript-eslint/interface-name-prefix": "off",
-    "import/no-webpack-loader-syntax": "off",
     "no-unused-expressions": "off",
-    "@typescript-eslint/no-unused-expressions": "off",
     "no-bitwise": "off",
-    "no-console": "off"
+    "no-console": "off",
+    "import/no-unresolved": 0,
+    "@typescript-eslint/no-unused-expressions": "off",
+    "@typescript-eslint/no-explicit-any": "off",
+    "@typescript-eslint/interface-name-prefix": "off",
+    "import/no-webpack-loader-syntax": "off"
   },
   "overrides": [
     {
