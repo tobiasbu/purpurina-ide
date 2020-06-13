@@ -9,7 +9,6 @@ import ConsoleWidget from '../panels/console/ConsoleWidget';
 // }
 
 module WidgetFactory {
-
   // export function createInspector(): ReactWidgetBase<typeof Inspector> {
   //   const inspector = createReactWidget(Inspector, 'Inspector');
 

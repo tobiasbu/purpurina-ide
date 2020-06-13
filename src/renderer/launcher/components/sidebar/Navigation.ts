@@ -7,12 +7,13 @@ import learn = require('../../img/icon_learn.svg');
 import home = require('../../img/icon_home.svg');
 import settings = require('../../img/icon_settings.svg');
 import iconDefs = require('../../img/icon_defs.svg');
+import maestro from 'maestro';
 
 interface MenuState {
   selected: number;
 }
 
-export default class Navigation extends hyper.Component<MenuState> {
+export default class Navigation extends maestro.Component<MenuState> {
   private buttonId: number;
 
   state = {
@@ -63,7 +64,9 @@ export default class Navigation extends hyper.Component<MenuState> {
         class="${className}"
         onmousedown=${this.onMenuDown}
         onkeyup=${this.onKeyUp}
-        onclick=${(e: MouseEvent): void => { this.onMenuSelect(id, e); }}
+        onclick=${(e: MouseEvent): void => {
+          this.onMenuSelect(id, e);
+        }}
         aria-current=${ariaCurrent}
         href=""
         >

@@ -56,7 +56,6 @@ export default class Camera2D implements ICamera2D {
   }
 
   constructor(renderer: IRenderer) {
-
     this._renderer = renderer;
 
     // this.width = game.config.camera.width;
@@ -64,7 +63,12 @@ export default class Camera2D implements ICamera2D {
     this._aspectRatio = renderer.canvas.width / renderer.canvas.height;
 
     //   this._bounds = new Bounds2D(); // render bounds
-    this._viewBounds = new Bounds2D(0, 0, renderer.canvas.width, renderer.canvas.height); // global bounds
+    this._viewBounds = new Bounds2D(
+      0,
+      0,
+      renderer.canvas.width,
+      renderer.canvas.height
+    ); // global bounds
     this._transform = new Transform2D();
     this._backgroundColor = new Color();
 
@@ -72,7 +76,6 @@ export default class Camera2D implements ICamera2D {
 
     // this._backgroundColor = new Color(); //.rgbToHex(0,0,0);
     // this._roundPixels = game.config.roundPixels;
-
   }
 
   resize(width: number, height: number) {
@@ -194,5 +197,4 @@ export default class Camera2D implements ICamera2D {
   //     }
 
   // }
-
 }

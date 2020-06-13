@@ -1,10 +1,16 @@
-type TypeOfValue<T> =
-        T extends boolean ? boolean :
-          T extends string ? string :
-            T extends number ? number :
-              T extends undefined ? undefined :
-                T extends object ? T :
-                  T extends Function ? AnyType : AnyType;
+type TypeOfValue<T> = T extends boolean
+  ? boolean
+  : T extends string
+  ? string
+  : T extends number
+  ? number
+  : T extends undefined
+  ? undefined
+  : T extends object
+  ? T
+  : T extends Function
+  ? AnyType
+  : AnyType;
 
 /**
  * Get property from object by given key.
@@ -13,17 +19,26 @@ type TypeOfValue<T> =
  * @param key Object key
  * @param defaultValue Default value when the property is not available.
  */
-function objectGet<T extends object,
-  K extends keyof T, V extends T[K]>(obj: T, key: K, defaultValue?: V): V;
-function objectGet<T extends string | number,
-  K extends never, V extends TypeOfValue<T>>(obj: T, key: K, defaultValue: V = undefined): V {
-  const type = typeof (obj);
+function objectGet<T extends object, K extends keyof T, V extends T[K]>(
+  obj: T,
+  key: K,
+  defaultValue?: V
+): V;
+function objectGet<
+  T extends string | number,
+  K extends never,
+  V extends TypeOfValue<T>
+>(obj: T, key: K, defaultValue: V = undefined): V {
+  const type = typeof obj;
 
   if (!obj || type === 'number' || type === 'string') {
     return defaultValue;
   }
 
-  if (Object.prototype.hasOwnProperty.call(obj, key) && obj[key] !== undefined) {
+  if (
+    Object.prototype.hasOwnProperty.call(obj, key) &&
+    obj[key] !== undefined
+  ) {
     return obj[key];
   }
   return defaultValue;

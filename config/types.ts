@@ -3,44 +3,41 @@ import * as http from 'http';
 import webpack = require('webpack');
 import { NextHandleFunction } from 'connect';
 
-export type DevMiddleware = WebpackDevMiddleware.WebpackDevMiddleware & NextHandleFunction;
-
-export interface DevelopmentEnvironment {
+export interface CommonEnv extends NodeJS.ProcessEnv {
   readonly NODE_ENV: 'development' | 'production';
-  readonly cwd: string;
-  /**
-   *  Directory name of the directory containing the JavaScript source code file
-   */
-  readonly configPath: string;
-  /**
-   * Project path
-   */
-  readonly projectPath: string;
+  readonly ELECTRON_WEBPACK_WDS_PORT: string;
+  readonly ELECTRON_WEBPACK_WDS_HOST: string;
   /**
    * Distribution path.
+   *
+   * In this path, the bundled files in will be deployed.
    */
-  readonly distPath: string;
+  readonly PURPUR_DIST_PATH: string;
   /**
-   * Renderer
+   * Project path.
+   *
+   * Root path of entire project.
    */
-  readonly renderer: RendererEnv;
+  readonly PURPUR_PROJECT_PATH: string;
 }
 
-export interface RendererEnv {
-  host: string;
-  port: number;
+export interface ElectronEnv extends CommonEnv {
+  readonly ELECTRON_HMR_SOCKET_PATH: string;
+  readonly ELECTRON_HMR_SOCKET_ID: string;
 }
 
-export interface WebpackBuildConfig {
-  readonly projectPath: string;
-  readonly distPath: string;
-  readonly host: string;
-  readonly port: string | number;
-  readonly isProduction: boolean;
-  readonly mode?: 'development' | 'production';
+export interface WebpackBaseBuildConfig {
+  readonly DIST_PATH?: string;
+  readonly NODE_ENV?: 'development' | 'production';
 }
 
-export interface WebpackDevMiddlewareMoreOptions extends WebpackDevMiddleware.Options {
+export interface DevServerBuildConfig extends WebpackBaseBuildConfig {
+  readonly HOST: string;
+  readonly PORT: string | number;
+}
+
+export interface WebpackDevMiddlewareMoreOptions
+  extends WebpackDevMiddleware.Options {
   quiet: boolean;
   reload: boolean;
   overlay: boolean;
@@ -52,7 +49,8 @@ export interface RendererCompilation {
   compiler: webpack.ICompiler;
 }
 
-export interface RendererServer {
-  server: http.Server;
-  devMiddleware: DevMiddleware;
+export namespace IPCMessage {
+  export interface CompiledMessage {
+    readonly hash: string;
+  }
 }

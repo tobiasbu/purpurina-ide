@@ -4,7 +4,6 @@ import Ease from '../../math/easing/Ease';
 import { EasingType } from '../../math/easing/EasingType';
 import { IColor } from './IColor';
 
-
 // function ColorNormUpdate(color) {
 //     color._css = 'rgba(' +
 //         MathUtils.floor(color.r * 255) + ',' +
@@ -14,15 +13,12 @@ import { IColor } from './IColor';
 // }
 
 function colorUpdate(color: Color): string {
-  return 'rgba(' +
-    color.r + ',' +
-    color.g + ',' +
-    color.b + ',' +
-    color.a + ')';
+  return (
+    'rgba(' + color.r + ',' + color.g + ',' + color.b + ',' + color.a + ')'
+  );
 }
 
 export default class Color implements IColor {
-
   private _r: number;
   private _g: number;
   private _b: number;
@@ -30,7 +26,6 @@ export default class Color implements IColor {
   private _css: string;
 
   constructor(r?: number, g?: number, b?: number, a?: number) {
-
     if (r === undefined) r = 0;
     if (g === undefined) g = 0;
     if (b === undefined) b = 0;
@@ -43,7 +38,6 @@ export default class Color implements IColor {
 
     this._css = colorUpdate(this);
   }
-
 
   get rgba() {
     return this._css;
@@ -66,7 +60,6 @@ export default class Color implements IColor {
   }
 
   set(color: string | number | IColor): Color {
-
     parseColor(color, this);
 
     colorUpdate(this);
@@ -75,8 +68,7 @@ export default class Color implements IColor {
   }
 
   setNorm(r: number, g?: number, b?: number, a?: number): Color {
-    if (r === undefined)
-      return this;
+    if (r === undefined) return this;
 
     this._r = Math.round(r * 255.0);
     this._g = Math.round(g * 255.0);
@@ -96,8 +88,7 @@ export default class Color implements IColor {
   }
 
   setRGBA(r: number, g?: number, b?: number, a?: number): Color {
-    if (r === undefined)
-      return this;
+    if (r === undefined) return this;
 
     this._r = r || 0;
     this._g = g || 0;
@@ -137,14 +128,12 @@ export default class Color implements IColor {
   }
 
   lerp(toColor: IColor, t: number): Color {
-
     this._r = MathUtils.lerp(this._r, toColor.r, t);
     this._g = MathUtils.lerp(this._g, toColor.g, t);
     this._b = MathUtils.lerp(this._b, toColor.b, t);
     this._a = MathUtils.lerp(this._a, toColor.a, t);
     colorUpdate(this);
     return this;
-
   }
 
   /*ease(to, t, easingType, easingMode, easingArg) {
@@ -192,36 +181,40 @@ export default class Color implements IColor {
 
   // static functions
 
-  static ease(from: IColor, to: IColor, t: number, easingType, easingMode, easingArg, destinationColor) {
-
+  static ease(
+    from: IColor,
+    to: IColor,
+    t: number,
+    easingType,
+    easingMode,
+    easingArg,
+    destinationColor
+  ) {
     if (easingType === undefined) easingType = EasingType.LINEAR;
     if (easingMode === undefined) easingMode = 0;
     if (easingArg === undefined) easingArg = 3;
 
-
     let easer = Ease.in;
 
     switch (easingMode) {
-      case 1:
-        {
-          easer = Ease.out;
-          break;
-        }
-      case 2:
-        {
-          easer = Ease.inout;
-          break;
-        }
+      case 1: {
+        easer = Ease.out;
+        break;
+      }
+      case 2: {
+        easer = Ease.inout;
+        break;
+      }
     }
 
-    if (destinationColor === undefined)
-      destinationColor = new Color();
+    if (destinationColor === undefined) destinationColor = new Color();
 
     destinationColor.setRGBA(
       easer.by(easingType, from.r, to.r, t, easingArg),
       easer.by(easingType, from.g, to.g, t, easingArg),
       easer.by(easingType, from.b, to.b, t, easingArg),
-      easer.by(easingType, from.a, to.a, t, easingArg));
+      easer.by(easingType, from.a, to.a, t, easingArg)
+    );
 
     return destinationColor;
   }
@@ -256,7 +249,4 @@ export default class Color implements IColor {
   static get transparent(): Color {
     return new Color(0, 0, 0, 0);
   }
-
-
-
 }

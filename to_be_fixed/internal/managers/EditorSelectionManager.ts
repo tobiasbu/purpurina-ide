@@ -3,7 +3,6 @@ import Entity from '../../../engine/entity/Entity';
 import { IEventEmitter } from '../../../engine/events/emitter/IEventEmitter';
 
 export default class EditorSelectionManager implements EditorSelection {
-
   private _entities: Entity[];
   private _activeEntity: Entity;
   private _emitter: IEventEmitter;
@@ -30,5 +29,4 @@ export default class EditorSelectionManager implements EditorSelection {
       this._emitter.emit('selectionchange');
     }
   }
-
 }

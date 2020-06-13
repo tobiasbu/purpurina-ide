@@ -10,7 +10,6 @@ interface ConsoleState extends ComponentState {
 }
 
 export default class ConsoleComponent extends WidgetComponent<ConsoleState> {
-
   private logElements: HTMLElement[];
   private logList: ConsoleMessagePayload[];
 
@@ -47,7 +46,7 @@ export default class ConsoleComponent extends WidgetComponent<ConsoleState> {
   //   });
   // }
 
-  private onSelectLog = (index:number, e: MouseEvent) => {
+  private onSelectLog = (index: number, e: MouseEvent) => {
     if (this.state.selected === index) {
       return;
     }
@@ -55,10 +54,9 @@ export default class ConsoleComponent extends WidgetComponent<ConsoleState> {
     this.setState({
       selected: index,
     });
-  }
+  };
 
   private renderLogItem(msgPayload: any, index: number) {
-
     // const logType = (msgPayload.type === MessageLogType.Info) ?
     //   'LOG' : (msgPayload.type === MessageLogType.Warn) ? 'WARN' : 'ERROR';
 
@@ -69,9 +67,12 @@ export default class ConsoleComponent extends WidgetComponent<ConsoleState> {
     // }
 
     const id = `:csl-${index}`;
-    const isSelected =  index === this.state.selected;
+    const isSelected = index === this.state.selected;
     return hyper.wire(this, id)`
-            <li onmousedown=${(e: MouseEvent) => this.onSelectLog(index, e)} data-cls=${index} class="${(isSelected ? 'selected' : '')}">
+            <li onmousedown=${(e: MouseEvent) =>
+              this.onSelectLog(index, e)} data-cls=${index} class="${
+      isSelected ? 'selected' : ''
+    }">
               ${msgPayload}
             </li>
         `;
@@ -83,9 +84,9 @@ export default class ConsoleComponent extends WidgetComponent<ConsoleState> {
     //   height: `${height - 28 - 28 - 4}px`,
     //   marginBottom: '4px',
     // };
-  //   <!-- <div style="height: 28px">
-  //   <button onclick=${this.onClear}>Clear</button>
-  // </div> -->
+    //   <!-- <div style="height: 28px">
+    //   <button onclick=${this.onClear}>Clear</button>
+    // </div> -->
 
     return this.html`
 
@@ -98,7 +99,9 @@ export default class ConsoleComponent extends WidgetComponent<ConsoleState> {
           <div class="box" style=${{ height: '75%', width: '100%' }}>
             <!-- <div class="box-padding"> -->
               <ul class="console">
-              ${this.logElements.map((message, index) => this.renderLogItem(message, index)) }
+              ${this.logElements.map((message, index) =>
+                this.renderLogItem(message, index)
+              )}
               </ul>
             <!-- </div> -->
           </div>
@@ -110,7 +113,6 @@ export default class ConsoleComponent extends WidgetComponent<ConsoleState> {
 
     `;
   }
-
 }
 
 // function aB(): void {

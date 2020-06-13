@@ -1,8 +1,9 @@
 {
-  "extends": ["airbnb-typescript/base", "plugin:@typescript-eslint/recommended"],
-  "plugins": [
-    "@typescript-eslint"
+  "extends": [
+    "prettier",
+    "plugin:prettier/recommended"
   ],
+  "plugins": ["@typescript-eslint", "prettier"],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "ecmaFeatures": {
@@ -12,21 +13,23 @@
     "sourceType": "module"
   },
   "rules": {
-    "import/no-unresolved": 0,
-    "@typescript-eslint/no-explicit-any": "off",
     "lines-between-class-members": "off",
-    "@typescript-eslint/interface-name-prefix": "off",
-    "import/no-webpack-loader-syntax": "off",
     "no-unused-expressions": "off",
-    "@typescript-eslint/no-unused-expressions": "off",
     "no-bitwise": "off",
-    "no-console": "off"
+    "no-console": "off",
+    "import/no-unresolved": 0,
+    "@typescript-eslint/no-unused-expressions": "off",
+    "@typescript-eslint/no-explicit-any": "off",
+    "@typescript-eslint/interface-name-prefix": "off",
+    "import/no-webpack-loader-syntax": "off"
   },
   "overrides": [
     {
       "files": ["*.ts", "*.tsx"],
       "rules": {
-        "@typescript-eslint/no-unused-vars": [2, { "args": "none" }]
+        "@typescript-eslint/camelcase": 0,
+        "@typescript-eslint/ban-types": 0,
+        "@typescript-eslint/no-unused-vars": 0
       }
     }
   ],
@@ -34,8 +37,8 @@
     "import/resolver": {
       "alias": {
         "map": [
-          ["@shared","./shared"],
-          ["@main","./src/main"]
+          ["@shared", "./shared"],
+          ["@main", "./src/main"]
         ]
       }
     }

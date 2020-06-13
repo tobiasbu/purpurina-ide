@@ -32,19 +32,20 @@ body {
   display: none;
 }
 
-::selection, ::-webkit-selection  {
+::selection,
+::-webkit-selection {
   background: var(--p-text-selection);
   color: var(--p-text);
   opacity: 1;
   filter: none;
 }
 
-.selected ::selection, .selected::-webkit-selection  {
+.selected ::selection,
+.selected::-webkit-selection {
   background: var(--p-text);
   color: var(--p-selection);
   opacity: 1;
 }
-
 
 /*** Mozilla based browsers ***/
 ::-moz-selection {
@@ -62,8 +63,6 @@ body {
   background: var(--p-text-selection);
   color: var(--p-text);
 }
-
-
 
 body.pointerEditing input,
 body.pointerEditing label {

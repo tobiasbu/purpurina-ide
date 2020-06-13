@@ -1,4 +1,3 @@
-
 const MAJOR = 0;
 const MINOR = 0;
 const REVISION = 1;

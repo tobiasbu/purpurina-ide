@@ -1,5 +1,5 @@
-import { makeLogger, capitalize } from ".";
-import chalk from "chalk";
+import { makeLogger, capitalize } from '.';
+import chalk from 'chalk';
 
 // const loggerCommon = {
 //   name: 'purpur',
@@ -8,7 +8,7 @@ import chalk from "chalk";
 //   errorSymbol: ' \u2620'
 // }
 
-interface purpurOptions {
+interface PurpurLoggerOptions {
   /**
    * 'Renderer' | 'Main' | 'Electron' | 'Purpurina'
    */
@@ -18,9 +18,9 @@ interface purpurOptions {
   color: string;
 }
 
-const separator = '\u2550'.repeat(24);
+// const separator = '\u2550'.repeat(2);
 
-export default function purpurLogger(opts: purpurOptions) {
+export default function purpurLogger(opts: PurpurLoggerOptions) {
   let name = `${opts.name.toUpperCase()}`;
   const prefixColorFn = chalk[opts.color];
 
@@ -37,15 +37,15 @@ export default function purpurLogger(opts: purpurOptions) {
       }
     }
 
-    let msg = prefixColorFn(`\u2554\u2550 ${sys} ${name} ${separator}`);
-    msg = `${msg}\n\n  ${chalk[textColor](`${message}`)}`;
+    let msg = prefixColorFn(` ${sys} ${name}:`);
+    msg = `${msg} ${chalk[textColor](`${message}`)}`;
     if (args && args.length > 0) {
       const joinedParams = args.join(' ');
       return {
         [desc.msg]: msg,
-        [desc.args]: chalk[`${textColor}Bright`](`${joinedParams}\n`)
-      }
+        [desc.args]: chalk[`${textColor}Bright`](`${joinedParams}`),
+      };
     }
-    return `${msg}\n`;
+    return `${msg}`;
   });
 }

@@ -10,7 +10,7 @@ const MIN_HEIGHT = 480;
 function getURL(pathName: 'editor' | 'launcher'): string {
   let uo: url.UrlObject;
   Logger.log(process.env.ELECTRON_WEBPACK_WDS_PORT);
-  if (process.env.development) {
+  if (__PURPUR_DEV__) {
     uo = {
       protocol: 'http',
       hostname: 'localhost',
@@ -21,6 +21,7 @@ function getURL(pathName: 'editor' | 'launcher'): string {
     // TODO
     uo = {};
   }
+
   return url.format(uo);
 }
 
@@ -36,11 +37,11 @@ export function createStartupWindow(): BrowserWindow {
   const height = 450 + 80;
   const launcherPath = getURL('launcher');
 
-  const IS_DEV = (process.env.NODE_ENV === 'development');
+  console.log(process.env.PURPUR_DIST_PATH);
+  const IS_DEV = process.env.NODE_ENV === 'development' ?? !!__PURPUR_DEV__;
 
   // create our main window
   let window = new BrowserWindow({
-
     width,
     height,
     minWidth: width,
@@ -49,16 +50,17 @@ export function createStartupWindow(): BrowserWindow {
     show: false,
     useContentSize: true,
     center: true,
-    backgroundColor: '#080808',
-    vibrancy: 'dark',
+    backgroundColor: '#fff',
     transparent: false,
     title: `Purpurina Editor v${version.toString()}`,
-    darkTheme: true,
     webPreferences: {
-      nodeIntegration: (process.env.NODE_ENV === 'development'),
+      nodeIntegration: true,
+      contextIsolation: false,
+      enableRemoteModule: false,
       backgroundThrottling: false,
       textAreasAreResizable: false,
-      additionalArguments: (IS_DEV) ? ['DEVELOPMENT'] : [],
+      additionalArguments: IS_DEV ? ['DEVELOPMENT', '__PURPUR_DEV__'] : [],
+      webgl: false,
       // preload: path.join(__dirname, 'preload.js'),
       // contextIsolation: true,
       // nodeIntegration: false,
@@ -74,7 +76,9 @@ export function createStartupWindow(): BrowserWindow {
     ev.preventDefault();
   });
 
-  window.on('close', () => { window = null; });
+  window.on('close', () => {
+    window = null;
+  });
 
   // load entry html page in the renderer.
   window.loadURL(launcherPath);
@@ -103,10 +107,12 @@ export function createEditorWindow(): BrowserWindow {
     webPreferences: {
       // textAreasAreResizable: false,
       webSecurity: true,
-      nodeIntegration: (process.env.NODE_ENV === 'development'),
+      nodeIntegration: process.env.NODE_ENV === 'development',
     },
   });
-  window.on('close', () => { window = null; });
+  window.on('close', () => {
+    window = null;
+  });
   window.setMenu(null);
 
   window.loadURL(editorPath);

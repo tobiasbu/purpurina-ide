@@ -6,31 +6,27 @@ import EditorSettings from './core/EditorSettings';
 import initializeGlobal from './core/config';
 import loadRecentProjects from './project/loadRecentProjects';
 import Logger from './logger';
+import initializeLauncherEvents from './events/launcher';
 
-if (process.env.DEVELOPMENT) {
-  Logger.log(`Directory: ${__dirname}. Port: ${process.env.ELECTRON_WEBPACK_WDS_PORT}`);
-  const sourceMapSupport = require('source-map-support'); // eslint-disable-line
-  sourceMapSupport.install({
-    environment: 'node',
-  });
+if (__PURPUR_DEV__) {
+  // Logger.log(
+  //   `Directory: ${__dirname}. Port: ${process.env.ELECTRON_WEBPACK_WDS_PORT}`
+  // );
+  // const sourceMapSupport = require('source-map-support'); // eslint-disable-line
+  // sourceMapSupport.install({
+  //   environment: 'node',
+  // });
 }
 
 initializeGlobal();
 
 const settings = EditorSettings.load();
-
 const AppControl = new Application(settings);
 
 app.once('ready', () => {
   AppControl.initialize();
 
-  // function a() {
-  //   const e = new Error();
-  //   const trace = stackTrace.parse(e);
-  //   console.log(e);
-  // }
-
-  // a();
+  initializeLauncherEvents(AppControl);
 
   const initPromise = AppControl.startLauncher();
   const loaderPromise = loadRecentProjects(settings.recentProjects);
@@ -40,12 +36,18 @@ app.once('ready', () => {
     const win = result[0];
     // for some reason HMR, some middleware or anything else is blocking the first render
     // we force to reload the web contents:
-    if (process.env.DEVELOPMENT) {
+    if (__PURPUR_DEV__) {
       win.webContents.reload();
     }
-    win.webContents.on('console-message',
-      (event: Electron.IpcMainEvent, level: number, message: string,
-        line: number, sourceId: string) => {
+    win.webContents.on(
+      'console-message',
+      (
+        _event: Electron.IpcMainEvent,
+        level: number,
+        message: string,
+        line: number,
+        sourceId: string
+      ) => {
         let msg = '[WINDOW]';
         let fn = console.log;
         if (level >= 3) {
@@ -56,23 +58,29 @@ app.once('ready', () => {
         }
         msg = `${msg} ${message}\nat ${line} from ${sourceId}\n`;
         fn(msg);
-      });
+      }
+    );
 
-    ipcMain.on('show_window', () => {
-      win.show();
-      win.focus();
-      win.webContents.openDevTools();
-    });
+    // win.show();
+    // win.focus()
+    win.show();
+    win.focus();
+    win.webContents.openDevTools({ mode: 'undocked' });
+    // ipcMain.on('show_window', () => {
+    //   win.webContents.openDevTools();
+    // });
 
+    ipcMain.emit('projects-loaded', projects);
     ipcMain.on('launcher_loaded', (event: Electron.IpcMainEvent) => {
-      event.sender.send('projects-loaded', projects);
+      console.log('hello ');
     });
   });
 });
 
-if (process.env.NODE_ENV === 'development'
-  || process.env.DEBUG_PROD === 'true') {
-
+if (
+  process.env.NODE_ENV === 'development' ||
+  process.env.DEBUG_PROD === 'true'
+) {
   // require('electron-debug')();
   // const path = require('path');
   // const p = path.join(__dirname, '..', 'app', 'node_modules');

@@ -1,5 +1,4 @@
-
-import * as chokidar from 'chokidar';
+import chokidar from 'chokidar';
 import Logger from '../logger';
 
 /**
@@ -25,7 +24,7 @@ export default class FileWatcher {
    * @param location Project location
    * @return A promise with project file structure
    */
-  start(location: string): Promise<{}> {
+  start(location: string): Promise<unknown> {
     if (this.isWatching) {
       return null;
     }
@@ -40,8 +39,6 @@ export default class FileWatcher {
 
     this.watcher = chokidar.watch('.', options);
 
-    // const log = console.log.bind(console);
-
     const promise = new Promise((resolve) => {
       this.watcher.once('ready', () => {
         Logger.log('Initial scan complete. Ready for changes');
@@ -51,14 +48,18 @@ export default class FileWatcher {
     });
 
     this.watcher
-      .on('add', (path, stats) => Logger.log(`File ${path} has been added`, JSON.stringify(stats)))
+      .on('add', (path, stats) =>
+        Logger.log(`File ${path} has been added`, JSON.stringify(stats))
+      )
       .on('change', (path) => Logger.log(`File ${path} has been changed`))
       .on('unlink', (path) => Logger.log(`File ${path} has been removed`));
 
     // More possible events.
     this.watcher
       .on('addDir', (path) => Logger.log(`Directory ${path} has been added`))
-      .on('unlinkDir', (path) => Logger.log(`Directory ${path} has been removed`))
+      .on('unlinkDir', (path) =>
+        Logger.log(`Directory ${path} has been removed`)
+      )
       .on('error', (error) => Logger.error(`Watcher error: ${error}`))
       .on('raw', (event, path, details) => {
         Logger.log('Raw event info:', event, path, details);

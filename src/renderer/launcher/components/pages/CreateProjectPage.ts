@@ -1,16 +1,16 @@
 import hyper from 'hyperhtml';
 
-import { ipcRenderer } from 'electron';
+// import { ipcRenderer } from 'electron';
 
 import { CreateProject } from '@shared/types';
-import { getUserInfo, PathValidation, Dialogs } from '@shared';
+import { PathValidation, Dialogs } from '@shared';
 
 import TextInput from '../commons/TextInput';
 import Button from '../commons/Button';
 
-const userInfo = getUserInfo();
-const DEFAULT_LOCATION = userInfo.homeDir;
-const DEFAULT_AUTHOR = userInfo.userName;
+// const userInfo = getUserInfo();
+const DEFAULT_LOCATION = ''; // userInfo.homeDir;
+const DEFAULT_AUTHOR = ''; // userInfo.userName;
 import browseIcon = require('../../img/icon_browse.svg');
 
 export default class CreateProjectPage extends hyper.Component {
@@ -31,7 +31,7 @@ export default class CreateProjectPage extends hyper.Component {
     });
 
     this.locationInput = new TextInput('Location', {
-      innerElement: (): HTMLElement => (
+      innerElement: (): HTMLElement =>
         hyper.wire(this)`
           <div class='browse-icon-container'>
              <button
@@ -42,8 +42,7 @@ export default class CreateProjectPage extends hyper.Component {
             >
               ${{ html: browseIcon }}
             </button>
-        </div>`
-      ),
+        </div>`,
       onInput: this.onInput,
       attributes: 'webkitdirectory',
       initialValue: DEFAULT_LOCATION,
@@ -81,7 +80,7 @@ export default class CreateProjectPage extends hyper.Component {
 
   private onInput = (e: Event): void => {
     // const inputEvent = (e as any);
-    const inputElement = (e.srcElement as HTMLInputElement);
+    const inputElement = e.srcElement as HTMLInputElement;
     let error: string;
     const testValue = inputElement.value;
     switch (inputElement.id) {
@@ -132,12 +131,12 @@ export default class CreateProjectPage extends hyper.Component {
       return;
     }
     this.creatingProject = true;
-    const createProject: CreateProject = {
+    const projectmetadata: CreateProject = {
       projectName: this.nameInput.value,
       location: this.locationInput.value,
       author: this.authorInput.value,
     };
-    ipcRenderer.send('createProject', createProject);
+    // ipcRenderer.send('create-project', projectmetadata);
     this.creatingProject = false;
   };
 
@@ -150,7 +149,7 @@ export default class CreateProjectPage extends hyper.Component {
   render(): HTMLElement {
     return this.html`
       <div class="page-wrapper">
-        <form autocomplete="off" onsubmit=${this.onSubmit}>
+        <form autocomplete="off" novalidate onsubmit=${this.onSubmit}>
           <div class="page-main-content">
             ${this.nameInput}
             ${this.locationInput}

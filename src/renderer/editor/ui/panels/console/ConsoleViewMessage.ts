@@ -12,5 +12,4 @@ export default class ConsoleViewMessage extends hyper.Component {
   render() {
     return null;
   }
-
 }

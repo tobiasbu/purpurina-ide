@@ -1,11 +1,7 @@
-import {
-  IConsoleWidget,
-  ConsoleMessagePayload,
-} from './types';
+import { IConsoleWidget, ConsoleMessagePayload } from './types';
 import HijackLoggerMiddleware from './HijackLoggerMiddleware';
 
 class LoggerMiddleware extends HijackLoggerMiddleware {
-
   public widgetConsole: IConsoleWidget;
 
   public onLog(payload: ConsoleMessagePayload): void {

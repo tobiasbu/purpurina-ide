@@ -40,7 +40,7 @@ export default class PageContainer extends hyper.Component {
 
   render(): HTMLElement {
     const currentPage = this.getCurrentPage();
-    const title = (currentPage) ? currentPage.title : 'No Title';
+    const title = currentPage ? currentPage.title : 'No Title';
     return this.html`
     <main class="content-page">
       <div class="page-top-bar">

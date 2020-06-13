@@ -3,9 +3,8 @@ import ConsoleComponent from './ConsoleComponent';
 import { IConsoleWidget, ConsoleMessagePayload } from '../../../log/types';
 import LoggerMiddleware from '../../../log/LoggerMiddleware';
 
-export default class ConsoleWidget
-  extends WidgetBase<ConsoleComponent> implements IConsoleWidget {
-
+export default class ConsoleWidget extends WidgetBase<ConsoleComponent>
+  implements IConsoleWidget {
   constructor() {
     super('Console', ConsoleComponent);
   }
@@ -19,5 +18,4 @@ export default class ConsoleWidget
       this.ref.onLog(payload);
     }
   }
-
 }

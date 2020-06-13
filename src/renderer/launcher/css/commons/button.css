@@ -28,10 +28,12 @@ button {
 .inner-button {
   padding: var(--p-spacing-s);
   background: var(--p-color-sidebar);
-  border-radius:  var(--p-spacing-xs);
+  border-radius: var(--p-spacing-xs);
 }
 
-.btn-outline:hover, .btn-outline:active, .btn-outline:focus {
+.btn-outline:hover,
+.btn-outline:active,
+.btn-outline:focus {
   background: var(--p-color-text);
   color: var(--p-bg);
 }
@@ -41,7 +43,6 @@ button {
   border-color: var(--p-color-button-active);
   color: var(--p-color-text);
 }
-
 
 .btn-outline .icon {
   display: inline-block;

@@ -12,5 +12,10 @@
       "autoFix": true,
       "language": "typescriptreact"
     }
-],
+  ],
+  "cSpell.words": ["PURPURINA", "purpur"],
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  }
 }

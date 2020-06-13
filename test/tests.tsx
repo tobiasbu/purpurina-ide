@@ -1,197 +1,174 @@
-import * as React from "react";
-import * as ReactDOM from "react-dom";
-import DOOM, { h, b } from "../src/renderer/doom";
-import { HyperNode } from "../src/renderer/doom/types";
+import * as React from 'react';
+import * as ReactDOM from 'react-dom';
+import DOOM, { h, b } from '../src/renderer/doom';
+import { HyperNode } from '../src/renderer/doom/types';
 import hyperHTML from 'hyperhtml';
 
-const AsyncFunction = (async () => { }).constructor;
+const AsyncFunction = (async () => {}).constructor;
 //type AsyncFunction = async () => void;
 
 function isAsync(asyncFn: any) {
-    return asyncFn instanceof AsyncFunction;
+  return asyncFn instanceof AsyncFunction;
 }
 
 var styles = [
-    'background: linear-gradient(#D33106, #571402)'
-    , 'border: 1px solid #3E0E02'
-    , 'color: white'
-    , 'display: block'
-    , 'text-shadow: 0 1px 0 rgba(0, 0, 0, 0.3)'
-    , 'box-shadow: 0 1px 0 rgba(255, 255, 255, 0.4) inset, 0 5px 3px -5px rgba(0, 0, 0, 0.5), 0 -13px 5px -10px rgba(255, 255, 255, 0.4) inset'
-    , 'line-height: 30px'
-    , 'text-align: center'
-    , 'font-weight: bold'
+  'background: linear-gradient(#D33106, #571402)',
+  'border: 1px solid #3E0E02',
+  'color: white',
+  'display: block',
+  'text-shadow: 0 1px 0 rgba(0, 0, 0, 0.3)',
+  'box-shadow: 0 1px 0 rgba(255, 255, 255, 0.4) inset, 0 5px 3px -5px rgba(0, 0, 0, 0.5), 0 -13px 5px -10px rgba(255, 255, 255, 0.4) inset',
+  'line-height: 30px',
+  'text-align: center',
+  'font-weight: bold',
 ].join(';');
-
-
 
 let rootNode = document.getElementById('root');
 
 interface UnitTest {
-    readonly description: string;
-    exec(): void;
-    after(fn: () => void);
+  readonly description: string;
+  exec(): void;
+  after(fn: () => void);
 }
 
-const ISOK = '\u2713'
+const ISOK = '\u2713';
 const ISNOTOK = '\u274C'; //'&#10060;'
 
 class TestRunner {
+  private errors: { from: string; e: Error }[];
+  private testList: UnitTest[];
 
-    private errors: { from: string, e: Error }[];
-    private testList: UnitTest[];
+  constructor() {
+    this.testList = [];
+    this.errors = [];
+  }
 
+  add(unitTest: UnitTest) {
+    this.testList.push(unitTest);
+  }
 
-    constructor() {
-        this.testList = [];
-        this.errors = [];
+  private appendError(from: UnitTest, e: Error) {
+    this.errors.push({ from: from.description, e });
+  }
+
+  private logErrors() {
+    console.log('Errors:');
+    for (let i = 0; i < this.errors.length; i++) {
+      console.error(
+        ISNOTOK + ' ' + this.errors[i].from + ':\n',
+        this.errors[i].e
+      );
     }
+  }
 
-    add(unitTest: UnitTest) {
-        this.testList.push(unitTest);
+  run() {
+    console.log('%c Tests Cases: DOM Nodes Creation', styles);
+    let e;
+    this.testList.forEach((element) => {
+      e = element.exec();
+      if (e) {
+        this.appendError(element, e);
+      }
+    });
+
+    if (this.errors.length > 0) {
+      this.logErrors();
     }
-
-    private appendError(from: UnitTest, e: Error) {
-        this.errors.push({ from: from.description, e })
-    }
-
-    private logErrors() {
-        console.log('Errors:')
-        for (let i = 0; i < this.errors.length; i++) {
-            console.error(ISNOTOK + ' ' + this.errors[i].from + ':\n', this.errors[i].e)
-        }
-    }
-
-    run() {
-        console.log('%c Tests Cases: DOM Nodes Creation', styles)
-        let e;
-        this.testList.forEach(element => {
-            e = element.exec();
-            if (e) {
-                this.appendError(element, e);
-            }
-        });
-
-        if (this.errors.length > 0) {
-            this.logErrors();
-        }
-    }
-
+  }
 }
 
 const Runner = new TestRunner();
 
 const t = function (description: string, fn: () => void): UnitTest {
+  let exec = function (this: UnitTest): Error {
+    let error: Error;
+    let time = performance.now();
+    let finished: string;
 
-    let exec = function (this: UnitTest): Error {
-        let error: Error;
-        let time = performance.now();
-        let finished: string;
+    try {
+      fn();
+    } catch (e) {
+      error = e;
+    }
+    time = performance.now() - time;
 
-        try {
-
-            fn();
-
-        } catch (e) {
-            error = e;
-        }
-        time = (performance.now() - time);
-
-        let result: string;
-        if (error) {
-            result = ISNOTOK;
-        } else {
-            result = ISOK;
-        }
-
-        finished = this.description + ': \t' + time.toString() + 'ms \t%c' + result;
-        console.log(finished, 'font-family:\u2400')
-
-        if ((this as any).afterFn) {
-            (this as any).afterFn();
-        }
-
-        return error;
-
-    };
-
-    let test: UnitTest = {
-        description: description,
-        exec: exec,
-        after: null
+    let result: string;
+    if (error) {
+      result = ISNOTOK;
+    } else {
+      result = ISOK;
     }
 
-    let after = function (this: UnitTest, fn: () => void) {
-        (this as any).afterFn = fn;
+    finished = this.description + ': \t' + time.toString() + 'ms \t%c' + result;
+    console.log(finished, 'font-family:\u2400');
+
+    if ((this as any).afterFn) {
+      (this as any).afterFn();
     }
 
-    test.after = after.bind(test);
+    return error;
+  };
 
+  let test: UnitTest = {
+    description: description,
+    exec: exec,
+    after: null,
+  };
 
-    Runner.add(test);
+  let after = function (this: UnitTest, fn: () => void) {
+    (this as any).afterFn = fn;
+  };
 
-    return test;
+  test.after = after.bind(test);
 
+  Runner.add(test);
 
-
-
+  return test;
 };
 
-
 const clear = () => {
-
-    for (let i = 0; i < rootNode.children.length; i++) {
-        rootNode.removeChild(rootNode.children[i]);
-    }
-}
+  for (let i = 0; i < rootNode.children.length; i++) {
+    rootNode.removeChild(rootNode.children[i]);
+  }
+};
 let perf: number, perf2: number;
 
 t('ReactElement array', async () => {
+  const list: React.ReactElement<any>[] = [];
+  for (let i = 0; i < 10000; i++) {
+    //const li = React.createElement('li', {key:i, className:'toolbar'});
+    //const li = <li></li>
+    list.push(<li key={i}></li>);
+  }
 
+  const appNode = <ul>{list}</ul>;
 
-    const list: React.ReactElement<any>[] = [];
-    for (let i = 0; i < 10000; i++) {
-        //const li = React.createElement('li', {key:i, className:'toolbar'});
-        //const li = <li></li>
-        list.push(<li key={i}></li>);
-    }
-
-    const appNode = <ul>{list}</ul>
-
-    perf = performance.now();
-    await ReactDOM.render(appNode, rootNode, () => {
-        perf = performance.now() - perf;
-    });
-
-
-
+  perf = performance.now();
+  await ReactDOM.render(appNode, rootNode, () => {
+    perf = performance.now() - perf;
+  });
 }).after(() => {
-    console.log('%c   - React render time: ' + perf + 'ms', 'color:#888');
-    ReactDOM.unmountComponentAtNode(rootNode);
+  console.log('%c   - React render time: ' + perf + 'ms', 'color:#888');
+  ReactDOM.unmountComponentAtNode(rootNode);
 });
 
 t('React.createElement', async () => {
+  const list: React.ReactElement<any>[] = [];
+  for (let i = 0; i < 10000; i++) {
+    const li = React.createElement('li', { key: i });
+    list.push(li);
+  }
 
+  const appNode = <ul>{list}</ul>;
 
-    const list: React.ReactElement<any>[] = [];
-    for (let i = 0; i < 10000; i++) {
-        const li = React.createElement('li', { key: i });
-        list.push(li);
-    }
-
-    const appNode = <ul>{list}</ul>
-
-    perf = performance.now();
-    await ReactDOM.render(appNode, rootNode, () => {
-        perf = performance.now() - perf;
-    });
-
-
+  perf = performance.now();
+  await ReactDOM.render(appNode, rootNode, () => {
+    perf = performance.now() - perf;
+  });
 }).after(() => {
-    console.log('%c   - React change tree time: ' + perf + 'ms', 'color:#888');
-    ReactDOM.unmountComponentAtNode(rootNode);
+  console.log('%c   - React change tree time: ' + perf + 'ms', 'color:#888');
+  ReactDOM.unmountComponentAtNode(rootNode);
 });
-
 
 // t('Document Fragment', () => {
 
@@ -203,8 +180,7 @@ t('React.createElement', async () => {
 
 //     rootNode.appendChild(docFrag);
 
-
-// }).after(() => 
+// }).after(() =>
 // {
 //     clear();
 
@@ -213,146 +189,125 @@ t('React.createElement', async () => {
 // );
 
 t('set innerHTML', () => {
-    const parent = document.createElement('ul');
-    let html: any[] = [];
-    for (let i = 0; i < 10000; i++) {
-        html.push('<li>' + i + '</li>');
-    }
-    parent.innerHTML = html.join('');
+  const parent = document.createElement('ul');
+  let html: any[] = [];
+  for (let i = 0; i < 10000; i++) {
+    html.push('<li>' + i + '</li>');
+  }
+  parent.innerHTML = html.join('');
 
-    rootNode.appendChild(parent);
+  rootNode.appendChild(parent);
 }).after(clear);
 
 t('append by createElement', () => {
+  const parent = document.createElement('ul');
 
-    const parent = document.createElement('ul');
+  for (let i = 0; i < 10000; i++) {
+    parent.appendChild(document.createElement('li'));
+  }
 
-    for (let i = 0; i < 10000; i++) {
-        parent.appendChild(document.createElement('li'));
-    }
-
-    rootNode.appendChild(parent);
-
-
+  rootNode.appendChild(parent);
 }).after(clear);
 
 t('custom virtual dom', () => {
-    let ul: HyperNode[] = [];
+  let ul: HyperNode[] = [];
 
-    for (let i = 0; i < 10000; i++) {
-        const li = h('li');
-        ul.push(li);
-    }
-    const root = h('div', { id: 'app' }, ul);
-    let time0 = performance.now();
-    DOOM.render(root, rootNode);
-    perf2 = performance.now() - time0;
-    let ul2: HyperNode[] = [];
+  for (let i = 0; i < 10000; i++) {
+    const li = h('li');
+    ul.push(li);
+  }
+  const root = h('div', { id: 'app' }, ul);
+  let time0 = performance.now();
+  DOOM.render(root, rootNode);
+  perf2 = performance.now() - time0;
+  let ul2: HyperNode[] = [];
 
-    for (let i = 0; i < 10000; i++) {
-        const li = h('li', { class: 'toolbar' });
-        ul2.push(li);
-    }
-    const root2 = h('div', { id: 'app' }, ul2);
-    let time = performance.now();
-    DOOM.render(root2, rootNode);
-    perf = performance.now() - time;
-
-
+  for (let i = 0; i < 10000; i++) {
+    const li = h('li', { class: 'toolbar' });
+    ul2.push(li);
+  }
+  const root2 = h('div', { id: 'app' }, ul2);
+  let time = performance.now();
+  DOOM.render(root2, rootNode);
+  perf = performance.now() - time;
 }).after(() => {
-    clear();
-    console.log('%c   - Appending time: ' + perf2 + 'ms', 'color:#888');
-    console.log('%c   - Changing tree time: ' + perf + 'ms', 'color:#888');
+  clear();
+  console.log('%c   - Appending time: ' + perf2 + 'ms', 'color:#888');
+  console.log('%c   - Changing tree time: ' + perf + 'ms', 'color:#888');
 });
 
-let perf3 = 0, perf4, perf5;
+let perf3 = 0,
+  perf4,
+  perf5;
 
 t('custom virtual dom - using innerHTML', () => {
+  let bu = b('ul');
 
+  for (let i = 0; i < 10000; i++) {
+    bu.addPure('<li></li>');
+  }
 
+  let time1 = performance.now();
+  rootNode = DOOM.irender(bu, rootNode);
+  perf3 = performance.now() - time1;
 
-    let bu = b('ul');
+  let bu2 = b('div');
 
-    for (let i = 0; i < 10000; i++) {
-        bu.addPure('<li></li>')
-    }
+  for (let i = 0; i < 10000; i++) {
+    bu2.addPure('<div class=toolbar><li>ASDASD</li></div>');
+  }
 
-    let time1 = performance.now();
-    rootNode = DOOM.irender(bu, rootNode)
-    perf3 = performance.now() - time1;
+  let time2 = performance.now();
+  DOOM.irender(bu2, rootNode);
+  perf4 = performance.now() - time2;
 
-    let bu2 = b('div');
+  let bu3 = b('a');
 
-    for (let i = 0; i < 10000; i++) {
-        bu2.addPure('<div class=toolbar><li>ASDASD</li></div>');
-    }
+  for (let i = 0; i < 10000; i++) {
+    bu3.addPure('<a><div>' + i + '</div></a>');
+  }
 
-    let time2 = performance.now();
-    DOOM.irender(bu2, rootNode);
-    perf4 = performance.now() - time2;
-
-    let bu3 = b('a');
-
-    for (let i = 0; i < 10000; i++) {
-        bu3.addPure('<a><div>' + i + '</div></a>');
-    }
-
-    let time3 = performance.now();
-    DOOM.irender(bu3, rootNode);
-    perf5 = performance.now() - time3;
-
-
-
-
+  let time3 = performance.now();
+  DOOM.irender(bu3, rootNode);
+  perf5 = performance.now() - time3;
 }).after(() => {
-    console.log('%c   - Appending time: ' + perf3 + 'ms', 'color:#888');
-    console.log('%c   - Changing tree time: ' + perf4 + 'ms', 'color:#888');
-    console.log('%c   - Changing tree again time: ' + perf5 + 'ms', 'color:#888');
-    clear();
-    rootNode.innerHTML = ';'
+  console.log('%c   - Appending time: ' + perf3 + 'ms', 'color:#888');
+  console.log('%c   - Changing tree time: ' + perf4 + 'ms', 'color:#888');
+  console.log('%c   - Changing tree again time: ' + perf5 + 'ms', 'color:#888');
+  clear();
+  rootNode.innerHTML = ';';
 });
 
-
 t('hyperHTML', () => {
-    let li: any[] = [];
-  
-    for (let i = 0; i < 10000; i++) {
-        li.push(hyperHTML`<li class=toolbar></li>`);
-    }
-    let time1 = performance.now();
-    const wire =
-        hyperHTML.bind(rootNode)`<ul>${
-            [li]
-            }</ul>`
-    perf = performance.now() - time1;
-    
-    time1 = performance.now();
-    hyperHTML.bind(rootNode)``
-    perf2 = performance.now() - time1;
+  let li: any[] = [];
+
+  for (let i = 0; i < 10000; i++) {
+    li.push(hyperHTML`<li class=toolbar></li>`);
+  }
+  let time1 = performance.now();
+  const wire = hyperHTML.bind(rootNode)`<ul>${[li]}</ul>`;
+  perf = performance.now() - time1;
+
+  time1 = performance.now();
+  hyperHTML.bind(rootNode)``;
+  perf2 = performance.now() - time1;
 }).after(() => {
-    console.log('%c   - Appending time: ' + perf + 'ms', 'color:#888');
-    console.log('%c   - Changing tree time: ' + perf2 + 'ms', 'color:#888');
-    clear();
-}) 
+  console.log('%c   - Appending time: ' + perf + 'ms', 'color:#888');
+  console.log('%c   - Changing tree time: ' + perf2 + 'ms', 'color:#888');
+  clear();
+});
 
 Runner.run();
-
-
 
 /**
  * TEST #1
  */
-// 
+//
 // const ul:Array<DOOM.Element> = [];
 
-
-
-
-
-// const root = h('div', {id:'app'},ul); 
+// const root = h('div', {id:'app'},ul);
 
 // DOOM.render(root, rootNode)
-
 
 /**
  * TEST #2 - 13~20ms
@@ -365,8 +320,6 @@ Runner.run();
 // }
 
 // rootNode.appendChild(parent);
-
-
 
 /**
  * TEST #5 ~14-16ms
@@ -397,8 +350,8 @@ Runner.run();
 // rootNode.appendChild(parent);
 
 /*
-* TEST #7 ~5-10ms
-*/
+ * TEST #7 ~5-10ms
+ */
 
 // const parent = DOM.createElement('ul');
 // let html:string[] = [] ;
@@ -411,27 +364,19 @@ Runner.run();
 // parent.innerHTML = html;
 // rootNode.appendChild(parent);
 
-
-
-
-
-
 // let li:string[] = [] ;
 // let list = ``;
 // for (let i = 0; i < 5000; i++) {
 //     list=`<li class=toolbar></li>`
 // }
 
-// const wire = 
+// const wire =
 // hyperHTML.bind(rootNode)`<ul>${
 //    [list]
 // }</ul>`
 
-
-
 // setInterval(() => {
 //     time = performance.now();
-
 
 //     //parent.innerHTML = '<a></a>'
 //     // hyperHTML.bind(rootNode)`<ul>
@@ -462,7 +407,6 @@ Runner.run();
 //     // rootNode.appendChild(newRoot);
 //     // parent = newRoot
 
-
 //     /** 5-6 ~ 7 */
 //     // let newRoot = DOM.createElement('a') as HTMLElement;
 //     // newRoot.innerText = (Math.random() * 100).toString();
@@ -474,13 +418,11 @@ Runner.run();
 
 //     //ReactDOM.render(<ul><a>{Math.random() * 100}</a></ul>, rootNode);
 
-
 //     //parent = rootNode.replaceChild(newChild, parent)
 //     let now = performance.now();
 //     console.log(now - time + 'ms');
 
 // }, 600)
-
 
 // // import { Provider } from "react-redux";
 
@@ -496,29 +438,18 @@ Runner.run();
 // //const dockpanel = new DockPanel();
 // //dockpanel.id = 'main';
 
-
-
-
-
-
-
-
-
 // let lastSelect = null;
 
 // function test(m: MouseEvent) {
 //     time = performance.now();
 
-
 //     if (m.button === 0) {
-
 
 //         DOOM.updater.mutate(() => {
 
 //             const index = Math.floor((parent.scrollTop + m.clientY) / 15);
 //             const current = parent.children[index];
 //             if (lastSelect !== current) {
-
 
 //                 if (lastSelect) {
 //                     lastSelect.style.backgroundColor = '';
@@ -536,7 +467,6 @@ Runner.run();
 //         })
 //     }
 
-
 //     // ='<li style=\"color:blue\">'+text+'</li>'
 
 // }
@@ -544,8 +474,6 @@ Runner.run();
 // let html: any[] = [];
 
 // const builder = b('div');
-
-
 
 // for (let i = 0; i < 30; i++) {
 
@@ -569,7 +497,7 @@ Runner.run();
 
 //     DOOM.render(builder, rootNode).then((n) => {
 //         rootNode = n;
-        
+
 //         timer = setTimeout(()=> {
 //             DOOM.perf.start();
 //             const bu = b('div');
@@ -578,10 +506,9 @@ Runner.run();
 //                 console.log( DOOM.perf.stop() + 'ms');
 //             })
 //         }, 5000)
-        
+
 //     })
-    
-   
+
 //     //timer.unref();
 //     console.log( DOOM.perf.stop() + 'ms');
 // }, 5000)
@@ -598,7 +525,6 @@ Runner.run();
 
 // const scroll = DOM.createElement('div', { class: 'scroll-container' });
 
-
 // function hideNativeScroll() {
 
 //     const scrollbarWidth = scrollbarWidth();
@@ -610,7 +536,6 @@ Runner.run();
 //         marginBottom: scrollbarWidth * 2 + 'px',
 //         paddingBottom: scrollbarWidth
 //     };
-
 
 //     // [
 //     //     this.isRtl ? 'paddingLeft' : 'paddingRight'
@@ -651,7 +576,7 @@ Runner.run();
 //     //const s = (window.pageYOffset || document.documentElement.scrollTop)  - (document.documentElement.clientTop || 0);
 //     DOOM.updater.measure(() => {
 //         //const t = parent.scrollTop / parent.scrollHeight;
-//         //will be the position. 
+//         //will be the position.
 //         var b = parent.scrollHeight - parent.clientHeight;
 //         //will be the maximum value for scrollTop.
 //         c = parent.scrollTop / b;
@@ -661,4 +586,3 @@ Runner.run();
 //         const sc = MathUtils.lerp(0, 200 - 16, c);
 //         thumb.style.top = sc + 'px';
 //     })
-

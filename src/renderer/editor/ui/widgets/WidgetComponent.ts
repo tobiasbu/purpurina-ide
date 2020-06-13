@@ -13,11 +13,13 @@ export interface ComponentProps {
 }
 
 export interface ComponentConstructor<T> {
-  new(...args:any[]): T;
+  new (...args: any[]): T;
 }
 
-export class ComponentBase<P extends ComponentProps, S extends ComponentState>
- extends hyper.Component<S> {
+export class ComponentBase<
+  P extends ComponentProps,
+  S extends ComponentState
+> extends hyper.Component<S> {
   protected readonly props: Readonly<P>;
   // state = {
   //   width: 0,
@@ -26,8 +28,8 @@ export class ComponentBase<P extends ComponentProps, S extends ComponentState>
     super();
     this.props = props;
     this.state = <S>{
-      width: (props) ? (props.width || 0) : 0,
-      height: (props) ? (props.height || 0) : 0,
+      width: props ? props.width || 0 : 0,
+      height: props ? props.height || 0 : 0,
     };
   }
 }
@@ -52,7 +54,6 @@ export class ComponentBase<P extends ComponentProps, S extends ComponentState>
 
 // export interface WidgetComponent<P extends ComponentProps, S extends ComponentState>
 //  extends ComponentBase<P, S> { }
-export default class WidgetComponent<S extends ComponentState = ComponentState>
-extends ComponentBase<ComponentProps, S>  {
-
-}
+export default class WidgetComponent<
+  S extends ComponentState = ComponentState
+> extends ComponentBase<ComponentProps, S> {}

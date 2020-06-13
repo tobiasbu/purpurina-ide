@@ -1,36 +1,33 @@
-
 /*
 * Widget
 */
 
 .p-Widget {
-    box-sizing: border-box;
-    position: relative;
-    overflow: hidden;
-    /* cursor: default; */
+  box-sizing: border-box;
+  position: relative;
+  overflow: hidden;
+  /* cursor: default; */
 }
 
-
-
 .p-Widget.p-mod-hidden {
-    display: none !important;
+  display: none !important;
 }
 
 .p-DockPanel-widget {
-    min-width: 120px;
-    min-height: 120px;
-    padding: 4px;
-    /* display: flex; */
-    /* flex-direction: column; */
-    /* border: 1px solid #C0C0C0; */
-    /* border-top: none; */
-    background: var(--mid);
-    /* box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2); */
+  min-width: 120px;
+  min-height: 120px;
+  padding: 4px;
+  /* display: flex; */
+  /* flex-direction: column; */
+  /* border: 1px solid #C0C0C0; */
+  /* border-top: none; */
+  background: var(--mid);
+  /* box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2); */
 
-    /* flex: 1 1 auto; */
-    /* border: 1px solid #505050; */
-   
-    /* overflow: auto; */
+  /* flex: 1 1 auto; */
+  /* border: 1px solid #505050; */
+
+  /* overflow: auto; */
 }
 
 .p-Widget-wrapper {

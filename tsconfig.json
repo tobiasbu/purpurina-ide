@@ -1,53 +1,35 @@
 {
   "compilerOptions": {
-    "target": "esnext",
+    "target": "ES2015",
+    "module": "CommonJS",
     "moduleResolution": "node",
-    "module": "commonjs",
     "baseUrl": "./",
     "sourceMap": true,
     "outDir": "dist",
     "strictNullChecks": false,
     "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
     "noImplicitReturns": true,
+    "noImplicitAny": false,
     "removeComments": true,
     "allowJs": true,
-    "lib": [
-      "esnext",
-      "dom"
-    ],
+    "importsNotUsedAsValues": "remove",
+    "lib": ["esnext", "dom"],
     "paths": {
-      "*": [
-        "src/*"
-      ],
-      "@shared/*": [
-        "src/shared/*"
-      ],
-      "@shared": [
-        "src/shared"
-      ],
-      "@main": [
-        "src/main",
-      ],
-      "@main/*": [
-        "src/main/*",
-      ],
-      "@renderer": [
-        "src/renderer"
-      ],
+      "*": ["src/*"],
+      "@shared/*": ["src/shared/*"],
+      "@shared": ["src/shared"],
+      "@main": ["src/main"],
+      "@main/*": ["src/main/*"],
+      "@renderer": ["src/renderer"]
     },
-    "typeRoots": [
-      "node_modules/@types"
-    ]
+    "typeRoots": ["types", "node_modules/@types"],
   },
   "include": [
+    "./types/**/*",
     "./src/**/*",
-    "./index.d.ts",
     "./src/main/main.d.ts",
     "./src/renderer/launcher/constants.d.ts"
   ],
-  "exclude": [
-    "dist",
-    "./src/engine",
-    "engine"
-  ]
+  "exclude": ["dist", "./src/engine", "engine"]
 }

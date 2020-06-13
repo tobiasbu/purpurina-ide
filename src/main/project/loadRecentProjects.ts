@@ -2,7 +2,11 @@ import { ProjectInfo, ProjectPackage } from '@shared/types';
 import * as path from 'path';
 import * as fse from 'fs-extra';
 
-function readPackage(buffer: Buffer, projectPath: string, indexer: number): ProjectInfo {
+function readPackage(
+  buffer: Buffer,
+  projectPath: string,
+  indexer: number
+): ProjectInfo {
   let projectInfo: ProjectInfo | Error;
   try {
     const json: ProjectPackage = JSON.parse(buffer.toString('utf-8'));
@@ -18,13 +22,9 @@ function readPackage(buffer: Buffer, projectPath: string, indexer: number): Proj
 }
 
 export default function loadRecentProjects(
-  recentProjects: string[],
+  recentProjects: string[]
 ): Promise<null | ProjectInfo[]> {
-  if (!recentProjects) {
-    return Promise.resolve(null);
-  }
-
-  if (recentProjects.length === 0) {
+  if (!recentProjects || recentProjects.length === 0) {
     return Promise.resolve(null);
   }
 
@@ -33,7 +33,8 @@ export default function loadRecentProjects(
     if (fse.existsSync(projectPath)) {
       const purpurPackage = path.join(projectPath, path.sep, 'purpurina.json');
 
-      const p = fse.readFile(purpurPackage)
+      const p = fse
+        .readFile(purpurPackage)
         .then((buffer) => readPackage(buffer, projectPath, index))
         .catch((e) => {
           const projectInfo: ProjectInfo = {

@@ -3,7 +3,10 @@ import hyper from 'hyperhtml';
 type Callback = () => void;
 
 // tslint:disable-next-line: function-name
-export default function TitleBar(onClose?: Callback, onMinimize?: Callback): HTMLElement {
+export default function TitleBar(
+  onClose?: Callback,
+  onMinimize?: Callback
+): HTMLElement {
   return hyper.wire()`
         <div class="win-top-bar">
         <div class="win-top-buttons">

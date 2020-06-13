@@ -1,35 +1,32 @@
-import hyperHTML from "hyperhtml";
+import hyperHTML from 'hyperhtml';
 
-function ProgressBar(percent: number, status:string = "Loading...") {
-    //console.log(render);
+function ProgressBar(percent: number, status: string = 'Loading...') {
+  //console.log(render);
 
-    const value = percent.toString();
+  const value = percent.toString();
 
-    return hyperHTML.wire()`
+  return hyperHTML.wire()`
     <div class="progress-bar-container">
         <div class="progress-bar">
-            <span style=${"width: ".concat(value).concat("%")} ></span>
+            <span style=${'width: '.concat(value).concat('%')} ></span>
         </div>
         <p>${status}</p>
     </div>`;
 }
 
 export default class SplashScreen extends hyperHTML.Component {
+  private element: HTMLElement;
+  private progressBar: HTMLElement;
 
-    private element: HTMLElement;
-    private progressBar: HTMLElement;
+  /**
+   * Constructor
+   */
+  constructor() {
+    super();
+  }
 
-    /**
-     * Constructor
-     */
-    constructor() {
-        super();
-
-
-    }
-
-    render() {
-        return hyperHTML.wire(this)`
+  render() {
+    return hyperHTML.wire(this)`
         <div id="splash">
         <div class='vertical-flex-center'>
           <div style='margin: auto; padding-bottom: 32px;'>
@@ -51,7 +48,5 @@ export default class SplashScreen extends hyperHTML.Component {
           </div>
             ${ProgressBar(20)}
         `;
-    }
-
+  }
 }
-

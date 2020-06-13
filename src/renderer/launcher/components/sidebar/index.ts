@@ -16,7 +16,9 @@ export default class SideBar extends hyper.Component {
     <div class="side-bar">
       ${header}
       ${this.navigation}
-      <p id="version">Purpurina Launcher v${version.toString()} ~ ${version.STAGE}</p>
+      <p id="version">Purpurina Launcher v${version.toString()} ~ ${
+      version.STAGE
+    }</p>
     </div>`;
   }
 }

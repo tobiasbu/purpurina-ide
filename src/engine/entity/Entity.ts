@@ -1,89 +1,81 @@
-
-
 //import EntityHierarchy from './EntityHierarchy'
-import Transform2D from '../math/transform/Transform2D'
+import Transform2D from "../math/transform/Transform2D";
 // import ModuleManager from '../modules/ModuleManager';
-import EntityBase from './EntityBase';
-import ITransform2D from '../math/transform/ITransform2D';
+import EntityBase from "./EntityBase";
+import ITransform2D from "../math/transform/ITransform2D";
 
-export default class Entity extends EntityBase //Hierarchy
-{
-    protected _transform: ITransform2D;
-    private _pool = null;
-    private _pendingRemoval: boolean;
-   
-    get isPooled(): boolean {
-        return this._pool !== null;
-    }
+export default class Entity extends EntityBase {
+  protected _transform: ITransform2D;
+  private _pool = null;
+  private _pendingRemoval: boolean;
 
-    public get pendingRemoval(): boolean {
-        return this._pendingRemoval;
-    }
+  get isPooled(): boolean {
+    return this._pool !== null;
+  }
 
-    public get transform():ITransform2D {
-        return this._transform;
-    }
+  public get pendingRemoval(): boolean {
+    return this._pendingRemoval;
+  }
 
-    constructor(name: string)
-    {
-        super(name)
-        this._transform = new Transform2D();
-        
-        //this.modules = new ModuleManager(this);
-        //this.scene = null;       
-        this._pendingRemoval = false;
-    }
+  public get transform(): ITransform2D {
+    return this._transform;
+  }
 
-  
+  constructor(name: string) {
+    super(name);
+    this._transform = new Transform2D();
 
-    /**
-     * If the object is pooled, send back to his pool.
-     * @returns {boolean} True if the object was sent to pool, otherwise false.
-     */
-    // back(): boolean {
-    //     if (this.isPooled) {
-            
-    //         if (this.scene !== null) {
-    //             this._pendingRemoval = true;
-    //             return this.game.system.pool.push(this);
-    //         } else {
-    //             return false;
-    //         }
+    //this.modules = new ModuleManager(this);
+    //this.scene = null;
+    this._pendingRemoval = false;
+  }
 
-    //     } else {
-    //         return false;
-    //     }
-    // }
+  /**
+   * If the object is pooled, send back to his pool.
+   * @returns {boolean} True if the object was sent to pool, otherwise false.
+   */
+  // back(): boolean {
+  //     if (this.isPooled) {
 
-    // set x(value) {
-    //     this._transform.position.x = value;
-    //     this._transform.markDirty();
-    // }
+  //         if (this.scene !== null) {
+  //             this._pendingRemoval = true;
+  //             return this.game.system.pool.push(this);
+  //         } else {
+  //             return false;
+  //         }
 
-    // get x() { return this._transform.position.x; }
+  //     } else {
+  //         return false;
+  //     }
+  // }
 
-    // set y(value) {
-    //     this._transform.position.y = value;
-    //     this._transform.markDirty();
-    // }
+  // set x(value) {
+  //     this._transform.position.x = value;
+  //     this._transform.markDirty();
+  // }
 
-    // get y() { return this._transform.position.y; }
+  // get x() { return this._transform.position.x; }
 
-    // get position() { return this._transform.position; }
-    // set position(value) { this._transform.position = value; this._transform._isDirty = true; }
+  // set y(value) {
+  //     this._transform.position.y = value;
+  //     this._transform.markDirty();
+  // }
 
-    // get origin() { return this._transform.origin; }
-    // set origin(value) { this._transform.origin = value; this._transform._isDirty = true; }
-    // // set ['origin.x'](value) { this._transform.origin.x = value; this._transform._isDirty = true;}
-    // // set ['origin.y'](value) { this._transform.origin.y = value; this._transform._isDirty = true;}
+  // get y() { return this._transform.position.y; }
 
-    // get scale() { return this._transform.scale; }
-    // set scale(value) { this._transform.scale = value; this._transform._isDirty = true; }
-    // set ['scale.x'](value) { this._transform.scale.x = value; this._transform._isDirty = true;}
-    // set ['scale.y'](value) { this._transform.scale.y = value; this._transform._isDirty = true;}
+  // get position() { return this._transform.position; }
+  // set position(value) { this._transform.position = value; this._transform._isDirty = true; }
 
-    // get angle() { return this._transform.angle; }
-    // set angle(value) { this._transform.angle = value; this._transform._isDirty = true; }
-   
-    
+  // get origin() { return this._transform.origin; }
+  // set origin(value) { this._transform.origin = value; this._transform._isDirty = true; }
+  // // set ['origin.x'](value) { this._transform.origin.x = value; this._transform._isDirty = true;}
+  // // set ['origin.y'](value) { this._transform.origin.y = value; this._transform._isDirty = true;}
+
+  // get scale() { return this._transform.scale; }
+  // set scale(value) { this._transform.scale = value; this._transform._isDirty = true; }
+  // set ['scale.x'](value) { this._transform.scale.x = value; this._transform._isDirty = true;}
+  // set ['scale.y'](value) { this._transform.scale.y = value; this._transform._isDirty = true;}
+
+  // get angle() { return this._transform.angle; }
+  // set angle(value) { this._transform.angle = value; this._transform._isDirty = true; }
 }

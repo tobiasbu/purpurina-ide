@@ -1,84 +1,101 @@
-
-
 import * as webpack from 'webpack';
 import * as path from 'path';
 import TsconfigPathsPlugin from 'tsconfig-paths-webpack-plugin';
 
-import { WebpackBuildConfig } from './types';
+import { WebpackBaseBuildConfig } from './types';
 import { CleanWebpackPlugin } from 'clean-webpack-plugin';
+import getValue from './commons/getValue';
 
-export const PROJECT_PATH = path.resolve(__dirname, '../');
+interface BaseConfig {
+  config: webpack.Configuration;
+  PURPURINA_PROJECT_PATH: string;
+  IS_PROD: boolean;
+}
 
 /**
  * Base webpack configuration.
  */
-export default (type: string, env: WebpackBuildConfig): webpack.Configuration => {
-
+export default (
+  env: WebpackBaseBuildConfig,
+  configType?: string
+): BaseConfig => {
   const PROJECT_PATH = path.resolve(__dirname, '../');
-  // if (env.isProduction === undefined) {
-  //   env.isProduction = env.mode === "production";
-  // }
-  const mode = env.isProduction ? "production" : "development";
+
+  const mode = getValue(env.NODE_ENV, 'development');
+  const IS_PROD = mode !== 'development';
+  const TYPE = configType || 'project';
 
   const baseConfig: webpack.Configuration = {
     mode,
-    devtool: env.isProduction ? 'nosources-source-map' : 'source-map',
+    devtool: IS_PROD ? 'nosources-source-map' : 'source-map',
     context: PROJECT_PATH,
     output: {
-      path: path.join(PROJECT_PATH, `./dist/${type}`),
+      path: path.join(PROJECT_PATH, `./out/dev/${TYPE}`),
       libraryTarget: 'commonjs2',
-      filename: "[name].js",
-      chunkFilename: "[name].bundle.js",
+      filename: '[name].js',
+      chunkFilename: '[name].bundle.js',
+      hotUpdateChunkFilename: '.hot/[id].[hash].hot-update.js',
+      hotUpdateMainFilename: '.hot/[hash].hot-update.json',
     },
     resolve: {
       plugins: [new TsconfigPathsPlugin({})],
       extensions: ['.ts', '.js', '.json'],
       alias: {
         '@shared': path.join(PROJECT_PATH, `./shared`),
-      }
+      },
     },
     module: {
       rules: [
         {
-          test: /\.tsx?$/,
-          enforce: "pre",
+          test: /\.ts$/,
+          enforce: 'pre',
           loader: 'eslint-loader',
           exclude: /node_modules/,
         },
         {
           test: /\.ts$/,
           loader: 'ts-loader',
-          exclude: /node_modules/
-        }]
+          exclude: /node_modules/,
+        },
+      ],
     },
     optimization: {
-      minimize: env.isProduction === true,
+      minimize: IS_PROD === true,
       minimizer: [],
+      noEmitOnErrors: true,
+      nodeEnv: mode,
     },
     plugins: [
-      new CleanWebpackPlugin(),
       new webpack.DefinePlugin({
-        'process.env.NODE_ENV': env.isProduction ? "\"production\"" : "\"development\"",
-        'DEVELOPMENT': JSON.stringify(env.isProduction),
+        'process.env.NODE_ENV': IS_PROD ? '"production"' : '"development"',
+        __PURPUR_DEV__: JSON.stringify(IS_PROD === false),
       }),
+      new CleanWebpackPlugin(),
+
     ],
-    externals: {},
+    externals: ['source-map-support/source-map-support.js'],
     node: {
-      __dirname: env.isProduction === false,
-      __filename: env.isProduction === false,
+      __dirname: IS_PROD === false,
+      __filename: IS_PROD === false,
     },
   };
 
-  if (env.isProduction) {
+  // Additional environment variables
+  const additionalEnvironmentVariables = Object.keys(process.env).filter((it) =>
+    it.startsWith('ELECTRON_WEBPACK_')
+  );
+  if (additionalEnvironmentVariables.length > 0) {
     baseConfig.plugins.push(
-      new webpack.HotModuleReplacementPlugin(),
-      new webpack.NoEmitOnErrorsPlugin()
+      new webpack.EnvironmentPlugin(additionalEnvironmentVariables)
     );
   }
 
-  return baseConfig;
+  // if (!IS_PROD) {
+  //   baseConfig.plugins.push(new webpack.NoEmitOnErrorsPlugin());
+  // }
 
-}
+  return { config: baseConfig, PURPURINA_PROJECT_PATH: PROJECT_PATH, IS_PROD };
+};
 
 // const common_config = {
 //   node: {

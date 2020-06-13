@@ -2,10 +2,13 @@ import * as path from 'path';
 import * as fse from 'fs-extra';
 
 import { CreateProject, ProjectInfo, ProjectPackage } from '@shared/types';
-import * as PathValidation from '@shared/utils/pathValidation';
+import * as PathValidation from 'renderer/commons/utils/pathValidation';
 
 import * as FileSystem from '../utils/FileSystem';
-import { generatePackageJSON, generateProjectPackage } from './packageGenerator';
+import {
+  generatePackageJSON,
+  generateProjectPackage,
+} from './packageGenerator';
 
 /**
  * Validate project creation data.
@@ -23,7 +26,10 @@ function validateNewProject(newProject: CreateProject): void {
     throw new Error(error);
   }
 
-  const fullPath = path.join(newProject.location, `.${path.sep}${newProject.projectName}`);
+  const fullPath = path.join(
+    newProject.location,
+    `.${path.sep}${newProject.projectName}`
+  );
 
   error = PathValidation.path(fullPath);
 
@@ -37,12 +43,14 @@ function validateNewProject(newProject: CreateProject): void {
  *
  * @param createProjectInfo Project creation data.
  */
-export default function createNewProject(createProjectInfo: CreateProject): ProjectInfo {
+export default function createNewProject(
+  createProjectInfo: CreateProject
+): ProjectInfo {
   validateNewProject(createProjectInfo);
 
   const fullPath = path.join(
     createProjectInfo.location,
-    `.${path.sep}${createProjectInfo.projectName}`,
+    `.${path.sep}${createProjectInfo.projectName}`
   );
 
   if (fse.existsSync(fullPath)) {
@@ -54,7 +62,9 @@ export default function createNewProject(createProjectInfo: CreateProject): Proj
     }
 
     if (!FileSystem.isEmpty(fullPath)) {
-      throw new Error(`The location '${fullPath}' is already in use and not empty.`);
+      throw new Error(
+        `The location '${fullPath}' is already in use and not empty.`
+      );
     }
   } else {
     try {

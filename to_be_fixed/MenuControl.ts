@@ -6,7 +6,6 @@ import LearnPage from '../src/renderer/launcher/pages/LearnPage';
 import CreateProjectPage from './pages/CreateProjectPage';
 
 export default class MenuControl {
-
   private menuMap: Map<string, Component>;
   private homePage: ScrollContainer<HomePage>; // = new ScrollContainer(new ProjectListPage());
   private splashScreen: HTMLElement;
@@ -23,7 +22,6 @@ export default class MenuControl {
   }
 
   private menuRegister() {
-
     // this.menuElement = document.getElementById('menu');
     this.splashScreen = document.getElementById('splash');
 
@@ -43,7 +41,6 @@ export default class MenuControl {
     this.menuMap.set(learn.id, new LearnPage());
     this.menuMap.set(create.id, new CreateProjectPage());
     this.setActiveOption(projects);
-
   }
 
   init(projects: IProjectInfo[]) {
@@ -52,9 +49,8 @@ export default class MenuControl {
     this.splashScreen.classList.add('disable');
     setTimeout(() => {
       this.splashScreen.style.display = 'none';
-    },         300);
+    }, 300);
     this.isLoaded = true;
-
   }
 
   private setActiveOption(option: HTMLElement) {
@@ -71,7 +67,6 @@ export default class MenuControl {
     this.currentMenu = option;
 
     if (this.isLoaded) {
-
       const page = this.menuMap.get(option.id);
       if (page) {
         if ((page as any).reset) {
@@ -81,5 +76,4 @@ export default class MenuControl {
       }
     }
   }
-
 }

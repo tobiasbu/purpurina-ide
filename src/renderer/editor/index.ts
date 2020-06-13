@@ -1,4 +1,3 @@
-
 (window as any).global = window;
 
 (window as any).eval = global.eval = function () {
@@ -19,5 +18,3 @@ takeOverConsole(LoggerMiddleware);
 
 // hyper(rootNode)`${new SplashScreen()}`;
 hyper(rootNode)`${new App()}`;
-
-console.log('hi');

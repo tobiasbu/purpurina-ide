@@ -5,7 +5,6 @@ import Rect from '../../../../engine/math/Rect';
  * Helper class that transforms global position to local Element position
  */
 export default class PointerTransform {
-
   private element: HTMLElement;
   private clientRect: Rect;
   private boundingClientRect: ClientRect | DOMRect;
@@ -27,13 +26,16 @@ export default class PointerTransform {
    * This function should be called when the target element is resized.
    */
   updateClientRect(): void {
-
     let rect = this.clientRect;
     let clientRect = this.element.getBoundingClientRect();
     this.boundingClientRect = clientRect;
 
-    rect.x = clientRect.left + window.pageXOffset - document.documentElement.clientLeft;
-    rect.y = clientRect.top + window.pageYOffset - document.documentElement.clientTop;
+    rect.x =
+      clientRect.left +
+      window.pageXOffset -
+      document.documentElement.clientLeft;
+    rect.y =
+      clientRect.top + window.pageYOffset - document.documentElement.clientTop;
     rect.width = clientRect.width;
     rect.height = clientRect.height;
   }
@@ -46,29 +48,39 @@ export default class PointerTransform {
   transform(position: IVector2): IVector2 {
     let rect = this.boundingClientRect;
     let pos = { x: 0, y: 0 };
-    pos.x = MathUtils.floor((position.x - rect.left) / (rect.right - rect.left) * this.element.clientWidth);
-    pos.y = MathUtils.floor((position.y - rect.top) / (rect.bottom - rect.top) * this.element.clientHeight);
+    pos.x = MathUtils.floor(
+      ((position.x - rect.left) / (rect.right - rect.left)) *
+        this.element.clientWidth
+    );
+    pos.y = MathUtils.floor(
+      ((position.y - rect.top) / (rect.bottom - rect.top)) *
+        this.element.clientHeight
+    );
     return pos;
   }
 
   /**
    * Transform global x position to local target x
-   * @param x 
+   * @param x
    * @returns Local 'x'
    */
   transformX(x: number): number {
     let rect = this.boundingClientRect;
-    return MathUtils.floor((x - rect.left) / (rect.right - rect.left) * this.element.clientWidth);
+    return MathUtils.floor(
+      ((x - rect.left) / (rect.right - rect.left)) * this.element.clientWidth
+    );
   }
 
   /**
    * Transform global y position to local target y
-   * @param y 
+   * @param y
    * @returns Local 'y'
    */
   transformY(y: number): number {
     let rect = this.boundingClientRect;
-    return MathUtils.floor((y - rect.top) / (rect.bottom - rect.top) * this.element.clientHeight);
+    return MathUtils.floor(
+      ((y - rect.top) / (rect.bottom - rect.top)) * this.element.clientHeight
+    );
   }
 
   /**
@@ -97,5 +109,4 @@ export default class PointerTransform {
   clientRectTransformY(y: number): number {
     return (y - this.clientRect.y) * this.scale.y;
   }
-
 }

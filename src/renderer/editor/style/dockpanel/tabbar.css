@@ -3,134 +3,134 @@
 */
 
 .p-TabBar {
-    display: flex;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    min-height: 24px;
-    max-height: 24px;
-    background-color: var(--dark);
+  display: flex;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  min-height: 24px;
+  max-height: 24px;
+  background-color: var(--dark);
 }
 
 .p-TabBar[data-orientation='horizontal'] {
-    flex-direction: row;
+  flex-direction: row;
 }
 
 .p-TabBar[data-orientation='vertical'] {
-    flex-direction: column;
+  flex-direction: column;
 }
 
 .p-TabBar-content {
-    min-width: 0;
-    min-height: 0;
-    align-items: flex-end;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex: 1 1 auto;
-    list-style-type: none;
+  min-width: 0;
+  min-height: 0;
+  align-items: flex-end;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex: 1 1 auto;
+  list-style-type: none;
 }
 
-.p-TabBar[data-orientation='horizontal']>.p-TabBar-content {
-    flex-direction: row;
+.p-TabBar[data-orientation='horizontal'] > .p-TabBar-content {
+  flex-direction: row;
 }
 
-.p-TabBar[data-orientation='vertical']>.p-TabBar-content {
-    flex-direction: column;
+.p-TabBar[data-orientation='vertical'] > .p-TabBar-content {
+  flex-direction: column;
 }
 
 .p-TabBar-tab {
-    display: flex;
-    flex-direction: row;
-    box-sizing: border-box;
-    overflow: hidden;
-    padding: 0px 8px;
-    background: #1a191a;
-    color: var(--text);
-    font: 11px Segoe UI, Helvetica, Arial, sans-serif;
-    flex: 0 1 125px;
-    min-height: 24px;
-    max-height: 24px;
-    min-width: 24px;
-    margin-left: -1px;
-    line-height: 24px;
-    border-right: 1px solid var(--dark);
+  display: flex;
+  flex-direction: row;
+  box-sizing: border-box;
+  overflow: hidden;
+  padding: 0px 8px;
+  background: #1a191a;
+  color: var(--text);
+  font: 11px Segoe UI, Helvetica, Arial, sans-serif;
+  flex: 0 1 125px;
+  min-height: 24px;
+  max-height: 24px;
+  min-width: 24px;
+  margin-left: -1px;
+  line-height: 24px;
+  border-right: 1px solid var(--dark);
 }
 
 .p-TabBar-tabIcon,
 .p-TabBar-tabCloseIcon {
-    flex: 0 0 auto;
+  flex: 0 0 auto;
 }
 
 .p-TabBar-tabLabel {
-    flex: 1 1 auto;
-    overflow: hidden;
-    white-space: nowrap;
+  flex: 1 1 auto;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
 .p-TabBar-tab.p-mod-hidden {
-    display: none !important;
+  display: none !important;
 }
 
 .p-TabBar.p-mod-dragging .p-TabBar-tab {
-    position: relative;
+  position: relative;
 }
 
 .p-TabBar.p-mod-dragging[data-orientation='horizontal'] .p-TabBar-tab {
-    left: 0;
-    transition: left 150ms ease;
+  left: 0;
+  transition: left 150ms ease;
 }
 
 .p-TabBar.p-mod-dragging[data-orientation='vertical'] .p-TabBar-tab {
-    top: 0;
-    transition: top 150ms ease;
+  top: 0;
+  transition: top 150ms ease;
 }
 
 .p-TabBar.p-mod-dragging .p-TabBar-tab.p-mod-dragging {
-    transition: none;
+  transition: none;
 }
 
 .p-TabPanel-tabBar {
-    z-index: 1;
+  z-index: 1;
 }
 
 .p-TabPanel-stackedPanel {
-    z-index: 0;
+  z-index: 0;
 }
 
 .p-TabBar-tab.p-mod-current {
-    background: var(--mid);
+  background: var(--mid);
 }
 
 .p-TabBar-tab:hover:not(.p-mod-current) {
-    background: var(--midLight);
+  background: var(--midLight);
 }
 
 .p-TabBar-tab:first-child {
-    margin-left: 0;
+  margin-left: 0;
 }
 
 .p-TabBar-tabIcon,
 .p-TabBar-tabLabel,
 .p-TabBar-tabCloseIcon {
-    display: inline-block;
+  display: inline-block;
 }
 
-.p-TabBar-tab.p-mod-closable>.p-TabBar-tabCloseIcon {
-    margin-left: 4px;
+.p-TabBar-tab.p-mod-closable > .p-TabBar-tabCloseIcon {
+  margin-left: 4px;
 }
 
-.p-TabBar-tab.p-mod-closable>.p-TabBar-tabCloseIcon:before {
-    content: "\2716";
-    font-family: 12px Arial, Helvetica, sans-serif;
+.p-TabBar-tab.p-mod-closable > .p-TabBar-tabCloseIcon:before {
+  content: '\2716';
+  font-family: 12px Arial, Helvetica, sans-serif;
 }
 
 .p-TabBar-tab.p-mod-drag-image {
-    min-height: 24px;
-    max-height: 24px;
-    min-width: 125px;
-    border: none;
-    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
-    transform: translateX(-40%) translateY(-58%);
+  min-height: 24px;
+  max-height: 24px;
+  min-width: 125px;
+  border: none;
+  box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+  transform: translateX(-40%) translateY(-58%);
 }

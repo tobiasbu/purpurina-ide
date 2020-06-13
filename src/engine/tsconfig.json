@@ -1,28 +1,23 @@
 {
-    "compilerOptions": {
-        "target": "es2015",
-        "module": "commonjs",
-        "moduleResolution": "node",
-        "lib": ["es2015", "dom"],
-        "outDir": "build/ts",
-        "sourceMap": true,
-        // "noImplicitAny": true,
-        // "noImplicitReturns": true,
-        // "noImplicitThis": true,
-        // "noUnusedLocals": true,
-        // "strictNullChecks": false,
-        
-        // "emitDecoratorMetadata": true,
-        // "experimentalDecorators": true,
-        // "removeComments": false,
-        //"suppressImplicitAnyIndexErrors": true,
-        "typeRoots": ["types"]
-      },
-      "include": [
-        "types/**/*.ts",
-        "src/**/*.ts",
-      ],
-      "exclude": [
-        "node_modules"
-      ]
+  "compilerOptions": {
+    "target": "es2015",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "lib": ["es2015", "dom"],
+    "outDir": "build/ts",
+    "sourceMap": true,
+    // "noImplicitAny": true,
+    // "noImplicitReturns": true,
+    // "noImplicitThis": true,
+    // "noUnusedLocals": true,
+    // "strictNullChecks": false,
+
+    // "emitDecoratorMetadata": true,
+    // "experimentalDecorators": true,
+    // "removeComments": false,
+    //"suppressImplicitAnyIndexErrors": true,
+    "typeRoots": ["types"]
+  },
+  "include": ["types/**/*.ts", "src/**/*.ts"],
+  "exclude": ["node_modules"]
 }

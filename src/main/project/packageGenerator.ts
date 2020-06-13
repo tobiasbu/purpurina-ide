@@ -21,7 +21,10 @@ interface PackageJSON {
  * @param createProject The project information
  * @see https://docs.npmjs.com/files/package.json
  */
-export function generatePackageJSON(dir: string, createProject: CreateProject): void {
+export function generatePackageJSON(
+  dir: string,
+  createProject: CreateProject
+): void {
   let name = createProject.projectName;
   name = name.toLowerCase();
   name = name.trim();
@@ -36,7 +39,9 @@ export function generatePackageJSON(dir: string, createProject: CreateProject): 
     }
   }
 
-  const desc = `New Purpurina project ${((createProject.author) ? `by ${createProject.author}` : '')}`;
+  const desc = `New Purpurina project ${
+    createProject.author ? `by ${createProject.author}` : ''
+  }`;
 
   const json: PackageJSON = {
     name,
@@ -45,7 +50,10 @@ export function generatePackageJSON(dir: string, createProject: CreateProject): 
     license: 'MIT',
     description: desc,
   };
-  fs.writeFileSync(path.join(dir, 'package.json'), JSON.stringify(json, null, '\t'));
+  fs.writeFileSync(
+    path.join(dir, 'package.json'),
+    JSON.stringify(json, null, '\t')
+  );
 }
 
 /**
@@ -56,7 +64,7 @@ export function generatePackageJSON(dir: string, createProject: CreateProject): 
  */
 export function generateProjectPackage(
   dir: string,
-  createProject: CreateProject,
+  createProject: CreateProject
 ): ProjectPackage {
   const json: ProjectPackage = {
     name: createProject.projectName,
@@ -65,6 +73,9 @@ export function generateProjectPackage(
     thumbnail: '#fff',
   };
 
-  fs.writeFileSync(path.join(dir, 'purpurina.json'), JSON.stringify(json, null, '\t'));
+  fs.writeFileSync(
+    path.join(dir, 'purpurina.json'),
+    JSON.stringify(json, null, '\t')
+  );
   return json;
 }

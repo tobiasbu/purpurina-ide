@@ -1,5 +1,5 @@
 input,
-input[type="number"],
+input[type='number'],
 input.checkbox + label {
   width: auto;
   height: 14px;
@@ -15,7 +15,7 @@ input.focus {
 }
 
 input:focus,
-input[type="number"]:focus {
+input[type='number']:focus {
   outline: var(--outFocus) solid 1px;
   outline-offset: 0;
 }
@@ -30,19 +30,19 @@ label.focus {
   min-width: 0;
 }
 
-input[type=number]::-webkit-inner-spin-button,
-input[type=number]::-webkit-outer-spin-button {
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
   margin: 0;
 }
 
-input[type="number"] {
+input[type='number'] {
   -moz-appearance: textfield;
 }
 
-input[type="checkbox"] {
+input[type='checkbox'] {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
@@ -64,7 +64,7 @@ input[type="checkbox"] {
   pointer-events: none;
 }
 
-input[type="checkbox"]+label::after {
+input[type='checkbox'] + label::after {
   content: none;
 }
 
@@ -79,7 +79,7 @@ input.checkbox + .checkbox-indicator {
   /* display: inline-block; */
 }
 
-input[type="checkbox"]:checked+.checkbox-indicator::after {
-  content: "\2713";
+input[type='checkbox']:checked + .checkbox-indicator::after {
+  content: '\2713';
   vertical-align: middle;
 }

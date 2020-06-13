@@ -1,6 +1,11 @@
 import { app, BrowserWindow } from 'electron';
 
-export const DIMENSIONS = { width: 600, height: 500, minWidth: 450, minHeight: 450 };
+export const DIMENSIONS = {
+  width: 600,
+  height: 500,
+  minWidth: 450,
+  minHeight: 450,
+};
 
 export function loadURL(window: Electron.BrowserWindow, appPath: string) {
   // if (showStorybook) {
@@ -43,7 +48,6 @@ export function createMainWindow(appPath: string) {
     useContentSize: true,
     // titleBarStyle: "hidden-inset",
     autoHideMenuBar: true,
-    // backgroundColor: '#fff',
     vibrancy: 'light',
     transparent: false,
     title: app.getName(),
@@ -61,7 +65,9 @@ export function createMainWindow(appPath: string) {
   }*/
 
   // trap movement events
-  window.on('closed', () => { window = null; });
+  window.on('closed', () => {
+    window = null;
+  });
   // window.on("close", () => windowState.saveState(window))
   // window.on("move", () => windowState.saveState(window))
   // window.on("resize", () => windowState.saveState(window))

@@ -1,4 +1,3 @@
-
 import * as fse from 'fs-extra';
 import * as path from 'path';
 import * as os from 'os';
@@ -73,7 +72,7 @@ export default class EditorSettings implements EditorSettingsPack {
 
   save(): void {
     checkSettingsPath();
-    fse.writeFileSync(SETTINGS_PATH, this.toJSON(true));
+    fse.writeFileSync(SETTINGS_PATH, this.toJSON(true) as string);
   }
 
   toJSON(stringify = false): EditorSettingsPack | string {
@@ -93,7 +92,8 @@ export default class EditorSettings implements EditorSettingsPack {
     return new Promise((resolve, reject) => {
       const settings = new EditorSettings();
 
-      fse.writeFile(SETTINGS_PATH, settings.toJSON(true))
+      fse
+        .writeFile(SETTINGS_PATH, settings.toJSON(true))
         .then(() => {
           resolve(settings);
         })
@@ -103,7 +103,7 @@ export default class EditorSettings implements EditorSettingsPack {
 
   static create(): EditorSettings {
     const config = new EditorSettings();
-    fse.writeFileSync(SETTINGS_PATH, config.toJSON(true));
+    fse.writeFileSync(SETTINGS_PATH, config.toJSON(true) as string);
     return config;
   }
 
@@ -113,7 +113,10 @@ export default class EditorSettings implements EditorSettingsPack {
       config = this.create();
     } else {
       try {
-        const data = fse.readFileSync(SETTINGS_PATH, { encoding: 'utf-8', flag: 'r' });
+        const data = fse.readFileSync(SETTINGS_PATH, {
+          encoding: 'utf-8',
+          flag: 'r',
+        });
         config = new EditorSettings(JSON.parse(data));
       } catch {
         config = EditorSettings.create();
@@ -129,7 +132,8 @@ export default class EditorSettings implements EditorSettingsPack {
       p = this.createAsync();
     } else {
       p = new Promise((resolve) => {
-        fse.readFile(SETTINGS_PATH, { encoding: 'utf-8' })
+        fse
+          .readFile(SETTINGS_PATH, { encoding: 'utf-8' })
           .then((value: string) => {
             const json: EditorSettingsPack = JSON.parse(value);
             resolve(new EditorSettings(json));
