@@ -18,6 +18,7 @@ export default function (env: DevServerBuildConfig): webpack.Configuration {
   const base = configBase(env, 'renderer');
   const PROJECT_PATH = base.PURPURINA_PROJECT_PATH;
   const IS_PROD = env.NODE_ENV.toLowerCase() === 'production';
+  const PUBLIC_PATH = '/out/dev/renderer';
 
   // hot module replacement
   const PATH = `http://localhost:${env.PORT || 3000}/__webpack_hmr`;
@@ -32,18 +33,20 @@ export default function (env: DevServerBuildConfig): webpack.Configuration {
   const LAUNCHER_ENTRY_PATH = path.join(LAUNCHER_PATH, '/index.ts');
   const EDITOR_ENTRY_PATH = path.join(EDITOR_PATH, '/index.ts');
 
+
+
   // Webpack config
   const config = webpackMerge.smart(base.config, {
+    // https://gist.github.com/earksiinni/053470a04defc6d7dfaacd5e5a073b15
+    // target: 'web',
     target: 'electron-renderer',
     entry: {
       launcher: IS_PROD ? LAUNCHER_ENTRY_PATH : [HOT_MW, LAUNCHER_ENTRY_PATH],
       editor: IS_PROD ? EDITOR_ENTRY_PATH : [HOT_MW, EDITOR_ENTRY_PATH],
     },
     output: {
-      publicPath: `/dist/renderer`,
+      publicPath: PUBLIC_PATH,
       filename: '[name]/index.bundle.js',
-      hotUpdateChunkFilename: '.hot/[id].[hash].hot-update.js',
-      hotUpdateMainFilename: '.hot/[hash].hot-update.json',
     },
     module: {
       exprContextCritical: !IS_PROD,
@@ -133,7 +136,7 @@ export default function (env: DevServerBuildConfig): webpack.Configuration {
         template: path.join(EDITOR_PATH, `./index.html`),
         minify: false,
       }),
-    ],
+    ]
   });
 
   if (!IS_PROD) {

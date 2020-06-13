@@ -30,10 +30,12 @@ export default (
     devtool: IS_PROD ? 'nosources-source-map' : 'source-map',
     context: PROJECT_PATH,
     output: {
-      path: path.join(PROJECT_PATH, `./out/dev/dist/${TYPE}`),
+      path: path.join(PROJECT_PATH, `./out/dev/${TYPE}`),
       libraryTarget: 'commonjs2',
       filename: '[name].js',
       chunkFilename: '[name].bundle.js',
+      hotUpdateChunkFilename: '.hot/[id].[hash].hot-update.js',
+      hotUpdateMainFilename: '.hot/[hash].hot-update.json',
     },
     resolve: {
       plugins: [new TsconfigPathsPlugin({})],

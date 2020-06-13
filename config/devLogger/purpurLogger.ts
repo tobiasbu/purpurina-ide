@@ -8,7 +8,7 @@ import chalk from 'chalk';
 //   errorSymbol: ' \u2620'
 // }
 
-interface purpurOptions {
+interface PurpurLoggerOptions {
   /**
    * 'Renderer' | 'Main' | 'Electron' | 'Purpurina'
    */
@@ -18,9 +18,9 @@ interface purpurOptions {
   color: string;
 }
 
-const separator = '\u2550'.repeat(2);
+// const separator = '\u2550'.repeat(2);
 
-export default function purpurLogger(opts: purpurOptions) {
+export default function purpurLogger(opts: PurpurLoggerOptions) {
   let name = `${opts.name.toUpperCase()}`;
   const prefixColorFn = chalk[opts.color];
 

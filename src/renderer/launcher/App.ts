@@ -1,4 +1,4 @@
-import { remote } from 'electron';
+// import { remote } from 'electron';
 import hyper from 'hyperhtml';
 import maestro from 'maestro';
 import { ProjectInfo } from '@shared/types';
@@ -19,11 +19,11 @@ export default class App extends hyper.Component {
   }
 
   private onAppClose = (): void => {
-    remote.getCurrentWindow().close();
+    // remote.getCurrentWindow().close();
   };
 
   private onAppMinimize = (): void => {
-    remote.getCurrentWindow().minimize();
+    // remote.getCurrentWindow().minimize();
   };
 
   public load(projectsList: ProjectInfo[]): void {

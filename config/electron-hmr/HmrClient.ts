@@ -93,7 +93,8 @@ export default class HmrClient {
 
             //if data was a string, it would have the color set to the debug style applied to it
           });
-          ipc.of[socketId].on('disconnect', function (_data) {
+
+          ipc.of[socketId].on('disconnect', function () {
             ipc.log('HMR Client disconnected.');
           });
 
@@ -113,8 +114,10 @@ export default class HmrClient {
             }
           });
 
-          ipc.of[socketId].on('error', function (error) {
-            console.error(error.stack ?? JSON.stringify(error, null, 2));
+          ipc.of[socketId].on('error', function (error: any) {
+            if (error) {
+              console.error(error.stack ?? JSON.stringify(error, null, 2));
+            }
           });
           resolve(true);
         });

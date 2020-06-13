@@ -3,9 +3,6 @@ import * as http from 'http';
 import webpack = require('webpack');
 import { NextHandleFunction } from 'connect';
 
-export type DevMiddleware = WebpackDevMiddleware.WebpackDevMiddleware &
-  NextHandleFunction;
-
 export interface CommonEnv extends NodeJS.ProcessEnv {
   readonly NODE_ENV: 'development' | 'production';
   readonly ELECTRON_WEBPACK_WDS_PORT: string;
@@ -50,11 +47,6 @@ export interface WebpackDevMiddlewareMoreOptions
 export interface RendererCompilation {
   stats: webpack.Stats;
   compiler: webpack.ICompiler;
-}
-
-export interface RendererServer {
-  server: http.Server;
-  devMiddleware: DevMiddleware;
 }
 
 export namespace IPCMessage {

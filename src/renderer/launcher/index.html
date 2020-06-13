@@ -7,9 +7,17 @@
       content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
     <meta name="theme-color" content="#000000" />
-    <% if (process.env.NODE_ENV === "production") { %>
-    <meta http-equiv="Content-Security-Policy" />
-    <% } %>
+    <!-- <% if (process.env.NODE_ENV === 'development') { %>
+      <meta
+        http-equiv="Content-Security-Policy"
+        content="default-src 'self'; connect-src *"
+      />
+      <% } else { %>
+      <meta
+        http-equiv="Content-Security-Policy"
+        content="default-src 'none'; connect-src *"
+      />
+      <% } %> -->
     <title>Purpurina Dashboard</title>
   </head>
 

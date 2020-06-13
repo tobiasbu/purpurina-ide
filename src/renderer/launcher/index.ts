@@ -1,4 +1,4 @@
-import { ipcRenderer } from 'electron';
+// import { ipcRenderer } from 'electron';
 import hyper from 'hyperhtml';
 import { ProjectInfo } from '@shared/types';
 
@@ -49,31 +49,31 @@ if ((module as any).hot) {
   });
 }
 
-ipcRenderer.send('launcher_loaded');
+// ipcRenderer.send('launcher_loaded');
 
 const root = document.getElementById('root');
 hyper.bind(root)`${wrapRender}`;
 
-try {
-  ipcRenderer.send('launcher_loaded');
-  ipcRenderer.once(
-    'projects-loaded',
-    (event: Electron.Event, projectsList: ProjectInfo[]) => {
-      app.load(projectsList);
-      ipcRenderer.send('show_window');
-      wrapRender();
-    }
-  );
+// try {
+//   ipcRenderer.send('launcher_loaded');
+//   ipcRenderer.once(
+//     'projects-loaded',
+//     (event: Electron.Event, projectsList: ProjectInfo[]) => {
+//       app.load(projectsList);
+//       ipcRenderer.send('show_window');
+//       wrapRender();
+//     }
+//   );
 
-  if ((module as any).hot) {
-    (module as any).hot.accept(() => {
-      console.log('HOT MODULE!!');
-      wrapRender();
-    });
-  }
-} catch (e) {
-  console.error(e);
-}
+//   if ((module as any).hot) {
+//     (module as any).hot.accept(() => {
+//       console.log('HOT MODULE!!');
+//       wrapRender();
+//     });
+//   }
+// } catch (e) {
+//   console.error(e);
+// }
 
 // function main() {
 

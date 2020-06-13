@@ -13,7 +13,7 @@ export default function createHmrServer(logger: Logger): HmrServer {
   const path = `${ipc.config.socketRoot}${appspace}-${id}.sock`;
   ipc.config.appspace = appspace;
   ipc.config.id = id;
-  ipc.config.logger = logger.log.bind(logger, '[IPC]');
+  ipc.config.logger = logger.log.bind(logger, '[IPC-SERVER]');
 
   let connectedSockets: Socket[] = [];
   let connectionStatus: ConnectionStatus = ConnectionStatus.None;

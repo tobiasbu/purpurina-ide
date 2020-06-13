@@ -1,3 +1,5 @@
+import { Server } from 'http';
+import { NextHandleFunction } from 'connect';
 import express from 'express';
 
 import webpack from 'webpack';
@@ -6,20 +8,46 @@ import WebpackHotMiddleware from 'webpack-hot-middleware';
 
 import {
   WebpackDevMiddlewareMoreOptions,
-  RendererServer,
   CommonEnv,
 } from '../types';
 import webpackStats from '../commons/webpackStats';
 
 import rendererWebpackConfig from './webpack.config.renderer';
+import { LogFunction } from '../devLogger';
 
-async function serve() {
+
+type DevMiddleware = WebpackDevMiddleware.WebpackDevMiddleware &
+  NextHandleFunction;
+
+interface SimpleLogger {
+  log: LogFunction;
+  info: LogFunction;
+  error: LogFunction;
+  warn: LogFunction;
+  verbose: LogFunction;
+  debug: LogFunction;
+}
+
+interface RendererServerProcess {
+  logger: SimpleLogger;
+  server: Server;
+  devMiddleware: DevMiddleware;
+}
+
+function serve(): Promise<RendererServerProcess> {
   const devEnv = process.env as CommonEnv;
 
   const DIST_PATH = devEnv.PURPUR_DIST_PATH;
   const PORT = devEnv.ELECTRON_WEBPACK_WDS_PORT
     ? parseInt(devEnv.ELECTRON_WEBPACK_WDS_PORT)
     : 3000;
+
+  // const logger = purpurLogger(({
+  //   name: 'renderer-server',
+  //   symbol: '',
+  //   errorSymbol: '',
+  //   color: 'green',
+  // }))
 
   const logger = {
     log: console.log,
@@ -65,7 +93,7 @@ async function serve() {
   expressApp.use(express.static(DIST_PATH));
 
   // Renderer promise
-  return new Promise<RendererServer>((resolve, reject) => {
+  return new Promise<RendererServerProcess>((resolve, reject) => {
     const server = expressApp.listen(
       PORT,
       devEnv.ELECTRON_WEBPACK_WDS_HOST,
@@ -75,10 +103,38 @@ async function serve() {
           return;
         }
         logger.info('Dev server listening on port ' + PORT + '.');
-        resolve({ server, devMiddleware });
+        resolve({ server, devMiddleware, logger });
       }
     );
   });
 }
 
-serve();
+serve()
+  .then((rendererServe) => {
+
+    const logger = rendererServe.logger;
+
+    //   process.on('SIGTERM', () => {
+    //   logger.log('Stopping dev server');
+    //   rendererServe.devMiddleware.close();
+    //   rendererServe.server.close((err) => {
+    //     logger.error(`Server exited with error`, err);
+    //   })
+    // });
+
+    require("async-exit-hook")((callback: () => void) => {
+
+      rendererServe.devMiddleware.close();
+
+      rendererServe.server.close((error) => {
+        if (error) {
+          logger.error('Dev Server exited with error:', error)
+        } else {
+          logger.log('Dev Server exited successfully');
+        }
+      })
+
+    });
+
+  })
+

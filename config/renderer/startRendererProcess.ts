@@ -10,9 +10,9 @@ export default function startRendererProcess(
   logger: Logger
 ) {
   return new Promise<ChildProcess>((resolve, reject) => {
-    let childProcess: ChildProcess = null;
+    let rendererProcess: ChildProcess = null;
     try {
-      childProcess = spawn('ts-node', ['config/renderer/rendererServer.ts'], {
+      rendererProcess = spawn('ts-node', ['config/renderer/rendererServer.ts'], {
         cwd,
         shell: true,
         env: devEnv,
@@ -22,7 +22,22 @@ export default function startRendererProcess(
       return;
     }
 
-    childProcess.on('error', (error) => {
+    require("async-exit-hook")((callback: () => void) => {
+      const rendererProc = rendererProcess;
+      if (rendererProc === null) {
+        return;
+      }
+      rendererProcess = null;
+
+      if (process.platform === "win32") {
+        rendererProc.stdin!!.end(Buffer.from([5, 5]))
+      }
+      else {
+        rendererProc.kill("SIGINT")
+      }
+    });
+
+    rendererProcess.on('error', (error) => {
       if (reject === null) {
         logger.error(error);
       } else {
@@ -30,7 +45,7 @@ export default function startRendererProcess(
         reject = null;
       }
     });
-    childProcess.on('close', (code, signal) => {
+    rendererProcess.on('close', (code, signal) => {
       let msg = `Exited with code ${code}`;
       if (signal) {
         msg = msg.concat(` and signal ${JSON.stringify(signal)}`);
@@ -48,11 +63,11 @@ export default function startRendererProcess(
       }
     });
 
-    childProcess.stderr!!.on('data', (data: Buffer) => {
+    rendererProcess.stderr!!.on('data', (data: Buffer) => {
       logger.error(data.toString());
     });
 
-    childProcess.stdout.on('data', (data: Buffer) => {
+    rendererProcess.stdout.on('data', (data: Buffer) => {
       if (!data.includes('Asset written to')) {
         // filter this message from dev-middleware
         logger.log(stripFNL(data.toString()));
@@ -61,7 +76,7 @@ export default function startRendererProcess(
       if (res !== null) {
         if (data.includes('Compiled')) {
           resolve = null;
-          res(childProcess);
+          res(rendererProcess);
         }
       }
     });

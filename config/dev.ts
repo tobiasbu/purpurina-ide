@@ -44,7 +44,7 @@ async function main() {
   const devEnv: CommonEnv = {
     ...process.env,
     NODE_ENV: 'development',
-    PURPUR_DIST_PATH: path.join(__dirname, '../dist'),
+    PURPUR_DIST_PATH: path.join(__dirname, '../out/dev'),
     PURPUR_PROJECT_PATH: path.join(__dirname, '../'),
     ELECTRON_WEBPACK_WDS_HOST: 'localhost',
     ELECTRON_WEBPACK_WDS_PORT: (
@@ -54,7 +54,7 @@ async function main() {
 
   const hmrServer = createHmrServer(logger);
 
-  const results = await Promise.all([
+  await Promise.all([
     hmrServer.listen(),
     startRendererProcess(
       process.cwd(),
@@ -78,7 +78,7 @@ async function main() {
     ),
   ]);
 
-  const electronMainFile = path.join(devEnv.PURPUR_PROJECT_PATH, './dist/main/main.js');
+  const electronMainFile = path.join(devEnv.PURPUR_DIST_PATH, './main/main.js');
   const electronArgs = [electronMainFile, '--color', `--inspect=${await getPort({port: 5858 })}`];
 
   startElectronProcess(

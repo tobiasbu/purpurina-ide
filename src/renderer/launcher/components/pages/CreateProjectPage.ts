@@ -1,6 +1,6 @@
 import hyper from 'hyperhtml';
 
-import { ipcRenderer } from 'electron';
+// import { ipcRenderer } from 'electron';
 
 import { CreateProject } from '@shared/types';
 import { PathValidation, Dialogs } from '@shared';
@@ -9,8 +9,8 @@ import TextInput from '../commons/TextInput';
 import Button from '../commons/Button';
 
 // const userInfo = getUserInfo();
-// const DEFAULT_LOCATION = userInfo.homeDir;
-// const DEFAULT_AUTHOR = userInfo.userName;
+const DEFAULT_LOCATION = ''; // userInfo.homeDir;
+const DEFAULT_AUTHOR = ''; // userInfo.userName;
 import browseIcon = require('../../img/icon_browse.svg');
 
 export default class CreateProjectPage extends hyper.Component {
@@ -136,7 +136,7 @@ export default class CreateProjectPage extends hyper.Component {
       location: this.locationInput.value,
       author: this.authorInput.value,
     };
-    ipcRenderer.send('create-project', projectmetadata);
+    // ipcRenderer.send('create-project', projectmetadata);
     this.creatingProject = false;
   };
 
@@ -149,7 +149,7 @@ export default class CreateProjectPage extends hyper.Component {
   render(): HTMLElement {
     return this.html`
       <div class="page-wrapper">
-        <form autocomplete="off" onsubmit=${this.onSubmit}>
+        <form autocomplete="off" novalidate onsubmit=${this.onSubmit}>
           <div class="page-main-content">
             ${this.nameInput}
             ${this.locationInput}

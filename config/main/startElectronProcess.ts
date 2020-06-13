@@ -60,33 +60,16 @@ export default function startElectronProcess(
           startElectronProcess(logger, args, electronEnv)
         })
       } else {
-        // TODO close HMR server
-
+        (process.emit as any)('message', 'shutdown');
       }
     });
 
-
-
-    // electronProcess.stderr!!.on('data', (data: Buffer) => {
-    //   logger.error('ERROR', data.toString());
-    // });
+    electronProcess.stderr!!.on('data', (data: Buffer) => {
+      logger.error(data.toString());
+    });
 
     electronProcess.on('error', (err) => {
       logger.error(`Error occurred `, err);
     });
 
-    // process.on('SIGTERM', () => {
-    //   logger.log('Stopping dev server');
-    //   devMiddleware.close();
-    //   rendererServerResult.server.close((err) => {
-    //     logger.error(`Server exited with error`, err);
-    //     resolve();
-    //   })
-    // });
-
-    // electronPromise.then((electron) => {
-    //   return electron.default;
-    // }).then((electron) => {
-
-    // });
 }

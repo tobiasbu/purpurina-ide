@@ -37,7 +37,8 @@ export function createStartupWindow(): BrowserWindow {
   const height = 450 + 80;
   const launcherPath = getURL('launcher');
 
-  const IS_DEV = process.env.NODE_ENV === 'development';
+  console.log(process.env.PURPUR_DIST_PATH);
+  const IS_DEV = process.env.NODE_ENV === 'development' ?? !!__PURPUR_DEV__;
 
   // create our main window
   let window = new BrowserWindow({
@@ -49,12 +50,12 @@ export function createStartupWindow(): BrowserWindow {
     show: false,
     useContentSize: true,
     center: true,
-    backgroundColor: '#080808',
+    backgroundColor: '#fff',
     transparent: false,
     title: `Purpurina Editor v${version.toString()}`,
     webPreferences: {
-      nodeIntegration: false,
-      contextIsolation: true,
+      nodeIntegration: true,
+      contextIsolation: false,
       enableRemoteModule: false,
       backgroundThrottling: false,
       textAreasAreResizable: false,
