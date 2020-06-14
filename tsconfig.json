@@ -23,7 +23,7 @@
       "@main/*": ["src/main/*"],
       "@renderer": ["src/renderer"]
     },
-    "typeRoots": ["types", "node_modules/@types"],
+    "typeRoots": ["types", "node_modules/@types"]
   },
   "include": [
     "./types/**/*",

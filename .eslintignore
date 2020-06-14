@@ -3,4 +3,3 @@ dist
 src/engine
 src/renderer/editor
 src/shared/maestro
-config
