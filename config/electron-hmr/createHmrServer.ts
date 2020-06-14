@@ -53,7 +53,6 @@ export default function createHmrServer(logger: Logger): HmrServer {
           } else {
             removeSockets.push(socket);
           }
-
         }
         while (removeSockets.length > 0) {
           const socket = removeSockets.pop();
@@ -79,12 +78,10 @@ export default function createHmrServer(logger: Logger): HmrServer {
               if (connectedSockets.indexOf(socket) === -1) {
                 connectedSockets.push(socket);
 
-                socket.on("close", () => {
-                  logger.info(
-                    `[IPC] Socket has disconnected`
-                  );
+                socket.on('close', () => {
+                  logger.info(`[IPC] Socket has disconnected`);
                   removeSocket(socket);
-                })
+                });
               }
             });
 

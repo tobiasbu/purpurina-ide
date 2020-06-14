@@ -7,6 +7,7 @@ import startRendererProcess from './renderer/startRendererProcess';
 import purpurLogger from './devLogger/purpurLogger';
 import startElectronProcess from './main/startElectronProcess';
 import compileMain from './main/compileMain';
+import compilePreload from './preload/compilePreload';
 const getPort = require('get-port');
 
 async function main() {
@@ -33,14 +34,6 @@ async function main() {
     process.exit(1);
   });
 
-  // const env: DevelopmentSettings = {
-  //   NODE_ENV: 'development',
-  //   cwd: process.cwd(),
-  //   configPath: __dirname,
-  //   projectPath: path.join(__dirname, '../'),
-  //   distPath: path.join(__dirname, '../dist'),
-  // }
-
   const devEnv: CommonEnv = {
     ...process.env,
     NODE_ENV: 'development',
@@ -66,6 +59,15 @@ async function main() {
         errorSymbol: '\u2623',
       })
     ),
+    compilePreload(
+      devEnv,
+      purpurLogger({
+        name: 'preload',
+        color: 'yellow',
+        symbol: '\u2606',
+        errorSymbol: '\u2623',
+      })
+    ),
     compileMain(
       devEnv,
       hmrServer,
@@ -79,7 +81,11 @@ async function main() {
   ]);
 
   const electronMainFile = path.join(devEnv.PURPUR_DIST_PATH, './main/main.js');
-  const electronArgs = [electronMainFile, '--color', `--inspect=${await getPort({port: 5858 })}`];
+  const electronArgs = [
+    electronMainFile,
+    '--color',
+    `--inspect=${await getPort({ port: 5858 })}`,
+  ];
 
   startElectronProcess(
     purpurLogger({
@@ -289,19 +295,3 @@ async function main() {
 }
 
 main();
-
-// spawn('npm', ['run', 'start-electron'], {
-//   shell: true,
-//   env: process.env,
-//   stdio: 'inherit'
-// })
-//   .on('close', code => process.exit(code))
-//   .on('error', spawnError => console.error(spawnError));
-
-// process.on('SIGTERM', () => {
-//   console.log('Stopping dev server');
-//   devMiddleware.close();
-//   server.close(() => {
-//     process.exit(0);
-//   });
-// });

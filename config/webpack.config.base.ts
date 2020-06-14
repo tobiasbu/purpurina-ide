@@ -7,9 +7,10 @@ import { CleanWebpackPlugin } from 'clean-webpack-plugin';
 import getValue from './commons/getValue';
 
 interface BaseConfig {
-  config: webpack.Configuration;
+  PUBLIC_PATH: string;
   PURPURINA_PROJECT_PATH: string;
   IS_PROD: boolean;
+  config: webpack.Configuration;
 }
 
 /**
@@ -24,13 +25,14 @@ export default (
   const mode = getValue(env.NODE_ENV, 'development');
   const IS_PROD = mode !== 'development';
   const TYPE = configType || 'project';
+  const PUBLIC_PATH = `/out/${IS_PROD ? 'dist' : 'dev'}/${TYPE}`;
 
   const baseConfig: webpack.Configuration = {
     mode,
     devtool: IS_PROD ? 'nosources-source-map' : 'source-map',
     context: PROJECT_PATH,
     output: {
-      path: path.join(PROJECT_PATH, `./out/dev/${TYPE}`),
+      path: path.join(PROJECT_PATH, `./${PUBLIC_PATH}`),
       libraryTarget: 'commonjs2',
       filename: '[name].js',
       chunkFilename: '[name].bundle.js',
@@ -71,9 +73,12 @@ export default (
         __PURPUR_DEV__: JSON.stringify(IS_PROD === false),
       }),
       new CleanWebpackPlugin(),
-
     ],
-    externals: ['source-map-support/source-map-support.js'],
+    externals: [
+      'source-map-support/source-map-support.js',
+      'electron',
+      'webpack',
+    ],
     node: {
       __dirname: IS_PROD === false,
       __filename: IS_PROD === false,
@@ -90,11 +95,12 @@ export default (
     );
   }
 
-  // if (!IS_PROD) {
-  //   baseConfig.plugins.push(new webpack.NoEmitOnErrorsPlugin());
-  // }
-
-  return { config: baseConfig, PURPURINA_PROJECT_PATH: PROJECT_PATH, IS_PROD };
+  return {
+    config: baseConfig,
+    PURPURINA_PROJECT_PATH: PROJECT_PATH,
+    PUBLIC_PATH,
+    IS_PROD,
+  };
 };
 
 // const common_config = {

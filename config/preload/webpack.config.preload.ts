@@ -1,58 +1,37 @@
 import * as webpack from 'webpack';
-import * as path from 'path';
 
 import webpackMerge = require('webpack-merge');
-import HtmlWebpackPlugin from 'html-webpack-plugin';
-import WebpackNotifierPlugin from 'webpack-notifier';
 import { CleanWebpackPlugin } from 'clean-webpack-plugin';
 
 import configBase from '../webpack.config.base';
-import { DevServerBuildConfig } from '../types';
+import { WebpackBaseBuildConfig } from '../types';
 import getEntry from '../commons/getEntry';
 
 /**
- * Purpurina renderer configuration
+ * Purpurina preload configuration
  *
  * @param env Build environment
  */
-export default function (env: DevServerBuildConfig): webpack.Configuration {
-  const base = configBase(env, 'renderer');
+export default function (env: WebpackBaseBuildConfig): webpack.Configuration {
+  const base = configBase(env, 'preload');
   const PROJECT_PATH = base.PURPURINA_PROJECT_PATH;
   const IS_PROD = base.IS_PROD;
 
-  // hot module replacement
-  const HOT_URL_PATH = `http://localhost:${env.PORT || 3000}/__webpack_hmr`;
-  const entriesNames = ['launcher', 'editor'];
   const entries = getEntry(
     {
       PROJECT_PATH,
-      HOT_MW: IS_PROD
-        ? undefined
-        : `webpack-hot-middleware/client?path=${HOT_URL_PATH}&reload=true`,
-      subDir: 'renderer',
+      subDir: 'preload',
     },
-    entriesNames
+    ['index.ts']
   );
 
   // Webpack config
   const config = webpackMerge.smart(base.config, {
-    // https://gist.github.com/earksiinni/053470a04defc6d7dfaacd5e5a073b15
-    // target: 'web',
-    target: 'electron-renderer',
+    target: 'electron-preload',
     entry: entries.entry,
-    output: {
-      publicPath: base.PUBLIC_PATH,
-      filename: '[name]/index.bundle.js',
-    },
     module: {
       exprContextCritical: !IS_PROD,
       rules: [
-        // {
-        //   test: /\.ts$/,
-        //   enforce: "pre",
-        //   loader: 'eslint-loader',
-        //   exclude: /node_modules/,
-        // },
         {
           test: /\.ts$/,
           loader: 'ts-loader',
@@ -112,31 +91,12 @@ export default function (env: DevServerBuildConfig): webpack.Configuration {
       new webpack.DefinePlugin({
         DEVELOPMENT: JSON.stringify(true),
       }),
-      new WebpackNotifierPlugin({
-        title: 'Purpurina <Renderer>',
-        alwaysNotify: true,
-        // logo: path.resolve("./img/favicon.png"),
-      }),
-      new CleanWebpackPlugin(),
     ],
-    externals: ['debug-menu'],
   });
-
-  for (let i = 0; i < entriesNames.length; i += 1) {
-    config.plugins.push(
-      new HtmlWebpackPlugin({
-        filename: `${entriesNames[i]}/index.html`,
-        inject: 'body',
-        chunks: [entriesNames[i]],
-        template: path.join(entries.dir[entriesNames[i]], `./index.html`),
-        minify: false,
-      })
-    );
-  }
 
   if (!IS_PROD) {
     config.plugins.push(
-      new webpack.HotModuleReplacementPlugin(),
+      // new webpack.HotModuleReplacementPlugin(),
       new webpack.NoEmitOnErrorsPlugin()
     );
   }

@@ -29,7 +29,7 @@ export default class HmrClient {
     type CheckFN = (autoApply: boolean) => Promise<any>;
     const check = (this.hot.check as unknown) as CheckFN;
     check(true)
-    .then((outdatedModules) => {
+      .then((outdatedModules) => {
         if (outdatedModules === null) {
           console.warn(`[HMR] Cannot find update. Need to do a full reload!`);
           return;
