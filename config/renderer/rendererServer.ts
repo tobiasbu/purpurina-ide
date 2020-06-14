@@ -126,5 +126,9 @@ serve().then((rendererServe) => {
         logger.log('Dev Server exited successfully');
       }
     });
+
+    if (callback) {
+      callback();
+    }
   });
 });

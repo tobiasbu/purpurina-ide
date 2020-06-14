@@ -38,6 +38,9 @@ export default function startRendererProcess(
       } else {
         rendererProc.kill('SIGINT');
       }
+      if (callback) {
+        callback();
+      }
     });
 
     rendererProcess.on('error', (error) => {
@@ -48,6 +51,7 @@ export default function startRendererProcess(
         reject = null;
       }
     });
+
     rendererProcess.on('close', (code, signal) => {
       let msg = `Exited with code ${code}`;
       if (signal) {

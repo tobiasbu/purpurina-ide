@@ -5,7 +5,6 @@ import Application from './core/Application';
 import EditorSettings from './core/EditorSettings';
 import initializeGlobal from './core/config';
 import loadRecentProjects from './project/loadRecentProjects';
-import Logger from './logger';
 import initializeLauncherEvents from './events/launcher';
 
 if (__PURPUR_DEV__) {

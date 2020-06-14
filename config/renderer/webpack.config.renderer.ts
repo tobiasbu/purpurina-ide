@@ -42,7 +42,7 @@ export default function (env: DevServerBuildConfig): webpack.Configuration {
     entry: entries.entry,
     output: {
       publicPath: base.PUBLIC_PATH,
-      filename: '[name]/index.bundle.js',
+      filename: '[name]/index.js',
     },
     module: {
       exprContextCritical: !IS_PROD,
@@ -119,7 +119,7 @@ export default function (env: DevServerBuildConfig): webpack.Configuration {
       }),
       new CleanWebpackPlugin(),
     ],
-    externals: ['debug-menu'],
+    externals: ['debug-menu', 'source-map-support/source-map-support.js'],
   });
 
   for (let i = 0; i < entriesNames.length; i += 1) {

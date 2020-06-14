@@ -1,5 +1,6 @@
-import { BrowserWindow } from 'electron';
+import * as path from 'path';
 import * as url from 'url';
+import { BrowserWindow } from 'electron';
 
 import version from '@shared/version';
 import Logger from '@main/logger';
@@ -38,6 +39,10 @@ export function createStartupWindow(): BrowserWindow {
   const launcherPath = getURL('launcher');
 
   console.log(process.env.PURPUR_DIST_PATH);
+  const preloadPath = path.join(
+    process.env.PURPUR_DIST_PATH,
+    './preload/index.js'
+  );
   const IS_DEV = process.env.NODE_ENV === 'development' ?? !!__PURPUR_DEV__;
 
   // create our main window
@@ -61,7 +66,7 @@ export function createStartupWindow(): BrowserWindow {
       textAreasAreResizable: false,
       additionalArguments: IS_DEV ? ['DEVELOPMENT', '__PURPUR_DEV__'] : [],
       webgl: false,
-      // preload: path.join(__dirname, 'preload.js'),
+      preload: preloadPath,
       // contextIsolation: true,
       // nodeIntegration: false,
       // preload: preloadPath,

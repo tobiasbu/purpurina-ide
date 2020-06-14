@@ -8,9 +8,9 @@ import { PathValidation, Dialogs } from '@shared';
 import TextInput from '../commons/TextInput';
 import Button from '../commons/Button';
 
-// const userInfo = getUserInfo();
-const DEFAULT_LOCATION = ''; // userInfo.homeDir;
-const DEFAULT_AUTHOR = ''; // userInfo.userName;
+const userInfo = window.userInfo;
+const DEFAULT_LOCATION = userInfo.homeDir;
+const DEFAULT_AUTHOR = userInfo.userName;
 import browseIcon = require('../../img/icon_browse.svg');
 
 export default class CreateProjectPage extends hyper.Component {

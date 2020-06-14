@@ -29,6 +29,12 @@ export default function (env: WebpackBaseBuildConfig): webpack.Configuration {
   const config = webpackMerge.smart(base.config, {
     target: 'electron-preload',
     entry: entries.entry,
+    output: {
+      filename: 'index.js',
+    },
+    resolve: {
+      mainFields: ['electron-preload', `preload`],
+    },
     module: {
       exprContextCritical: !IS_PROD,
       rules: [

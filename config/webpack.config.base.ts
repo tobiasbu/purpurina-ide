@@ -16,10 +16,10 @@ interface BaseConfig {
 /**
  * Base webpack configuration.
  */
-export default (
+export default function (
   env: WebpackBaseBuildConfig,
   configType?: string
-): BaseConfig => {
+): BaseConfig {
   const PROJECT_PATH = path.resolve(__dirname, '../');
 
   const mode = getValue(env.NODE_ENV, 'development');
@@ -74,11 +74,7 @@ export default (
       }),
       new CleanWebpackPlugin(),
     ],
-    externals: [
-      'source-map-support/source-map-support.js',
-      'electron',
-      'webpack',
-    ],
+    externals: [],
     node: {
       __dirname: IS_PROD === false,
       __filename: IS_PROD === false,
@@ -101,7 +97,7 @@ export default (
     PUBLIC_PATH,
     IS_PROD,
   };
-};
+}
 
 // const common_config = {
 //   node: {
