@@ -1,9 +1,5 @@
 import hyper from 'hyperhtml';
-
-// import { ipcRenderer } from 'electron';
-
-import { CreateProject } from '@shared/types';
-import { PathValidation } from '@shared';
+import * as PathValidation from '@shared/utils/pathValidation';
 
 import TextInput from '../commons/TextInput';
 import Button from '../commons/Button';
@@ -35,11 +31,12 @@ export default class CreateProjectPage extends hyper.Component {
         hyper.wire(this)`
           <div class='browse-icon-container'>
              <button
+             type="button"
              role="button"
              title="Browse location for new project"
              class="btn-icon"
-             onclick=${async () => {
-               await this.browseLocation();
+             onclick=${async (e) => {
+               await this.browseLocation(e);
              }}
             >
               ${{ html: browseIcon }}
@@ -112,17 +109,25 @@ export default class CreateProjectPage extends hyper.Component {
     }
   };
 
-  private browseLocation = async () => {
-    const path = await window.dialogs.openDirectory({
-      defaultPath: this.locationInput.value,
-      title: 'Browse location for you new project',
-    });
+  private async browseLocation(e) {
+    if (e) {
+      e.preventDefault();
+    }
+    let path;
+    try {
+      path = await window.dialogs.openDirectory({
+        defaultPath: this.locationInput.value,
+        title: 'Browse location for you new project',
+      });
+    } catch (e) {
+      console.log(e);
+    }
     if (path) {
       const error = PathValidation.path(path);
       this.locationInput.setValue(path);
       this.locationInput.setError(error);
     }
-  };
+  }
 
   private onSubmit = (e: Event): void => {
     if (e) {
@@ -133,12 +138,12 @@ export default class CreateProjectPage extends hyper.Component {
       return;
     }
     this.creatingProject = true;
-    const projectmetadata: CreateProject = {
+    const projectmetadata: Project.Create = {
       projectName: this.nameInput.value,
       location: this.locationInput.value,
       author: this.authorInput.value,
     };
-    // ipcRenderer.send('create-project', projectmetadata);
+    globalThis.project.create(projectmetadata);
     this.creatingProject = false;
   };
 

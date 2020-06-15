@@ -3,8 +3,8 @@ import { capitalizeFirst } from '@shared/utils/stringUtils';
 
 export enum Platform {
   Windows,
-  Mac,
   Linux,
+  MacOS,
   Other,
 }
 
@@ -15,7 +15,7 @@ export interface UserInfo {
   isPlatform(platformName: PlatformName): boolean;
 }
 
-export type PlatformName = 'mac' | 'windows' | 'linux' | 'other';
+export type PlatformName = 'macos' | 'windows' | 'linux' | 'other';
 
 export default function getUserInfo() {
   const osUserInfo = os.userInfo();
@@ -23,7 +23,7 @@ export default function getUserInfo() {
   let plat: Platform;
   switch (os.platform()) {
     case 'darwin':
-      plat = Platform.Mac;
+      plat = Platform.MacOS;
       break;
     case 'win32':
       plat = Platform.Windows;
@@ -41,7 +41,10 @@ export default function getUserInfo() {
     userName: osUserInfo.username,
     platform: plat,
     isPlatform: function (platformName: PlatformName) {
-      const platform = capitalizeFirst(platformName);
+      const platform =
+        platformName === 'macos'
+          ? 'MacOS'
+          : capitalizeFirst(platformName.toLowerCase());
       return Platform[platform] === plat;
     },
   };

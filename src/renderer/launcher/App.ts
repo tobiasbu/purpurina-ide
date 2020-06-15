@@ -1,7 +1,6 @@
 // import { remote } from 'electron';
 import hyper from 'hyperhtml';
 import maestro from 'maestro';
-import { ProjectInfo } from '@shared/types';
 
 import TitleBar from './components/TitleBar';
 import SideBar from './components/sidebar';
@@ -26,7 +25,7 @@ export default class App extends hyper.Component {
     // remote.getCurrentWindow().minimize();
   };
 
-  public load(projectsList: ProjectInfo[]): void {
+  public load(projectsList: Project.Metadata[]): void {
     if (this.pages.homePage.load(projectsList)) {
       this.pages.render();
     }

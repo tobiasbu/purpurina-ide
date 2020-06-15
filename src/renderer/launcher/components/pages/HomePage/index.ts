@@ -2,7 +2,6 @@ import { RenderFunction } from 'maestro';
 import hyper from 'hyperhtml';
 
 import { isValid } from '@shared/utils';
-import { ProjectInfo } from '@shared/types';
 
 import Button from '../../commons/Button';
 import WelcomePage from './WelcomePage';
@@ -22,7 +21,7 @@ export default class HomePage extends hyper.Component {
    * Return if was project was loaded successfully
    * @param projects Project metadata list
    */
-  public load(projects: ProjectInfo[]): boolean {
+  public load(projects: Project.Metadata[]): boolean {
     if (!this.projects && isValid(projects)) {
       this.projects = new RecentProjectsPage(projects);
       this.render();

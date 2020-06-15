@@ -15,6 +15,7 @@
     "allowJs": true,
     "importsNotUsedAsValues": "remove",
     "lib": ["esnext", "dom"],
+    "skipLibCheck": true,
     "paths": {
       "*": ["src/*"],
       "@shared/*": ["src/shared/*"],

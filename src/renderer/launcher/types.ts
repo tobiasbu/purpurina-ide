@@ -1,12 +1,10 @@
-import { ProjectInfo } from '@shared/types';
-
 // export enum MenuRoute {
 //   Projects,
 //   Learn,
 // }
 
 export interface IProjectContainer {
-  readonly info: ProjectInfo;
+  readonly info: Project.Metadata;
   setSelection(flag: boolean): void;
 }
 

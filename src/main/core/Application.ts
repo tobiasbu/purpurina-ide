@@ -60,9 +60,9 @@ export default class Application {
       // if (isLaunching) {
       //   app.quit();
       // }
+      app.quit();
       // on macOS it is common for applications to stay open until the user explicitly quits
       if (process.platform !== 'darwin') {
-        app.quit();
       }
     });
   }

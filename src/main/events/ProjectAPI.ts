@@ -1,12 +1,11 @@
 import { dialog } from 'electron';
-import { ProjectInfo, CreateProject } from '@shared/types';
 
 import * as ipc from '@main/events/ipc';
 import createNewProject from '@main/project/createNewProject';
 import ProjectManager from '@main/project/ProjectManager';
 import Application from '@main/core/Application';
 
-function startEditor(appControl: Application, project: ProjectInfo): void {
+function startEditor(appControl: Application, project: Project.Metadata): void {
   try {
     const promise = ProjectManager.openProject(project);
     promise
@@ -27,9 +26,9 @@ export default function initializeLauncherEvents(
   appControl: Application
 ): void {
   ipc.on(
-    'create-project',
-    (_event: Electron.Event, createProjectInfo: CreateProject) => {
-      let project: ProjectInfo;
+    '@project/create',
+    (_event: Electron.Event, createProjectInfo: Project.Create) => {
+      let project: Project.Metadata;
       try {
         project = createNewProject(createProjectInfo);
       } catch (e) {
@@ -42,7 +41,7 @@ export default function initializeLauncherEvents(
       } finally {
         if (project) {
           startEditor(appControl, project);
-          ipc.clear('create-project');
+          ipc.clear('@project/create');
         }
       }
     }

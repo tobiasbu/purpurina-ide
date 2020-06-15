@@ -38,7 +38,6 @@ export function createStartupWindow(): BrowserWindow {
   const height = 450 + 80;
   const launcherPath = getURL('launcher');
 
-  console.log(process.env.PURPUR_DIST_PATH);
   const preloadPath = path.join(
     process.env.PURPUR_DIST_PATH,
     './preload/index.js'
@@ -72,7 +71,8 @@ export function createStartupWindow(): BrowserWindow {
       // preload: preloadPath,
     },
     resizable: false,
-    frame: false,
+    frame: !global.userInfo.isPlatform('macos'),
+    titleBarStyle: global.userInfo.isPlatform('macos') ? 'hidden' : 'default',
     enableLargerThanScreen: false,
     fullscreenable: false,
   });

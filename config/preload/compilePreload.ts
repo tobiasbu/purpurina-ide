@@ -7,8 +7,18 @@ import type { CommonEnv } from '../types';
 export default function compilePreload(env: CommonEnv, logger: Logger) {
   return new Promise((resolve, reject) => {
     logger.log(`Compiling preload...`);
-    const preloadCompiler = webpack(preloadWebpackConfig(env), () => {
+    let preloadCompiler = webpack(preloadWebpackConfig(env), () => {
       logger.log(`Preload has been built successfully!`);
+    });
+    require('async-exit-hook')((callback?: () => void) => {
+      const w = preloadCompiler;
+      if (w === null) {
+        return;
+      }
+      preloadCompiler = null;
+      if ((w as any).close) {
+        (w as any).close();
+      }
     });
     resolve();
 

@@ -7,20 +7,6 @@ export const DIMENSIONS = {
   minHeight: 450,
 };
 
-export function loadURL(window: Electron.BrowserWindow, appPath: string) {
-  // if (showStorybook) {
-  //     window.loadURL("http://localhost:6006")
-  // } else {
-  //     window.loadURL(
-  //         format({
-  //             pathname: join(appPath, "out/index.html"),
-  //             protocol: "file:",
-  //             slashes: true,
-  //         }),
-  //     )
-  // }
-}
-
 /**
  * Creates the main window.
  *

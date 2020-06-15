@@ -1,14 +1,15 @@
-import * as ipc from '@main/events/ipc';
-import Application from 'main/core/Application';
 import { dialog } from 'electron';
-import { objectGet } from 'shared/utils';
+
+import * as ipc from '@main/events/ipc';
+import Application from '@main/core/Application';
+import { objectGet } from '@shared/utils';
 
 export default function initializeDialogs(appControl: Application): void {
   ipc.handle(
     '@dialogs/open-directory',
     async (
       _event: Electron.IpcMainInvokeEvent,
-      options: DialogsAPI.OpenDirectoryOptions
+      options: DialogsOptionsAPI.OpenDirectory
     ) => {
       const result = await dialog.showOpenDialog(appControl.mainWindow, {
         defaultPath: objectGet(options, 'defaultPath', ''),

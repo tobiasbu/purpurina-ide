@@ -47,7 +47,7 @@ async function main() {
 
   const hmrServer = createHmrServer(logger);
 
-  await Promise.all([
+  const results = await Promise.all([
     hmrServer.listen(),
     startRendererProcess(
       process.cwd(),
@@ -101,6 +101,23 @@ async function main() {
       ELECTRON_HMR_SOCKET_ID: hmrServer.socketId,
     }
   );
+
+  require('async-exit-hook')((callback: () => void) => {
+    const rendererProc = results[1];
+    if (rendererProc === null) {
+      return;
+    }
+    results[1] = null;
+
+    if (process.platform === 'win32') {
+      rendererProc.stdin!!.end(Buffer.from([5, 5]));
+    } else {
+      rendererProc.kill('SIGINT');
+    }
+    if (callback) {
+      callback();
+    }
+  });
 
   //   child.on('error', (e) =>{
   //     console.error(e);

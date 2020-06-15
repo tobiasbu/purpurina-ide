@@ -1,12 +1,10 @@
-import { ProjectInfo } from '@shared/types';
-
 import FileWatcher from '../systems/FileWatcher';
 
 /**
  * Controls the project systems.
  */
 export default class ProjectManager {
-  private metadata: ProjectInfo;
+  private metadata: Project.Metadata;
   isReady: boolean;
   watcher: FileWatcher;
 
@@ -17,12 +15,12 @@ export default class ProjectManager {
     return this.metadata.path;
   }
 
-  public constructor(projectInfo: ProjectInfo) {
+  public constructor(projectInfo: Project.Metadata) {
     this.metadata = projectInfo;
     this.isReady = false;
   }
 
-  static openProject(projectInfo: ProjectInfo): Promise<ProjectManager> {
+  static openProject(projectInfo: Project.Metadata): Promise<ProjectManager> {
     return new Promise<ProjectManager>((resolve, reject) => {
       const manager = new ProjectManager(projectInfo);
       // Starting systems

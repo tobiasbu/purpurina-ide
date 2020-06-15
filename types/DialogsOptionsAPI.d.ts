@@ -1,8 +1,8 @@
-declare namespace DialogsAPI {
+declare namespace DialogsOptionsAPI {
   /**
    * Open directory options
    */
-  interface OpenDirectoryOptions {
+  interface OpenDirectory {
     /**
      * Dialog title
      */

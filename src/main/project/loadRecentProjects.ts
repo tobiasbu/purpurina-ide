@@ -1,4 +1,3 @@
-import { ProjectInfo, ProjectPackage } from '@shared/types';
 import * as path from 'path';
 import * as fse from 'fs-extra';
 
@@ -6,10 +5,10 @@ function readPackage(
   buffer: Buffer,
   projectPath: string,
   indexer: number
-): ProjectInfo {
-  let projectInfo: ProjectInfo | Error;
+): Project.Metadata {
+  let projectInfo: Project.Metadata | Error;
   try {
-    const json: ProjectPackage = JSON.parse(buffer.toString('utf-8'));
+    const json: Project.Package = JSON.parse(buffer.toString('utf-8'));
     projectInfo = {
       projectPackage: json,
       path: projectPath,
@@ -23,12 +22,12 @@ function readPackage(
 
 export default function loadRecentProjects(
   recentProjects: string[]
-): Promise<null | ProjectInfo[]> {
+): Promise<null | Project.Metadata[]> {
   if (!recentProjects || recentProjects.length === 0) {
     return Promise.resolve(null);
   }
 
-  const projectsPromisesFiles: Promise<ProjectInfo>[] = [];
+  const projectsPromisesFiles: Promise<Project.Metadata>[] = [];
   recentProjects.forEach((projectPath, index) => {
     if (fse.existsSync(projectPath)) {
       const purpurPackage = path.join(projectPath, path.sep, 'purpurina.json');
@@ -37,7 +36,7 @@ export default function loadRecentProjects(
         .readFile(purpurPackage)
         .then((buffer) => readPackage(buffer, projectPath, index))
         .catch((e) => {
-          const projectInfo: ProjectInfo = {
+          const projectInfo: Project.Metadata = {
             index,
             projectPackage: null,
             error: e,

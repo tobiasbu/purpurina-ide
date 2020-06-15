@@ -1,6 +1,5 @@
 import * as fs from 'fs';
 import * as path from 'path';
-import { CreateProject, ProjectPackage } from '@shared/types';
 import version from '@shared/version';
 
 const PACKAGE_NAME_VALIDATION = /^(?:@[a-z0-9-~][a-z0-9-._~]*\/)?[a-z0-9-~][a-z0-9-._~]*$/;
@@ -23,7 +22,7 @@ interface PackageJSON {
  */
 export function generatePackageJSON(
   dir: string,
-  createProject: CreateProject
+  createProject: Project.Create
 ): void {
   let name = createProject.projectName;
   name = name.toLowerCase();
@@ -64,9 +63,9 @@ export function generatePackageJSON(
  */
 export function generateProjectPackage(
   dir: string,
-  createProject: CreateProject
-): ProjectPackage {
-  const json: ProjectPackage = {
+  createProject: Project.Create
+): Project.Package {
+  const json: Project.Package = {
     name: createProject.projectName,
     author: createProject.author,
     version: version.toString(),
