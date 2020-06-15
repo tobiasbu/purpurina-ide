@@ -1,18 +1,4 @@
 // eslint-disable-next-line
-export type AnyCallback = (...args: any) => any;
-
-export enum Platform {
-  Windows,
-  Mac,
-  Linux,
-  Other,
-}
-
-export interface UserInfo {
-  homeDir: string;
-  userName: string;
-  platform: Platform;
-}
 
 /**
  * Purpurina package.

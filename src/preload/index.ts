@@ -2,40 +2,10 @@
 //   return remote.getGlobal('userInfo');
 // }
 
-import * as os from 'os';
-import * as electron from 'electron';
-import { UserInfo, Platform } from '@shared/types';
+import getUserInfo from '@shared/node/getUserInfo';
+import createDialogsHelpers from './createDialogsHelpers';
+import expose from './expose';
 
-export default function initializeGlobal() {
-  const osUserInfo = os.userInfo();
-
-  let plat: Platform;
-  switch (os.platform()) {
-    case 'darwin':
-      plat = Platform.Mac;
-      break;
-    case 'win32':
-      plat = Platform.Windows;
-      break;
-    case 'linux':
-      plat = Platform.Linux;
-      break;
-    default:
-      plat = Platform.Other;
-      break;
-  }
-
-  const userInfo: UserInfo = {
-    homeDir: osUserInfo.homedir,
-    userName: osUserInfo.username,
-    platform: plat,
-  };
-
-  Object.freeze(userInfo);
-  return userInfo;
-}
-
-// export function getPlatform() {
 //   const userInfo = remote.getGlobal('userInfo') as UserInfo;
 //   return userInfo.platform;
 // }
@@ -45,8 +15,15 @@ export default function initializeGlobal() {
 // })
 
 function init() {
-  console.log(electron);
-  window.userInfo = initializeGlobal();
+  const userInfo = getUserInfo();
+  expose('OS', {
+    MACOS: userInfo.isPlatform('mac'),
+    WINDOWS: userInfo.isPlatform('windows'),
+    LINUX: userInfo.isPlatform('linux'),
+  });
+  expose('userInfo', userInfo);
+
+  createDialogsHelpers();
 }
 
 init();

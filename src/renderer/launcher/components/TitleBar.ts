@@ -2,8 +2,6 @@ import hyper from 'hyperhtml';
 
 type Callback = () => void;
 
-const IS_MAC = true;
-
 function WindowsTitleBarButtons(onClose?: Callback, onMinimize?: Callback) {
   return hyper.wire()`
     <div class="win-top-buttons">
@@ -21,11 +19,11 @@ export default function TitleBar(
   onClose?: Callback,
   onMinimize?: Callback
 ): HTMLElement {
-  const height = IS_MAC ? 22 : 29;
+  const height = window.OS.MACOS ? 22 : 29;
 
   return hyper.wire()`
       <div class="win-top-bar" style="height: ${height}px">
-      ${!IS_MAC ? WindowsTitleBarButtons() : null}
+      ${!window.OS.MACOS ? WindowsTitleBarButtons() : null}
       </div>
     `;
 }

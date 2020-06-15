@@ -1,27 +1,27 @@
-import { remote } from 'electron';
-import objectGet from './utils/objectGet';
+// TO BE REMOVED
 
-interface OpenDirectoryOptions {
-  title?: string;
-  defaultPath?: string;
-}
+// import { remote } from 'electron';
+// import objectGet from './utils/objectGet';
 
-/**
- * Open directory dialog.
- * @param defaultPath Set a custom default path.
- * @returns {string} The selected path otherwise null.
- */
-export function openDirectory(options?: OpenDirectoryOptions): string {
-  const currentWindow = remote.getCurrentWindow();
-  const path = remote.dialog.showOpenDialogSync(currentWindow, {
-    defaultPath: objectGet(options, 'defaultPath'),
-    title: objectGet(options, 'title'),
-    properties: ['createDirectory', 'openDirectory'],
-  });
-  if (path) {
-    return path[0];
-  }
-  return null;
-}
+// interface OpenDirectoryOptions {
+//   title?: string;
+//   defaultPath?: string;
+// }
 
-export function doSome(): void {}
+// /**
+//  * Open directory dialog.
+//  * @param defaultPath Set a custom default path.
+//  * @returns {string} The selected path otherwise null.
+//  */
+// export function openDirectory(options?: OpenDirectoryOptions): string {
+//   const currentWindow = remote.getCurrentWindow();
+//   const path = remote.dialog.showOpenDialogSync(currentWindow, {
+//     defaultPath: objectGet(options, 'defaultPath'),
+//     title: objectGet(options, 'title'),
+//     properties: ['createDirectory', 'openDirectory'],
+//   });
+//   if (path) {
+//     return path[0];
+//   }
+//   return null;
+// }

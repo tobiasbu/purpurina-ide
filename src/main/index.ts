@@ -6,6 +6,7 @@ import EditorSettings from './core/EditorSettings';
 import initializeGlobal from './core/config';
 import loadRecentProjects from './project/loadRecentProjects';
 import initializeLauncherEvents from './events/launcher';
+import initializeDialogs from './events/dialogs';
 
 if (__PURPUR_DEV__) {
   // Logger.log(
@@ -26,6 +27,7 @@ app.once('ready', () => {
   AppControl.initialize();
 
   initializeLauncherEvents(AppControl);
+  initializeDialogs(AppControl);
 
   const initPromise = AppControl.startLauncher();
   const loaderPromise = loadRecentProjects(settings.recentProjects);

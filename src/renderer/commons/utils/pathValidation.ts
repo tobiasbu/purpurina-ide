@@ -1,5 +1,3 @@
-import { Platform } from 'shared/types';
-
 // eslint-disable-next-line
 const INVALID_FOLDER_CHARS = /[<>:\x22\/\\|?*\x00-\x1F]+/;
 // eslint-disable-next-line
@@ -33,11 +31,11 @@ export function path(value: string): string {
     return 'The project location can not be empty.';
   }
 
-  // if (getPlatform() === Platform.Windows) {
-  if (!WIN_DISK.test(v)) {
-    return 'The path is not absolute.';
+  if (window.OS.WINDOWS) {
+    if (!WIN_DISK.test(v)) {
+      return 'The path is not absolute.';
+    }
   }
-  // }
 
   v = value.substr(2);
 

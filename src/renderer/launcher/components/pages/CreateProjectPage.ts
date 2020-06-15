@@ -3,7 +3,7 @@ import hyper from 'hyperhtml';
 // import { ipcRenderer } from 'electron';
 
 import { CreateProject } from '@shared/types';
-import { PathValidation, Dialogs } from '@shared';
+import { PathValidation } from '@shared';
 
 import TextInput from '../commons/TextInput';
 import Button from '../commons/Button';
@@ -38,7 +38,9 @@ export default class CreateProjectPage extends hyper.Component {
              role="button"
              title="Browse location for new project"
              class="btn-icon"
-             onclick=${this.browseLocation}
+             onclick=${async () => {
+               await this.browseLocation();
+             }}
             >
               ${{ html: browseIcon }}
             </button>
@@ -110,8 +112,8 @@ export default class CreateProjectPage extends hyper.Component {
     }
   };
 
-  private browseLocation = (): void => {
-    const path = Dialogs.openDirectory({
+  private browseLocation = async () => {
+    const path = await window.dialogs.openDirectory({
       defaultPath: this.locationInput.value,
       title: 'Browse location for you new project',
     });
