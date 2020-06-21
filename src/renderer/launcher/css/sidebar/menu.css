@@ -49,23 +49,22 @@ a.menu-option {
   position: relative;
   color: var(--p-color-menu-disabled);
   font-size: var(--p-font-l);
-  padding: var(--p-spacing-m) var(--p-spacing-l);
-  transition: 160ms color ease-out;
+  padding: var(--p-spacing-s) var(--p-spacing-l);
   cursor: pointer;
   display: flex;
   border-bottom: 1px solid var(--p-color-sidebar);
   transition-property: color, background-color;
-  transition-duration: 160ms;
+  transition-duration: 80ms;
   transition-timing-function: ease-out;
 }
 
 .menu-option .name {
-  font-size: var(--p-font-m);
+  font-size: var(--p-font-s);
 }
 
 .menu-option:hover,
 .menu-option.selected {
-  background: var(--p-color-menu-hover);
+  /* background: var(--p-color-menu-hover); */
   color: var(--p-color-text);
   outline: none;
 }
@@ -84,20 +83,19 @@ a.menu-option {
 
 .menu-option .icon {
   display: inline-block;
-  width: 48px;
-  padding: 0 11px;
-  height: 26px;
+  width: 40px;
+  padding: 0 9px;
   vertical-align: middle;
 }
 
 .icon > svg {
   vertical-align: middle;
   fill: var(--p-color-menu-disabled);
-  transition: all 160ms ease;
+  transition: all 80ms ease;
 }
 
 .menu-option .icon > svg {
-  transition: all 160ms ease;
+  transition: all 80ms ease;
 }
 
 .menu-option:hover .icon > svg {
