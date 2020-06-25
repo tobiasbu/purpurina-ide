@@ -1,8 +1,8 @@
 //import EntityHierarchy from './EntityHierarchy'
-import Transform2D from "../math/transform/Transform2D";
+import Transform2D from '../math/transform/Transform2D';
 // import ModuleManager from '../modules/ModuleManager';
-import EntityBase from "./EntityBase";
-import ITransform2D from "../math/transform/ITransform2D";
+import EntityBase from './EntityBase';
+import ITransform2D from '../math/transform/ITransform2D';
 
 export default class Entity extends EntityBase {
   protected _transform: ITransform2D;

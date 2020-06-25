@@ -1,8 +1,7 @@
 import * as path from 'path';
 import * as fse from 'fs-extra';
 
-import { CreateProject, ProjectInfo, ProjectPackage } from '@shared/types';
-import * as PathValidation from 'renderer/commons/utils/pathValidation';
+import * as PathValidation from '@shared/utils/pathValidation';
 
 import * as FileSystem from '../utils/FileSystem';
 import {
@@ -19,7 +18,7 @@ import {
  * @param newProject Project creation data.
  * @throws When there is a error in validation.
  */
-function validateNewProject(newProject: CreateProject): void {
+function validateNewProject(newProject: Project.Create): void {
   let error = PathValidation.folderName(newProject.projectName);
 
   if (error.length !== 0) {
@@ -44,8 +43,8 @@ function validateNewProject(newProject: CreateProject): void {
  * @param createProjectInfo Project creation data.
  */
 export default function createNewProject(
-  createProjectInfo: CreateProject
-): ProjectInfo {
+  createProjectInfo: Project.Create
+): Project.Metadata {
   validateNewProject(createProjectInfo);
 
   const fullPath = path.join(
@@ -74,7 +73,7 @@ export default function createNewProject(
     }
   }
 
-  let projectPackage: ProjectPackage;
+  let projectPackage: Project.Package;
 
   try {
     generatePackageJSON(fullPath, createProjectInfo);
@@ -91,7 +90,7 @@ export default function createNewProject(
     throw new Error(`Could not initialize new project\n${e}`);
   }
 
-  const projectInfo: ProjectInfo = {
+  const projectInfo: Project.Metadata = {
     projectPackage,
     path: fullPath,
     index: -1,

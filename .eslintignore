@@ -3,4 +3,5 @@ dist
 src/engine
 src/renderer/editor
 src/shared/maestro
-config
+_bkp
+out

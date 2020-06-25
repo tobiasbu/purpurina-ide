@@ -1,5 +1,4 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import { UserInfo } from '@shared/types';
+import { UserInfo } from '@shared/node/getUserInfo';
 
 declare global {
   namespace NodeJS {

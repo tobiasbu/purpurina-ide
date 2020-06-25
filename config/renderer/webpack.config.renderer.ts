@@ -8,6 +8,7 @@ import { CleanWebpackPlugin } from 'clean-webpack-plugin';
 
 import configBase from '../webpack.config.base';
 import { DevServerBuildConfig } from '../types';
+import getEntry from '../commons/getEntry';
 
 /**
  * Purpurina renderer configuration
@@ -17,36 +18,31 @@ import { DevServerBuildConfig } from '../types';
 export default function (env: DevServerBuildConfig): webpack.Configuration {
   const base = configBase(env, 'renderer');
   const PROJECT_PATH = base.PURPURINA_PROJECT_PATH;
-  const IS_PROD = env.NODE_ENV.toLowerCase() === 'production';
-  const PUBLIC_PATH = '/out/dev/renderer';
+  const IS_PROD = base.IS_PROD;
 
   // hot module replacement
-  const PATH = `http://localhost:${env.PORT || 3000}/__webpack_hmr`;
-  const HOT_MW = `webpack-hot-middleware/client?path=${PATH}&reload=true`;
-
-  // entry paths
-  const ENTRY_PATH = path.join(PROJECT_PATH, './src/renderer');
-
-  const LAUNCHER_PATH = path.join(ENTRY_PATH, '/launcher');
-  const EDITOR_PATH = path.join(ENTRY_PATH, '/editor');
-
-  const LAUNCHER_ENTRY_PATH = path.join(LAUNCHER_PATH, '/index.ts');
-  const EDITOR_ENTRY_PATH = path.join(EDITOR_PATH, '/index.ts');
-
-
+  const HOT_URL_PATH = `http://localhost:${env.PORT || 3000}/__webpack_hmr`;
+  const entriesNames = ['launcher', 'editor'];
+  const entries = getEntry(
+    {
+      PROJECT_PATH,
+      HOT_MW: IS_PROD
+        ? undefined
+        : `webpack-hot-middleware/client?path=${HOT_URL_PATH}&reload=true`,
+      subDir: 'renderer',
+    },
+    entriesNames
+  );
 
   // Webpack config
   const config = webpackMerge.smart(base.config, {
     // https://gist.github.com/earksiinni/053470a04defc6d7dfaacd5e5a073b15
     // target: 'web',
     target: 'electron-renderer',
-    entry: {
-      launcher: IS_PROD ? LAUNCHER_ENTRY_PATH : [HOT_MW, LAUNCHER_ENTRY_PATH],
-      editor: IS_PROD ? EDITOR_ENTRY_PATH : [HOT_MW, EDITOR_ENTRY_PATH],
-    },
+    entry: entries.entry,
     output: {
-      publicPath: PUBLIC_PATH,
-      filename: '[name]/index.bundle.js',
+      publicPath: base.PUBLIC_PATH,
+      filename: '[name]/index.js',
     },
     module: {
       exprContextCritical: !IS_PROD,
@@ -122,27 +118,23 @@ export default function (env: DevServerBuildConfig): webpack.Configuration {
         // logo: path.resolve("./img/favicon.png"),
       }),
       new CleanWebpackPlugin(),
-      new HtmlWebpackPlugin({
-        filename: 'launcher/index.html',
-        inject: 'body',
-        chunks: ['launcher'],
-        template: path.join(LAUNCHER_PATH, `./index.html`),
-        minify: false,
-      }),
-      new HtmlWebpackPlugin({
-        filename: 'editor/index.html',
-        inject: 'body',
-        chunks: ['editor'],
-        template: path.join(EDITOR_PATH, `./index.html`),
-        minify: false,
-      }),
-    ]
+    ],
+    externals: ['debug-menu', 'source-map-support/source-map-support.js'],
   });
 
+  for (let i = 0; i < entriesNames.length; i += 1) {
+    config.plugins.push(
+      new HtmlWebpackPlugin({
+        filename: `${entriesNames[i]}/index.html`,
+        inject: 'body',
+        chunks: [entriesNames[i]],
+        template: path.join(entries.dir[entriesNames[i]], `./index.html`),
+        minify: false,
+      })
+    );
+  }
+
   if (!IS_PROD) {
-    // config.externals = [
-    //   'source-map-support/source-map-support.js',
-    // ];
     config.plugins.push(
       new webpack.HotModuleReplacementPlugin(),
       new webpack.NoEmitOnErrorsPlugin()

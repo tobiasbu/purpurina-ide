@@ -1,16 +1,12 @@
 import hyper from 'hyperhtml';
-
-// import { ipcRenderer } from 'electron';
-
-import { CreateProject } from '@shared/types';
-import { PathValidation, Dialogs } from '@shared';
+import * as PathValidation from '@shared/utils/pathValidation';
 
 import TextInput from '../commons/TextInput';
 import Button from '../commons/Button';
 
-// const userInfo = getUserInfo();
-const DEFAULT_LOCATION = ''; // userInfo.homeDir;
-const DEFAULT_AUTHOR = ''; // userInfo.userName;
+const userInfo = window.userInfo;
+const DEFAULT_LOCATION = userInfo.homeDir;
+const DEFAULT_AUTHOR = userInfo.userName;
 import browseIcon = require('../../img/icon_browse.svg');
 
 export default class CreateProjectPage extends hyper.Component {
@@ -35,10 +31,13 @@ export default class CreateProjectPage extends hyper.Component {
         hyper.wire(this)`
           <div class='browse-icon-container'>
              <button
+             type="button"
              role="button"
              title="Browse location for new project"
              class="btn-icon"
-             onclick=${this.browseLocation}
+             onclick=${async (e) => {
+               await this.browseLocation(e);
+             }}
             >
               ${{ html: browseIcon }}
             </button>
@@ -55,27 +54,6 @@ export default class CreateProjectPage extends hyper.Component {
       maxLength: 255,
       required: true,
     });
-
-    // function validatePath(message) {
-    //   Promise.resolve(message);
-    //   console.log(message);
-    // }
-
-    // ipcRenderer.on('launcher_pathValidated', validatePath);
-
-    // const promiseValidator = (testValue: string) => {
-    //   ipcRenderer.send('launcher_validatePath', {
-    //     path: testValue,
-    //   });
-    // };
-
-    // this.pathValidator = debouncePromise(promiseValidator, 200, {
-    //   leading: false,
-    // });
-
-    // ipcRenderer.on('response_projectNameValidation', (a: EventEmitter, b: ) => {
-    //     console.log(a);
-    // })
   }
 
   private onInput = (e: Event): void => {
@@ -89,18 +67,11 @@ export default class CreateProjectPage extends hyper.Component {
       case 'project-name': {
         error = PathValidation.folderName(testValue);
         this.nameInput.setError(error);
-        // if (error.length === 0) {
-        //   this.projectName = testValue;
-        // }
         break;
       }
       case 'location': {
         error = PathValidation.path(testValue);
         this.locationInput.setError(error);
-        // if (error.length === 0) {
-        //   this.location = testValue;
-        // }
-
         break;
       }
       case 'project-author': {
@@ -110,17 +81,25 @@ export default class CreateProjectPage extends hyper.Component {
     }
   };
 
-  private browseLocation = (): void => {
-    const path = Dialogs.openDirectory({
-      defaultPath: this.locationInput.value,
-      title: 'Browse location for you new project',
-    });
+  private async browseLocation(e) {
+    if (e) {
+      e.preventDefault();
+    }
+    let path;
+    try {
+      path = await window.dialogs.openDirectory({
+        defaultPath: this.locationInput.value,
+        title: 'Browse location for you new project',
+      });
+    } catch (e) {
+      console.error(e);
+    }
     if (path) {
       const error = PathValidation.path(path);
       this.locationInput.setValue(path);
       this.locationInput.setError(error);
     }
-  };
+  }
 
   private onSubmit = (e: Event): void => {
     if (e) {
@@ -131,12 +110,12 @@ export default class CreateProjectPage extends hyper.Component {
       return;
     }
     this.creatingProject = true;
-    const projectmetadata: CreateProject = {
+    const projectmetadata: Project.Create = {
       projectName: this.nameInput.value,
       location: this.locationInput.value,
       author: this.authorInput.value,
     };
-    // ipcRenderer.send('create-project', projectmetadata);
+    globalThis.project.create(projectmetadata);
     this.creatingProject = false;
   };
 

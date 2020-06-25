@@ -6,15 +6,11 @@ import webpack from 'webpack';
 import WebpackDevMiddleware from 'webpack-dev-middleware';
 import WebpackHotMiddleware from 'webpack-hot-middleware';
 
-import {
-  WebpackDevMiddlewareMoreOptions,
-  CommonEnv,
-} from '../types';
+import { WebpackDevMiddlewareMoreOptions, CommonEnv } from '../types';
 import webpackStats from '../commons/webpackStats';
 
 import rendererWebpackConfig from './webpack.config.renderer';
 import { LogFunction } from '../devLogger';
-
 
 type DevMiddleware = WebpackDevMiddleware.WebpackDevMiddleware &
   NextHandleFunction;
@@ -109,32 +105,30 @@ function serve(): Promise<RendererServerProcess> {
   });
 }
 
-serve()
-  .then((rendererServe) => {
+serve().then((rendererServe) => {
+  const logger = rendererServe.logger;
 
-    const logger = rendererServe.logger;
+  //   process.on('SIGTERM', () => {
+  //   logger.log('Stopping dev server');
+  //   rendererServe.devMiddleware.close();
+  //   rendererServe.server.close((err) => {
+  //     logger.error(`Server exited with error`, err);
+  //   })
+  // });
 
-    //   process.on('SIGTERM', () => {
-    //   logger.log('Stopping dev server');
-    //   rendererServe.devMiddleware.close();
-    //   rendererServe.server.close((err) => {
-    //     logger.error(`Server exited with error`, err);
-    //   })
-    // });
+  require('async-exit-hook')((callback: () => void) => {
+    rendererServe.devMiddleware.close();
 
-    require("async-exit-hook")((callback: () => void) => {
-
-      rendererServe.devMiddleware.close();
-
-      rendererServe.server.close((error) => {
-        if (error) {
-          logger.error('Dev Server exited with error:', error)
-        } else {
-          logger.log('Dev Server exited successfully');
-        }
-      })
-
+    rendererServe.server.close((error) => {
+      if (error) {
+        logger.error('Dev Server exited with error:', error);
+      } else {
+        logger.log('Dev Server exited successfully');
+      }
     });
 
-  })
-
+    if (callback) {
+      callback();
+    }
+  });
+});

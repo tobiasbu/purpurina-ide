@@ -39,19 +39,9 @@ export function clear(name: string): void {
   ipcMain.removeAllListeners(name);
 }
 
+export const handle = ipcMain.handle;
+
 // export default function registerEvents(appControl: Application) {
-
-//   ipcMain.on('build', () => {
-
-//     const options: Electron.MessageBoxOptions = {
-//       title: 'teste',
-//       buttons: ['OK'],
-//       message: 'Hello World!',
-
-//     };
-
-//     dialog.showMessageBox(appControl.mainWindow, options);
-//   });
 
 //   ipcMain.on('launcher_openProject', (event: Electron.Event, openProject: ProjectInfo) => {
 

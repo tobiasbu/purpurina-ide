@@ -1,32 +1,8 @@
-import * as os from 'os';
-import { UserInfo, Platform } from '@shared/types';
+import getUserInfo from 'shared/node/getUserInfo';
 
 export default function initializeGlobal(): void {
-  const osUserInfo = os.userInfo();
-
-  let plat: Platform;
-  switch (os.platform()) {
-    case 'darwin':
-      plat = Platform.Mac;
-      break;
-    case 'win32':
-      plat = Platform.Windows;
-      break;
-    case 'linux':
-      plat = Platform.Linux;
-      break;
-    default:
-      plat = Platform.Other;
-      break;
-  }
-
-  const userInfo: UserInfo = {
-    homeDir: osUserInfo.homedir,
-    userName: osUserInfo.username,
-    platform: plat,
-  };
-
-  global.userInfo = Object.freeze(userInfo);
+  const osUserInfo = getUserInfo();
+  global.userInfo = Object.freeze(osUserInfo);
 }
 
 // function createEditorSettings(dirname: string): EditorSettings {

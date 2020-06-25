@@ -1,21 +1,22 @@
-// export function getUserInfo(): UserInfo {
-//   return remote.getGlobal('userInfo');
-// }
+import getUserInfo from '@shared/node/getUserInfo';
 
-import { contextBridge, remote } from 'electron';
-import { UserInfo } from '@shared/types';
-
-// export function getPlatform() {
-//   const userInfo = remote.getGlobal('userInfo') as UserInfo;
-//   return userInfo.platform;
-// }
-
-// contextBridge.exposeInMainWorld('userInfo', {
-
-// })
+import expose from './expose';
+import exposeDialogsAPI from './exposeDialogsAPI';
+import exposeProjectAPI from './exposeProjectAPI';
+import exposeRendererAPI from './exposeRendererAPI';
 
 function init() {
-  window.userInfo = remote.getGlobal('userInfo');
+  const userInfo = getUserInfo();
+  expose('OS', {
+    MACOS: userInfo.isPlatform('macos'),
+    WINDOWS: userInfo.isPlatform('windows'),
+    LINUX: userInfo.isPlatform('linux'),
+  });
+  expose('userInfo', userInfo);
+
+  exposeProjectAPI();
+  exposeDialogsAPI();
+  exposeRendererAPI();
 }
 
 init();

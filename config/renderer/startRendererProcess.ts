@@ -12,30 +12,19 @@ export default function startRendererProcess(
   return new Promise<ChildProcess>((resolve, reject) => {
     let rendererProcess: ChildProcess = null;
     try {
-      rendererProcess = spawn('ts-node', ['config/renderer/rendererServer.ts'], {
-        cwd,
-        shell: true,
-        env: devEnv,
-      });
+      rendererProcess = spawn(
+        'ts-node',
+        ['config/renderer/rendererServer.ts'],
+        {
+          cwd,
+          shell: true,
+          env: devEnv,
+        }
+      );
     } catch (e) {
       reject(e);
       return;
     }
-
-    require("async-exit-hook")((callback: () => void) => {
-      const rendererProc = rendererProcess;
-      if (rendererProc === null) {
-        return;
-      }
-      rendererProcess = null;
-
-      if (process.platform === "win32") {
-        rendererProc.stdin!!.end(Buffer.from([5, 5]))
-      }
-      else {
-        rendererProc.kill("SIGINT")
-      }
-    });
 
     rendererProcess.on('error', (error) => {
       if (reject === null) {
@@ -45,22 +34,22 @@ export default function startRendererProcess(
         reject = null;
       }
     });
+
     rendererProcess.on('close', (code, signal) => {
       let msg = `Exited with code ${code}`;
       if (signal) {
         msg = msg.concat(` and signal ${JSON.stringify(signal)}`);
       }
       msg = msg.concat('.');
+      logger.log(msg);
 
-      if (code !== 0) {
-        logger.error(msg);
-        if (reject !== null) {
-          reject('Renderer exited with error');
-          reject = null;
-        }
-      } else {
-        logger.log(msg);
-      }
+      // if (code !== 0) {
+      //   logger.error(msg);
+      //   if (reject !== null) {
+      //     reject('Renderer exited with error');
+      //     reject = null;
+      //   }
+      // }
     });
 
     rendererProcess.stderr!!.on('data', (data: Buffer) => {

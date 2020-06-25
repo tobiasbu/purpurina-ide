@@ -1,7 +1,6 @@
 import hyper from 'hyperhtml';
-import { ProjectInfo } from '@shared/types';
-import { isValid } from '@shared/utils';
 
+import { isValid } from '@shared/utils';
 import { IProjectContainer } from '../../../types';
 import ProjectContainer from './ProjectContainer';
 
@@ -9,7 +8,7 @@ export default class RecentProjectsPage extends hyper.Component {
   private projectsElements: IProjectContainer[];
   private selectedProject: IProjectContainer = null;
 
-  constructor(projects: ProjectInfo[]) {
+  constructor(projects: Project.Metadata[]) {
     super();
     if (!isValid(projects) || projects.length === 0) {
       this.projectsElements = null;

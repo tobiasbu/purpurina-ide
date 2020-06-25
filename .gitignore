@@ -68,3 +68,5 @@ dll
 *.lnk
 out/dev
 out/dist
+
+.DS_Store

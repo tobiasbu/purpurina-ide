@@ -1,5 +1,6 @@
-import { BrowserWindow } from 'electron';
+import * as path from 'path';
 import * as url from 'url';
+import { BrowserWindow } from 'electron';
 
 import version from '@shared/version';
 import Logger from '@main/logger';
@@ -9,7 +10,6 @@ const MIN_HEIGHT = 480;
 
 function getURL(pathName: 'editor' | 'launcher'): string {
   let uo: url.UrlObject;
-  Logger.log(process.env.ELECTRON_WEBPACK_WDS_PORT);
   if (__PURPUR_DEV__) {
     uo = {
       protocol: 'http',
@@ -37,7 +37,10 @@ export function createStartupWindow(): BrowserWindow {
   const height = 450 + 80;
   const launcherPath = getURL('launcher');
 
-  console.log(process.env.PURPUR_DIST_PATH);
+  const preloadPath = path.join(
+    process.env.PURPUR_DIST_PATH,
+    './preload/index.js'
+  );
   const IS_DEV = process.env.NODE_ENV === 'development' ?? !!__PURPUR_DEV__;
 
   // create our main window
@@ -61,13 +64,14 @@ export function createStartupWindow(): BrowserWindow {
       textAreasAreResizable: false,
       additionalArguments: IS_DEV ? ['DEVELOPMENT', '__PURPUR_DEV__'] : [],
       webgl: false,
-      // preload: path.join(__dirname, 'preload.js'),
+      preload: preloadPath,
       // contextIsolation: true,
       // nodeIntegration: false,
       // preload: preloadPath,
     },
     resizable: false,
-    frame: false,
+    frame: !global.userInfo.isPlatform('macos'),
+    titleBarStyle: global.userInfo.isPlatform('macos') ? 'hidden' : 'default',
     enableLargerThanScreen: false,
     fullscreenable: false,
   });

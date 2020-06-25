@@ -13,4 +13,5 @@
   font-weight: normal;
   font-size: var(--p-font-xs);
   color: rgb(61, 61, 61);
+  padding: var(--p-spacing-s);
 }

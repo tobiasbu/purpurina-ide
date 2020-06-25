@@ -2,7 +2,7 @@
   "name": "purpurina-ide",
   "version": "0.0.1",
   "description": "Purpurina HTML5 Game Engine IDE",
-  "main": "dist/main/main.js",
+  "main": "out/dist/main/main.js",
   "scripts": {
     "build-electron": "ts-node --skip-project --skip-ignore ./node_modules/webpack/bin/webpack.js --config ./config/webpack.config.electron.ts --env.DEV --profile --colors --display-error-details",
     "build-renderer": "npm run clean && webpack --config ./bundler/webpack.config.renderer.ts --progress --env.build --colors --display-error-details",

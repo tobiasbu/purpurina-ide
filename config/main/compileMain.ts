@@ -2,16 +2,15 @@ import webpack from 'webpack';
 
 import mainWebpackConfig from './webpack.config.main';
 import type { Logger } from '../devLogger';
-// import createHmrServer from './hmr/createHmrServer';
 import type { CommonEnv } from '../types';
 import type { HmrServer } from '../electron-hmr/types';
 
-export default async function compileMain(
+export default function compileMain(
   env: CommonEnv,
   hmrServer: HmrServer,
   logger: Logger
 ) {
-  await new Promise((resolve, reject) => {
+  return new Promise((resolve, reject) => {
     const mainCompiler = webpack(mainWebpackConfig(env));
 
     mainCompiler.hooks.compile.tap('electron-webpack-dev-runner', () => {
@@ -57,7 +56,7 @@ export default async function compileMain(
       watcher = null;
       w.close(() => {
         if (callback) {
-          callback()
+          callback();
         }
       });
     });

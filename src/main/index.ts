@@ -5,8 +5,8 @@ import Application from './core/Application';
 import EditorSettings from './core/EditorSettings';
 import initializeGlobal from './core/config';
 import loadRecentProjects from './project/loadRecentProjects';
-import Logger from './logger';
-import initializeLauncherEvents from './events/launcher';
+import initializeProject from './events/ProjectAPI';
+import initializeDialogs from './events/DialogsAPI';
 
 if (__PURPUR_DEV__) {
   // Logger.log(
@@ -26,7 +26,8 @@ const AppControl = new Application(settings);
 app.once('ready', () => {
   AppControl.initialize();
 
-  initializeLauncherEvents(AppControl);
+  initializeProject(AppControl);
+  initializeDialogs(AppControl);
 
   const initPromise = AppControl.startLauncher();
   const loaderPromise = loadRecentProjects(settings.recentProjects);
@@ -61,37 +62,14 @@ app.once('ready', () => {
       }
     );
 
-    // win.show();
-    // win.focus()
-    win.show();
-    win.focus();
-    win.webContents.openDevTools({ mode: 'undocked' });
-    // ipcMain.on('show_window', () => {
-    //   win.webContents.openDevTools();
-    // });
+    ipcMain.on('@renderer/show', () => {
+      win.show();
+      win.focus();
+      win.webContents.openDevTools({ mode: 'undocked' });
+    });
 
-    ipcMain.emit('projects-loaded', projects);
-    ipcMain.on('launcher_loaded', (event: Electron.IpcMainEvent) => {
-      console.log('hello ');
+    ipcMain.handle('@renderer/ready', (event: Electron.IpcMainEvent) => {
+      return projects;
     });
   });
 });
-
-if (
-  process.env.NODE_ENV === 'development' ||
-  process.env.DEBUG_PROD === 'true'
-) {
-  // require('electron-debug')();
-  // const path = require('path');
-  // const p = path.join(__dirname, '..', 'app', 'node_modules');
-  // require('module').globalPaths.push(p);
-}
-
-// const installExtensions = async () => {
-//     const installer = require('electron-devtools-installer');
-//     const forceDownload = !!process.env.UPGRADE_EXTENSIONS;
-//     const extensions = ['REACT_DEVELOPER_TOOLS', 'REDUX_DEVTOOLS'];
-//     return Promise.all(
-//         extensions.map(name => installer.default(installer[name], forceDownload))
-//     ).catch(console.log);
-// };
