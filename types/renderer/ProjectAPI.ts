@@ -1,3 +1,6 @@
+/**
+ * Project bridge API
+ */
 interface ProjectAPI {
   /**
    * Create new purpurina project

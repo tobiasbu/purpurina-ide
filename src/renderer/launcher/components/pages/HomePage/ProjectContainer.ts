@@ -26,6 +26,10 @@ export default class ProjectContainer extends hyper.Component
     this.render();
   }
 
+  private openProject = () => {
+    window.project.open(this.project.path);
+  };
+
   render(): HTMLElement {
     const { projectPackage, path } = this.project;
     let name: string;
@@ -47,9 +51,7 @@ export default class ProjectContainer extends hyper.Component
     }
     return this.html`
         <li class=${className}
-        onmousedown=${(): void => {
-          this.parent.selectProject(this);
-        }}
+        onmousedown=${this.openProject}
         ondblclick=${(): void => {}} >
                     <div class="thumbnail">
                       <div class="inner-thumbail">

@@ -54,27 +54,6 @@ export default class CreateProjectPage extends hyper.Component {
       maxLength: 255,
       required: true,
     });
-
-    // function validatePath(message) {
-    //   Promise.resolve(message);
-    //   console.log(message);
-    // }
-
-    // ipcRenderer.on('launcher_pathValidated', validatePath);
-
-    // const promiseValidator = (testValue: string) => {
-    //   ipcRenderer.send('launcher_validatePath', {
-    //     path: testValue,
-    //   });
-    // };
-
-    // this.pathValidator = debouncePromise(promiseValidator, 200, {
-    //   leading: false,
-    // });
-
-    // ipcRenderer.on('response_projectNameValidation', (a: EventEmitter, b: ) => {
-    //     console.log(a);
-    // })
   }
 
   private onInput = (e: Event): void => {
@@ -88,18 +67,11 @@ export default class CreateProjectPage extends hyper.Component {
       case 'project-name': {
         error = PathValidation.folderName(testValue);
         this.nameInput.setError(error);
-        // if (error.length === 0) {
-        //   this.projectName = testValue;
-        // }
         break;
       }
       case 'location': {
         error = PathValidation.path(testValue);
         this.locationInput.setError(error);
-        // if (error.length === 0) {
-        //   this.location = testValue;
-        // }
-
         break;
       }
       case 'project-author': {
@@ -120,7 +92,7 @@ export default class CreateProjectPage extends hyper.Component {
         title: 'Browse location for you new project',
       });
     } catch (e) {
-      console.log(e);
+      console.error(e);
     }
     if (path) {
       const error = PathValidation.path(path);

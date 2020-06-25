@@ -24,8 +24,8 @@ declare namespace Project {
    */
   export interface Metadata {
     projectPackage: Package;
-    error?: string;
     path: string;
-    index: number;
+    error?: string;
+    index?: number;
   }
 }

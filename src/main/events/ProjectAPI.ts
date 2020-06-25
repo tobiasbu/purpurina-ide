@@ -4,6 +4,7 @@ import * as ipc from '@main/events/ipc';
 import createNewProject from '@main/project/createNewProject';
 import ProjectManager from '@main/project/ProjectManager';
 import Application from '@main/core/Application';
+import loadMetadata from 'main/project/loadMetadata';
 
 function startEditor(appControl: Application, project: Project.Metadata): void {
   try {
@@ -47,13 +48,16 @@ export default function initializeLauncherEvents(
     }
   );
 
-  ipc.on('@project/open', (_event: Electron.Event, projectPath: string) => {
-    //     startEditor(appControl, openProject);
-    //     ipcMain.removeAllListeners('launcher_openProject');
-    //     // appControl.settings.addRecentProject(openProject.path);
-    //     // appControl.settings.save();
-    //     // appControl.startEditor();
-    //     // const watcher = ProjectManager.openProject(openProject.path, true);
-    //     // watcher.start(openProject.path);
-  });
+  ipc.on(
+    '@project/open',
+    async (_event: Electron.Event, projectPath: string) => {
+      const openProject = await loadMetadata(projectPath);
+      startEditor(appControl, openProject);
+      ipc.clear('@project/open');
+      //     ipcMain.removeAllListeners('launcher_openProject');
+
+      //     // const watcher = ProjectManager.openProject(openProject.path, true);
+      //     // watcher.start(openProject.path);
+    }
+  );
 }

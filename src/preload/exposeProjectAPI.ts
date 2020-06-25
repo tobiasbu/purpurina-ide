@@ -5,8 +5,8 @@ export default function exposeProjectAPI() {
     create: function (options: Project.Create) {
       ipcRenderer.send('@project/create', options);
     },
-    open: function () {
-      ipcRenderer.send('@project/open');
+    open: function (path: string) {
+      ipcRenderer.send('@project/open', path);
     },
     on: {
       loaded: async function () {
