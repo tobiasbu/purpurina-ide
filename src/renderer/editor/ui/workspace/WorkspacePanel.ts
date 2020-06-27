@@ -60,9 +60,8 @@ export default class WorkspacePanel {
     const consoleWidget = WidgetFactory.createConsole();
     this.dock.addWidget(consoleWidget, {
       mode: 'split-bottom',
-
     });
-    consoleWidget.height
+    consoleWidget.height;
     this.widgets.push(consoleWidget);
     // const sceneView = WidgetFactory.createSceneView();
     // this.dock.addWidget(sceneView);
