@@ -35,10 +35,6 @@ export default class RecentProjectsPage extends hyper.Component {
     project.setSelection(true);
   }
 
-  // public openProject(project: IProjectContainer): void {
-  //   ipcRenderer.send('launcher_openProject', project.info);
-  // }
-
   render(): HTMLElement {
     const projectElements = this.projectsElements;
     if (!isValid(projectElements)) {

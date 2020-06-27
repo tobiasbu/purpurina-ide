@@ -31,9 +31,9 @@ export default class Matrix3 {
     /*a = a || i;
         b = b || 0;
         x = x || 0;
-    
-        c = c || 0;   
-        d = d || i;   
+
+        c = c || 0;
+        d = d || i;
         y = y || 0;*/
 
     a = a || 0;
@@ -92,7 +92,7 @@ export default class Matrix3 {
   translate(x: number, y: number): this {
     /* | a | b | x | * | 0 | 2 | 4 |
         *  | c | d | y | * | 1 | 3 | 5 |
-      
+
         * | 0 | 3 | 6 | * | a | c | x |
         * | 1 | 4 | 7 | * | b | d | y |
         * | 2 | 5 | 8 |
@@ -188,7 +188,7 @@ export default class Matrix3 {
         d  =  _transform._cosSin.x * _transform.scale.y;
         x =  _transform.position.x;
         y =  _transform.position.y;
-    
+
         x -= _transform.origin.x * a + _transform.origin.y * c;
         y -= _transform.origin.y * b + _transform.origin.y * d;
         */
@@ -290,8 +290,6 @@ export default class Matrix3 {
     for (let y = 0; y < 3; y++) {
       for (let x = 0; x < 3; x++) {
         let val = this.at(y, x);
-        //str += val.toString() + " ";
-        //console.log("---- " + (x + y * 3).toString());
         str += val + ' ';
       }
       str += '\n';

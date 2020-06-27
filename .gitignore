@@ -1,3 +1,8 @@
+# OS generated files
+.DS_Store
+ehthumbs.db
+Thumbs.db
+
 # Logs
 logs
 *.log
@@ -60,13 +65,14 @@ jspm_packages/
 # next.js build output
 .next
 
-./app
+# Purpurina Editor files
+out
+out/dev
+out/dist
 build
 _bkp
 dist
 dll
 *.lnk
-out/dev
-out/dist
 
-.DS_Store
+

@@ -1,8 +1,3 @@
-// export enum MenuRoute {
-//   Projects,
-//   Learn,
-// }
-
 export interface IProjectContainer {
   readonly info: Project.Metadata;
   setSelection(flag: boolean): void;

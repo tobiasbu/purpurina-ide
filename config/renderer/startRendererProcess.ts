@@ -42,14 +42,6 @@ export default function startRendererProcess(
       }
       msg = msg.concat('.');
       logger.log(msg);
-
-      // if (code !== 0) {
-      //   logger.error(msg);
-      //   if (reject !== null) {
-      //     reject('Renderer exited with error');
-      //     reject = null;
-      //   }
-      // }
     });
 
     rendererProcess.stderr!!.on('data', (data: Buffer) => {

@@ -15,10 +15,7 @@ export default function <S>(store: Store<S>) {
 
           this.html = hyper.wire(this);
 
-          const onconnected = function () {
-            log('CONN a');
-            console.log(JSON.stringify(store));
-          };
+          const onconnected = function () {};
 
           this.render = function () {
             return this.html`

@@ -1,5 +1,6 @@
 import { ipcRenderer } from 'electron';
 import expose from './expose';
+
 export default function exposeProjectAPI() {
   expose('project', {
     create: function (options: Project.Create) {

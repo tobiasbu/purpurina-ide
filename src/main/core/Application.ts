@@ -3,7 +3,6 @@ import { app, BrowserWindow } from 'electron';
 import Logger from 'main/logger';
 
 import { createStartupWindow, createEditorWindow } from './window';
-// import events from '../events';
 import EditorSettings from './EditorSettings';
 
 enum AppState {
@@ -134,7 +133,6 @@ export default class Application {
 
       editorWindow.once('ready-to-show', () => {
         this.readyToShow(resolve, editorWindow, AppState.Editor);
-        console.log(this.appState);
         doNotExit = false;
       });
     });

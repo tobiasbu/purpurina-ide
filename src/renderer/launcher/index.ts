@@ -1,4 +1,3 @@
-// import { ipcRenderer } from 'electron';
 import hyper from 'hyperhtml';
 
 import './css/style.css';
@@ -14,6 +13,7 @@ window.eval = evaluate;
 global.eval = evaluate;
 
 let installed = false;
+
 // if (DEVELOPMENT && !installed) {
 //   // eslint-disable-next-line
 //   console.log('Installing debug-menu');
@@ -47,77 +47,11 @@ try {
     window.renderer.show();
   });
 
-  // window.project.on.loaded().then((projects) => {
-
-  // });
-  // ipcRenderer.send('launcher_loaded');
-  // ipcRenderer.once(
-  //   'projects-loaded',
-  //   (event: Electron.Event, projectsList: ProjectInfo[]) => {
-  //     app.load(projectsList);
-  //     ipcRenderer.send('show_window');
-  //     wrapRender();
-  //   }
-  // );
-
   if ((module as any).hot) {
     (module as any).hot.accept(() => {
-      console.log('HOT MODULE!!');
       wrapRender();
     });
   }
 } catch (e) {
   console.error(e);
 }
-
-// function main() {
-
-//   console.log('HELLO FROM LAUNCHER');
-
-//   ipcRenderer.send('launcher_loaded');
-//   ipcRenderer.once('projects-loaded', (event: Electron.Event, projectsList: IProjectInfo[]) => {
-//       // menu.init(projectsList);
-//     app.load(projectsList);
-//     console.log('PROJECTS RECEIVED');
-//     hyper.bind(root)`${wrapRender}`;
-//     console.log('SHOW');
-//     ipcRenderer.send('show_window');
-//   });
-
-// }
-
-// main();
-
-//   menu = new MenuControl();
-
-//   ipcRenderer.send('launcher_loaded');
-
-//   ipcRenderer.once('projects-loaded', (event: Electron.Event, projectsList: any) => {
-//     menu.init(projectsList);
-//   });
-//     // new Promise<IProjectInfo[]>((resolve) => {
-
-//     //     const projects: IProjectInfo[] = [];
-
-//     //     for (let i = 0; i < 20; i++) {
-//     //         projects.push({
-//     //             name: 'Hello',
-//     //             path: 'C:/Users/Admin/Documents',
-//     //             version: '0.0.1',
-//     //         })
-//     //     }
-
-//     //     resolve(projects);
-
-//     // }).then((projectsList) => {
-//     //     menu.init(projectsList);
-//     // })
-// };
-
-// const contentNode = document.getElementById('content');
-
-// p.then(function (projectsList)  {
-//     hyper(contentNode)`${projectsList}`
-// }).catch((e) => {
-//     throw e;
-// })

@@ -1,7 +1,6 @@
 import hyper from 'hyperhtml';
 import { RenderFunction } from 'maestro';
 
-// tslint:disable-next-line: function-name
 function WelcomePage(): HTMLElement {
   return hyper.wire()`
   <div class="welcome">

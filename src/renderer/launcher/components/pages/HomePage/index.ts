@@ -104,7 +104,6 @@ export default class HomePage extends hyper.Component {
   //     //   },
   //     // },                   this),
   //   ];
-
   // }
 
   render(): HTMLElement {

@@ -37,8 +37,6 @@
   position: relative;
   animation: loader-rotate 1.6s linear infinite;
   margin: auto;
-  /* top: 50%;
-  margin: -28px auto 0; */
 }
 
 .vertical-flex-center {

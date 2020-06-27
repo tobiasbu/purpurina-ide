@@ -11,7 +11,6 @@ import hyper from 'hyperhtml';
 // import StatusBar from "./components/StatusBar";
 import WorkspacePanel from './ui/workspace/WorkspacePanel';
 
-// console.log(process)
 
 export default class App extends hyper.Component {
   private workspace: WorkspacePanel;

@@ -4,7 +4,6 @@ import HomePage from './HomePage';
 import CreateProjectPage from './CreateProjectPage';
 
 export default class PageContainer extends hyper.Component {
-  // eslint-disable-next-line
   readonly producerState: any;
   public readonly homePage: HomePage;
   private createProjectPage: CreateProjectPage;

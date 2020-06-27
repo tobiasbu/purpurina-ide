@@ -14,9 +14,6 @@ export default class ScrollContainer<T extends Component> extends Component {
   private maskElement: HTMLElement;
   private contentElement: HTMLElement;
 
-  // private _isRtl: boolean;
-  // private options: ScrollContainerOptions;
-
   constructor(component: T) {
     super();
     this.component = component;

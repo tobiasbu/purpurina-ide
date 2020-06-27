@@ -43,7 +43,6 @@ export function createStartupWindow(): BrowserWindow {
   );
   const IS_DEV = process.env.NODE_ENV === 'development' ?? !!__PURPUR_DEV__;
   const IS_MACOS = !!global.userInfo.isPlatform('macos');
-  console.log(!IS_MACOS);
 
   // create our main window
   let window = new BrowserWindow({
@@ -95,9 +94,6 @@ export function createStartupWindow(): BrowserWindow {
 
 export function createEditorWindow(): BrowserWindow {
   const editorPath = getURL('editor');
-  // const basePath = path.join('file://', __dirname);
-  // const editorPath = path.join(basePath, 'editor/index.html');
-
   let window = new BrowserWindow({
     minWidth: MIN_WIDTH,
     minHeight: MIN_HEIGHT,
