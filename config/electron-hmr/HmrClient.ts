@@ -21,7 +21,7 @@ export default class HmrClient {
   constructor(hot: __WebpackModuleApi.Hot, currentHashGetter: HashGetter) {
     this.currentHashGetter = currentHashGetter;
     this.hot = hot;
-    this.connectionStatus = ConnectionStatus.None;
+    this.connectionStatus = ConnectionStatus.Offline;
     this.ipc = new RootIPC.IPC() as NodeIPC.IPC;
   }
 

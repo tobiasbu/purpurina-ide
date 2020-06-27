@@ -107,28 +107,29 @@ function serve(): Promise<RendererServerProcess> {
 
 serve().then((rendererServe) => {
   const logger = rendererServe.logger;
+  let serverClosed = false;
 
-  //   process.on('SIGTERM', () => {
-  //   logger.log('Stopping dev server');
-  //   rendererServe.devMiddleware.close();
-  //   rendererServe.server.close((err) => {
-  //     logger.error(`Server exited with error`, err);
-  //   })
-  // });
-
-  require('async-exit-hook')((callback: () => void) => {
-    rendererServe.devMiddleware.close();
-
-    rendererServe.server.close((error) => {
-      if (error) {
-        logger.error('Dev Server exited with error:', error);
-      } else {
-        logger.log('Dev Server exited successfully');
+  function closeServer(callback?: () => void) {
+    if (!serverClosed) {
+      rendererServe.devMiddleware.close(() => {
+        logger.log('Dev middleware closing');
+      });
+      rendererServe.server.close((error) => {
+        if (error) {
+          logger.error('Dev server exited with error:', error);
+        } else {
+          logger.log('Dev server exited successfully');
+        }
+      });
+      if (callback) {
+        callback();
       }
-    });
-
-    if (callback) {
-      callback();
+      serverClosed = true;
     }
+  }
+
+  process.on('SIGTERM', () => {
+    logger.log('Stopping dev server');
+    closeServer();
   });
 });

@@ -5,12 +5,18 @@ import type { Logger } from '../devLogger';
 import type { CommonEnv } from '../types';
 import type { HmrServer } from '../electron-hmr/types';
 
+interface MainCompiler {
+  readonly compiler: webpack.Compiler;
+  readonly watcher: webpack.Compiler.Watching;
+  close(): void;
+}
+
 export default function compileMain(
   env: CommonEnv,
   hmrServer: HmrServer,
   logger: Logger
 ) {
-  return new Promise((resolve, reject) => {
+  return new Promise<MainCompiler>((resolve, reject) => {
     const mainCompiler = webpack(mainWebpackConfig(env));
 
     mainCompiler.hooks.compile.tap('electron-webpack-dev-runner', () => {
@@ -39,26 +45,24 @@ export default function compileMain(
       }
       if (resolve !== null) {
         logger.log(`Main has been built successfully!`);
-        resolve();
+        resolve({
+          compiler: mainCompiler,
+          watcher,
+          close: function () {
+            const w = watcher;
+            if (w === null) {
+              return;
+            }
+
+            w.close(() => {});
+            watcher = null;
+          },
+        });
         resolve = null;
         return;
       }
 
       hmrServer.onCompiled(stats);
-    });
-
-    require('async-exit-hook')((callback?: () => void) => {
-      const w = watcher;
-      if (w === null) {
-        return;
-      }
-
-      watcher = null;
-      w.close(() => {
-        if (callback) {
-          callback();
-        }
-      });
     });
   });
 }

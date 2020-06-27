@@ -62,10 +62,13 @@ app.once('ready', () => {
       }
     );
 
-    ipcMain.on('@renderer/show', () => {
-      win.show();
-      win.focus();
-      win.webContents.openDevTools({ mode: 'undocked' });
+    ipcMain.on('@renderer/show', (event) => {
+      const mainWindow = AppControl.mainWindow;
+      if (mainWindow !== null) {
+        mainWindow.show();
+        mainWindow.focus();
+        mainWindow.webContents.openDevTools({ mode: 'undocked' });
+      }
     });
 
     ipcMain.handle('@renderer/ready', (event: Electron.IpcMainEvent) => {

@@ -16,7 +16,7 @@ export default function createHmrServer(logger: Logger): HmrServer {
   ipc.config.logger = logger.log.bind(logger, '[IPC-SERVER]');
 
   let connectedSockets: Socket[] = [];
-  let connectionStatus: ConnectionStatus = ConnectionStatus.None;
+  let connectionStatus: ConnectionStatus = ConnectionStatus.Offline;
   let compiled = false;
 
   function removeSocket(socket: Socket) {
@@ -60,6 +60,12 @@ export default function createHmrServer(logger: Logger): HmrServer {
         }
       });
     },
+    close: function () {
+      if (connectionStatus !== ConnectionStatus.Offline) {
+        ipc.server.stop();
+        connectionStatus = ConnectionStatus.Offline;
+      }
+    },
     listen: function () {
       if (this.isListening()) {
         logger.warn('HmrServer is already listening.');
@@ -73,6 +79,7 @@ export default function createHmrServer(logger: Logger): HmrServer {
 
       return new Promise((resolve, reject) => {
         try {
+          connectionStatus = ConnectionStatus.Connecting;
           ipc.serve(path, () => {
             ipc.server.on('connect', (socket: Socket) => {
               if (connectedSockets.indexOf(socket) === -1) {
@@ -100,7 +107,6 @@ export default function createHmrServer(logger: Logger): HmrServer {
             resolve(this);
           });
           ipc.server.start();
-          connectionStatus = ConnectionStatus.Connecting;
         } catch (e) {
           reject(e);
         }
