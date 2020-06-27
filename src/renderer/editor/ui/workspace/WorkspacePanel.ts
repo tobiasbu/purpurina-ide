@@ -90,7 +90,6 @@ export default class WorkspacePanel {
 
   connectedCallback() {
     // DockPanel.attach(this.dock, this._node);
-    // console.log("hau")
   }
 
   componentWillMount() {

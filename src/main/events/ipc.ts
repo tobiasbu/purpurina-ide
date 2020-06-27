@@ -40,25 +40,3 @@ export function clear(name: string): void {
 }
 
 export const handle = ipcMain.handle;
-
-// export default function registerEvents(appControl: Application) {
-
-//   ipcMain.on('launcher_openProject', (event: Electron.Event, openProject: ProjectInfo) => {
-
-//     startEditor(appControl, openProject);
-//     ipcMain.removeAllListeners('launcher_openProject');
-
-//     // appControl.settings.addRecentProject(openProject.path);
-//     // appControl.settings.save();
-//     // appControl.startEditor();
-//     // const watcher = ProjectManager.openProject(openProject.path, true);
-//     // watcher.start(openProject.path);
-
-//   });
-
-//   // ipcMain.on('launcher_validatePath', (event: Electron.Event, message: { path: string }) => {
-//   //   fse.access(message.path, (err) => {
-//   //     console.log(err);
-//   //   });
-//   // });
-// }

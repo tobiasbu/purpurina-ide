@@ -20,17 +20,6 @@ a.menu-option {
   -webkit-box-shadow: none;
 }
 
-/* a.menu-option:focus {
-  outline: none !important;
-  -webkit-box-shadow: inset 0px 0px 0px 2px var(--p-color-focus);
-  -moz-box-shadow: inset 0px 0px 0px 2px  var(--p-color-focus);
-  box-shadow: inset 0 0 0 2px transparent, inset 0px 0px 0px 4px var(--p-color-focus);
-} */
-
-/* .menu-option::before {
-
-} */
-
 .menu-option:focus::before {
   outline: none;
   content: '';
@@ -64,22 +53,9 @@ a.menu-option {
 
 .menu-option:hover,
 .menu-option.selected {
-  /* background: var(--p-color-menu-hover); */
   color: var(--p-color-text);
   outline: none;
 }
-
-/* .menu-option.selected {
-  background: var(--p-color-menu-select);
-  color: var(--p-color-text);
-} */
-
-/* .menu-option.selected .name {
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  font-weight: 700;
-  background-image: linear-gradient(#ff7f4c, #fd5587, #ea28c4);
-} */
 
 .menu-option .icon {
   display: inline-block;
@@ -99,20 +75,9 @@ a.menu-option {
 }
 
 .menu-option:hover .icon > svg {
-  /* stroke: var(--p-color-text); */
   fill: var(--p-color-text);
 }
 
 .menu-option.selected .icon > svg {
   fill: var(--p-color-text);
 }
-
-/*
-border-image: linear-gradient(
-  to bottom,
-  #ff7f4c, #fd5587, #ea28c4) 1 100%; */
-
-/* border-image: linear-gradient(
-    to bottom,
-    #d138ca, #a553d3, #6778df
-  ) 1 100%; */

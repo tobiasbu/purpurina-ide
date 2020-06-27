@@ -1,7 +1,6 @@
 import * as webpack from 'webpack';
 
 import webpackMerge = require('webpack-merge');
-import { CleanWebpackPlugin } from 'clean-webpack-plugin';
 
 import configBase from '../webpack.config.base';
 import { WebpackBaseBuildConfig } from '../types';

@@ -15,7 +15,6 @@
 }
 
 .highlight {
-  /* color: var(--p-color-highlight); */
   color: #ff54b9;
   font-weight: 500;
 }
@@ -24,7 +23,6 @@
   cursor: pointer;
   display: flex;
   border-bottom: 1px solid #1a1a1a;
-  /* height: 58px; */
   height: 84.5px;
   padding: var(--p-spacing-ms);
 }

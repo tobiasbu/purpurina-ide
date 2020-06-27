@@ -74,8 +74,6 @@ export default class WidgetBase<T extends WidgetComponent> extends Widget {
   protected onUpdateRequest(msg: Message): void {
     this.createComponent();
 
-    console.log('update');
-
     // const ReactElement = React.createElement<WidgetProps>(this._reactClass, { parent: this });
     // const ReactComponent = ReactDOM.render(ReactElement, host) as InstanceType<U>;
     // ReactComponent.setState({ width: this._width, height: this._height })

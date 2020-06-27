@@ -8,6 +8,8 @@ import loadRecentProjects from './project/loadRecentProjects';
 import initializeProject from './events/ProjectAPI';
 import initializeDialogs from './events/DialogsAPI';
 
+import Logger from './logger';
+
 if (__PURPUR_DEV__) {
   // Logger.log(
   //   `Directory: ${__dirname}. Port: ${process.env.ELECTRON_WEBPACK_WDS_PORT}`
@@ -50,10 +52,10 @@ app.once('ready', () => {
         sourceId: string
       ) => {
         let msg = '[WINDOW]';
-        let fn = console.log;
+        let fn = Logger.log;
         if (level >= 3) {
           msg += ' [ERROR]';
-          fn = console.error;
+          fn = Logger.error;
         } else {
           msg += ' [LOG]';
         }
@@ -69,6 +71,7 @@ app.once('ready', () => {
         mainWindow.focus();
         mainWindow.webContents.openDevTools({ mode: 'undocked' });
       }
+      Logger.log(event.sender);
     });
 
     ipcMain.handle('@renderer/ready', (event: Electron.IpcMainEvent) => {

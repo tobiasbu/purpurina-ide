@@ -51,18 +51,18 @@ export default class EditorSettings implements EditorSettingsPack {
       this.recentProj = [];
       this.recentProj.push(projectPath);
     } else {
-      const recents: string[] = [];
+      const recent: string[] = [];
       const len = this.recentProj.length;
 
       for (let i = 0; i < len; i += 1) {
         const item = this.recentProj[i];
         if (this.recentProj[i] !== projectPath) {
-          recents.push(item);
+          recent.push(item);
         }
       }
 
-      recents.unshift(projectPath);
-      this.recentProj = recents;
+      recent.unshift(projectPath);
+      this.recentProj = recent;
 
       if (this.recentProj.length > 10) {
         this.recentProj.pop();

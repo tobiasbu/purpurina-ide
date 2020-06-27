@@ -41,9 +41,6 @@ const stats: ExtendedWebpackStats = {
   errorStack: true,
   errorDetails: true,
 
-  // excludeAssets: () => false,
-  // excludeModules: () => false,
-
   hash: false,
 
   loggingDebug: () => false,

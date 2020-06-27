@@ -2,7 +2,6 @@ import * as webpack from 'webpack';
 import * as path from 'path';
 
 import { CleanWebpackPlugin } from 'clean-webpack-plugin';
-import WebpackNotifierPlugin from 'webpack-notifier';
 import webpackMerge = require('webpack-merge');
 
 import configBase from '../webpack.config.base';

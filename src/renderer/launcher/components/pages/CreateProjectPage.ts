@@ -57,7 +57,6 @@ export default class CreateProjectPage extends hyper.Component {
   }
 
   private onInput = (e: Event): void => {
-    // const inputEvent = (e as any);
     const inputElement = e.srcElement as HTMLInputElement;
     let error: string;
     const testValue = inputElement.value;

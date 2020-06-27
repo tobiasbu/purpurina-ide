@@ -17,7 +17,6 @@ if (socketId === null) {
 }
 
 const hot = (module.hot || module.exports.hot) as __WebpackModuleApi.Hot;
-// const HmrClient = require('../../out/dev/HmrClient').default;
 
 const client = new HmrClient(hot, () => __webpack_hash__);
 

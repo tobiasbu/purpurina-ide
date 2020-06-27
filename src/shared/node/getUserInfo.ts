@@ -45,7 +45,6 @@ export default function getUserInfo() {
         platformName === 'macos'
           ? 'MacOS'
           : capitalizeFirst(platformName.toLowerCase());
-      console.log(platform, Platform[platform], plat);
       return Platform[platform] === plat;
     },
   };

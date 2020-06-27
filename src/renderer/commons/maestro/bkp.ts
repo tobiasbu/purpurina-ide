@@ -48,8 +48,7 @@ interface MaestroComponentConstructor<T extends MaestroComponent> {
 //   }
 
 //   connectedCallback() {
-//     console.log('hi');
-//     console.log('hi-', this.getAttribute('onconnect'));
+
 //   }
 
 //   // connectedCallback() { this.render(); }

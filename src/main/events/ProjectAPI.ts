@@ -4,7 +4,9 @@ import * as ipc from '@main/events/ipc';
 import createNewProject from '@main/project/createNewProject';
 import ProjectManager from '@main/project/ProjectManager';
 import Application from '@main/core/Application';
-import loadMetadata from 'main/project/loadMetadata';
+import loadMetadata from '@main/project/loadMetadata';
+
+import Logger from '@main/logger';
 
 function startEditor(appControl: Application, project: Project.Metadata): void {
   try {
@@ -19,7 +21,7 @@ function startEditor(appControl: Application, project: Project.Metadata): void {
         throw e;
       });
   } catch (err) {
-    console.log('Could not start project.');
+    Logger.log('Could not start project.');
   }
 }
 

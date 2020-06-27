@@ -63,46 +63,6 @@ export interface DevLoggerOptions {
   bgPrefix?: boolean;
 }
 
-// export enum Color {
-//   black,
-//   red,
-//   green,
-//   yellow,
-//   blue,
-//   magenta,
-//   cyan,
-//   white,
-//   gray,
-//   grey,
-//   blackBright,
-//   redBright,
-//   greenBright,
-//   yellowBright,
-//   blueBright,
-//   magentaBright,
-//   cyanBright,
-//   whiteBright,
-// }
-
-// export enum BackgroundColor {
-//   bgBlack,
-//   bgRed,
-//   bgGreen,
-//   bgYellow,
-//   bgBlue,
-//   bgMagenta,
-//   bgCyan,
-//   bgWhite,
-//   bgBlackBright,
-//   bgRedBright,
-//   bgGreenBright,
-//   bgYellowBright,
-//   bgBlueBright,
-//   bgMagentaBright,
-//   bgCyanBright,
-//   bgWhiteBright,
-// }
-
 export type Logger = {
   /**
    * Alias from `Logger.trace`.

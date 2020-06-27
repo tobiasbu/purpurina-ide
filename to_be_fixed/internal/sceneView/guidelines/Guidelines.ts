@@ -44,8 +44,6 @@ export default class Guidelines {
 
     const spacingFactor = camera.invertedResolution * 100;
 
-    //console.log(spacingFactor + ' ' + this.oldNextSpacing)
-
     // to avoid recursive function
     if (this.oldSpacingFactor !== spacingFactor) {
       if (spacingFactor >= BASESPACING) {

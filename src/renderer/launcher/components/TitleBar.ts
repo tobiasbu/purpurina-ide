@@ -14,7 +14,6 @@ function WindowsTitleBarButtons(onClose?: Callback, onMinimize?: Callback) {
     </div>`;
 }
 
-// tslint:disable-next-line: function-name
 export default function TitleBar(
   onClose?: Callback,
   onMinimize?: Callback
@@ -23,7 +22,7 @@ export default function TitleBar(
 
   return hyper.wire()`
       <div class="win-top-bar" style="height: ${height}px">
-      ${!window.OS.MACOS ? WindowsTitleBarButtons() : null}
+      ${!window.OS.MACOS ? WindowsTitleBarButtons(onClose, onMinimize) : null}
       </div>
     `;
 }

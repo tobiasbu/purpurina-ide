@@ -28,8 +28,6 @@ export default class SceneViewWidget extends WidgetBase {
     // this.container.outerWidth(this.props.glContainer.width);
     // this.container.outerHeight(this.props.glContainer.height);
 
-    // console.log(this);
-
     // this.props.glContainer.on('resize', () => {
     //     this.width = this.props.glContainer.width;
     //     this.height = this.props.glContainer.height;

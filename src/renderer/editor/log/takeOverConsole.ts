@@ -80,10 +80,6 @@ export default function takeOverConsole(middleware: HijackLoggerMiddleware) {
       type = MessageLogType.GroupEnd;
     }
 
-    // console.log; console.info; console.debug
-    // console.error;
-    // console.warn;
-
     intercept(methods[i], type);
   }
 }
