@@ -65,12 +65,14 @@ jspm_packages/
 # next.js build output
 .next
 
-./app
+# Purpurina Editor files
+out
+out/dev
+out/dist
 build
 _bkp
 dist
 dll
 *.lnk
-out/dev
-out/dist
+
 
