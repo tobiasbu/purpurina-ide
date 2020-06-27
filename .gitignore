@@ -1,3 +1,8 @@
+# OS generated files
+.DS_Store
+ehthumbs.db
+Thumbs.db
+
 # Logs
 logs
 *.log
@@ -69,4 +74,3 @@ dll
 out/dev
 out/dist
 
-.DS_Store
