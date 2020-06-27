@@ -102,21 +102,36 @@ async function main() {
     }
   );
 
-  require('async-exit-hook')((callback: () => void) => {
-    const rendererProc = results[1];
+  const exitHook = require('async-exit-hook');
+
+  exitHook((callback: () => void) => {
+    console.log('exit hook');
+    const [ipcServer, rendererProc, preloadCompiler, mainCompiler] = results;
+
     if (rendererProc === null) {
       return;
     }
+    mainCompiler.close();
+    ipcServer.close();
     results[1] = null;
-
     if (process.platform === 'win32') {
-      rendererProc.stdin!!.end(Buffer.from([5, 5]));
+      // rendererProc.stdin!!.end(Buffer.from([5, 5]));
+      rendererProc.kill('SIGTERM');
     } else {
       rendererProc.kill('SIGINT');
     }
     if (callback) {
       callback();
     }
+  });
+
+  exitHook.uncaughtExceptionHandler((err) => {
+    console.error(err);
+  });
+
+  // You can hook unhandled rejections with unhandledRejectionHandler()
+  exitHook.unhandledRejectionHandler((err) => {
+    console.error(err);
   });
 
   //   child.on('error', (e) =>{

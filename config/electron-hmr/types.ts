@@ -1,7 +1,7 @@
 import { Stats } from 'webpack';
 
 export enum ConnectionStatus {
-  None,
+  Offline,
   Connecting,
   Connected,
 }
@@ -13,4 +13,5 @@ export interface HmrServer {
   onCompiled(stats: Stats): void;
   isListening(): boolean;
   listen(): Promise<HmrServer>;
+  close(): void;
 }

@@ -128,6 +128,10 @@ export default class Application {
       }
       this.window = editorWindow;
 
+      editorWindow.once('close', () => {
+        app.exit();
+      });
+
       editorWindow.once('ready-to-show', () => {
         this.readyToShow(resolve, editorWindow, AppState.Editor);
         console.log(this.appState);

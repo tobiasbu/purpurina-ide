@@ -40,6 +40,7 @@ export default class WorkspacePanel {
   height: number;
   // widgetInfos: IWidgetInfo[];
   private node: HTMLElement;
+  private widgets: any[];
 
   public get element(): HTMLElement {
     return this.node;
@@ -47,7 +48,7 @@ export default class WorkspacePanel {
 
   constructor() {
     this.dock = new DockPanel();
-
+    this.widgets = [];
     // this._node = document.createElement('div');
     // this._node.id = 'dock-panel';
 
@@ -59,7 +60,10 @@ export default class WorkspacePanel {
     const consoleWidget = WidgetFactory.createConsole();
     this.dock.addWidget(consoleWidget, {
       mode: 'split-bottom',
+
     });
+    consoleWidget.height
+    this.widgets.push(consoleWidget);
     // const sceneView = WidgetFactory.createSceneView();
     // this.dock.addWidget(sceneView);
     // const inspector = WidgetFactory.createInspector();

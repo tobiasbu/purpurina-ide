@@ -40,7 +40,6 @@ export default class WidgetBase<T extends WidgetComponent> extends Widget {
   }
 
   protected onCloseRequest(): void {
-    console.log('close');
     if (this.parent) {
       this.parent = null;
     } else if (this.isAttached) {

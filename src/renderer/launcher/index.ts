@@ -31,8 +31,6 @@ document.addEventListener('dragstart', (event) => event.preventDefault());
 document.addEventListener('dragover', (event) => event.preventDefault());
 document.addEventListener('drop', (event) => event.preventDefault());
 
-console.log('hi');
-
 const app = new App();
 const wrapRender = (): HTMLElement => {
   const mainEl = app.render();

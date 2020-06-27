@@ -42,6 +42,8 @@ export function createStartupWindow(): BrowserWindow {
     './preload/index.js'
   );
   const IS_DEV = process.env.NODE_ENV === 'development' ?? !!__PURPUR_DEV__;
+  const IS_MACOS = !!global.userInfo.isPlatform('macos');
+  console.log(!IS_MACOS);
 
   // create our main window
   let window = new BrowserWindow({
@@ -70,8 +72,8 @@ export function createStartupWindow(): BrowserWindow {
       // preload: preloadPath,
     },
     resizable: false,
-    frame: !global.userInfo.isPlatform('macos'),
-    titleBarStyle: global.userInfo.isPlatform('macos') ? 'hidden' : 'default',
+    frame: false,
+    titleBarStyle: IS_MACOS ? 'hidden' : 'default',
     enableLargerThanScreen: false,
     fullscreenable: false,
   });
@@ -85,6 +87,7 @@ export function createStartupWindow(): BrowserWindow {
   });
 
   // load entry html page in the renderer.
+  window.setMenu(null);
   window.loadURL(launcherPath);
 
   return window;
@@ -120,7 +123,7 @@ export function createEditorWindow(): BrowserWindow {
   window.setMenu(null);
 
   window.loadURL(editorPath);
-  // window.maximize();
+  window.maximize();
 
   return window;
 }

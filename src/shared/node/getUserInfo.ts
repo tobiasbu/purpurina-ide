@@ -2,7 +2,7 @@ import * as os from 'os';
 import { capitalizeFirst } from '@shared/utils/stringUtils';
 
 export enum Platform {
-  Windows,
+  Windows = 1,
   Linux,
   MacOS,
   Other,
@@ -45,6 +45,7 @@ export default function getUserInfo() {
         platformName === 'macos'
           ? 'MacOS'
           : capitalizeFirst(platformName.toLowerCase());
+      console.log(platform, Platform[platform], plat);
       return Platform[platform] === plat;
     },
   };
