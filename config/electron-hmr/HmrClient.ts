@@ -32,6 +32,7 @@ export default class HmrClient {
       .then((outdatedModules) => {
         if (outdatedModules === null) {
           console.warn(`[HMR] Cannot find update. Need to do a full reload!`);
+          require('electron').app.exit(100);
           return;
         }
 

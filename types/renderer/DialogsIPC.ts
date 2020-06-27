@@ -1,4 +1,4 @@
-interface DialogsAPI {
+interface DialogsIPC {
   /**
    * Open directory dialog.
    * @returns

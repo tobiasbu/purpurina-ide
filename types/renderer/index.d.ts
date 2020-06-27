@@ -1,18 +1,23 @@
-/// <reference path="DialogsAPI.ts" />
-/// <reference path="RendererAPI.ts" />
+/// <reference path="DialogsIPC.ts" />
+/// <reference path="BrowserWindowIPC.ts" />
 
 import { UserInfo } from '@shared/node/getUserInfo';
+
+interface OS {
+  readonly MACOS: boolean;
+  readonly WINDOWS: boolean;
+  readonly LINUX: boolean;
+}
 
 declare global {
   interface Window {
     userInfo: UserInfo;
-    OS: {
-      readonly MACOS: boolean;
-      readonly WINDOWS: boolean;
-      readonly LINUX: boolean;
-    };
-    dialogs: DialogsAPI;
-    project: ProjectAPI;
-    renderer: RendererAPI;
+    OS: OS;
+
+    // IPC APIS
+    dialogs: DialogsIPC;
+    project: ProjectIPC;
+    browserWindow: BrowserWindowIPC;
+    assets: any;
   }
 }

@@ -1,7 +1,7 @@
 /**
  * Project bridge API
  */
-interface ProjectAPI {
+interface ProjectIPC {
   /**
    * Create new purpurina project
    */

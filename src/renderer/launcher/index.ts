@@ -12,6 +12,10 @@ function evaluate(): void {
 window.eval = evaluate;
 global.eval = evaluate;
 
+document.addEventListener('dragstart', (event) => event.preventDefault());
+document.addEventListener('dragover', (event) => event.preventDefault());
+document.addEventListener('drop', (event) => event.preventDefault());
+
 let installed = false;
 
 // if (DEVELOPMENT && !installed) {
@@ -27,10 +31,6 @@ let installed = false;
 //   installed = true;
 // }
 
-document.addEventListener('dragstart', (event) => event.preventDefault());
-document.addEventListener('dragover', (event) => event.preventDefault());
-document.addEventListener('drop', (event) => event.preventDefault());
-
 const app = new App();
 const wrapRender = (): HTMLElement => {
   const mainEl = app.render();
@@ -41,10 +41,10 @@ const root = document.getElementById('root');
 hyper.bind(root)`${wrapRender}`;
 
 try {
-  window.renderer.ready().then((projects) => {
+  window.browserWindow.ready().then((projects) => {
     app.load(projects);
     wrapRender();
-    window.renderer.show();
+    window.browserWindow.show();
   });
 
   if ((module as any).hot) {

@@ -1,23 +1,17 @@
-// import * as React from "react";
-// import * as logo from './logo.svg';
-
-// import { ipcRenderer } from "electron";
-
-// import GoldenLayoutContainer from "./layout/GoldenLayoutContainer";
-// import mainLayoutConfig from './layout/mainLayoutConfig';
-
 import hyper from 'hyperhtml';
+
+// import * as logo from './logo.svg';
 // import Toolbar from "./components/Toolbar";
 // import StatusBar from "./components/StatusBar";
-import WorkspacePanel from './ui/workspace/WorkspacePanel';
+import Workspace from './ui/workspace/Workspace';
 
 
 export default class App extends hyper.Component {
-  private workspace: WorkspacePanel;
+  private workspace: Workspace;
 
   constructor() {
     super();
-    this.workspace = new WorkspacePanel();
+    this.workspace = new Workspace();
   }
 
   render() {
@@ -27,25 +21,3 @@ export default class App extends hyper.Component {
     <div class='statusbar'/>`;
   }
 }
-
-// export default class App extends React.Component {
-
-//   // private test(event: React.MouseEvent<HTMLButtonElement>) {
-//   //   ipcRenderer.send("build");
-//   // }
-//   componentWillMount() {
-//   }
-
-//   render() {
-
-//     return (
-
-//       // <div id="App" >
-//       //   <Toolbar />
-//       //   <WorkspacePanel/>
-//       //   <StatusBar />
-//       // </div>
-//     );
-//   }
-
-// }

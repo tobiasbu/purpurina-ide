@@ -1,4 +1,3 @@
-// import { remote } from 'electron';
 import hyper from 'hyperhtml';
 import maestro from 'maestro';
 
@@ -18,11 +17,11 @@ export default class App extends hyper.Component {
   }
 
   private onAppClose = (): void => {
-    // remote.getCurrentWindow().close();
+    window.browserWindow.close();
   };
 
   private onAppMinimize = (): void => {
-    // remote.getCurrentWindow().minimize();
+    window.browserWindow.minimize();
   };
 
   public load(projectsList: Project.Metadata[]): void {

@@ -5,8 +5,10 @@ import Application from './core/Application';
 import EditorSettings from './core/EditorSettings';
 import initializeGlobal from './core/config';
 import loadRecentProjects from './project/loadRecentProjects';
-import initializeProject from './events/ProjectAPI';
-import initializeDialogs from './events/DialogsAPI';
+
+import initializeProject from './events/project';
+import initializeDialogs from './events/dialogs';
+import initializeBrowserWindow from './events/browserWindow';
 
 import Logger from './logger';
 
@@ -30,6 +32,7 @@ app.once('ready', () => {
 
   initializeProject(AppControl);
   initializeDialogs(AppControl);
+  initializeBrowserWindow(AppControl);
 
   const initPromise = AppControl.startLauncher();
   const loaderPromise = loadRecentProjects(settings.recentProjects);
@@ -71,7 +74,6 @@ app.once('ready', () => {
         mainWindow.focus();
         mainWindow.webContents.openDevTools({ mode: 'undocked' });
       }
-      Logger.log(event.sender);
     });
 
     ipcMain.handle('@renderer/ready', (event: Electron.IpcMainEvent) => {

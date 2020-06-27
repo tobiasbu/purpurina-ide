@@ -1,7 +1,5 @@
 import WebpackDevMiddleware = require('webpack-dev-middleware');
-import * as http from 'http';
 import webpack = require('webpack');
-import { NextHandleFunction } from 'connect';
 
 export interface CommonEnv extends NodeJS.ProcessEnv {
   readonly NODE_ENV: 'development' | 'production';

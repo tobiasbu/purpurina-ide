@@ -1,6 +1,7 @@
 import { hyper } from 'hyperhtml';
 import { DockPanel, Widget } from '@phosphor/widgets';
 import { MessageLoop } from '@phosphor/messaging';
+
 import WidgetBase from '../widgets/WidgetBase';
 import WidgetFactory from '../widgets/WidgetFactory';
 
@@ -33,12 +34,13 @@ import WidgetFactory from '../widgets/WidgetFactory';
 //     node: HTMLElement;
 // }
 
-export default class WorkspacePanel {
-  elem: HTMLElement;
-  dock: DockPanel;
-  width: number;
-  height: number;
-  // widgetInfos: IWidgetInfo[];
+/**
+ * Workspace component
+ */
+export default class Workspace {
+  private dock: DockPanel;
+  private width: number;
+  private height: number;
   private node: HTMLElement;
   private widgets: any[];
 
@@ -47,21 +49,32 @@ export default class WorkspacePanel {
   }
 
   constructor() {
-    this.dock = new DockPanel();
     this.widgets = [];
-    // this._node = document.createElement('div');
-    // this._node.id = 'dock-panel';
-
-    this.node = hyper.wire()`<div id ='dock-panel'/>`;
+    this.dock = new DockPanel();
+    this.dock.id = 'workspace';
+    this.node = hyper.wire()`<div id="dock-panel"/>`;
 
     this.attach();
 
-    this.dock.id = 'main';
+    // Assign drag & drop events
+    this.node.ondrop = (event) => {
+      event.preventDefault();
+      const files = event?.dataTransfer?.files;
+      const len = files.length;
+      if (event.dataTransfer && len !== 0) {
+        window.assets.import(files);
+      }
+    };
+
+
+    this.node.addEventListener('dragstart', (event) => event.preventDefault());
+    this.node.addEventListener('dragover', (event) => event.preventDefault());
+    // this.node.addEventListener('drop', (event) => event.preventDefault());
+
     const consoleWidget = WidgetFactory.createConsole();
     this.dock.addWidget(consoleWidget, {
       mode: 'split-bottom',
     });
-    consoleWidget.height;
     this.widgets.push(consoleWidget);
     // const sceneView = WidgetFactory.createSceneView();
     // this.dock.addWidget(sceneView);
@@ -123,7 +136,7 @@ export default class WorkspacePanel {
     // this.dock.handleEvent = wrapper.bind(this.dock);
   }
 
-  resize() {
+  private resize() {
     let w: number;
     let h: number;
 

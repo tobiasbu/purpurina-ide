@@ -56,10 +56,6 @@ export default function initializeLauncherEvents(
       const openProject = await loadMetadata(projectPath);
       startEditor(appControl, openProject);
       ipc.clear('@project/open');
-      //     ipcMain.removeAllListeners('launcher_openProject');
-
-      //     // const watcher = ProjectManager.openProject(openProject.path, true);
-      //     // watcher.start(openProject.path);
     }
   );
 }
