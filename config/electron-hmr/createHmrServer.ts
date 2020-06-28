@@ -45,6 +45,9 @@ export default function createHmrServer(logger: Logger): HmrServer {
           children: false,
           modules: false,
         }).hash;
+
+        ipc.log('Dispatch compiled...');
+
         let removeSockets = [];
         for (let i = 0; i < connectedSockets.length; i += 1) {
           const socket = connectedSockets[i];
@@ -68,12 +71,12 @@ export default function createHmrServer(logger: Logger): HmrServer {
     },
     listen: function () {
       if (this.isListening()) {
-        logger.warn('HmrServer is already listening.');
+        ipc.log('HmrServer is already listening.');
         return Promise.resolve(this);
       }
 
       if (connectionStatus === ConnectionStatus.Connecting) {
-        logger.warn('HmrServer is connecting...');
+        ipc.log('HmrServer is connecting...');
         return Promise.resolve(this);
       }
 
@@ -86,21 +89,18 @@ export default function createHmrServer(logger: Logger): HmrServer {
                 connectedSockets.push(socket);
 
                 socket.on('close', () => {
-                  logger.info(`[IPC] Socket has disconnected`);
                   removeSocket(socket);
                 });
               }
             });
 
             ipc.server.on('error', (error: Error) => {
-              logger.error('[IPC] Server Error:', error);
+              logger.error('[IPC-SERVER] Server Error:', error);
             });
 
             ipc.server.on('socket.disconnect', (socket, destroyedSocketID) => {
               removeSocket(socket);
-              logger.info(
-                `[IPC] Socket ${destroyedSocketID} has disconnected!`
-              );
+              ipc.log(`[IPC] Socket ${destroyedSocketID} has disconnected!`);
             });
 
             connectionStatus = ConnectionStatus.Connected;

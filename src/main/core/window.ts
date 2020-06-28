@@ -5,6 +5,7 @@ import { BrowserWindow } from 'electron';
 import version from '@shared/version';
 import Logger from '@main/logger';
 
+const IS_DEV = process.env.NODE_ENV === 'development' ?? !!__PURPUR_DEV__;
 const MIN_WIDTH = 640;
 const MIN_HEIGHT = 480;
 
@@ -36,13 +37,12 @@ export function createStartupWindow(): BrowserWindow {
   const width = 800;
   const height = 450 + 80;
   const launcherPath = getURL('launcher');
+  const IS_MACOS = !!global.userInfo.isPlatform('macos');
 
   const preloadPath = path.join(
     process.env.PURPUR_DIST_PATH,
     './preload/index.js'
   );
-  const IS_DEV = process.env.NODE_ENV === 'development' ?? !!__PURPUR_DEV__;
-  const IS_MACOS = !!global.userInfo.isPlatform('macos');
 
   // create our main window
   let window = new BrowserWindow({
@@ -94,6 +94,13 @@ export function createStartupWindow(): BrowserWindow {
 
 export function createEditorWindow(): BrowserWindow {
   const editorPath = getURL('editor');
+  const IS_MACOS = !!global.userInfo.isPlatform('macos');
+
+  const preloadPath = path.join(
+    process.env.PURPUR_DIST_PATH,
+    './preload/index.js'
+  );
+
   let window = new BrowserWindow({
     minWidth: MIN_WIDTH,
     minHeight: MIN_HEIGHT,
@@ -108,11 +115,17 @@ export function createEditorWindow(): BrowserWindow {
     enableLargerThanScreen: true,
     resizable: true,
     webPreferences: {
-      // textAreasAreResizable: false,
-      webSecurity: true,
-      nodeIntegration: process.env.NODE_ENV === 'development',
+      nodeIntegration: true,
+      contextIsolation: false,
+      enableRemoteModule: false,
+      backgroundThrottling: false,
+      textAreasAreResizable: false,
+      additionalArguments: IS_DEV ? ['DEVELOPMENT', '__PURPUR_DEV__'] : [],
+      webgl: false,
+      preload: preloadPath,
     },
   });
+
   window.on('close', () => {
     window = null;
   });

@@ -1,9 +1,10 @@
 import getUserInfo from '@shared/node/getUserInfo';
 
 import expose from './expose';
-import exposeDialogsAPI from './exposeDialogsAPI';
-import exposeProjectAPI from './exposeProjectAPI';
-import exposeRendererAPI from './exposeRendererAPI';
+import exposeDialogsIPC from './exposeDialogsIPC';
+import exposeProjectIPC from './exposeProjectIPC';
+import exposeBrowserWindowIPC from './exposeBrowserWindowIPC';
+import exposeAssetsIPC from './exposeAssetsIPC';
 
 function init() {
   const userInfo = getUserInfo();
@@ -14,9 +15,10 @@ function init() {
   });
   expose('userInfo', userInfo);
 
-  exposeProjectAPI();
-  exposeDialogsAPI();
-  exposeRendererAPI();
+  exposeProjectIPC();
+  exposeAssetsIPC();
+  exposeDialogsIPC();
+  exposeBrowserWindowIPC();
 }
 
 init();

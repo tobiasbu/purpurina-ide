@@ -1,7 +1,7 @@
 /**
  * Exposes bridge functionalities between main and renderer process.
  */
-interface RendererAPI {
+interface BrowserWindowIPC {
   /**
    * Asks to main process to show window.
    */
@@ -10,4 +10,6 @@ interface RendererAPI {
    * Sends to main process that the window is ready to show
    */
   ready(): Promise<any>;
+  minimize();
+  close();
 }

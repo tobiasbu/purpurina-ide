@@ -13,6 +13,7 @@ function startEditor(appControl: Application, project: Project.Metadata): void {
     const promise = ProjectManager.openProject(project);
     promise
       .then((manager) => {
+        appControl.projectManager = manager;
         appControl.settings.addRecentProject(manager.path);
         appControl.settings.save();
         appControl.startEditor();
@@ -56,10 +57,6 @@ export default function initializeLauncherEvents(
       const openProject = await loadMetadata(projectPath);
       startEditor(appControl, openProject);
       ipc.clear('@project/open');
-      //     ipcMain.removeAllListeners('launcher_openProject');
-
-      //     // const watcher = ProjectManager.openProject(openProject.path, true);
-      //     // watcher.start(openProject.path);
     }
   );
 }

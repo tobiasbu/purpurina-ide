@@ -5,8 +5,11 @@ import Application from './core/Application';
 import EditorSettings from './core/EditorSettings';
 import initializeGlobal from './core/config';
 import loadRecentProjects from './project/loadRecentProjects';
-import initializeProject from './events/ProjectAPI';
-import initializeDialogs from './events/DialogsAPI';
+
+import initializeAssets from './events/assets';
+import initializeProject from './events/project';
+import initializeDialogs from './events/dialogs';
+import initializeBrowserWindow from './events/browserWindow';
 
 import Logger from './logger';
 
@@ -23,15 +26,17 @@ if (__PURPUR_DEV__) {
 initializeGlobal();
 
 const settings = EditorSettings.load();
-const AppControl = new Application(settings);
+const appControl = new Application(settings);
 
 app.once('ready', () => {
-  AppControl.initialize();
+  appControl.initialize();
 
-  initializeProject(AppControl);
-  initializeDialogs(AppControl);
+  initializeAssets(appControl);
+  initializeProject(appControl);
+  initializeDialogs(appControl);
+  initializeBrowserWindow(appControl);
 
-  const initPromise = AppControl.startLauncher();
+  const initPromise = appControl.startLauncher();
   const loaderPromise = loadRecentProjects(settings.recentProjects);
 
   Promise.all([initPromise, loaderPromise]).then((result) => {
@@ -65,13 +70,12 @@ app.once('ready', () => {
     );
 
     ipcMain.on('@renderer/show', (event) => {
-      const mainWindow = AppControl.mainWindow;
+      const mainWindow = appControl.mainWindow;
       if (mainWindow !== null) {
         mainWindow.show();
         mainWindow.focus();
         mainWindow.webContents.openDevTools({ mode: 'undocked' });
       }
-      Logger.log(event.sender);
     });
 
     ipcMain.handle('@renderer/ready', (event: Electron.IpcMainEvent) => {

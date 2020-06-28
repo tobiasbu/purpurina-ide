@@ -13,6 +13,10 @@
   background-color: var(--dark);
 }
 
+.is-dragover .p-TabBar {
+  pointer-events: none;
+}
+
 .p-TabBar[data-orientation='horizontal'] {
   flex-direction: row;
 }
@@ -32,11 +36,11 @@
   list-style-type: none;
 }
 
-.p-TabBar[data-orientation='horizontal'] > .p-TabBar-content {
+.p-TabBar[data-orientation='horizontal']>.p-TabBar-content {
   flex-direction: row;
 }
 
-.p-TabBar[data-orientation='vertical'] > .p-TabBar-content {
+.p-TabBar[data-orientation='vertical']>.p-TabBar-content {
   flex-direction: column;
 }
 
@@ -58,8 +62,7 @@
   border-right: 1px solid var(--dark);
 }
 
-.p-TabBar-tabIcon,
-.p-TabBar-tabCloseIcon {
+.p-TabBar-tabIcon, .p-TabBar-tabCloseIcon {
   flex: 0 0 auto;
 }
 
@@ -111,17 +114,15 @@
   margin-left: 0;
 }
 
-.p-TabBar-tabIcon,
-.p-TabBar-tabLabel,
-.p-TabBar-tabCloseIcon {
+.p-TabBar-tabIcon, .p-TabBar-tabLabel, .p-TabBar-tabCloseIcon {
   display: inline-block;
 }
 
-.p-TabBar-tab.p-mod-closable > .p-TabBar-tabCloseIcon {
+.p-TabBar-tab.p-mod-closable>.p-TabBar-tabCloseIcon {
   margin-left: 4px;
 }
 
-.p-TabBar-tab.p-mod-closable > .p-TabBar-tabCloseIcon:before {
+.p-TabBar-tab.p-mod-closable>.p-TabBar-tabCloseIcon:before {
   content: '\2716';
   font-family: 12px Arial, Helvetica, sans-serif;
 }

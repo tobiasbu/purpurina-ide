@@ -1,7 +1,8 @@
+import hyper from 'hyperhtml';
 import { Widget } from '@phosphor/widgets';
 import { Message } from '@phosphor/messaging';
+
 import { WidgetResizeEvent } from '../../types/WidgetInterfaces';
-import hyper from 'hyperhtml';
 import WidgetComponent, { ComponentConstructor } from './WidgetComponent';
 
 // U extends typeof WidgetComponent

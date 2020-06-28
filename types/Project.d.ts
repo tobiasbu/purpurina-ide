@@ -1,5 +1,3 @@
-// eslint-disable-next-line
-
 declare namespace Project {
   /**
    * Purpurina project creation metadata.
@@ -10,7 +8,7 @@ declare namespace Project {
     author?: string;
   }
   /**
-   * Purpurina project package FI.
+   * Purpurina project package.
    */
   export interface Package {
     name: string;

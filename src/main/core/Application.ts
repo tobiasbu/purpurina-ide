@@ -4,6 +4,7 @@ import Logger from 'main/logger';
 
 import { createStartupWindow, createEditorWindow } from './window';
 import EditorSettings from './EditorSettings';
+import ProjectManager from 'main/project/ProjectManager';
 
 enum AppState {
   Uninitialized,
@@ -13,15 +14,14 @@ enum AppState {
   Editor,
 }
 
-let doNotExit = true;
-
-const DEV_MODE = process.env.NODE_ENV === 'development';
+let shouldAppExit = true;
 const APP_NAME = 'Purpurina';
 
 export default class Application {
   private window: Electron.BrowserWindow;
   private appState: AppState;
   settings: EditorSettings;
+  projectManager: ProjectManager;
 
   get state(): AppState {
     return this.appState;
@@ -59,7 +59,8 @@ export default class Application {
         this.appState === AppState.InitializeLauncher ||
         this.appState === AppState.Uninitialized;
 
-      if (!doNotExit) {
+      Logger.log('All windows are closed', shouldAppExit);
+      if (shouldAppExit) {
         app.quit();
       }
 
@@ -111,7 +112,7 @@ export default class Application {
   startEditor(): Promise<BrowserWindow> {
     const oldState = this.appState;
     this.appState = AppState.InitializeEditor;
-    doNotExit = true;
+    shouldAppExit = false;
     if (oldState === AppState.Launcher) {
       if (__PURPUR_DEV__) {
         this.window.webContents.closeDevTools();
@@ -133,7 +134,7 @@ export default class Application {
 
       editorWindow.once('ready-to-show', () => {
         this.readyToShow(resolve, editorWindow, AppState.Editor);
-        doNotExit = false;
+        shouldAppExit = true;
       });
     });
 

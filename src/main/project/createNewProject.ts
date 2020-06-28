@@ -62,7 +62,7 @@ export default function createNewProject(
 
     if (!FileSystem.isEmpty(fullPath)) {
       throw new Error(
-        `The location '${fullPath}' is already in use and not empty.`
+        `The location '${fullPath}' is  not empty and already in use.`
       );
     }
   } else {

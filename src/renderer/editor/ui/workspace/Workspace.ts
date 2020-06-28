@@ -1,8 +1,10 @@
 import { hyper } from 'hyperhtml';
 import { DockPanel, Widget } from '@phosphor/widgets';
 import { MessageLoop } from '@phosphor/messaging';
+
 import WidgetBase from '../widgets/WidgetBase';
 import WidgetFactory from '../widgets/WidgetFactory';
+import dragDropImporter from './dragDropImporter';
 
 // import { createPortal } from "react-dom";
 // import './style/index.css';
@@ -33,35 +35,37 @@ import WidgetFactory from '../widgets/WidgetFactory';
 //     node: HTMLElement;
 // }
 
-export default class WorkspacePanel {
-  elem: HTMLElement;
-  dock: DockPanel;
-  width: number;
-  height: number;
-  // widgetInfos: IWidgetInfo[];
-  private node: HTMLElement;
+/**
+ * Workspace component
+ */
+export default class Workspace {
+  private dock: DockPanel;
+  private width: number;
+  private height: number;
+  private workspaceElement: HTMLElement;
   private widgets: any[];
 
   public get element(): HTMLElement {
-    return this.node;
+    return this.workspaceElement;
   }
 
   constructor() {
-    this.dock = new DockPanel();
     this.widgets = [];
-    // this._node = document.createElement('div');
-    // this._node.id = 'dock-panel';
-
-    this.node = hyper.wire()`<div id ='dock-panel'/>`;
+    this.dock = new DockPanel();
+    this.dock.id = 'dock-panel';
+    const workspaceElement = hyper.wire()`<div id="workspace"/>` as HTMLDivElement;
+    this.workspaceElement = workspaceElement;
 
     this.attach();
 
-    this.dock.id = 'main';
+    dragDropImporter(workspaceElement, this.dock.overlay);
+
+
+    // this.workspaceElement.addEventListener('dragstart', (event) => event.preventDefault());
     const consoleWidget = WidgetFactory.createConsole();
     this.dock.addWidget(consoleWidget, {
       mode: 'split-bottom',
     });
-    consoleWidget.height;
     this.widgets.push(consoleWidget);
     // const sceneView = WidgetFactory.createSceneView();
     // this.dock.addWidget(sceneView);
@@ -69,6 +73,8 @@ export default class WorkspacePanel {
     // this.dock.addWidget(inspector, { mode: 'split-right' });
 
     this.dock.addWidget(new WidgetBase('test', null));
+
+
 
     window.onresize = () => {
       this.resize();
@@ -82,7 +88,7 @@ export default class WorkspacePanel {
 
   private attach() {
     MessageLoop.sendMessage(this.dock, Widget.Msg.BeforeAttach);
-    this.node.appendChild(this.dock.node);
+    this.workspaceElement.appendChild(this.dock.node);
     MessageLoop.sendMessage(this.dock, Widget.Msg.AfterAttach);
     this.resize();
     this.dock.update();
@@ -123,7 +129,7 @@ export default class WorkspacePanel {
     // this.dock.handleEvent = wrapper.bind(this.dock);
   }
 
-  resize() {
+  private resize() {
     let w: number;
     let h: number;
 
@@ -151,10 +157,10 @@ export default class WorkspacePanel {
       this.height = h;
       const strW = `${w.toString()}px`;
       const strH = `${h.toString()}px`;
-      this.node.style.width = strW;
-      this.node.style.height = strH;
-      this.node.style.minWidth = strW;
-      this.node.style.minHeight = strH;
+      this.workspaceElement.style.width = strW;
+      this.workspaceElement.style.height = strH;
+      this.workspaceElement.style.minWidth = strW;
+      this.workspaceElement.style.minHeight = strH;
     }
   }
 }

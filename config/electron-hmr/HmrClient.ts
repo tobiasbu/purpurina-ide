@@ -32,6 +32,7 @@ export default class HmrClient {
       .then((outdatedModules) => {
         if (outdatedModules === null) {
           console.warn(`[HMR] Cannot find update. Need to do a full reload!`);
+          require('electron').app.exit(100);
           return;
         }
 
@@ -51,7 +52,9 @@ export default class HmrClient {
           console.warn(
             '[HMR] Cannot apply update. Need to do a full reload - application will be restarted'
           );
-          require('electron').app.exit(100);
+          const app = require('electron').app;
+          const e = app.exit(100);
+          console.log('[HMR]', e);
         } else {
           console.warn(`[HMR] Update failed: ${error.stack || error.message}`);
         }
