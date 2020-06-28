@@ -13,6 +13,7 @@ function startEditor(appControl: Application, project: Project.Metadata): void {
     const promise = ProjectManager.openProject(project);
     promise
       .then((manager) => {
+        appControl.projectManager = manager;
         appControl.settings.addRecentProject(manager.path);
         appControl.settings.save();
         appControl.startEditor();

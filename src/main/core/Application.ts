@@ -4,6 +4,7 @@ import Logger from 'main/logger';
 
 import { createStartupWindow, createEditorWindow } from './window';
 import EditorSettings from './EditorSettings';
+import ProjectManager from 'main/project/ProjectManager';
 
 enum AppState {
   Uninitialized,
@@ -20,6 +21,7 @@ export default class Application {
   private window: Electron.BrowserWindow;
   private appState: AppState;
   settings: EditorSettings;
+  projectManager: ProjectManager;
 
   get state(): AppState {
     return this.appState;

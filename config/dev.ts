@@ -105,11 +105,12 @@ async function main() {
   const exitHook = require('async-exit-hook');
 
   exitHook((callback: () => void) => {
-    const [ipcServer, rendererProc, preloadCompiler, mainCompiler] = results;
+    const [ipcServer, rendererProc, _preloadCompiler, mainCompiler] = results;
 
     if (rendererProc === null) {
       return;
     }
+    logger.log('Exiting...');
     mainCompiler.close();
     ipcServer.close();
     results[1] = null;

@@ -1,4 +1,5 @@
 import FileWatcher from '../systems/FileWatcher';
+import Importer from 'main/systems/Importer';
 
 /**
  * Controls the project systems.
@@ -7,6 +8,7 @@ export default class ProjectManager {
   private metadata: Project.Metadata;
   isReady: boolean;
   watcher: FileWatcher;
+  importer: Importer;
 
   /**
    * Get project path.
@@ -29,7 +31,9 @@ export default class ProjectManager {
         .start(manager.metadata.path)
         .then(() => {
           manager.watcher = watcher;
+          manager.importer = new Importer(manager);
           manager.isReady = true;
+
           resolve(manager);
         })
         .catch((reason) => {

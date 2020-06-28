@@ -1,4 +1,4 @@
-import * as fs from 'fs';
+import * as fse from 'fs-extra';
 import * as path from 'path';
 
 const OCT_0777 = 0o0777; // parseInt('0777', 8);;
@@ -7,7 +7,7 @@ const OCT_0777 = 0o0777; // parseInt('0777', 8);;
  * @param dirname Directory path.
  */
 export function isEmpty(dirname: string): boolean {
-  const files = fs.readdirSync(dirname);
+  const files = fse.readdirSync(dirname);
   if (files.length === 0) {
     return true;
   }
@@ -34,7 +34,7 @@ export function mkdirpSync(
   return splitedDir.reduce((previousValue, currentValue) => {
     const curDir = path.resolve(baseDir, previousValue, currentValue);
     try {
-      fs.mkdirSync(curDir, mode);
+      fse.mkdirSync(curDir, mode);
     } catch (err) {
       switch (err.code) {
         case 'EEXIST': {
@@ -56,4 +56,9 @@ export function mkdirpSync(
 
     return curDir;
   });
+}
+
+export async function isDirectory(path: string): Promise<boolean> {
+  const stats = await fse.lstat(path);
+  return stats.isDirectory();
 }

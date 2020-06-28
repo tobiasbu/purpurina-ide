@@ -26,17 +26,17 @@ if (__PURPUR_DEV__) {
 initializeGlobal();
 
 const settings = EditorSettings.load();
-const AppControl = new Application(settings);
+const appControl = new Application(settings);
 
 app.once('ready', () => {
-  AppControl.initialize();
+  appControl.initialize();
 
-  initializeAssets();
-  initializeProject(AppControl);
-  initializeDialogs(AppControl);
-  initializeBrowserWindow(AppControl);
+  initializeAssets(appControl);
+  initializeProject(appControl);
+  initializeDialogs(appControl);
+  initializeBrowserWindow(appControl);
 
-  const initPromise = AppControl.startLauncher();
+  const initPromise = appControl.startLauncher();
   const loaderPromise = loadRecentProjects(settings.recentProjects);
 
   Promise.all([initPromise, loaderPromise]).then((result) => {
@@ -70,7 +70,7 @@ app.once('ready', () => {
     );
 
     ipcMain.on('@renderer/show', (event) => {
-      const mainWindow = AppControl.mainWindow;
+      const mainWindow = appControl.mainWindow;
       if (mainWindow !== null) {
         mainWindow.show();
         mainWindow.focus();

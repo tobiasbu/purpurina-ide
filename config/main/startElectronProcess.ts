@@ -45,10 +45,9 @@ export default function startElectronProcess(
       msg = msg.concat(` and signal ${JSON.stringify(signal)}`);
     }
     msg = msg.concat('.');
-    logger.log(msg);
 
     if (code === 100) {
-      msg = msg.concat('  ');
+      msg = msg.concat('\nRestarting...');
       setImmediate(() => {
         // logger.log('Restarting Electron process...');
         startElectronProcess(logger, args, electronEnv);
@@ -56,6 +55,7 @@ export default function startElectronProcess(
     } else {
       (process.emit as any)('message', 'shutdown');
     }
+    logger.log(msg);
   });
 
   electronProcess.stderr!!.on('data', (data: Buffer) => {
