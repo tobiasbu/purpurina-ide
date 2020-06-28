@@ -6,6 +6,7 @@ import EditorSettings from './core/EditorSettings';
 import initializeGlobal from './core/config';
 import loadRecentProjects from './project/loadRecentProjects';
 
+import initializeAssets from './events/assets';
 import initializeProject from './events/project';
 import initializeDialogs from './events/dialogs';
 import initializeBrowserWindow from './events/browserWindow';
@@ -30,6 +31,7 @@ const AppControl = new Application(settings);
 app.once('ready', () => {
   AppControl.initialize();
 
+  initializeAssets();
   initializeProject(AppControl);
   initializeDialogs(AppControl);
   initializeBrowserWindow(AppControl);

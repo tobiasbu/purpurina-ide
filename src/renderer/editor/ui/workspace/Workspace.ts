@@ -4,6 +4,7 @@ import { MessageLoop } from '@phosphor/messaging';
 
 import WidgetBase from '../widgets/WidgetBase';
 import WidgetFactory from '../widgets/WidgetFactory';
+import dragDropImporter from './dragDropImporter';
 
 // import { createPortal } from "react-dom";
 // import './style/index.css';
@@ -41,36 +42,26 @@ export default class Workspace {
   private dock: DockPanel;
   private width: number;
   private height: number;
-  private node: HTMLElement;
+  private workspaceElement: HTMLElement;
   private widgets: any[];
 
   public get element(): HTMLElement {
-    return this.node;
+    return this.workspaceElement;
   }
 
   constructor() {
     this.widgets = [];
     this.dock = new DockPanel();
-    this.dock.id = 'workspace';
-    this.node = hyper.wire()`<div id="dock-panel"/>`;
+    this.dock.id = 'dock-panel';
+    const workspaceElement = hyper.wire()`<div id="workspace"/>` as HTMLDivElement;
+    this.workspaceElement = workspaceElement;
 
     this.attach();
 
-    // Assign drag & drop events
-    this.node.ondrop = (event) => {
-      event.preventDefault();
-      const files = event?.dataTransfer?.files;
-      const len = files.length;
-      if (event.dataTransfer && len !== 0) {
-        window.assets.import(files);
-      }
-    };
+    dragDropImporter(workspaceElement, this.dock.overlay);
 
 
-    this.node.addEventListener('dragstart', (event) => event.preventDefault());
-    this.node.addEventListener('dragover', (event) => event.preventDefault());
-    // this.node.addEventListener('drop', (event) => event.preventDefault());
-
+    // this.workspaceElement.addEventListener('dragstart', (event) => event.preventDefault());
     const consoleWidget = WidgetFactory.createConsole();
     this.dock.addWidget(consoleWidget, {
       mode: 'split-bottom',
@@ -82,6 +73,8 @@ export default class Workspace {
     // this.dock.addWidget(inspector, { mode: 'split-right' });
 
     this.dock.addWidget(new WidgetBase('test', null));
+
+
 
     window.onresize = () => {
       this.resize();
@@ -95,7 +88,7 @@ export default class Workspace {
 
   private attach() {
     MessageLoop.sendMessage(this.dock, Widget.Msg.BeforeAttach);
-    this.node.appendChild(this.dock.node);
+    this.workspaceElement.appendChild(this.dock.node);
     MessageLoop.sendMessage(this.dock, Widget.Msg.AfterAttach);
     this.resize();
     this.dock.update();
@@ -164,10 +157,10 @@ export default class Workspace {
       this.height = h;
       const strW = `${w.toString()}px`;
       const strH = `${h.toString()}px`;
-      this.node.style.width = strW;
-      this.node.style.height = strH;
-      this.node.style.minWidth = strW;
-      this.node.style.minHeight = strH;
+      this.workspaceElement.style.width = strW;
+      this.workspaceElement.style.height = strH;
+      this.workspaceElement.style.minWidth = strW;
+      this.workspaceElement.style.minHeight = strH;
     }
   }
 }

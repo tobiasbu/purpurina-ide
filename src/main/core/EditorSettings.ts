@@ -12,7 +12,6 @@ function checkSettingsPath(): boolean {
     fse.mkdirpSync(EDITOR_CONFIG_PATH);
     fse.mkdirpSync(path.join(EDITOR_CONFIG_PATH, 'logs'));
   }
-
   return firstTime;
 }
 

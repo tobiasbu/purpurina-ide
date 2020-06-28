@@ -3,8 +3,8 @@ import expose from './expose';
 
 export default function exposeAssetsIPC() {
   expose('assets', {
-    import: function (asset: any) {
-      return ipcRenderer.invoke('@assets/import', asset);
+    import: function (assets: ImportData.File[]) {
+      return ipcRenderer.send('@assets/import', assets);
     },
   });
 }
