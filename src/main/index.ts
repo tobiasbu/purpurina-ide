@@ -22,6 +22,8 @@ if (__PURPUR_DEV__) {
 
 initializeGlobal();
 
+
+
 const settings = EditorSettings.load();
 const AppControl = new Application(settings);
 
