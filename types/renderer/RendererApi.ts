@@ -1,7 +1,7 @@
 /**
  * Exposes bridge functionalities between main and renderer process.
  */
-interface RendererAPI {
+interface RendererApi {
   /**
    * Asks to main process to show window.
    */

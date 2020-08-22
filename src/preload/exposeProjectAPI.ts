@@ -14,7 +14,7 @@ export default function exposeProjectAPI() {
         return new Promise((resolve) => {
           ipcRenderer.once(
             '@project/loaded',
-            (event: Electron.Event, projectsList: Project.Metadata[]) => {
+            (_event: Electron.Event, projectsList: Project.Metadata[]) => {
               resolve(projectsList);
             }
           );

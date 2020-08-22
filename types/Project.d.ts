@@ -1,5 +1,3 @@
-// eslint-disable-next-line
-
 declare namespace Project {
   /**
    * Purpurina project creation metadata.

@@ -1,4 +1,4 @@
-interface DialogsAPI {
+interface DialogsApi {
   /**
    * Open directory dialog.
    * @returns
@@ -6,6 +6,6 @@ interface DialogsAPI {
    * `string` the selected path
    */
   openDirectory(
-    options?: DialogsOptionsAPI.OpenDirectory
+    options?: Dialogs.Options.OpenDirectory
   ): Promise<string | undefined | false>;
 }

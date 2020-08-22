@@ -7,6 +7,7 @@ interface ChannelMap {
 interface IEventEmitter {
   addListener(event: EventName, listener: Callback): this;
   removeListener(event: EventName, listener: Callback): this;
+  removeAllListeners(event?: EventName): this;
 }
 
 interface ListenerSubscription {
@@ -19,7 +20,7 @@ function ListenerSubscription(fn: Callback, once?: boolean) {
   this.once = once || false;
 }
 
-class IPCEmitter implements NodeJS.EventEmitter {
+class IpcEmitter implements NodeJS.EventEmitter {
   private emitter: IEventEmitter;
   private registeredChannels: ChannelMap;
   private eventsCounter: number;
@@ -30,11 +31,7 @@ class IPCEmitter implements NodeJS.EventEmitter {
     this.eventsCounter = 0;
   }
 
-  addListener(
-    event: string | symbol,
-    listener: Callback,
-    once?: boolean
-  ): this {
+  addListener(event: EventName, listener: Callback, once?: boolean): this {
     const eventName = event as any;
     const channel = this.registeredChannels[eventName];
     const subscription = new ListenerSubscription(
@@ -55,39 +52,54 @@ class IPCEmitter implements NodeJS.EventEmitter {
     this.emitter.addListener(event, listener);
     return this;
   }
-  removeListener(
-    event: string | symbol,
-    listener: (...args: any[]) => void
-  ): this {
-    this.emitter.removeListener(event, listener);
+  removeListener(event: EventName, listener: Callback): this {
+    const eventName = event as any;
+    if (!this.registeredChannels[eventName]) {
+      return this;
+    }
+    if (!listener) {
+      this.removeAllListeners(event);
+      return this;
+    }
+
     return this;
   }
-  on(event: string | symbol, listener: (...args: any[]) => void): this {
+  removeAllListeners(event?: EventName): this {
+    const eventName = event as any;
+    if (--this.eventsCounter === 0) {
+      this.registeredChannels = {};
+    } else {
+      if (this.registeredChannels[eventName]) {
+        delete this.registeredChannels[eventName];
+      }
+    }
+    this.emitter.removeAllListeners(event);
+    return this;
+  }
+  on(event: EventName, listener: Callback): this {
     return this.addListener(event, listener, false);
   }
-  once(event: string | symbol, listener: (...args: any[]) => void): this {
+  once(event: EventName, listener: Callback): this {
     return this.addListener(event, listener, true);
   }
 
-  off(event: string | symbol, listener: (...args: any[]) => void): this {
-    throw new Error('Method not implemented.');
+  off(event: EventName, listener: Callback): this {
+    return this.removeListener(event, listener);
   }
-  removeAllListeners(event?: string | symbol): this {
-    throw new Error('Method not implemented.');
-  }
+
   setMaxListeners(n: number): this {
     throw new Error('Method not implemented.');
   }
   getMaxListeners(): number {
     throw new Error('Method not implemented.');
   }
-  listeners(event: string | symbol): Function[] {
+  listeners(event: EventName): Function[] {
     throw new Error('Method not implemented.');
   }
-  rawListeners(event: string | symbol): Function[] {
+  rawListeners(event: EventName): Function[] {
     throw new Error('Method not implemented.');
   }
-  emit(event: string | symbol, ...args: any[]): boolean {
+  emit(event: EventName, ...args: any[]): boolean {
     throw new Error('Method not implemented.');
   }
   listenerCount(type: string | symbol): number {

@@ -1,83 +1,117 @@
-/* eslint-disable no-console */
-import { ipcMain, app } from 'electron';
+import { app } from 'electron';
+import createContextualizer from './contextualizer';
 
-import Application from './core/Application';
-import EditorSettings from './core/EditorSettings';
-import initializeGlobal from './core/config';
-import loadRecentProjects from './project/loadRecentProjects';
-import initializeProject from './events/ProjectAPI';
-import initializeDialogs from './events/DialogsAPI';
-
-import Logger from './logger';
-
-if (__PURPUR_DEV__) {
-  // Logger.log(
-  //   `Directory: ${__dirname}. Port: ${process.env.ELECTRON_WEBPACK_WDS_PORT}`
-  // );
-  // const sourceMapSupport = require('source-map-support'); // eslint-disable-line
-  // sourceMapSupport.install({
-  //   environment: 'node',
-  // });
+interface ParsedCLIArgs {
+  project?: string;
+  version?: boolean;
 }
 
-initializeGlobal();
+function parseCLIArgs(): ParsedCLIArgs {
+  var parseArgs = require('minimist');
+  return parseArgs(process.argv, {
+    string: ['project'],
+    boolean: ['version'],
+    alias: {
+      alias: { v: 'version', p: 'project' },
+    },
+  });
+}
 
+const argv = parseCLIArgs();
 
-
-const settings = EditorSettings.load();
-const AppControl = new Application(settings);
+if (argv.version) {
+  console.log('Purpurina Editor v0.0.1');
+}
 
 app.once('ready', () => {
-  AppControl.initialize();
+  console.log(argv);
 
-  initializeProject(AppControl);
-  initializeDialogs(AppControl);
+  const contextualizer = createContextualizer();
 
-  const initPromise = AppControl.startLauncher();
-  const loaderPromise = loadRecentProjects(settings.recentProjects);
+  const shared = require('./contexts/shared/index.ts');
+  contextualizer.shareContext(shared);
 
-  Promise.all([initPromise, loaderPromise]).then((result) => {
-    const projects = result[1];
-    const win = result[0];
-    // for some reason HMR, some middleware or anything else is blocking the first render
-    // we force to reload the web contents:
-    if (__PURPUR_DEV__) {
-      win.webContents.reload();
-    }
-    win.webContents.on(
-      'console-message',
-      (
-        _event: Electron.IpcMainEvent,
-        level: number,
-        message: string,
-        line: number,
-        sourceId: string
-      ) => {
-        let msg = '[WINDOW]';
-        let fn = Logger.log;
-        if (level >= 3) {
-          msg += ' [ERROR]';
-          fn = Logger.error;
-        } else {
-          msg += ' [LOG]';
-        }
-        msg = `${msg} ${message}\nat ${line} from ${sourceId}\n`;
-        fn(msg);
-      }
-    );
-
-    ipcMain.on('@renderer/show', (event) => {
-      const mainWindow = AppControl.mainWindow;
-      if (mainWindow !== null) {
-        mainWindow.show();
-        mainWindow.focus();
-        mainWindow.webContents.openDevTools({ mode: 'undocked' });
-      }
-      Logger.log(event.sender);
-    });
-
-    ipcMain.handle('@renderer/ready', (event: Electron.IpcMainEvent) => {
-      return projects;
-    });
-  });
+  if (!argv.project) {
+    contextualizer.changeContext(require('./contexts/launcher/index.ts'));
+    return;
+  }
 });
+
+// import Application from './core/Application';
+// import EditorSettings from './core/EditorSettings';
+// import initializeGlobal from './core/config';
+// import loadRecentProjects from './project/loadRecentProjects';
+// import initializeProject from './events/ProjectAPI';
+// import initializeDialogs from './events/DialogsAPI';
+
+// import Logger from './logger';
+
+// if (__PURPUR_DEV__) {
+//   // Logger.log(
+//   //   `Directory: ${__dirname}. Port: ${process.env.ELECTRON_WEBPACK_WDS_PORT}`
+//   // );
+//   // const sourceMapSupport = require('source-map-support'); // eslint-disable-line
+//   // sourceMapSupport.install({
+//   //   environment: 'node',
+//   // });
+// }
+
+// initializeGlobal();
+
+// const settings = EditorSettings.load();
+// const AppControl = new Application(settings);
+
+// app.once('ready', () => {
+//   AppControl.initialize();
+
+//   initializeProject(AppControl);
+//   initializeDialogs(AppControl);
+
+//   const initPromise = AppControl.startLauncher();
+//   const loaderPromise = loadRecentProjects(settings.recentProjects);
+
+//   Promise.all([initPromise, loaderPromise]).then((result) => {
+//     const projects = result[1];
+//     const win = result[0];
+//     // for some reason HMR, some middleware or anything else is blocking the first render
+//     // we force to reload the web contents:
+//     if (__PURPUR_DEV__) {
+//       win.webContents.reload();
+//     }
+//     win.webContents.on(
+//       'console-message',
+//       (
+//         _event: Electron.IpcMainEvent,
+//         level: number,
+//         message: string,
+//         line: number,
+//         sourceId: string
+//       ) => {
+//         let msg = '[WINDOW]';
+//         let fn = Logger.log;
+//         if (level >= 3) {
+//           msg += ' [ERROR]';
+//           fn = Logger.error;
+//         } else {
+//           msg += ' [LOG]';
+//         }
+//         msg = `${msg} ${message}\nat ${line} from ${sourceId}\n`;
+//         fn(msg);
+//       }
+//     );
+
+//     ipcMain.on('@renderer/show', (event) => {
+//       const mainWindow = AppControl.mainWindow;
+//       if (mainWindow !== null) {
+//         mainWindow.show();
+//         mainWindow.focus();
+//         mainWindow.webContents.openDevTools({ mode: 'undocked' });
+//       }
+//       Logger.log(event.sender);
+//     });
+
+//     ipcMain.handle('@renderer/ready', (event: Electron.IpcMainEvent) => {
+//       return projects;
+//     });
+//   });
+// });

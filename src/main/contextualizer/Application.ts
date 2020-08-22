@@ -3,7 +3,7 @@ import { app, BrowserWindow } from 'electron';
 import Logger from 'main/logger';
 
 import { createStartupWindow, createEditorWindow } from './window';
-import EditorSettings from './EditorSettings';
+import EditorSettings from '../contexts/launcher/EditorSettings';
 
 enum AppState {
   Uninitialized,

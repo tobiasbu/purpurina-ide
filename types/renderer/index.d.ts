@@ -1,5 +1,5 @@
-/// <reference path="DialogsAPI.ts" />
-/// <reference path="RendererAPI.ts" />
+/// <reference path="DialogsApi.ts" />
+/// <reference path="RendererApi.ts" />
 
 import { UserInfo } from '@shared/node/getUserInfo';
 
@@ -11,8 +11,8 @@ declare global {
       readonly WINDOWS: boolean;
       readonly LINUX: boolean;
     };
-    dialogs: DialogsAPI;
-    project: ProjectAPI;
-    renderer: RendererAPI;
+    dialogs: DialogsApi;
+    project: ProjectApi;
+    renderer: RendererApi;
   }
 }
