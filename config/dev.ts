@@ -36,6 +36,7 @@ async function main() {
 
   const devEnv: CommonEnv = {
     ...process.env,
+    TS_NODE_PROJECT: path.join(__dirname, './tsconfig.dev.json'),
     NODE_ENV: 'development',
     PURPUR_DIST_PATH: path.join(__dirname, '../out/dev'),
     PURPUR_PROJECT_PATH: path.join(__dirname, '../'),

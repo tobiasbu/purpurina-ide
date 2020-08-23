@@ -1,4 +1,9 @@
-import { ContextHandlers, ContextCreator, SharedContextCreator } from './types';
+import {
+  ContextHandlers,
+  ContextCreator,
+  SharedContextCreator,
+  SharedApplicationContext,
+} from './types';
 import makeHandlers from './makeHandlers';
 
 export default function createContextualizer() {
@@ -7,8 +12,8 @@ export default function createContextualizer() {
     dispose?: Callback;
   }
 
-  let sharedContext: ContextHandler = null;
-  let currentContext: ContextHandler = null;
+  let sharedContext: SharedApplicationContext;
+  let currentContext: ContextHandler;
 
   function disposeContext(context) {
     currentContext = null;
@@ -56,7 +61,7 @@ export default function createContextualizer() {
           `Contextualizer.shareContext: Could not initialize context. Shared context has been already set.`
         );
       }
-      sharedContext = createContext(sharedContextCreator);
+      // sharedContext = createContext(sharedContextCreator);
     },
   };
 }

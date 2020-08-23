@@ -1,41 +1,52 @@
 import { app } from 'electron';
+import type minimist from 'minimist';
+
 import createContextualizer from './contextualizer';
 
-interface ParsedCLIArgs {
+interface ParsedCLIArgs extends minimist.ParsedArgs {
   project?: string;
   version?: boolean;
 }
 
-function parseCLIArgs(): ParsedCLIArgs {
-  var parseArgs = require('minimist');
-  return parseArgs(process.argv, {
-    string: ['project'],
-    boolean: ['version'],
-    alias: {
-      alias: { v: 'version', p: 'project' },
-    },
+async function main() {
+  async function parseCLIArgs(argv: string[]): Promise<ParsedCLIArgs> {
+    return import(/* webpackChunkName: "minimist" */ 'minimist').then(
+      (parser) => {
+        const parsedArgs = parser.default(argv, {
+          boolean: ['version'],
+          alias: {
+            v: 'version',
+          },
+        });
+        const projectPath = parsedArgs._[0];
+        return { ...parsedArgs, project: projectPath };
+      }
+    );
+  }
+
+  const argsTest = ['C:/', '--version'];
+  const parsedArgs = await parseCLIArgs(argsTest);
+
+  if (parsedArgs.version) {
+    console.log('Purpurina Editor v0.0.1');
+  }
+
+  console.log(parsedArgs);
+
+  app.once('ready', () => {
+    const contextualizer = createContextualizer();
+
+    const shared = require('./contexts/shared/index.ts');
+    contextualizer.shareContext(shared);
+
+    if (!parsedArgs.project) {
+      // contextualizer.changeContext(require('./contexts/launcher/index.ts'));
+      return;
+    }
   });
 }
 
-const argv = parseCLIArgs();
-
-if (argv.version) {
-  console.log('Purpurina Editor v0.0.1');
-}
-
-app.once('ready', () => {
-  console.log(argv);
-
-  const contextualizer = createContextualizer();
-
-  const shared = require('./contexts/shared/index.ts');
-  contextualizer.shareContext(shared);
-
-  if (!argv.project) {
-    contextualizer.changeContext(require('./contexts/launcher/index.ts'));
-    return;
-  }
-});
+main();
 
 // import Application from './core/Application';
 // import EditorSettings from './core/EditorSettings';

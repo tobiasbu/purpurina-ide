@@ -1,7 +1,5 @@
 require('source-map-support/source-map-support.js').install();
 
-import HmrClient from './HmrClient';
-
 const socketPath = process.env.ELECTRON_HMR_SOCKET_PATH!;
 if (socketPath === null) {
   throw new Error(
@@ -16,8 +14,9 @@ if (socketId === null) {
   );
 }
 
-const hot = (module.hot || module.exports.hot) as __WebpackModuleApi.Hot;
+const { default: HmrClient } = require('./HmrClient');
 
+const hot = (module.hot || module.exports.hot) as __WebpackModuleApi.Hot;
 const client = new HmrClient(hot, () => __webpack_hash__);
 
 try {

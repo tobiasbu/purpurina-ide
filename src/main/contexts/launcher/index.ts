@@ -1,12 +1,8 @@
-import { ContextHandlers } from '@main/contextualizer';
+import type { ContextHandlers } from '@main/contextualizer';
+// import EditorSettings from './EditorSettings';
 
-export default function ({ ipc, window }: ContextHandlers) {}
-
-// class Launcher extends ApplicationContext {
-//   destroy?(): void {
-//     // throw new Error("Method not implemented.");
-//   }
-//   init({ ipc }) {
-//     ipc.createApi('project', {});
-//   }
-// }
+export default function ({ ipc, window }: ContextHandlers): Callback {
+  return () => {
+    // EditorSettings.dispose();
+  };
+}

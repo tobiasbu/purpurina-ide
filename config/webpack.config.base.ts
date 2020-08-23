@@ -43,7 +43,7 @@ export default function (
       plugins: [new TsconfigPathsPlugin({})],
       extensions: ['.ts', '.js', '.json'],
       alias: {
-        '@shared': path.join(PROJECT_PATH, `./shared`),
+        '@shared': path.join(PROJECT_PATH, `./src/shared`),
       },
     },
     module: {
@@ -58,15 +58,18 @@ export default function (
           test: /\.ts$/,
           loader: 'ts-loader',
           exclude: /node_modules/,
+          options: {
+            configFile: path.join(PROJECT_PATH, './tsconfig.base.json'),
+          },
         },
       ],
     },
-    optimization: {
-      minimize: IS_PROD === true,
-      minimizer: [],
-      noEmitOnErrors: true,
-      nodeEnv: mode,
-    },
+    // optimization: {
+    //   minimize: IS_PROD === true,
+    //   minimizer: [],
+    //   noEmitOnErrors: true,
+    //   nodeEnv: mode,
+    // },
     plugins: [
       new webpack.DefinePlugin({
         'process.env.NODE_ENV': IS_PROD ? '"production"' : '"development"',

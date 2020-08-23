@@ -6,11 +6,11 @@ import webpack from 'webpack';
 import WebpackDevMiddleware from 'webpack-dev-middleware';
 import WebpackHotMiddleware from 'webpack-hot-middleware';
 
-import { WebpackDevMiddlewareMoreOptions, CommonEnv } from '../types';
+import type { WebpackDevMiddlewareMoreOptions, CommonEnv } from '../types';
+import type { LogFunction } from '../devLogger';
 import webpackStats from '../commons/webpackStats';
 
 import rendererWebpackConfig from './webpack.config.renderer';
-import { LogFunction } from '../devLogger';
 
 type DevMiddleware = WebpackDevMiddleware.WebpackDevMiddleware &
   NextHandleFunction;

@@ -15,7 +15,7 @@ function makeHandlers(): ContextHandlers {
    */
   function allocate<T extends IDisposable>(
     handlerName: string,
-    Handler: HandlerConstructor<T> | string
+    Handler: HandlerConstructor<T>
   ): T {
     if (allocatedHandlers[handlerName]) {
       return allocatedHandlers[handlerName] as T;
@@ -23,18 +23,19 @@ function makeHandlers(): ContextHandlers {
 
     let handlerObject: T;
     try {
-      if (typeof Handler === 'string') {
-        const Constructor = require('./IpcContext.ts');
-        if (typeof Constructor === 'function') {
-          handlerObject = new Constructor();
-        } else {
-          if (typeof Constructor.default === 'function') {
-            handlerObject = new Constructor();
-          }
-        }
-      } else {
-        handlerObject = new Handler();
-      }
+      handlerObject = new Handler();
+      // if (typeof Handler === 'string') {
+      //   const Constructor = require('./IpcContext.ts');
+      //   if (typeof Constructor === 'function') {
+      //     handlerObject = new Constructor();
+      //   } else {
+      //     if (typeof Constructor.default === 'function') {
+      //       handlerObject = new Constructor();
+      //     }
+      //   }
+      // } else {
+      //   handlerObject = new Handler();
+      // }
     } catch (e) {
       throw e;
     }

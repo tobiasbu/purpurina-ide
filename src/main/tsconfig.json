@@ -1,0 +1,23 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "module": "ESNext",
+    "lib": [
+      "esnext"
+    ],
+    "paths": {
+      "@main": [
+        "src/main"
+      ],
+      "@main/*": [
+        "src/main/*"
+      ],
+      "@shared/*": [
+        "src/shared/*"
+      ],
+      "@shared": [
+        "src/shared"
+      ]
+    }
+  }
+}

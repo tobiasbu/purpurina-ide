@@ -1,12 +1,5 @@
-import { makeLogger, capitalize } from '.';
+import { makeLogger } from '.';
 import chalk from 'chalk';
-
-// const loggerCommon = {
-//   name: 'purpur',
-//   timestamp: true,
-//   symbol: ' \u2615',
-//   errorSymbol: ' \u2620'
-// }
 
 interface PurpurLoggerOptions {
   /**

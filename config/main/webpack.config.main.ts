@@ -38,8 +38,19 @@ export default (env: WebpackBaseBuildConfig): webpack.Configuration => {
         title: 'Purpurina <Main>',
         alwaysNotify: true,
       }),
-      new CleanWebpackPlugin(),
     ],
+    module: {
+      rules: [
+        {
+          test: /\.ts$/,
+          loader: 'ts-loader',
+          exclude: /node_modules/,
+          options: {
+            configFile: path.join(entry.dir.main, './tsconfig.json'),
+          },
+        },
+      ],
+    },
     externals: [
       'fsevents',
       'webpack/hot/log-apply-result',
@@ -47,6 +58,11 @@ export default (env: WebpackBaseBuildConfig): webpack.Configuration => {
       'electron',
       'webpack',
     ],
+    optimization: {
+      splitChunks: {
+        chunks: 'async',
+      },
+    },
   });
 
   return config;

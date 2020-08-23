@@ -4,10 +4,9 @@ import * as path from 'path';
 import webpackMerge = require('webpack-merge');
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import WebpackNotifierPlugin from 'webpack-notifier';
-import { CleanWebpackPlugin } from 'clean-webpack-plugin';
 
 import configBase from '../webpack.config.base';
-import { DevServerBuildConfig } from '../types';
+import type { DevServerBuildConfig } from '../types';
 import getEntry from '../commons/getEntry';
 
 /**
@@ -36,8 +35,6 @@ export default function (env: DevServerBuildConfig): webpack.Configuration {
 
   // Webpack config
   const config = webpackMerge.smart(base.config, {
-    // https://gist.github.com/earksiinni/053470a04defc6d7dfaacd5e5a073b15
-    // target: 'web',
     target: 'electron-renderer',
     entry: entries.entry,
     output: {
@@ -47,16 +44,13 @@ export default function (env: DevServerBuildConfig): webpack.Configuration {
     module: {
       exprContextCritical: !IS_PROD,
       rules: [
-        // {
-        //   test: /\.ts$/,
-        //   enforce: "pre",
-        //   loader: 'eslint-loader',
-        //   exclude: /node_modules/,
-        // },
         {
           test: /\.ts$/,
           loader: 'ts-loader',
           exclude: /node_modules/,
+          options: {
+            configFile: path.join(entries.ENTRY_PATH, './tsconfig.json'),
+          },
         },
         {
           test: /\.p?css$/,
@@ -109,15 +103,10 @@ export default function (env: DevServerBuildConfig): webpack.Configuration {
       ],
     },
     plugins: [
-      new webpack.DefinePlugin({
-        DEVELOPMENT: JSON.stringify(true),
-      }),
       new WebpackNotifierPlugin({
         title: 'Purpurina <Renderer>',
         alwaysNotify: true,
-        // logo: path.resolve("./img/favicon.png"),
       }),
-      new CleanWebpackPlugin(),
     ],
     externals: ['debug-menu', 'source-map-support/source-map-support.js'],
   });
@@ -140,5 +129,6 @@ export default function (env: DevServerBuildConfig): webpack.Configuration {
       new webpack.NoEmitOnErrorsPlugin()
     );
   }
+
   return config;
 }

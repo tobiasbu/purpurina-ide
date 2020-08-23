@@ -1,9 +1,9 @@
-import { IpcMainEvent, IpcMainInvokeEvent } from 'electron';
-import IpcContext from './IpcContext';
+import type { IpcMainEvent, IpcMainInvokeEvent } from 'electron';
+import type IpcContext from './IpcContext';
 
 type IpcListener = (event: IpcMainEvent, ...args: any[]) => void;
 type IpcHandleListener = (
-  _event: IpcMainInvokeEvent,
+  event: IpcMainInvokeEvent,
   ...args: any[]
 ) => Promise<void> | any;
 

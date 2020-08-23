@@ -1,4 +1,4 @@
-import { Platform } from 'shared/node/getUserInfo';
+import { Platform } from '@shared/node/getUserInfo';
 
 // eslint-disable-next-line
 const INVALID_FOLDER_CHARS = /[<>:\x22\/\\|?*\x00-\x1F]+/;

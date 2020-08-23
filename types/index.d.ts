@@ -1,4 +1,9 @@
 declare var __PURPUR_DEV__: boolean;
+declare const DEVELOPMENT: boolean;
+
+declare module '*.json';
+declare module '*.svg';
+
 declare type AnyType = string | number | boolean | object;
 
 declare type AnyCallback = (...args: any) => any;

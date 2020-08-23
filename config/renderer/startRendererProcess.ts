@@ -1,7 +1,7 @@
 import { ChildProcess, spawn } from 'child_process';
 
-import { Logger } from '../devLogger';
-import { CommonEnv } from '../types';
+import type { Logger } from '../devLogger';
+import type { CommonEnv } from '../types';
 import stripFNL from '../commons/stripFinalNewLine';
 
 export default function startRendererProcess(

@@ -1,7 +1,7 @@
 import { spawn } from 'child_process';
 
-import { ElectronEnv } from '../types';
-import { Logger } from '../devLogger';
+import type { ElectronEnv } from '../types';
+import type { Logger } from '../devLogger';
 import stripFinalNewLine from '../commons/stripFinalNewLine';
 
 export default function startElectronProcess(

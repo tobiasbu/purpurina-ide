@@ -1,4 +1,4 @@
-import webpack = require('webpack');
+import type webpack from 'webpack';
 
 type LoggingDebugFn = (name: string) => boolean | string | RegExp;
 

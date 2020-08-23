@@ -107,9 +107,12 @@ export default class HmrClient {
             const hotModuleStatus = self.hot.status();
             if (hotModuleStatus === 'idle') {
               self.check();
-            } else if (status === 'abort' || status === 'fail') {
+            } else if (
+              hotModuleStatus === 'abort' ||
+              hotModuleStatus === 'fail'
+            ) {
               console.warn(
-                `[HMR] Cannot apply update as a previous update ${status}ed. Need to do a full reload!`
+                `[HMR] Cannot apply update as a previous update ${hotModuleStatus}ed. Need to do a full reload!`
               );
             }
           });
