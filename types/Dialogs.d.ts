@@ -1,5 +1,5 @@
 declare namespace Dialogs {
-  namespace Options {
+  export namespace Options {
     /**
      * Open directory options
      */

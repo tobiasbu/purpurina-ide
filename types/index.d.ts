@@ -1,4 +1,4 @@
-declare var __PURPUR_DEV__: boolean;
+declare const __PURPUR_DEV__: boolean;
 declare const DEVELOPMENT: boolean;
 
 declare module '*.json';

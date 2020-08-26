@@ -11,6 +11,7 @@
     "esModuleInterop": true,
     "noImplicitReturns": true,
     "noImplicitAny": false,
+    "noEmit": true,
     "allowJs": true,
     "importsNotUsedAsValues": "remove",
     "lib": [

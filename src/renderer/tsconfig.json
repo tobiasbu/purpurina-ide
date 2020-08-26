@@ -1,19 +1,25 @@
 {
-  "extends": "../../tsconfig.json",
+  "extends": "../tsconfig-base.json",
   "compilerOptions": {
+    "rootDir": "../",
+    "outDir": "../../out/ts/renderer",
     "lib": [
       "DOM",
     ],
+    "typeRoots": [
+      "../../node_modules/@types",
+      "./types",
+      "../../types",
+    ],
     "paths": {
-      "@renderer/*": [
-        "src/renderer/*"
-      ],
-      "@shared/*": [
-        "src/shared/*"
-      ],
-      "@shared": [
-        "src/shared"
-      ]
+      "@shared/*": ["shared/*"]
     }
-  }
+  },
+  "references": [
+    {"path": "../shared"}
+  ],
+  "include": [
+    "../../types/**/*",
+    "./**/*"
+  ]
 }

@@ -1,7 +1,7 @@
 /// <reference path="DialogsApi.ts" />
 /// <reference path="RendererApi.ts" />
 
-import { UserInfo } from '@shared/node/getUserInfo';
+import type { UserInfo } from '@shared/node/getUserInfo';
 
 declare global {
   interface Window {

@@ -2,23 +2,14 @@
   "extends": "../tsconfig-base.json",
   "compilerOptions": {
     "rootDir": ".",
-    "outDir": "../../out/ts/main",
-    "module": "ESNext",
-    "lib": ["esnext"],
+    "outDir": "../../out/ts/shared",
     "typeRoots": [
       "../../types",
       "../../node_modules/@types"
     ],
-    "paths": {
-      "@main/*": ["main/*"],
-      "@shared/*": ["shared/*"]
-    }
   },
   "include": [
     "../../types/**/*",
     "./**/*"
-  ],
-  "references": [
-    {"path": "../shared"}
-  ],
+  ]
 }

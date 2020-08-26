@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "composite": true,
+    "target": "ES2015",
+    "module": "CommonJS",
+    "moduleResolution": "node",
+    "baseUrl": "./",
+    "sourceMap": true,
+    "strictNullChecks": false,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "noImplicitReturns": true,
+    "noImplicitAny": false,
+    "allowJs": true,
+    "importsNotUsedAsValues": "remove",
+    "skipLibCheck": true,
+    "lib": ["esnext"],
+    "paths": {
+      "@shared/*": ["shared/*"],
+      "@main/*": ["main/*"]
+    }
+  }
+}

@@ -1,41 +1,20 @@
 {
-  "compilerOptions": {
-    "target": "ES2015",
-    "module": "CommonJS",
-    "moduleResolution": "node",
-    "baseUrl": "./",
-    "sourceMap": true,
-    "outDir": "out",
-    "strictNullChecks": false,
-    "allowSyntheticDefaultImports": true,
-    "esModuleInterop": true,
-    "noImplicitReturns": true,
-    "noImplicitAny": false,
-    "allowJs": true,
-    "importsNotUsedAsValues": "remove",
-    "skipLibCheck": true,
-    "lib": [
-      "esnext",
-    ],
-    "paths": {
-      "@shared/*": [
-        "src/shared/*"
-      ],
-      "@shared": [
-        "src/shared"
-      ]
-    },
-    "typeRoots": [
-      "types",
-      "node_modules/@types"
-    ]
-  },
-  "include": [
-    "./types/**/*",
+  "files": [],
+  "references": [
+    {"path": "src/main"},
+    {"path": "src/renderer"},
+    {"path": "src/shared"}
   ],
   "exclude": [
-    "out",
+    "node_modules",
+    "_bkp",
+    "./out",
+    "./to_be_fixed",
     "./src/engine",
-    "node_modules"
+    "./config"
   ],
+  "typeRoots": [
+    "./types",
+    "./node_modules/@types"
+  ]
 }
