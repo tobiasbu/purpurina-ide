@@ -6,6 +6,7 @@ type ValueType = string | number | boolean | object;
  *
  * @param value Value
  * @param defaultValue Default value
+ * @deprecated
  */
 export default function getValue<T extends ValueType>(
   value: T,

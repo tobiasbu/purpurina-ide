@@ -1,23 +1,21 @@
 import * as webpack from 'webpack';
 import * as path from 'path';
 
-import { CleanWebpackPlugin } from 'clean-webpack-plugin';
 import WebpackNotifierPlugin from 'webpack-notifier';
 import webpackMerge = require('webpack-merge');
 
+import type { BaseEnvironmentConfig } from '../types';
 import configBase from '../webpack.config.base';
-import { WebpackBaseBuildConfig } from '../types';
 import getEntry from '../commons/getEntry';
 
-export default (env: WebpackBaseBuildConfig): webpack.Configuration => {
+export default (env: BaseEnvironmentConfig): webpack.Configuration => {
   const base = configBase(env, 'main');
-  const PROJECT_PATH = base.PURPURINA_PROJECT_PATH;
 
   const entry = getEntry(
     {
-      PROJECT_PATH,
+      PROJECT_PATH: base.PROJECT_PATH,
       HOT_MW: !base.IS_PROD
-        ? path.join(PROJECT_PATH, './config/electron-hmr/main-hmr.ts')
+        ? path.join(base.PROJECT_PATH, './config/electron-hmr/main-hmr.ts')
         : undefined,
     },
     ['main']
@@ -52,7 +50,6 @@ export default (env: WebpackBaseBuildConfig): webpack.Configuration => {
       ],
     },
     externals: [
-      'fsevents',
       'webpack/hot/log-apply-result',
       'source-map-support/source-map-support.js',
       'electron',

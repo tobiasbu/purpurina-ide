@@ -6,25 +6,25 @@ import HtmlWebpackPlugin from 'html-webpack-plugin';
 import WebpackNotifierPlugin from 'webpack-notifier';
 
 import configBase from '../webpack.config.base';
-import type { DevServerBuildConfig } from '../types';
 import getEntry from '../commons/getEntry';
+import type { ElectronRendererEnv } from '../types';
 
 /**
  * Purpurina renderer configuration
  *
  * @param env Build environment
  */
-export default function (env: DevServerBuildConfig): webpack.Configuration {
+export default function (env: ElectronRendererEnv): webpack.Configuration {
   const base = configBase(env, 'renderer');
-  const PROJECT_PATH = base.PURPURINA_PROJECT_PATH;
   const IS_PROD = base.IS_PROD;
+  const PORT = env.ELECTRON_WEBPACK_WDS_PORT ?? 3000;
 
   // hot module replacement
-  const HOT_URL_PATH = `http://localhost:${env.PORT || 3000}/__webpack_hmr`;
+  const HOT_URL_PATH = `http://localhost:${PORT}/__webpack_hmr`;
   const entriesNames = ['launcher', 'editor'];
   const entries = getEntry(
     {
-      PROJECT_PATH,
+      PROJECT_PATH: env.PURPUR_PROJECT_PATH,
       HOT_MW: IS_PROD
         ? undefined
         : `webpack-hot-middleware/client?path=${HOT_URL_PATH}&reload=true`,

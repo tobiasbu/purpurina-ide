@@ -2,13 +2,12 @@ import * as webpack from 'webpack';
 import * as path from 'path';
 import TsconfigPathsPlugin from 'tsconfig-paths-webpack-plugin';
 
-import { WebpackBaseBuildConfig } from './types';
+import type { BaseEnvironmentConfig } from './types';
 import { CleanWebpackPlugin } from 'clean-webpack-plugin';
-import getValue from './commons/getValue';
 
 interface BaseConfig {
   PUBLIC_PATH: string;
-  PURPURINA_PROJECT_PATH: string;
+  PROJECT_PATH: string;
   IS_PROD: boolean;
   config: webpack.Configuration;
 }
@@ -17,12 +16,11 @@ interface BaseConfig {
  * Base webpack configuration.
  */
 export default function (
-  env: WebpackBaseBuildConfig,
+  env: BaseEnvironmentConfig,
   configType?: string
 ): BaseConfig {
-  const PROJECT_PATH = path.resolve(__dirname, '../');
-
-  const mode = getValue(env.NODE_ENV, 'development');
+  const PROJECT_PATH = env.PURPUR_PROJECT_PATH;
+  const mode = env.NODE_ENV ?? 'development';
   const IS_PROD = mode !== 'development';
   const TYPE = configType || 'project';
   const PUBLIC_PATH = `/out/${IS_PROD ? 'dist' : 'dev'}/${TYPE}`;
@@ -96,7 +94,7 @@ export default function (
 
   return {
     config: baseConfig,
-    PURPURINA_PROJECT_PATH: PROJECT_PATH,
+    PROJECT_PATH,
     PUBLIC_PATH,
     IS_PROD,
   };

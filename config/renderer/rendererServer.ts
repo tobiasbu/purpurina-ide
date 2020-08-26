@@ -1,12 +1,15 @@
-import { Server } from 'http';
-import { NextHandleFunction } from 'connect';
 import express from 'express';
+import type { Server } from 'http';
+import type { NextHandleFunction } from 'connect';
 
 import webpack from 'webpack';
 import WebpackDevMiddleware from 'webpack-dev-middleware';
 import WebpackHotMiddleware from 'webpack-hot-middleware';
 
-import type { WebpackDevMiddlewareMoreOptions, CommonEnv } from '../types';
+import type {
+  WebpackDevMiddlewareMoreOptions,
+  EnvironmentConfig,
+} from '../types';
 import type { LogFunction } from '../devLogger';
 import webpackStats from '../commons/webpackStats';
 
@@ -31,11 +34,18 @@ interface RendererServerProcess {
 }
 
 function serve(): Promise<RendererServerProcess> {
-  const devEnv = process.env as CommonEnv;
+  const devEnv = process.env as EnvironmentConfig;
 
-  const DIST_PATH = devEnv.PURPUR_DIST_PATH;
-  const PORT = devEnv.ELECTRON_WEBPACK_WDS_PORT
-    ? parseInt(devEnv.ELECTRON_WEBPACK_WDS_PORT)
+  const {
+    ELECTRON_WEBPACK_WDS_HOST,
+    ELECTRON_WEBPACK_WDS_PORT,
+    PURPUR_PROJECT_PATH,
+    PURPUR_DIST_PATH,
+    NODE_ENV,
+  } = devEnv;
+
+  const PORT = ELECTRON_WEBPACK_WDS_PORT
+    ? parseInt(ELECTRON_WEBPACK_WDS_PORT)
     : 3000;
 
   // const logger = purpurLogger(({
@@ -55,10 +65,11 @@ function serve(): Promise<RendererServerProcess> {
   };
 
   const config = rendererWebpackConfig({
-    NODE_ENV: devEnv.NODE_ENV,
-    HOST: devEnv.ELECTRON_WEBPACK_WDS_HOST,
-    PORT: PORT,
-    DIST_PATH: DIST_PATH,
+    PURPUR_PROJECT_PATH,
+    PURPUR_DIST_PATH,
+    NODE_ENV,
+    ELECTRON_WEBPACK_WDS_HOST,
+    ELECTRON_WEBPACK_WDS_PORT,
   });
 
   logger.info('Compiling renderer...');
@@ -86,7 +97,7 @@ function serve(): Promise<RendererServerProcess> {
   const expressApp = express();
   expressApp.use(devMiddleware);
   expressApp.use(hotMiddleware);
-  expressApp.use(express.static(DIST_PATH));
+  expressApp.use(express.static(PURPUR_DIST_PATH));
 
   // Renderer promise
   return new Promise<RendererServerProcess>((resolve, reject) => {

@@ -1,4 +1,4 @@
-import getUserInfo from 'shared/node/getUserInfo';
+import getUserInfo from '@shared/node/getUserInfo';
 
 export default function initializeGlobal(): void {
   const osUserInfo = getUserInfo();

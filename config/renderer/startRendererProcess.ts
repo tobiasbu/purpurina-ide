@@ -1,12 +1,12 @@
 import { ChildProcess, spawn } from 'child_process';
 
 import type { Logger } from '../devLogger';
-import type { CommonEnv } from '../types';
+import type { ElectronRendererEnv } from '../types';
 import stripFNL from '../commons/stripFinalNewLine';
 
 export default function startRendererProcess(
   cwd: string,
-  devEnv: CommonEnv,
+  devEnv: ElectronRendererEnv,
   logger: Logger
 ) {
   return new Promise<ChildProcess>((resolve, reject) => {

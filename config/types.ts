@@ -1,16 +1,25 @@
-import WebpackDevMiddleware = require('webpack-dev-middleware');
-import * as http from 'http';
-import webpack = require('webpack');
-import { NextHandleFunction } from 'connect';
+import type WebpackDevMiddleware from 'webpack-dev-middleware';
+import type webpack from 'webpack';
 
-export interface CommonEnv extends NodeJS.ProcessEnv {
-  readonly NODE_ENV: 'development' | 'production';
+export interface DevServerConfig {
+  /**
+   * Renderer dev server port
+   */
   readonly ELECTRON_WEBPACK_WDS_PORT: string;
+  /**
+   * Renderer dev server host
+   */
   readonly ELECTRON_WEBPACK_WDS_HOST: string;
+}
+
+/**
+ * Base Environmental configuration
+ */
+export interface BaseEnvironmentConfig extends DevServerConfig {
   /**
    * Distribution path.
    *
-   * In this path, the bundled files in will be deployed.
+   * In this path, the bundled files will be deployed.
    */
   readonly PURPUR_DIST_PATH: string;
   /**
@@ -19,22 +28,29 @@ export interface CommonEnv extends NodeJS.ProcessEnv {
    * Root path of entire project.
    */
   readonly PURPUR_PROJECT_PATH: string;
-}
-
-export interface ElectronEnv extends CommonEnv {
-  readonly ELECTRON_HMR_SOCKET_PATH: string;
-  readonly ELECTRON_HMR_SOCKET_ID: string;
-}
-
-export interface WebpackBaseBuildConfig {
-  readonly DIST_PATH?: string;
+  /**
+   * Environment build
+   */
   readonly NODE_ENV?: 'development' | 'production';
 }
 
-export interface DevServerBuildConfig extends WebpackBaseBuildConfig {
-  readonly HOST: string;
-  readonly PORT: string | number;
+// ENVIRONMENT CONFIGURATIONS
+
+export type EnvironmentConfig = NodeJS.ProcessEnv & BaseEnvironmentConfig;
+export type ElectronRendererEnv = EnvironmentConfig & DevServerConfig;
+
+export interface ElectronMainEnv extends EnvironmentConfig {
+  /**
+   * Hot module replacement socket path
+   */
+  readonly ELECTRON_HMR_SOCKET_PATH: string;
+  /**
+   * Hot module replacement socket id
+   */
+  readonly ELECTRON_HMR_SOCKET_ID: string;
 }
+
+// DEVELOPER SERVER CONFIGURATION
 
 export interface WebpackDevMiddlewareMoreOptions
   extends WebpackDevMiddleware.Options {

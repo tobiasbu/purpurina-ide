@@ -2,7 +2,7 @@ import webpack from 'webpack';
 
 import mainWebpackConfig from './webpack.config.main';
 import type { Logger } from '../devLogger';
-import type { CommonEnv } from '../types';
+import type { EnvironmentConfig } from '../types';
 import type { HmrServer } from '../electron-hmr/types';
 
 interface MainCompiler {
@@ -12,7 +12,7 @@ interface MainCompiler {
 }
 
 export default function compileMain(
-  env: CommonEnv,
+  env: EnvironmentConfig,
   hmrServer: HmrServer,
   logger: Logger
 ) {

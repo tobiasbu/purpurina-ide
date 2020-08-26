@@ -1,13 +1,13 @@
 import { spawn } from 'child_process';
 
-import type { ElectronEnv } from '../types';
+import type { ElectronMainEnv } from '../types';
 import type { Logger } from '../devLogger';
 import stripFinalNewLine from '../commons/stripFinalNewLine';
 
 export default function startElectronProcess(
   logger: Logger,
   args: string[],
-  electronEnv: ElectronEnv
+  electronEnv: ElectronMainEnv
 ) {
   // eslint-disable-next-line
   const electron = require('electron').toString();

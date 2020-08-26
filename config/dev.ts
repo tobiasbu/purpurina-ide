@@ -1,6 +1,6 @@
 import * as path from 'path';
 
-import { CommonEnv } from './types';
+import type { EnvironmentConfig } from './types';
 import createHmrServer from './electron-hmr/createHmrServer';
 import startRendererProcess from './renderer/startRendererProcess';
 
@@ -34,9 +34,9 @@ async function main() {
     process.exit(1);
   });
 
-  const devEnv: CommonEnv = {
+  const devEnv: EnvironmentConfig = {
     ...process.env,
-    TS_NODE_PROJECT: path.join(__dirname, './tsconfig.dev.json'),
+    TS_NODE_PROJECT: path.join(__dirname, './tsconfig.json'),
     NODE_ENV: 'development',
     PURPUR_DIST_PATH: path.join(__dirname, '../out/dev'),
     PURPUR_PROJECT_PATH: path.join(__dirname, '../'),

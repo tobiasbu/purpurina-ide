@@ -3,17 +3,17 @@ import * as webpack from 'webpack';
 import webpackMerge = require('webpack-merge');
 
 import configBase from '../webpack.config.base';
-import { WebpackBaseBuildConfig } from '../types';
 import getEntry from '../commons/getEntry';
+import type { EnvironmentConfig } from '../types';
 
 /**
  * Purpurina preload configuration
  *
  * @param env Build environment
  */
-export default function (env: WebpackBaseBuildConfig): webpack.Configuration {
+export default function (env: EnvironmentConfig): webpack.Configuration {
   const base = configBase(env, 'preload');
-  const PROJECT_PATH = base.PURPURINA_PROJECT_PATH;
+  const PROJECT_PATH = base.PROJECT_PATH;
   const IS_PROD = base.IS_PROD;
 
   const entries = getEntry(

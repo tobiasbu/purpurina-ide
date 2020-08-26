@@ -11,4 +11,4 @@ function shared(handlers: ContextHandlers) {
   };
 }
 
-module.exports = shared;
+export { shared };

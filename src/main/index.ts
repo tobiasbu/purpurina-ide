@@ -1,5 +1,5 @@
 import { app } from 'electron';
-import type minimist from 'minimist';
+import minimist from 'minimist';
 
 import createContextualizer from './contextualizer';
 
@@ -9,23 +9,19 @@ interface ParsedCLIArgs extends minimist.ParsedArgs {
 }
 
 async function main() {
-  async function parseCLIArgs(argv: string[]): Promise<ParsedCLIArgs> {
-    return import(/* webpackChunkName: "minimist" */ 'minimist').then(
-      (parser) => {
-        const parsedArgs = parser.default(argv, {
-          boolean: ['version'],
-          alias: {
-            v: 'version',
-          },
-        });
-        const projectPath = parsedArgs._[0];
-        return { ...parsedArgs, project: projectPath };
-      }
-    );
+  function parseCLIArgs(argv: string[]): ParsedCLIArgs {
+    const parsedArgs = minimist(argv, {
+      boolean: ['version'],
+      alias: {
+        v: 'version',
+      },
+    });
+    const projectPath = parsedArgs._[0];
+    return { ...parsedArgs, project: projectPath };
   }
 
   const argsTest = ['C:/', '--version'];
-  const parsedArgs = await parseCLIArgs(argsTest);
+  const parsedArgs = parseCLIArgs(argsTest);
 
   if (parsedArgs.version) {
     console.log('Purpurina Editor v0.0.1');
