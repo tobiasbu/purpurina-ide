@@ -8,6 +8,7 @@
     "moduleResolution": "node",
     "sourceMap": true,
     "strictNullChecks": false,
+    "resolveJsonModule": true,
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "noImplicitReturns": true,
@@ -15,11 +16,10 @@
     "allowJs": true,
     "importsNotUsedAsValues": "remove",
     "skipLibCheck": true,
-    "declaration": false,
+    "declaration": true,
     "lib": ["esnext"],
     "paths": {
-      "@shared/*": ["src/shared/*"],
-      "@main/*": ["src/main/*"]
+      "@shared/*": ["src/shared/*"]
     }
   }
 }

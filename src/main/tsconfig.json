@@ -6,18 +6,20 @@
     "lib": ["esnext"],
     "typeRoots": [
       "../../types",
-      "../../node_modules/@types"
+      "../../node_modules/@types",
+      "./types"
     ],
     "paths": {
-      "@main/*": ["main/*"],
-      "@shared/*": ["shared/*"]
+      "@main/*": ["src/main/*"],
+      "@shared/*": ["src/shared/*"]
     }
   },
   "include": [
     "../../types/**/*",
-    "./**/*"
+    "src/main/**/*",
+    "../../config/electron-hmr/main-hmr.ts"
   ],
   "references": [
     {"path": "../shared"}
-  ],
+  ]
 }

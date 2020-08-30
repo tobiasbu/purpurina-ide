@@ -14,9 +14,10 @@
     "noEmit": true,
     "allowJs": true,
     "importsNotUsedAsValues": "remove",
+    "declaration": false,
     "lib": [
-      "esnext",
+      "esnext"
     ],
-    "skipLibCheck": true,
+    "skipLibCheck": true
   }
 }

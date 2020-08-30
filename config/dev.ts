@@ -88,7 +88,7 @@ async function main() {
     `--inspect=${await getPort({ port: 5858 })}`,
   ];
 
-  startElectronProcess(
+  const { restart } = startElectronProcess(
     purpurLogger({
       name: 'electron',
       color: 'blueBright',
@@ -102,6 +102,16 @@ async function main() {
       ELECTRON_HMR_SOCKET_ID: hmrServer.socketId,
     }
   );
+
+  import('readline').then((readline) => {
+    readline.emitKeypressEvents(process.stdin);
+    process.stdin.setRawMode(true);
+    process.stdin.on('keypress', (ch, key) => {
+      if (key && key.ctrl && key.name == 'r') {
+        restart();
+      }
+    });
+  });
 
   const exitHook = require('async-exit-hook');
 

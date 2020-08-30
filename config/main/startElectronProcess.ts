@@ -9,7 +9,8 @@ export default function startElectronProcess(
   args: string[],
   electronEnv: ElectronMainEnv
 ) {
-  // eslint-disable-next-line
+  let queuedData: string | null = null;
+
   const electron = require('electron').toString();
   logger.info('Starting Electron...');
 
@@ -22,7 +23,6 @@ export default function startElectronProcess(
     electronProcess.kill('SIGINT');
   });
 
-  let queuedData: string | null = null;
   electronProcess.stdout.on('data', (buffer: Buffer) => {
     let data = buffer.toString();
     // do not print the only line - doesn't make sense
@@ -40,7 +40,7 @@ export default function startElectronProcess(
   });
 
   electronProcess.on('close', (code, signal) => {
-    let msg = `Electron Exited with code ${code}`;
+    let msg = `Electron exited with code ${code}`;
     if (signal) {
       msg = msg.concat(` and signal ${JSON.stringify(signal)}`);
     }
@@ -50,7 +50,6 @@ export default function startElectronProcess(
     if (code === 100) {
       msg = msg.concat('  ');
       setImmediate(() => {
-        // logger.log('Restarting Electron process...');
         startElectronProcess(logger, args, electronEnv);
       });
     } else {
@@ -65,4 +64,12 @@ export default function startElectronProcess(
   electronProcess.on('error', (err) => {
     logger.error(`Error occurred `, err);
   });
+
+  function restart() {
+    electronProcess.emit('close', 100);
+  }
+
+  return {
+    restart,
+  };
 }
