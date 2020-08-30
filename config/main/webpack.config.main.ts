@@ -2,11 +2,12 @@ import * as webpack from 'webpack';
 import * as path from 'path';
 
 import WebpackNotifierPlugin from 'webpack-notifier';
-import webpackMerge = require('webpack-merge');
+import { merge } from 'webpack-merge';
 
 import type { BaseEnvironmentConfig } from '../types';
 import configBase from '../webpack.config.base';
 import getEntry from '../commons/getEntry';
+import TsconfigPathsPlugin from 'tsconfig-paths-webpack-plugin';
 
 export default (env: BaseEnvironmentConfig): webpack.Configuration => {
   const base = configBase(env, 'main');
@@ -21,10 +22,11 @@ export default (env: BaseEnvironmentConfig): webpack.Configuration => {
     ['main']
   );
 
-  const config = webpackMerge.smart(base.config, {
+  const config = merge(base.config, {
     target: 'electron-main',
     entry: entry.entry,
     resolve: {
+      plugins: [new TsconfigPathsPlugin({ baseUrl: './' })],
       mainFields: ['electron-main', 'module', 'main'],
       alias: {
         '@main': entry.dir.main,
@@ -32,10 +34,10 @@ export default (env: BaseEnvironmentConfig): webpack.Configuration => {
     },
     plugins: [
       new webpack.HotModuleReplacementPlugin(),
-      new WebpackNotifierPlugin({
-        title: 'Purpurina <Main>',
-        alwaysNotify: true,
-      }),
+      // new WebpackNotifierPlugin({
+      //   title: 'Purpurina <Main>',
+      //   alwaysNotify: true,
+      // }),
     ],
     module: {
       rules: [
@@ -61,6 +63,8 @@ export default (env: BaseEnvironmentConfig): webpack.Configuration => {
       },
     },
   });
+
+  console.log(config);
 
   return config;
 };

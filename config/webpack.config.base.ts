@@ -38,7 +38,6 @@ export default function (
       hotUpdateMainFilename: '.hot/[hash].hot-update.json',
     },
     resolve: {
-      plugins: [new TsconfigPathsPlugin({})],
       extensions: ['.ts', '.js', '.json'],
       alias: {
         '@shared': path.join(PROJECT_PATH, `./src/shared`),

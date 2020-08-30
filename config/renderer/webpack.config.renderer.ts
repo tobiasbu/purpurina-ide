@@ -1,7 +1,7 @@
 import * as webpack from 'webpack';
 import * as path from 'path';
 
-import webpackMerge = require('webpack-merge');
+import { merge } from 'webpack-merge';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import WebpackNotifierPlugin from 'webpack-notifier';
 
@@ -34,7 +34,7 @@ export default function (env: ElectronRendererEnv): webpack.Configuration {
   );
 
   // Webpack config
-  const config = webpackMerge.smart(base.config, {
+  const config = merge(base.config, {
     target: 'electron-renderer',
     entry: entries.entry,
     output: {

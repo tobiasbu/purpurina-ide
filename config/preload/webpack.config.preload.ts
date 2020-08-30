@@ -1,6 +1,6 @@
 import * as webpack from 'webpack';
 
-import webpackMerge = require('webpack-merge');
+import { merge } from 'webpack-merge';
 
 import configBase from '../webpack.config.base';
 import getEntry from '../commons/getEntry';
@@ -25,7 +25,7 @@ export default function (env: EnvironmentConfig): webpack.Configuration {
   );
 
   // Webpack config
-  const config = webpackMerge.smart(base.config, {
+  const config = merge(base.config, {
     target: 'electron-preload',
     entry: entries.entry,
     output: {
